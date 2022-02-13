@@ -18,7 +18,6 @@ public class Purchase {
 	private Time time;
 	private Set<QuantityOrdered> quantitiesOrdered;
 	private long id;
-	private Employee assignedEmployee;
 	
 	@Id
 	@GeneratedValue
@@ -54,15 +53,5 @@ public class Purchase {
     public void setQuantitiesOrdered(Set<QuantityOrdered> quantitiesOrdered) {
         this.quantitiesOrdered = quantitiesOrdered;
     }
-    
-    @ManyToOne
-	public Employee getAssignedEmployee() {
-		return assignedEmployee;
-	}
 
-	public void setAssignedEmployee(Employee assignedEmployee) {
-		this.assignedEmployee = assignedEmployee;
-	}
-	
-    
 }
