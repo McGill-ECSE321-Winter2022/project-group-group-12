@@ -3,7 +3,6 @@ package ca.mcgill.ecse321.GSSS.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -30,7 +29,5 @@ public class Customer extends FireableUser {
     public void setCart(Order cart) {
         this.cart = cart;
     }
-
-    
 
 }
