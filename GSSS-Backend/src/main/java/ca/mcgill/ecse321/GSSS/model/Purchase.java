@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.GSSS.model;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.sql.Date;
 import java.sql.Time;
@@ -10,10 +12,11 @@ public class Purchase {
 	private Date date;
 	private Time time;
 	private Set<QuantityOrdered> quantitiesOrdered;
-	private int id;
+	private long id;
 	
 	@Id
-	public int getId() {
+	@GeneratedValue
+	public long getId() {
 		return id;
 	}
 
