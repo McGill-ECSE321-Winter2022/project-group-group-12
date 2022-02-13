@@ -1,1 +1,6 @@
 .gradle/
+
+/**/*.DS_Store
+/**/.project/
+/**/.settings/
+.project
