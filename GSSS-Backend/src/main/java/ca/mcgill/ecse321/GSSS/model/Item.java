@@ -1,5 +1,10 @@
 package ca.mcgill.ecse321.GSSS.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Item {
 
     private String name;
@@ -11,6 +16,7 @@ public class Item {
     private boolean isStillAvailable;
     private ItemCategory category;
 
+    @Id
     public String getName() {
         return name;
     }
@@ -66,6 +72,7 @@ public class Item {
         this.isStillAvailable = isStillAvailable;
     }
 
+    @OneToOne
     public ItemCategory getCategory() {
         return category;
     }
