@@ -9,9 +9,9 @@ import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 
-public interface EmployeeRepository extends CrudRepository<Employee, Long> {
+public interface EmployeeRepository extends CrudRepository<Employee, String> {
 
-    Employee findEmployeeById(Long id);
+    Employee findEmployeeByEmail(String email);
 
     List<Employee> findEmployeesByUsername(String username);
 
