@@ -9,36 +9,25 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class TimeInterval {
 
-    private long id;
-    private Time startTime;
-    private Time endTime;
+  private Time startTime;
+  private Time endTime;
 
-    @Id
-    @GeneratedValue
-    public long getId() {
-        return id;
-    }
+  public Time getStartTime() {
+    return startTime;
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public void setStartTime(Time startTime) {
+    this.startTime = startTime;
+  }
 
-    public Time getStartTime() {
-        return startTime;
-    }
+  public Time getEndTime() {
+    return endTime;
+  }
 
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
-    }
+  public void setEndTime(Time endTime) {
+    this.endTime = endTime;
+  }
 
-    public Time getEndTime() {
-        return endTime;
-    }
 
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
-    }
-
-    
 
 }

@@ -7,79 +7,80 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Item {
 
-    private String name;
-    private String description;
-    private String imageUrl;
-    private int remainingQuantity;
-    private double price;
-    private boolean isAvailableForOrder;
-    private boolean isStillAvailable;
-    private ItemCategory category;
+  private String name;
+  private String description;
+  private String imageUrl;
+  private int remainingQuantity;
+  private double price;
+  private boolean isAvailableForOrder;
+  private boolean isStillAvailable;
+  private ItemCategory category;
 
-    @Id
-    public String getName() {
-        return name;
-    }
+  @Id
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+  public String getImageUrl() {
+    return imageUrl;
+  }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
 
-    public int getRemainingQuantity() {
-        return remainingQuantity;
-    }
+  public int getRemainingQuantity() {
+    return remainingQuantity;
+  }
 
-    public void setRemainingQuantity(int remainingQuantity) {
-        this.remainingQuantity = remainingQuantity;
-    }
+  public void setRemainingQuantity(int remainingQuantity) {
+    this.remainingQuantity = remainingQuantity;
+  }
 
-    public double getPrice() {
-        return price;
-    }
+  public double getPrice() {
+    return price;
+  }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-    public boolean isAvailableForOrder() {
-        return isAvailableForOrder;
-    }
+  public void setPrice(double price) {
+    this.price = price;
+  }
 
-    public void setAvailableForOrder(boolean isAvailableForOrder) {
-        this.isAvailableForOrder = isAvailableForOrder;
-    }
+  public boolean isAvailableForOrder() {
+    return isAvailableForOrder;
+  }
 
-    public boolean isStillAvailable() {
-        return isStillAvailable;
-    }
+  public void setAvailableForOrder(boolean isAvailableForOrder) {
+    this.isAvailableForOrder = isAvailableForOrder;
+  }
 
-    public void setStillAvailable(boolean isStillAvailable) {
-        this.isStillAvailable = isStillAvailable;
-    }
+  public boolean isStillAvailable() {
+    return isStillAvailable;
+  }
 
-    @ManyToOne
-    public ItemCategory getCategory() {
-        return category;
-    }
+  public void setStillAvailable(boolean isStillAvailable) {
+    this.isStillAvailable = isStillAvailable;
+  }
 
-    public void setCategory(ItemCategory category) {
-        this.category = category;
-    }
-    
-    
+  @ManyToOne
+  public ItemCategory getCategory() {
+    return category;
+  }
+
+  public void setCategory(ItemCategory category) {
+    this.category = category;
+  }
+
+
 }

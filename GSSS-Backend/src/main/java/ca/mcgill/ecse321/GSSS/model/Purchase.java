@@ -14,44 +14,44 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Purchase {
-	private Date date;
-	private Time time;
-	private Set<QuantityOrdered> quantitiesOrdered;
-	private long id;
-	
-	@Id
-	@GeneratedValue
-	public long getId() {
-		return id;
-	}
+  private Date date;
+  private Time time;
+  private Set<QuantityOrdered> quantitiesOrdered;
+  private long id;
 
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public Date getDate() {
-		return date;
-	}
+  @Id
+  @GeneratedValue
+  public long getId() {
+    return id;
+  }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public Time getTime() {
-		return time;
-	}
+  public Date getDate() {
+    return date;
+  }
 
-	public void setTime(Time time) {
-		this.time = time;
-	}
-	
-	@OneToMany
-	public Set<QuantityOrdered> getQuantitiesOrdered() {
-        return quantitiesOrdered;
-    }
-	
-    public void setQuantitiesOrdered(Set<QuantityOrdered> quantitiesOrdered) {
-        this.quantitiesOrdered = quantitiesOrdered;
-    }
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  public Time getTime() {
+    return time;
+  }
+
+  public void setTime(Time time) {
+    this.time = time;
+  }
+
+  @OneToMany
+  public Set<QuantityOrdered> getQuantitiesOrdered() {
+    return quantitiesOrdered;
+  }
+
+  public void setQuantitiesOrdered(Set<QuantityOrdered> quantitiesOrdered) {
+    this.quantitiesOrdered = quantitiesOrdered;
+  }
 
 }

@@ -6,17 +6,17 @@ import javax.persistence.Id;
 @Entity
 public class ItemCategory {
 
-    private String name;
+  private String name;
 
-    @Id
-    public String getName() {
-        return name;
-    }
+  @Id
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    
-    
+
+
 }

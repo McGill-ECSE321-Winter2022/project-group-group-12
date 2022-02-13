@@ -4,25 +4,25 @@ import javax.persistence.Entity;
 
 @Entity
 public class Order extends Purchase {
-	private OrderType orderType;
-	private OrderStatus orderStatus;
-	
+  private OrderType orderType;
+  private OrderStatus orderStatus;
 
-	public void setOrderType(OrderType orderType) {
-		this.orderType = orderType;
-	}
-	
-	public OrderType getOrderType() {
-		return this.orderType;
-	}
-	
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
-	}
-	
-	public OrderStatus getOrderStatus() {
-		return this.orderStatus;
-	}
-	
-	
+
+  public void setOrderType(OrderType orderType) {
+    this.orderType = orderType;
+  }
+
+  public OrderType getOrderType() {
+    return this.orderType;
+  }
+
+  public void setOrderStatus(OrderStatus orderStatus) {
+    this.orderStatus = orderStatus;
+  }
+
+  public OrderStatus getOrderStatus() {
+    return this.orderStatus;
+  }
+
+
 }

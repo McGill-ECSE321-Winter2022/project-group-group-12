@@ -5,16 +5,16 @@ import javax.persistence.Id;
 
 
 @Entity
-public class BusinessHour extends TimeInterval{
+public class BusinessHour extends TimeInterval {
 
-    private Weekday dayOfWeek;
+  private Weekday dayOfWeek;
 
-    @Id
-    public Weekday getDayOfWeek() {
-        return dayOfWeek;
-    }
+  @Id
+  public Weekday getDayOfWeek() {
+    return dayOfWeek;
+  }
 
-    public void setDayOfWeek(Weekday dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
+  public void setDayOfWeek(Weekday dayOfWeek) {
+    this.dayOfWeek = dayOfWeek;
+  }
 }

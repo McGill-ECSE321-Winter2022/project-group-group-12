@@ -7,26 +7,26 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Customer extends FireableUser {
-    
-    private Set<Order> pastOrders;
-    private Order cart;
 
-    @OneToMany
-    public Set<Order> getPastOrders() {
-        return pastOrders;
-    }
+  private Set<Order> pastOrders;
+  private Order cart;
 
-    public void setPastOrders(Set<Order> pastOrders) {
-        this.pastOrders = pastOrders;
-    }
+  @OneToMany
+  public Set<Order> getPastOrders() {
+    return pastOrders;
+  }
 
-    @OneToOne(optional = true)
-    public Order getCart() {
-        return cart;
-    }
+  public void setPastOrders(Set<Order> pastOrders) {
+    this.pastOrders = pastOrders;
+  }
 
-    public void setCart(Order cart) {
-        this.cart = cart;
-    }
+  @OneToOne(optional = true)
+  public Order getCart() {
+    return cart;
+  }
+
+  public void setCart(Order cart) {
+    this.cart = cart;
+  }
 
 }

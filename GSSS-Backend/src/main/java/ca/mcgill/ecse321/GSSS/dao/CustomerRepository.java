@@ -9,13 +9,13 @@ import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Order;
 
 public interface CustomerRepository extends CrudRepository<Customer, String> {
-    
-    Customer findCustomerByEmail(String email);
 
-    List<Customer> findCustomersByUsername(String username);
+  Customer findCustomerByEmail(String email);
 
-    Customer findCustomerByOrder(Order order);
+  List<Customer> findCustomersByUsername(String username);
 
-    Customer findCustomerByAddress(Address address);
+  Customer findCustomerByOrder(Order order);
+
+  Customer findCustomerByAddress(Address address);
 
 }

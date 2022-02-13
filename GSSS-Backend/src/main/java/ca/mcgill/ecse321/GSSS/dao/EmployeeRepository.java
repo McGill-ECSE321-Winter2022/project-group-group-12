@@ -11,14 +11,14 @@ import ca.mcgill.ecse321.GSSS.model.Shift;
 
 public interface EmployeeRepository extends CrudRepository<Employee, String> {
 
-    Employee findEmployeeByEmail(String email);
+  Employee findEmployeeByEmail(String email);
 
-    List<Employee> findEmployeesByUsername(String username);
+  List<Employee> findEmployeesByUsername(String username);
 
-    List<Employee> findEmployeesByShift(Shift shift);
+  List<Employee> findEmployeesByShift(Shift shift);
 
-    Employee findEmployeeByAddress(Address address);
+  Employee findEmployeeByAddress(Address address);
 
-    Employee findEmployeeByPurchase(Purchase assignedPurchase);
-    
+  Employee findEmployeeByPurchase(Purchase assignedPurchase);
+
 }

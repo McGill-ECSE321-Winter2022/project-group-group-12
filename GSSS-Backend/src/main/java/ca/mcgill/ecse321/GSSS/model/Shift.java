@@ -9,24 +9,24 @@ import javax.persistence.Id;
 @Entity
 public class Shift extends TimeInterval {
 
-    private Date date;
-    private long id;
+  private Date date;
+  private long id;
 
-    public Date getDate(){
-        return date;
-    }
+  public Date getDate() {
+    return date;
+  }
 
-    public void setDate(Date date){
-        this.date = date;
-    }
-    
-    @Id
-    @GeneratedValue
-    public long getId() {
-        return id;
-    }
+  public void setDate(Date date) {
+    this.date = date;
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  @Id
+  @GeneratedValue
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 }

@@ -7,36 +7,36 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class QuantityOrdered {
-    
-    private long id;
-    private int quantityOrdered;
-    private Item itemOrdered;
 
-   @ManyToOne
-    public Item getItemOrdered() {
-        return itemOrdered;
-    }
+  private long id;
+  private int quantityOrdered;
+  private Item itemOrdered;
 
-    public void setItemOrdered(Item itemOrdered) {
-        this.itemOrdered = itemOrdered;
-    }
+  @ManyToOne
+  public Item getItemOrdered() {
+    return itemOrdered;
+  }
 
-    @Id
-    @GeneratedValue
-    public long getId() {
-        return id;
-    }
-    
-    public void setId(long id) {
-        this.id = id;
-    }
-    
-    public int getQuantityOrdered() {
-        return quantityOrdered;
-    }
+  public void setItemOrdered(Item itemOrdered) {
+    this.itemOrdered = itemOrdered;
+  }
 
-    public void setQuantityOrdered(int quantityOrdered) {
-        this.quantityOrdered = quantityOrdered;
-    }
-    
+  @Id
+  @GeneratedValue
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public int getQuantityOrdered() {
+    return quantityOrdered;
+  }
+
+  public void setQuantityOrdered(int quantityOrdered) {
+    this.quantityOrdered = quantityOrdered;
+  }
+
 }
