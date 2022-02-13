@@ -9,6 +9,12 @@ import ca.mcgill.ecse321.GSSS.model.OrderStatus;
 import ca.mcgill.ecse321.GSSS.model.OrderType;
 import ca.mcgill.ecse321.GSSS.model.QuantityOrdered;
 
+/**
+ * This is the repository for retrieving data from the Order table in the database
+ * 
+ * @author Wassim Jabbour
+ *
+ */
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
   /**
@@ -18,7 +24,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
    * @param id The ID of the order to find
    * @return The Order we are trying to find
    */
-  Order findOrderById(Long id);
+  Order findOrderById(long id);
 
   /**
    * Returns an order based on one of its QuantityOrdered associated objects
