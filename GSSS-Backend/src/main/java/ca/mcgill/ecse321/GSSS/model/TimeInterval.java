@@ -2,11 +2,11 @@ package ca.mcgill.ecse321.GSSS.model;
 
 import java.sql.Time;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Entity
+@MappedSuperclass
 public class TimeInterval {
 
     private long id;
