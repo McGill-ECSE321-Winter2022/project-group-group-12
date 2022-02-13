@@ -12,14 +12,6 @@ public class Shift extends TimeInterval {
   private Date date;
   private long id;
 
-  public Date getDate() {
-    return date;
-  }
-
-  public void setDate(Date date) {
-    this.date = date;
-  }
-
   @Id
   @GeneratedValue
   public long getId() {
@@ -29,4 +21,14 @@ public class Shift extends TimeInterval {
   public void setId(long id) {
     this.id = id;
   }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+
 }
