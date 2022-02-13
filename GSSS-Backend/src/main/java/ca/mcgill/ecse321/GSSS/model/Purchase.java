@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.GSSS.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Set;
@@ -40,6 +41,7 @@ public class Purchase {
 		this.time = time;
 	}
 	
+	@OneToMany
 	public Set<QuantityOrdered> getQuantitiesOrdered() {
         return quantitiesOrdered;
     }

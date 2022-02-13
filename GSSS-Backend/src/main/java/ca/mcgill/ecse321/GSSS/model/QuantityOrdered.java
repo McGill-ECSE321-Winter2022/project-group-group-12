@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.GSSS.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -10,8 +11,17 @@ public class QuantityOrdered {
     
     private long id;
     private int quantityOrdered;
+    private Item itemOrdered;
 
-   
+   @ManyToOne
+    public Item getItemOrdered() {
+        return itemOrdered;
+    }
+
+    public void setItemOrdered(Item itemOrdered) {
+        this.itemOrdered = itemOrdered;
+    }
+
     @Id
     @GeneratedValue
     public long getId() {
@@ -22,7 +32,6 @@ public class QuantityOrdered {
         this.id = id;
     }
     
-    @OneToMany
     public int getQuantityOrdered() {
         return quantityOrdered;
     }
