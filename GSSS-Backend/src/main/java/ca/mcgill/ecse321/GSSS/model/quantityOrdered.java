@@ -2,9 +2,10 @@ package ca.mcgill.ecse321.GSSS.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-public class quantityOrdered {
+public class QuantityOrdered {
     
     private int id;
     private int quantityOrdered;
@@ -15,6 +16,7 @@ public class quantityOrdered {
         return id;
     }
     
+    @OneToMany
     public int getQuantityOrdered() {
         return quantityOrdered;
     }
