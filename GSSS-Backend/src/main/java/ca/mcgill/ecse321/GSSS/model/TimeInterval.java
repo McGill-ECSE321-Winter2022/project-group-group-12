@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class TimeInterval {
+public abstract class TimeInterval {
 
     private long id;
     private Time startTime;

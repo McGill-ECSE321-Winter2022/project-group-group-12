@@ -3,13 +3,23 @@ package ca.mcgill.ecse321.GSSS.model;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-public class GSSS{
+/**
+ * 	The system class that composes all other classes
+ * 
+ * @author Wassim Jabbour
+ *
+ */
 
+@Entity
+public class GSSS{
+	
+	//Attributes
     Owner owner;
     Set<Employee> employees;
     Set<Customer> customers;
@@ -21,7 +31,7 @@ public class GSSS{
     Set<ItemCategory> itemCategories;
     Set<Shift> shifts;
     Set<BusinessHour> businessHours;
-    long id;
+    long id; //Since none of the above attributes can be used as a primary key 
 
     @Id
     @GeneratedValue
