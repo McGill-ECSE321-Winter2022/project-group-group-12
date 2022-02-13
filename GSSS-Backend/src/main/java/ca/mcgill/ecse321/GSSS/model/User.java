@@ -1,10 +1,18 @@
 package ca.mcgill.ecse321.GSSS.model;
 
+import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public abstract class User {
 
     private String username;
     private String email;
     private String password;
+    private Set<Address> addresses;
 
     public String getUsername() {
         return username;
@@ -14,6 +22,7 @@ public abstract class User {
         this.username = username;
     }
 
+    @Id
     public String getEmail() {
         return email;
     }
@@ -30,6 +39,16 @@ public abstract class User {
         this.password = password;
     }
 
+    @OneToMany
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    
     
     
 }
