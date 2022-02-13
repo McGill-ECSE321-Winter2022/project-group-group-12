@@ -11,10 +11,10 @@ public interface ShiftRepository extends CrudRepository<Shift, Integer> {
 
     Shift findShiftById(long id);
 
-    Shift findShiftByEmployee (String email);
+    Shift findShiftByEmployee(String email);
 
     List<Employee> findEmployeesByShift(Shift shift);
 
-    Shift findShiftByDate (Date date);
+    Shift findShiftByDate(Date date);
 
 }
