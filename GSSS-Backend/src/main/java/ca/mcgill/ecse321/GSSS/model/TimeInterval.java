@@ -1,13 +1,44 @@
 package ca.mcgill.ecse321.GSSS.model;
 
-public class TimeInterval {
-    private time startTime;
-    private time endTime;
+import java.sql.Time;
 
-    public time getStartTime(){
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class TimeInterval {
+
+    private long id;
+    private Time startTime;
+    private Time endTime;
+
+    @Id
+    @GeneratedValue
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Time getStartTime() {
         return startTime;
     }
-    public time getendTime(){
-        return endtime;
+
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
     }
+
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
+    
+
 }

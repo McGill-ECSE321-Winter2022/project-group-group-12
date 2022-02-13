@@ -1,9 +1,19 @@
 package ca.mcgill.ecse321.GSSS.model;
 
-public class Shift extends TimeInterval {
-    private date Date;
+import java.sql.Date;
 
-    public date getDate(){
-        return Date;
+import javax.persistence.Entity;
+
+@Entity
+public class Shift extends TimeInterval {
+
+    private Date date;
+
+    public Date getDate(){
+        return date;
+    }
+
+    public void setDate(Date date){
+        this.date = date;
     }
 }

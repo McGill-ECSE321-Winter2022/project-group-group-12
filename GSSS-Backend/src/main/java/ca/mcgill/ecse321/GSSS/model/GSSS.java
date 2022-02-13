@@ -1,3 +1,5 @@
+package ca.mcgill.ecse321.GSSS.model;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
