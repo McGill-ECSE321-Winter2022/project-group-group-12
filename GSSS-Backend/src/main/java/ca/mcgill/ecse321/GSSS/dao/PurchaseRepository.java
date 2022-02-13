@@ -1,7 +1,7 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
@@ -9,6 +9,13 @@ import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.QuantityOrdered;
 
 
+/**
+ * 
+ * This is the repository for retrieving data from the Purchase table in the database
+ * 
+ * @author Habib Jarweh
+ *
+ */
 public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
 
   /**
