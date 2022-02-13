@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class QuantityOrdered1 {
+public class QuantityOrdered {
     
     private long id;
     private int quantityOrdered;

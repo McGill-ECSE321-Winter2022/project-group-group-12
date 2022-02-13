@@ -11,7 +11,7 @@ import java.util.Set;
 public class Purchase {
 	private Date date;
 	private Time time;
-	private Set<QuantityOrdered1> quantitiesOrdered;
+	private Set<QuantityOrdered> quantitiesOrdered;
 	private long id;
 	
 	@Id
@@ -40,11 +40,11 @@ public class Purchase {
 		this.time = time;
 	}
 	
-	public Set<QuantityOrdered1> getQuantitiesOrdered() {
+	public Set<QuantityOrdered> getQuantitiesOrdered() {
         return quantitiesOrdered;
     }
 	
-    public void setQuantitiesOrdered(Set<QuantityOrdered1> quantitiesOrdered) {
+    public void setQuantitiesOrdered(Set<QuantityOrdered> quantitiesOrdered) {
         this.quantitiesOrdered = quantitiesOrdered;
     }
 	
