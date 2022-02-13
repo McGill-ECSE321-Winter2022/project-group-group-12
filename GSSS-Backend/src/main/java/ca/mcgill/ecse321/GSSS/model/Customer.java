@@ -16,6 +16,7 @@ public class Customer extends FireableUser {
     public Order getCart() {
         return cart;
     }
+    
     public void setCart(Order cart) {
         this.cart = cart;
     }
