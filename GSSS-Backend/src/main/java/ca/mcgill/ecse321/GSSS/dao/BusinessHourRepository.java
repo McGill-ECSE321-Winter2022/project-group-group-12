@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
-public class BusinessHourRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface BusinessHourRepository {
     
 }

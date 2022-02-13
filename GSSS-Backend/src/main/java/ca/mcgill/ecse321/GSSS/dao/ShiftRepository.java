@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
-public class ShiftRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface ShiftRepository {
     
 }
