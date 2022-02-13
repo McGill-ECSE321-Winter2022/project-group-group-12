@@ -13,7 +13,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     Employee findEmployeeById(Long id);
 
-    List<Employee> findCustomersByUsername(String username);
+    List<Employee> findEmployeesByUsername(String username);
 
     List<Employee> findEmployeesByShift(Shift shift);
 
