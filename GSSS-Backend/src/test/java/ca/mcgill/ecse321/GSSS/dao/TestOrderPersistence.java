@@ -37,8 +37,8 @@ public class TestOrderPersistence {
 
   //Initialize variables that will be used to test an order
   // order
-  OrderType orderType = OrderType.delivery;
-  OrderStatus orderStatus = OrderStatus.outForDelivery;
+  OrderType orderType = OrderType.Delivery;
+  OrderStatus orderStatus = OrderStatus.OutForDelivery;
   // purchase
   Date date = Date.valueOf(LocalDate.of(2022, Month.JANUARY,31));
   Time time = java.sql.Time.valueOf(LocalTime.of(13, 25)); 
