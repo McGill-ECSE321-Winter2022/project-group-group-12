@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.GSSS.model;
 import java.util.Set;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -44,7 +45,7 @@ public abstract class User {
     this.password = password;
   }
 
-  @OneToOne
+  @OneToMany
   public Set<Address> getAddresses() {
     return addresses;
   }
