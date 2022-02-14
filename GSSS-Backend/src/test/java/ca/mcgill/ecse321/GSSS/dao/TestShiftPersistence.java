@@ -46,6 +46,7 @@ public class TestShiftPersistence {
     shift.setStartTime(startTime);
     shift.setEndTime(endTime);
     shift.setDate(date);
+    shift.setId(id);
 
     shiftRepository.save(shift);
     shift = null;
@@ -68,11 +69,13 @@ public class TestShiftPersistence {
     Time startTime1 = Time.valueOf("8:00:00");
     Time endTime1 = Time.valueOf("17:00:00");
     Date date = new Date(System.currentTimeMillis());
+    String id1 = UUID.randomUUID().toString();
 
     Shift shift1 = new Shift();
     shift1.setStartTime(startTime1);
     shift1.setEndTime(endTime1);
     shift1.setDate(date);
+    shift1.setId(id1);
 
     shiftRepository.save(shift1);
     shifts1.add(shift1);
@@ -80,11 +83,13 @@ public class TestShiftPersistence {
 
     Time startTime2 = Time.valueOf("8:00:00");
     Time endTime2 = Time.valueOf("12:00:00");
+    String id2 = UUID.randomUUID().toString();
 
     Shift shift2 = new Shift();
     shift2.setStartTime(startTime2);
     shift2.setEndTime(endTime2);
     shift2.setDate(date);
+    shift2.setId(id2);
 
     shiftRepository.save(shift2);
     shifts1.add(shift2);

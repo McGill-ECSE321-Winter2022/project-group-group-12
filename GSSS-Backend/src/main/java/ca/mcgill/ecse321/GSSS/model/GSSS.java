@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.GSSS.model;
 
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +34,6 @@ public class GSSS {
 	String id; // Since none of the above attributes can be used as a primary key
 
 	@Id
-	@GeneratedValue
 	public String getId() {
 		return id;
 	}

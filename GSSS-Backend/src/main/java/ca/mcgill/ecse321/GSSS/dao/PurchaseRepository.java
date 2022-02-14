@@ -3,7 +3,7 @@ package ca.mcgill.ecse321.GSSS.dao;
 import java.sql.Time;
 import java.sql.Date;
 import java.util.List;
-
+import java.util.Set;
 import org.springframework.data.repository.CrudRepository;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.QuantityOrdered;
@@ -37,7 +37,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, String> {
    * @param quantityOrdered
    * @return purchase we want to find
    */
-  Purchase findPurchaseByQuantitiesOrdered(QuantityOrdered quantityOrdered);
+  Purchase findPurchaseByQuantitiesOrdered(Set<QuantityOrdered> quantitiesOrdered);
 
   /**
    * 

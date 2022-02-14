@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.GSSS.model;
 
+import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -8,7 +9,7 @@ import javax.persistence.MappedSuperclass;
  * 
  * @author Philippe Sarouphim Hochar.
  */
-@MappedSuperclass
+@Entity
 public abstract class FireableUser extends User {
 
   private boolean isDisabled;
@@ -20,27 +21,4 @@ public abstract class FireableUser extends User {
   public void setDisabled(boolean isDisabled) {
     this.isDisabled = isDisabled;
   }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + (isDisabled ? 1231 : 1237);
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    FireableUser other = (FireableUser) obj;
-    if (isDisabled != other.isDisabled)
-      return false;
-    return true;
-  }
-
 }
