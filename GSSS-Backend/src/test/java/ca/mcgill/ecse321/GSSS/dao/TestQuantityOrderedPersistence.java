@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.GSSS;
+package ca.mcgill.ecse321.GSSS.dao;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
