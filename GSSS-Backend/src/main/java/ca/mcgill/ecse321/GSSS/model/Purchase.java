@@ -19,7 +19,6 @@ public class Purchase {
   private String id;
 
   @Id
-  @GeneratedValue
   public String getId() {
     return id;
   }
