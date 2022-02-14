@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.jupiter.api.AfterEach;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,6 +34,14 @@ public class TestItemCategoryPersistence {
     assertEquals(name, itemCategory.getName());
     
   }
+  
+@AfterEach
+public void clearDatabase() {
+
+  // Deleting all the database contents of item category
+  itemCategoryRepository.deleteAll();
+
+}
   
   
 }
