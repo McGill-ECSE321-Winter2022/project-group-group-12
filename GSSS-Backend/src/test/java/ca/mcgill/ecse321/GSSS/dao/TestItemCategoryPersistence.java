@@ -17,31 +17,32 @@ public class TestItemCategoryPersistence {
 
   @Autowired
   ItemCategoryRepository itemCategoryRepository;
-  String name = "Vegetables";
-  
+
   @Test
-  public void testPersistAndLoadItemCategoryByName(){
+  public void testPersistAndLoadItemCategoryByName() {
+
+    String name = "Vegetables";
     ItemCategory itemCategory = new ItemCategory();
     itemCategory.setName(name);
-    
+
     itemCategoryRepository.save(itemCategory);
-    
+
     itemCategory = null;
-    
+
     itemCategory = itemCategoryRepository.findItemCategoryByName(name);
-    
+
     assertNotNull(itemCategory);
     assertEquals(name, itemCategory.getName());
-    
+
   }
-  
-@AfterEach
-public void clearDatabase() {
 
-  // Deleting all the database contents of item category
-  itemCategoryRepository.deleteAll();
+  // @AfterEach
+  // public void clearDatabase() {
+  //
+  // // Deleting all the database contents of item category
+  // itemCategoryRepository.deleteAll();
+  //
+  // }
 
-}
-  
-  
+
 }

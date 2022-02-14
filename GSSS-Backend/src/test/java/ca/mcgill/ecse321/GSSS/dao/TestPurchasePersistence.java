@@ -25,7 +25,8 @@ public class TestPurchasePersistence {
   private PurchaseRepository purchaseRepository;
   
   Date date = new Date(System.currentTimeMillis());
-  Time time = new Time(System.currentTimeMillis());
+  Time time = Time.valueOf("13:45:20");
+  String id = UUID.randomUUID().toString();
   
   @Autowired
   private QuantityOrderedRepository quantityOrderedRepository;
