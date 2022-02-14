@@ -16,10 +16,12 @@ public class TestBusinessHourPersistence {
   
   @Autowired
   private BusinessHourRepository businessHourRepository;
-  Weekday weekday = Weekday.Monday;
   
   @Test
   public void testPersistAndLoadBusinessHourByWeekday(){
+    
+    Weekday weekday = Weekday.Monday;
+    
     BusinessHour businessHour = new BusinessHour();
     businessHour.setWeekday(weekday);
     
