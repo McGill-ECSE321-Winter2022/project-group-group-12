@@ -4,9 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -68,6 +70,40 @@ public void testPersistAndLoadPurchaseByQuantitiesOrdered() {
     purchase = purchaseRepository.findPurchaseByQuantitiesOrdered(quantityOrdered1);
     assertNotNull(purchase.getQuantitiesOrdered());
     assertEquals(set, purchase.getQuantitiesOrdered());
+}
+
+@Test
+public void testPersistAndLoadPurchaseByDate() {
+  Purchase purchase = new Purchase();
+  purchase.setDate(date);
+  
+  purchaseRepository.save(purchase);
+  
+  purchase = null;
+  
+  List<Purchase> listPurchase = new ArrayList<Purchase>();
+  listPurchase = purchaseRepository.findPurchasesByDate(date);
+  
+  assertNotNull(listPurchase);
+  assertEquals(date, listPurchase.get(0).getDate());
+  
+}
+
+@Test
+public void testPersistAndLoadPurchaseByTime() {
+  Purchase purchase = new Purchase();
+  purchase.setTime(time);
+  
+  purchaseRepository.save(purchase);
+  
+  purchase = null;
+  
+  List<Purchase> listPurchase = new ArrayList<Purchase>();
+  listPurchase = purchaseRepository.findPurchasesByDate(date);
+  
+  assertNotNull(listPurchase);
+  assertEquals(time, listPurchase.get(0).getTime());
+  
 }
   
   
