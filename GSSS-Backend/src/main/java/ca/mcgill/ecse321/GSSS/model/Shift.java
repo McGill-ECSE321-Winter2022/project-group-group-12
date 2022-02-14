@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.GSSS.model;
 
 import java.sql.Date;
+import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,6 +11,8 @@ public class Shift extends TimeInterval {
 
   private Date date;
   private String id;
+  private Time startTime;
+  private Time endTime;
 
   @Id
   public String getId() {
@@ -26,6 +29,22 @@ public class Shift extends TimeInterval {
 
   public void setDate(Date date) {
     this.date = date;
+  }
+
+  public Time getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(Time startTime) {
+    this.startTime = startTime;
+  }
+
+  public Time getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(Time endTime) {
+    this.endTime = endTime;
   }
 
   @Override
