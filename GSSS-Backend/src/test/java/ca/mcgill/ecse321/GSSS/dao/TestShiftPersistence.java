@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.GSSS.dao;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -26,7 +27,7 @@ public class TestShiftPersistence {
   public void testPersistAndLoadEmployeeById(){
     
     Shift shift = new Shift();
-    long id = shift.getId();
+    String id = UUID.randomUUID().toString();
     
     shiftRepository.save(shift);
     shift = null;

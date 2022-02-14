@@ -1,13 +1,14 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,10 @@ public class TestPurchasePersistence {
   
   @Autowired
   private PurchaseRepository purchaseRepository;
+  
   Date date = new Date(System.currentTimeMillis());
   Time time = new Time(System.currentTimeMillis());
+  
   @Autowired
   private QuantityOrderedRepository quantityOrderedRepository;
 
@@ -32,7 +35,8 @@ public class TestPurchasePersistence {
   public void testPersistAndLoadPurchaseById() {
       // First example for object save/load
       Purchase purchase = new Purchase();
-      long id = purchase.getId();
+      String id = UUID.randomUUID().toString();
+      
       // First example for attribute save/load
       purchaseRepository.save(purchase);
 
@@ -46,12 +50,12 @@ public class TestPurchasePersistence {
 @Test
 public void testPersistAndLoadPurchaseByQuantitiesOrdered() {
     QuantityOrdered quantityOrdered1 = new QuantityOrdered();
-    long id1  = quantityOrdered1.getId();
+    String id1  =  UUID.randomUUID().toString();
     quantityOrdered1.setQuantityOrdered(50);
     quantityOrderedRepository.save(quantityOrdered1);
     
     QuantityOrdered quantityOrdered2 = new QuantityOrdered();
-    long id2  = quantityOrdered2.getId();
+    String id2 = UUID.randomUUID().toString();
     quantityOrdered2.setQuantityOrdered(100);
     quantityOrderedRepository.save(quantityOrdered2);
     

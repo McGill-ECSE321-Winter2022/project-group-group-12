@@ -11,7 +11,7 @@ import org.springframework.data.repository.CrudRepository;
  * @author Wassim Jabbour
  *
  */
-public interface QuantityOrderedRepository extends CrudRepository<QuantityOrdered, Long> {
+public interface QuantityOrderedRepository extends CrudRepository<QuantityOrdered, String> {
 
   /**
    * To find a QuantityOrdered object by its ID
@@ -19,7 +19,7 @@ public interface QuantityOrderedRepository extends CrudRepository<QuantityOrdere
    * @param id The ID of the object
    * @return The object we are searching for
    */
-  QuantityOrdered findQuantityOrderedById(long id);
+  QuantityOrdered findQuantityOrderedById(String id);
 
   /**
    * To find a list of QuantityOrdered objects based on the item that was ordered

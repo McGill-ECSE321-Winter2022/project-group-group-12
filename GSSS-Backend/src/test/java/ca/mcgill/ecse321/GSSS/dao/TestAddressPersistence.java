@@ -18,52 +18,52 @@ public class TestAddressPersistence {
   @Autowired
   private AddressRepository addressRepository;
   
-  @Autowired
-  private BusinessHourRepository businessHourRepository;
-
-  @Autowired
-  private CustomerRepository customerRepository;
-
-  @Autowired
-  private EmployeeRepository employeeRepository;
-
-  @Autowired
-  private ItemCategoryRepository itemCategoryRepository;
-
-  @Autowired
-  private ItemRepository itemRepository;
-
-  @Autowired
-  private OrderRepository orderRepository;
-
-  @Autowired
-  private OwnerRepository ownerRepository;
-
-  @Autowired
-  private PurchaseRepository purchaseRepository;
-
-  @Autowired
-  private QuantityOrderedRepository quantityOrderedRepository;
-
-  @Autowired
-  private ShiftRepository shiftRepository;
-
-  @AfterEach
-  public void clearDatabase() {
-
-    // Deleting all the database contents from the most dependent to most independent
-    customerRepository.deleteAll();
-    employeeRepository.deleteAll();
-    ownerRepository.deleteAll();
-    addressRepository.deleteAll();
-    purchaseRepository.deleteAll();
-    orderRepository.deleteAll();
-    quantityOrderedRepository.deleteAll();
-    itemRepository.deleteAll();
-    itemCategoryRepository.deleteAll();
-    shiftRepository.deleteAll();
-    businessHourRepository.deleteAll();
-  }
+//  @Autowired
+//  private BusinessHourRepository businessHourRepository;
+//
+//  @Autowired
+//  private CustomerRepository customerRepository;
+//
+//  @Autowired
+//  private EmployeeRepository employeeRepository;
+//
+//  @Autowired
+//  private ItemCategoryRepository itemCategoryRepository;
+//
+//  @Autowired
+//  private ItemRepository itemRepository;
+//
+//  @Autowired
+//  private OrderRepository orderRepository;
+//
+//  @Autowired
+//  private OwnerRepository ownerRepository;
+//
+//  @Autowired
+//  private PurchaseRepository purchaseRepository;
+//
+//  @Autowired
+//  private QuantityOrderedRepository quantityOrderedRepository;
+//
+//  @Autowired
+//  private ShiftRepository shiftRepository;
+//
+//  @AfterEach
+//  public void clearDatabase() {
+//
+//    // Deleting all the database contents from the most dependent to most independent
+//    customerRepository.deleteAll();
+//    employeeRepository.deleteAll();
+//    ownerRepository.deleteAll();
+//    addressRepository.deleteAll();
+//    purchaseRepository.deleteAll();
+//    orderRepository.deleteAll();
+//    quantityOrderedRepository.deleteAll();
+//    itemRepository.deleteAll();
+//    itemCategoryRepository.deleteAll();
+//    shiftRepository.deleteAll();
+//    businessHourRepository.deleteAll();
+//  }
 
   @Test
   public void testPersistAndLoadAddressById() {

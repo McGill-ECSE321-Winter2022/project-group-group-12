@@ -15,7 +15,7 @@ import ca.mcgill.ecse321.GSSS.model.QuantityOrdered;
  * @author Wassim Jabbour
  *
  */
-public interface OrderRepository extends CrudRepository<Order, Long> {
+public interface OrderRepository extends CrudRepository<Order, String> {
 
   /**
    * Returns an order based on its ID
@@ -24,7 +24,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
    * @param id The ID of the order to find
    * @return The Order we are trying to find
    */
-  Order findOrderById(long id);
+  Order findOrderById(String id);
 
   /**
    * Returns an order based on one of its QuantityOrdered associated objects

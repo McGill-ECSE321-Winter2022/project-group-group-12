@@ -16,7 +16,7 @@ import ca.mcgill.ecse321.GSSS.model.QuantityOrdered;
  * @author Habib Jarweh
  *
  */
-public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
+public interface PurchaseRepository extends CrudRepository<Purchase, String> {
 
   /**
    * 
@@ -27,7 +27,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
    * @return purchase we want to find
    * 
    */
-  Purchase findPurchaseById(long id);
+  Purchase findPurchaseById(String id);
 
   /**
    * 

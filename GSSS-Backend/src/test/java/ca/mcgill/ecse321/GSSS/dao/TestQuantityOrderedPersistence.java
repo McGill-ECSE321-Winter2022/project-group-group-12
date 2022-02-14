@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -30,7 +31,7 @@ public class TestQuantityOrderedPersistence {
  public void testPersistAndLoadQuantityOrderedById(){
    QuantityOrdered quantityOrdered = new QuantityOrdered();
    quantityOrdered.setQuantityOrdered(quantity);
-   long id = quantityOrdered.getId();
+   String id = UUID.randomUUID().toString();
    
    quantityOrderedRepository.save(quantityOrdered);
    quantityOrdered = null;
@@ -53,7 +54,7 @@ public class TestQuantityOrderedPersistence {
    QuantityOrdered quantityOrdered = new QuantityOrdered();
    quantityOrdered.setQuantityOrdered(quantity);
    quantityOrdered.setItemOrdered(item);
-   long id = quantityOrdered.getId();
+   String id = UUID.randomUUID().toString();
    
    quantityOrderedRepository.save(quantityOrdered);
    quantityOrdered = null;

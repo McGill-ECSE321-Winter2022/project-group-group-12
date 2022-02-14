@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.util.Set;
-
+import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -36,14 +36,14 @@ public class TestEmployeePersistence {
     String city = "Montreal";
     int streetNumber = 43;
     String postalCode = "W2S L0S";
-    long addressId = (long) 1;
+    String addressId = UUID.randomUUID().toString();
     Date date = Date.valueOf(LocalDate.of(2020, Month.JANUARY, 31));
     Time startTime = java.sql.Time.valueOf(LocalTime.of(11, 35));
     Time endTime = java.sql.Time.valueOf(LocalTime.of(13, 25));
-    long shiftId = (long) 2;
+    String shiftId =  UUID.randomUUID().toString();
     Time purchaseTime = java.sql.Time.valueOf(LocalTime.of(12, 25));
     Date purchaseDate = Date.valueOf(LocalDate.of(2020, Month.JANUARY, 31));
-    long purchaseId = (long) 3;
+    String purchaseId =  UUID.randomUUID().toString();
 
 
     /**

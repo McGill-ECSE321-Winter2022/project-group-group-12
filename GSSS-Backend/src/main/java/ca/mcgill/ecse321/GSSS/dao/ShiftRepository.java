@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Theo Ghanem
  */
-public interface ShiftRepository extends CrudRepository<Shift, Integer> {
+public interface ShiftRepository extends CrudRepository<Shift, String> {
 
     /**
      * This method queries the database for the unique shift associated to the shift's ID.
@@ -20,8 +20,7 @@ public interface ShiftRepository extends CrudRepository<Shift, Integer> {
      * @return the shift
      * @author Theo Ghanem
      */
-    Shift findShiftById(long id);
-
+    Shift findShiftById(String id);
 
     /**
      * This method queries the database for the lists of shifts associated to a particular date.

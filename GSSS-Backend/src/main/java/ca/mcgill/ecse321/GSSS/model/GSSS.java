@@ -32,15 +32,15 @@ public class GSSS {
 	Set<ItemCategory> itemCategories;
 	Set<Shift> shifts;
 	Set<BusinessHour> businessHours;
-	long id; // Since none of the above attributes can be used as a primary key
+	String id; // Since none of the above attributes can be used as a primary key
 
 	@Id
 	@GeneratedValue
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -10,15 +10,15 @@ import javax.persistence.Id;
 public class Shift extends TimeInterval {
 
   private Date date;
-  private long id;
+  private String id;
 
   @Id
   @GeneratedValue
-  public long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
