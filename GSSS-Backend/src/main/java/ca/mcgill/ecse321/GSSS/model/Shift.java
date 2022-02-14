@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Shift extends TimeInterval {
+public class Shift{
 
   private Date date;
   private String id;

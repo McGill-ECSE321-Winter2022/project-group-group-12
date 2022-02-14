@@ -6,7 +6,7 @@ import java.sql.Time;
 
 
 @Entity
-public class BusinessHour extends TimeInterval {
+public class BusinessHour {
 
   private Weekday weekday;
   private Time startTime;
