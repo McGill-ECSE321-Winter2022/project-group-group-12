@@ -8,6 +8,12 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * This class represents a purchase.
+ * Its primary key is a UUID.
+ * 
+ * @author Philippe Sarouphim Hochar.
+ */
 @Entity
 public class Purchase {
 
@@ -103,9 +109,5 @@ public class Purchase {
             return false;
         return true;
     }
-
-    
-
-
     
 }
