@@ -7,10 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Shift {
+public class Shift{
 
   private Date date;
   private String id;
+  private Time startTime;
+  private Time endTime;
 
   @Id
   public String getId() {
@@ -45,6 +47,22 @@ public class Shift {
 
   public void setDate(Date date) {
     this.date = date;
+  }
+
+  public Time getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(Time startTime) {
+    this.startTime = startTime;
+  }
+
+  public Time getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(Time endTime) {
+    this.endTime = endTime;
   }
 
   @Override

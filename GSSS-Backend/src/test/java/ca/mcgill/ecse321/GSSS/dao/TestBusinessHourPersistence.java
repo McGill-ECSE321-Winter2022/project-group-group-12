@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ca.mcgill.ecse321.GSSS.model.BusinessHour;
-import ca.mcgill.ecse321.GSSS.model.Weekday;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.sql.Time;
@@ -22,7 +21,7 @@ public class TestBusinessHourPersistence {
   @Test
   public void testPersistAndLoadBusinessHourByWeekday() {
 
-    Weekday weekday = Weekday.Monday;
+    BusinessHour.Weekday weekday = BusinessHour.Weekday.Monday;
     Time startTime = Time.valueOf("8:00:00");
     Time endTime = Time.valueOf("17:00:00");
 

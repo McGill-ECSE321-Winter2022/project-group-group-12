@@ -2,85 +2,112 @@ package ca.mcgill.ecse321.GSSS.model;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
+import java.util.Map;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+/**
+ * This class represents a purchase.
+ * Its primary key is a UUID.
+ * 
+ * @author Philippe Sarouphim Hochar.
+ */
 @Entity
 public class Purchase {
-  private Date date;
-  private Time time;
-  private Set<QuantityOrdered> quantitiesOrdered;
-  private String id;
 
-  @Id
-  public String getId() {
-    return id;
-  }
+    private String id;
+    private OrderType orderType;
+    private OrderStatus orderStatus;
+    private Date date;
+    private Time time;
+    private Map<Item, Integer> items;
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    @Id
+    public String getId() {
+        return id;
+    }
 
-  public Date getDate() {
-    return date;
-  }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-  public void setDate(Date date) {
-    this.date = date;
-  }
+    public OrderType getOrderType() {
+        return orderType;
+    }
 
-  public Time getTime() {
-    return time;
-  }
+    public void setOrderType(OrderType orderType) {
+        this.orderType = orderType;
+    }
 
-  public void setTime(Time time) {
-    this.time = time;
-  }
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
 
-  @OneToMany
-  public Set<QuantityOrdered> getQuantitiesOrdered() {
-    return quantitiesOrdered;
-  }
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
-  public void setQuantitiesOrdered(Set<QuantityOrdered> quantitiesOrdered) {
-    this.quantitiesOrdered = quantitiesOrdered;
-  }
+    public Date getDate() {
+        return date;
+    }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Purchase other = (Purchase) obj;
-    if (date == null) {
-      if (other.date != null)
-        return false;
-    } else if (!date.equals(other.date))
-      return false;
-    if (id == null) {
-      if (other.id != null)
-        return false;
-    } else if (!id.equals(other.id))
-      return false;
-    if (quantitiesOrdered == null) {
-      if (other.quantitiesOrdered != null)
-        return false;
-    } else if (!quantitiesOrdered.equals(other.quantitiesOrdered))
-      return false;
-    if (time == null) {
-      if (other.time != null)
-        return false;
-    } else if (!time.equals(other.time))
-      return false;
-    return true;
-  }
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    @ElementCollection
+    public Map<Item, Integer> getItems() {
+        return items;
+    }
+
+    public void setItems(Map<Item, Integer> items) {
+        this.items = items;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Purchase other = (Purchase) obj;
+        if (date == null) {
+            if (other.date != null)
+                return false;
+        } else if (!date.equals(other.date))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (items == null) {
+            if (other.items != null)
+                return false;
+        } else if (!items.equals(other.items))
+            return false;
+        if (orderStatus != other.orderStatus)
+            return false;
+        if (orderType != other.orderType)
+            return false;
+        if (time == null) {
+            if (other.time != null)
+                return false;
+        } else if (!time.equals(other.time))
+            return false;
+        return true;
+    }
+    
 }

@@ -26,8 +26,11 @@ public class TestEmployeePersistence {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    private AddressRepository addressRepository;
+    private ShiftRepository shiftRepository;
+    private PurchaseRepository purchaseRepository;
 
-    //Initialize variables that will be used to succesfully create a complete employee
+    //Initialize variables that will be used to successfully create a complete employee
     String username = "bobthebuilder";
     String email = "bob@email.com";
     String password = "bobpassword";
@@ -85,6 +88,9 @@ public class TestEmployeePersistence {
         employee.setAssignedPurchases(setOfPurchases);
 
         employeeRepository.save(employee);
+        addressRepository.save(address);
+        purchaseRepository.save(purchase);
+        shiftRepository.save(shift);
 
         employee=null;
 
@@ -138,12 +144,16 @@ public class TestEmployeePersistence {
         employee.setAssignedPurchases(setOfPurchases);
 
         employeeRepository.save(employee);
+        addressRepository.save(address);
+        purchaseRepository.save(purchase);
+        shiftRepository.save(shift);
 
         employee=null;
 
-        employee = (Employee) employeeRepository.findEmployeesByUsername(username);
+        List<Employee> employeeList = new ArrayList<Employee>();
+        employeeList =  employeeRepository.findEmployeesByUsername(username);
 
-        assertNotNull(employee);
+        assertNotNull(employeeList);
         assertEquals(employee.getUsername(), username);
         assertEquals(employee.getEmail(), email);
         assertEquals(employee.getPassword(), password);
@@ -295,6 +305,7 @@ public class TestEmployeePersistence {
         purchase.setId(purchaseId);
         HashSet<Purchase> setOfPurchases = new HashSet<>();
         employee.setAssignedPurchases(setOfPurchases);
+
 
         employeeRepository.save(employee);
 
