@@ -7,14 +7,14 @@ import javax.persistence.Id;
 @Entity
 public class BusinessHour extends TimeInterval {
 
-  private Weekday dayOfWeek;
+  private Weekday weekday;
 
   @Id
   public Weekday getDayOfWeek() {
-    return dayOfWeek;
+    return weekday;
   }
 
-  public void setDayOfWeek(Weekday dayOfWeek) {
-    this.dayOfWeek = dayOfWeek;
+  public void setDayOfWeek(Weekday weekday) {
+    this.weekday = weekday;
   }
 }

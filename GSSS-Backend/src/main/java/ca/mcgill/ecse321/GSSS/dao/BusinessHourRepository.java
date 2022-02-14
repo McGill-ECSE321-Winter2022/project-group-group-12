@@ -13,10 +13,10 @@ public interface BusinessHourRepository extends CrudRepository<BusinessHour, Wee
 
     /**
      * This method queries the database for the Business Hours associated to a day of the week.
-     * @param dayOfWeek the desired day of the week
+     * @param weekday the desired day of the week
      * @return the Business Hour during that particular day of the week
      * @author Theo Ghanem
      */
-    BusinessHour findBusinessHourByDayOfWeek(Weekday dayOfWeek);
+    BusinessHour findBusinessHourByDayOfWeek(Weekday weekday);
 
 }
