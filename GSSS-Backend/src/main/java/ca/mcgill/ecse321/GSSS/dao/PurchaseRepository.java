@@ -27,7 +27,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
    * @return purchase we want to find
    * 
    */
-  Purchase findPurchasebyID(long id);
+  Purchase findPurchasebyId(long id);
 
   /**
    * 

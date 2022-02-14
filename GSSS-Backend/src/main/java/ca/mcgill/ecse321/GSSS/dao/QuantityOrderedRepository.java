@@ -27,6 +27,6 @@ public interface QuantityOrderedRepository extends CrudRepository<QuantityOrdere
    * @param itemOrdered The item we want to find all the quantities associated to
    * @return A list of quantities associated to that order
    */
-  List<QuantityOrdered> findQuantityOrderedByItemOrdered(Item itemOrdered);
+  List<QuantityOrdered> findQuantitiesOrderedByItemOrdered(Item itemOrdered);
 
 }

@@ -17,6 +17,6 @@ public interface BusinessHourRepository extends CrudRepository<BusinessHour, Wee
      * @return the Business Hour during that particular day of the week
      * @author Theo Ghanem
      */
-    BusinessHour findBusinessHourByDayOfWeek(Weekday weekday);
+    BusinessHour findBusinessHourByWeekday(Weekday weekday);
 
 }

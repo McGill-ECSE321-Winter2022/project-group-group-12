@@ -10,11 +10,11 @@ public class BusinessHour extends TimeInterval {
   private Weekday weekday;
 
   @Id
-  public Weekday getDayOfWeek() {
+  public Weekday getWeekday() {
     return weekday;
   }
 
-  public void setDayOfWeek(Weekday weekday) {
+  public void setWeekday(Weekday weekday) {
     this.weekday = weekday;
   }
 }
