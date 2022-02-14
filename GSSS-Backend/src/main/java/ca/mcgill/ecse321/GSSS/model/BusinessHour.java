@@ -2,12 +2,15 @@ package ca.mcgill.ecse321.GSSS.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.sql.Time;
 
 
 @Entity
 public class BusinessHour extends TimeInterval {
 
   private Weekday weekday;
+  private Time startTime;
+  private Time endTime;
 
   @Id
   public Weekday getWeekday() {
@@ -16,6 +19,22 @@ public class BusinessHour extends TimeInterval {
 
   public void setWeekday(Weekday weekday) {
     this.weekday = weekday;
+  }
+
+  public Time getStartTime() {
+    return startTime;
+  }
+
+  public void setStartTime(Time startTime) {
+    this.startTime = startTime;
+  }
+
+  public Time getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(Time endTime) {
+    this.endTime = endTime;
   }
 
   @Override
