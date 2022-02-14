@@ -18,6 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * implementation of tests for shift persistence, testing find by id and by date
+ * @author Habib Jarweh
+ *
+ */
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestShiftPersistence {
