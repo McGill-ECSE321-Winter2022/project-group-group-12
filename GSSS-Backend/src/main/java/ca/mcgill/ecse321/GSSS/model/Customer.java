@@ -5,6 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+/**
+ * This class represents the customer.
+ * Its primary key is its email in its superclass User.
+ * 
+ * @author Philippe Sarouphim Hochar.
+ */
 @Entity
 public class Customer extends FireableUser {
 

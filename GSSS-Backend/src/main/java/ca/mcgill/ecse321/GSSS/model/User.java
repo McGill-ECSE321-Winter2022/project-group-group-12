@@ -6,6 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
+/**
+ * This class represents User objects.
+ * It is a mapped superclass and is therefore not present in its database.
+ * However, in its email field, it holds the primary key of its subclasses.
+ * 
+ * @author Philippe Sarouphim Hochar.
+ */
 @MappedSuperclass
 public abstract class User {
 

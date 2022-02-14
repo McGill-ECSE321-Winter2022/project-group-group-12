@@ -5,6 +5,12 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+/**
+ * This class represents an Employee.
+ * Its primary key is its email present in its superclass User.
+ * 
+ * @author Philippe Sarouphim Hochar.
+ */
 @Entity
 public class Employee extends FireableUser {
 

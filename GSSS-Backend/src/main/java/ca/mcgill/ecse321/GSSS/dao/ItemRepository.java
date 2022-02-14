@@ -42,7 +42,7 @@ public interface ItemRepository extends CrudRepository<Item, String> {
      * @param isStillAvailable Availability of items.
      * @return List of queried items.
      */
-    List<Item> findItemsByIsStillAvailability(boolean isStillAvailable);
+    List<Item> findItemsByIsStillAvailabile(boolean isStillAvailable);
 
     /**
      * This method queries the database for all of the items of a specified category.

@@ -4,6 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * This class represents a shop Item.
+ * Its primary key is its name.
+ * 
+ * @author Philippe Sarouphim Hochar.
+ */
 @Entity
 public class Item {
 
