@@ -7,14 +7,43 @@ import org.springframework.data.repository.CrudRepository;
 import java.sql.Date;
 import java.util.List;
 
+/**
+ * This interface defines the repository for the CRUD functionalities relating to the Shifts.
+ *
+ * @author Theo Ghanem
+ */
 public interface ShiftRepository extends CrudRepository<Shift, Integer> {
 
+    /**
+     * This method queries the database for the unique shift associated to the shift's ID.
+     * @param id unique id of the Shift
+     * @return the shift
+     * @author Theo Ghanem
+     */
     Shift findShiftById(long id);
 
-    Shift findShiftByEmployee(String email);
+    /**
+     * This method queries the database for the list of shifts associated to the employee.
+     * @param email the employee's unique email
+     * @return the list of shifts
+     * @author Theo Ghanem
+     */
+    List<Shift> findShiftByEmployee(String email);
 
+    /**
+     * This method queries the database for employee associated to the shift.
+     * @param shift the employee's shift
+     * @return the list of employees associated to that particular shift
+     * @author Theo Ghanem
+     */
     List<Employee> findEmployeesByShift(Shift shift);
 
-    Shift findShiftByDate(Date date);
+    /**
+     * This method queries the database for the lists of shifts associated to a particular date.
+     * @param date a particular date
+     * @return the list of shifts associated to that date
+     * @author Theo Ghanem
+     */
+    List<Shift> findShiftsByDate(Date date);
 
 }

@@ -8,7 +8,7 @@ import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 
 /**
- * This interface defines the repository for the CRUD functionnalities relating to the Items.
+ * This interface defines the repository for the CRUD functionalities relating to the Items.
  * 
  * @author Philippe Sarouphim Hochar
  */

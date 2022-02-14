@@ -5,6 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+/**
+ * This class represents the ordered quantity for an item ordered
+ * @author Theo Ghanem
+ */
 @Entity
 public class QuantityOrdered {
 
