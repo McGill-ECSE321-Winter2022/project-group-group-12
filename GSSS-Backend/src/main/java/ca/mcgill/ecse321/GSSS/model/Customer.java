@@ -9,31 +9,23 @@ import javax.persistence.OneToOne;
  * This class represents the customer.
  * Its primary key is its email in its superclass User.
  * 
- * @author Philippe Sarouphim Hochar.
+ * @Habib Jarweh
  */
 @Entity
-public class Customer extends FireableUser {
+public class Customer extends User {
 
-  private Set<Order> pastOrders;
-  private Order cart;
+  private Set<Purchase> purchases;
+
 
   @OneToMany
-  public Set<Order> getPastOrders() {
-    return pastOrders;
+  public Set<Purchase> getPurchases() {
+    return purchases;
   }
 
-  public void setPastOrders(Set<Order> pastOrders) {
-    this.pastOrders = pastOrders;
+  public void setPurchases(Set<Purchase> purchases) {
+    this.purchases = purchases;
   }
 
-  @OneToOne(optional = true)
-  public Order getCart() {
-    return cart;
-  }
-
-  public void setCart(Order cart) {
-    this.cart = cart;
-  }
 
   @Override
   public boolean equals(Object obj) {
@@ -44,15 +36,10 @@ public class Customer extends FireableUser {
     if (getClass() != obj.getClass())
       return false;
     Customer other = (Customer) obj;
-    if (cart == null) {
-      if (other.cart != null)
+    if (purchases == null) {
+      if (other.purchases != null)
         return false;
-    } else if (!cart.equals(other.cart))
-      return false;
-    if (pastOrders == null) {
-      if (other.pastOrders != null)
-        return false;
-    } else if (!pastOrders.equals(other.pastOrders))
+    } else if (!purchases.equals(other.purchases))
       return false;
     return true;
   }

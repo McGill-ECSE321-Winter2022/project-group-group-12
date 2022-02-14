@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
  * This class represents a shop Item.
  * Its primary key is its name.
  * 
- * @author Philippe Sarouphim Hochar.
+ * @author Chris Hatoum 
  */
 @Entity
 public class Item {
@@ -22,6 +22,7 @@ public class Item {
   private boolean stillAvailable;
   private ItemCategory category;
 
+  // Setters and getters 
   @Id
   public String getName() {
     return name;

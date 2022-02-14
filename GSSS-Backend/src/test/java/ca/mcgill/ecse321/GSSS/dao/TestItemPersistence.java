@@ -22,9 +22,11 @@ import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 public class TestItemPersistence {
 
     @Autowired
+    static
     ItemRepository itemRepository;
 
     @Autowired
+    static
     ItemCategoryRepository itemCategoryRepository;
 
     @AfterEach
@@ -33,14 +35,14 @@ public class TestItemPersistence {
         itemCategoryRepository.deleteAll();
     }
 
-    private Item persist(String name, String description, String imageUrl, double price, int remainingQuantity, boolean availableForOrder, boolean stillAvailable, String categoryName){
+    public static Item persist(String name, String description, String imageUrl, double price, int remainingQuantity, boolean availableForOrder, boolean stillAvailable, String categoryName){
         ItemCategory category = persistItemCategory(categoryName);
         Item item = persistItem(name, description, imageUrl, price, remainingQuantity, availableForOrder, stillAvailable, category);
 
         return item;
     }
 
-    private ItemCategory persistItemCategory(String categoryName){
+    private static ItemCategory persistItemCategory(String categoryName){
         ItemCategory category = new ItemCategory();
         category.setName(categoryName);
 
@@ -49,7 +51,7 @@ public class TestItemPersistence {
         return category;
     }
     
-    private Item persistItem(String name, String description, String imageUrl, double price, int remainingQuantity, boolean availableForOrder, boolean stillAvailable, ItemCategory category){
+    private static Item persistItem(String name, String description, String imageUrl, double price, int remainingQuantity, boolean availableForOrder, boolean stillAvailable, ItemCategory category){
         Item item = new Item();
         item.setName(name);
         item.setDescription(description);
