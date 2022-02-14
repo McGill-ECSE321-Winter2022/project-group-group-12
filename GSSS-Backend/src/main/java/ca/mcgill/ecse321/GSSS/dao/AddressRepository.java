@@ -1,11 +1,9 @@
 package ca.mcgill.ecse321.GSSS.dao;
-
 import org.springframework.data.repository.CrudRepository;
-
 import ca.mcgill.ecse321.GSSS.model.Address;
 
-public interface AddressRepository extends CrudRepository<Address, Long> {
+public interface AddressRepository extends CrudRepository<Address, String> {
 
-  Address findAddressById(long id);
+  Address findAddressById(String id);
 
 }

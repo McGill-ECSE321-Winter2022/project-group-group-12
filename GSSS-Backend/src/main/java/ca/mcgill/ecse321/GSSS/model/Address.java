@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.GSSS.model;
 
+import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,10 +11,11 @@ import javax.persistence.Id;
  * 
  * @author Philippe Sarouphim Hochar.
  */
+
 @Entity
 public class Address {
 
-  private Long id;
+  private String id;
   private String fullName;
   private String streetName;
   private int streetNumber;
@@ -21,12 +23,11 @@ public class Address {
   private String postalCode;
 
   @Id
-  @GeneratedValue
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 
