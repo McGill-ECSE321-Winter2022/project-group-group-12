@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.GSSS.model;
 
+import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -8,7 +9,7 @@ import javax.persistence.MappedSuperclass;
  * 
  * @author Philippe Sarouphim Hochar.
  */
-@MappedSuperclass
+@Entity
 public abstract class FireableUser extends User {
 
   private boolean isDisabled;

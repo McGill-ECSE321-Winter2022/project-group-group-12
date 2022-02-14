@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.GSSS.model;
 
 import java.util.Set;
+
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
@@ -11,7 +13,7 @@ import javax.persistence.OneToOne;
  * 
  * @author Philippe Sarouphim Hochar.
  */
-@MappedSuperclass
+@Entity
 public abstract class User {
 
   private String username;
