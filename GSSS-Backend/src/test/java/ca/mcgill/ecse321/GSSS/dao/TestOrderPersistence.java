@@ -43,7 +43,7 @@ public class TestOrderPersistence {
   String purchaseId = UUID.randomUUID().toString();
   int quantityOrderedInt = 2;
   int quantity1 = 50;
-  int qantity2 = 25;
+  int quantity2 = 25;
   
   //Quantity
   Set<QuantityOrdered> quantitiesOrdered = new HashSet<QuantityOrdered>(quantityOrderedInt); 
@@ -64,31 +64,29 @@ public class TestOrderPersistence {
     
     Item item2 = TestItemPersistence.persist("L", "Italian dish.", "imgur.com/pasta", 5.0, 4, true, true, "Food");
     
+    // Create first quantity ordered 
     QuantityOrdered quantityOrdered1 = new QuantityOrdered();
     quantityOrdered1.setId(quantityOrderedId1);
     quantityOrdered1.setItemOrdered(item1);
     quantityOrdered1.setQuantityOrdered(quantity1);
     
+    // Create another quantity ordered
     QuantityOrdered quantityOrdered2 = new QuantityOrdered();
     quantityOrdered2.setId(quantityOrderedId2);
-    quantityOrdered2.setItemOrdered(null);
-    quantityOrdered2.setQuantityOrdered(quantity1);
+    quantityOrdered2.setItemOrdered(item2);
+    quantityOrdered2.setQuantityOrdered(quantity2);
     
     quantitiesOrdered.add(quantityOrdered1);
-    
-    Purchase purchase = new Purchase();
-    purchase.setDate(date);
-    purchase.setTime(time);
-    purchase.setId(purchaseId);
-    purchase.setQuantitiesOrdered(quantitiesOrdered);
-    
-    
-    
-    
+    quantitiesOrdered.add(quantityOrdered2);
+
     
     Order order = new Order();
     order.setOrderType(OrderTypeEnum);
     order.setOrderStatus(OrederStatusEnum);
+    order.setDate(date);
+    order.setTime(time);
+    order.setId(purchaseId);
+    order.setQuantitiesOrdered(quantitiesOrdered);
 
     orderRepository.save(order);
 
@@ -114,28 +112,39 @@ public class TestOrderPersistence {
   @Test
   public void testfindOrderByQuantitiesOrdered(){
 
+Item item1 = TestItemPersistence.persist("Pasta", "Italian dish.", "imgur.com/pasta", 5.0, 4, true, true, "Food");
+    
+    Item item2 = TestItemPersistence.persist("L", "Italian dish.", "imgur.com/pasta", 5.0, 4, true, true, "Food");
+    
+    // Create first quantity ordered 
+    QuantityOrdered quantityOrdered1 = new QuantityOrdered();
+    quantityOrdered1.setId(quantityOrderedId1);
+    quantityOrdered1.setItemOrdered(item1);
+    quantityOrdered1.setQuantityOrdered(quantity1);
+    
+    // Create another quantity ordered
+    QuantityOrdered quantityOrdered2 = new QuantityOrdered();
+    quantityOrdered2.setId(quantityOrderedId2);
+    quantityOrdered2.setItemOrdered(item2);
+    quantityOrdered2.setQuantityOrdered(quantity2);
+    
+    quantitiesOrdered.add(quantityOrdered1);
+    quantitiesOrdered.add(quantityOrdered2);
 
-    Purchase purchase = new Purchase();
-    purchase.setDate(date);
-    purchase.setTime(time);
-    purchase.setId(purchaseId);
-    purchase.setQuantitiesOrdered(quantitiesOrdered);
-
+    
     Order order = new Order();
     order.setOrderType(OrderTypeEnum);
     order.setOrderStatus(OrederStatusEnum);
-
-
-    QuantityOrdered quantityOrdered = new QuantityOrdered();
-    quantityOrdered.setId(quantityOrderedId);
-    quantityOrdered.setQuantityOrdered(quantityOrderedInt);
+    order.setDate(date);
+    order.setTime(time);
+    order.setId(purchaseId);
     order.setQuantitiesOrdered(quantitiesOrdered);
-
+    
     orderRepository.save(order);
 
     order=null;
 
-    order = orderRepository.findOrderByQuantitiesOrdered(quantityOrdered);
+  //  order = orderRepository.findOrderByQuantitiesOrdered(quantityOrdered);
 
     assertNotNull(order);
     assertEquals(order.getDate(), date);
