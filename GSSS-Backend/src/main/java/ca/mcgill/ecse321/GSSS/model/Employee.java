@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.GSSS.model;
 
 import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -33,15 +32,6 @@ public class Employee extends FireableUser {
 
   public void setAssignedPurchases(Set<Purchase> assignedPurchases) {
     this.assignedPurchases = assignedPurchases;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((assignedPurchases == null) ? 0 : assignedPurchases.hashCode());
-    result = prime * result + ((shifts == null) ? 0 : shifts.hashCode());
-    return result;
   }
 
   @Override
