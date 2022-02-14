@@ -22,13 +22,6 @@ public interface ShiftRepository extends CrudRepository<Shift, Integer> {
      */
     Shift findShiftById(long id);
 
-    /**
-     * This method queries the database for the list of shifts associated to the employee.
-     * @param employee The employee whose shifts we want to find
-     * @return the list of shifts
-     * @author Theo Ghanem
-     */
-    List<Shift> findShiftsByEmployee(Employee employee);
 
     /**
      * This method queries the database for the lists of shifts associated to a particular date.

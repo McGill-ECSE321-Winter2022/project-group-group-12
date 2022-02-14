@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 public class Employee extends FireableUser {
 
   private Set<Shift> shifts;
-  private Set<Purchase> assignedPurchase;
+  private Set<Purchase> assignedPurchases;
 
   @OneToMany
   public Set<Shift> getShifts() {
@@ -27,12 +27,12 @@ public class Employee extends FireableUser {
   }
 
   @OneToMany
-  public Set<Purchase> getAssignedPurchase() {
-    return assignedPurchase;
+  public Set<Purchase> getAssignedPurchases() {
+    return assignedPurchases;
   }
 
-  public void setAssignedPurchase(Set<Purchase> assignedPurchase) {
-    this.assignedPurchase = assignedPurchase;
+  public void setAssignedPurchases(Set<Purchase> assignedPurchases) {
+    this.assignedPurchases = assignedPurchases;
   }
 
 }

@@ -32,7 +32,7 @@ public interface ItemRepository extends CrudRepository<Item, String> {
    * @param isAvailableForOrder Availability for order.
    * @return List of queries items.
    */
-  List<Item> findItemsByIsAvailableForOrder(boolean isAvailableForOrder);
+  List<Item> findItemsByAvailableForOrder(boolean availableForOrder);
 
   /**
    * This method queries the database for all of the items by availability in the shop.
@@ -42,7 +42,7 @@ public interface ItemRepository extends CrudRepository<Item, String> {
    * @param isStillAvailable Availability of items.
    * @return List of queried items.
    */
-  List<Item> findItemsByIsStillAvailable(boolean isStillAvailable);
+  List<Item> findItemsByStillAvailable(boolean stillAvailable);
 
   /**
    * This method queries the database for all of the items of a specified category.
@@ -52,7 +52,7 @@ public interface ItemRepository extends CrudRepository<Item, String> {
    * @param category Category of items.
    * @return List of queried items.
    */
-  List<Item> findItemsByItemCategory(ItemCategory category);
+  List<Item> findItemsByCategory(ItemCategory category);
 
   /**
    * This method queries the database for all of the items with specified category, and availability
@@ -65,7 +65,7 @@ public interface ItemRepository extends CrudRepository<Item, String> {
    * @param isStillAvailable Availability in shop.
    * @return List of queried items.
    */
-  List<Item> findItemsByItemCategoryAndIsAvailableForOrderAndIsStillAvailable(ItemCategory category,
-      boolean isAvailableForOrder, boolean isStillAvailable);
+  List<Item> findItemsByCategoryAndAvailableForOrderAndStillAvailable(ItemCategory category,
+      boolean availableForOrder, boolean stillAvailable);
 
 }

@@ -33,7 +33,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
    * @param quantityOrdered The instance of QuantityOrdered of the object we are trying to order
    * @return The Order we are trying to find
    */
-  Order findOrderByQuantityOrdered(QuantityOrdered quantityOrdered);
+  Order findOrderByQuantitiesOrdered(QuantityOrdered quantityOrdered);
 
   /**
    * Returns a list of orders based on their types

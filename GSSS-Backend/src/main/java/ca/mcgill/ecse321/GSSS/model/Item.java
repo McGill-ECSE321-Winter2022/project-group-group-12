@@ -18,8 +18,8 @@ public class Item {
   private String imageUrl;
   private int remainingQuantity;
   private double price;
-  private boolean isAvailableForOrder;
-  private boolean isStillAvailable;
+  private boolean availableForOrder;
+  private boolean stillAvailable;
   private ItemCategory category;
 
   @Id
@@ -64,19 +64,19 @@ public class Item {
   }
 
   public boolean isAvailableForOrder() {
-    return isAvailableForOrder;
+    return availableForOrder;
   }
 
-  public void setAvailableForOrder(boolean isAvailableForOrder) {
-    this.isAvailableForOrder = isAvailableForOrder;
+  public void setAvailableForOrder(boolean availableForOrder) {
+    this.availableForOrder = availableForOrder;
   }
 
   public boolean isStillAvailable() {
-    return isStillAvailable;
+    return stillAvailable;
   }
 
-  public void setStillAvailable(boolean isStillAvailable) {
-    this.isStillAvailable = isStillAvailable;
+  public void setStillAvailable(boolean stillAvailable) {
+    this.stillAvailable = stillAvailable;
   }
 
   @ManyToOne

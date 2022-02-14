@@ -31,6 +31,6 @@ public interface OwnerRepository extends CrudRepository<Owner, String> {
    * @param address The owner's address
    * @return The owner we want to find
    */
-  Owner findOwnerByAddress(Address address);
+  Owner findOwnerByAddresses(Address address);
 
 }

@@ -27,7 +27,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
    * @return purchase we want to find
    * 
    */
-  Purchase findPurchasebyId(long id);
+  Purchase findPurchaseById(long id);
 
   /**
    * 
@@ -37,7 +37,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
    * @param quantityOrdered
    * @return purchase we want to find
    */
-  Purchase findPurchaseByQuantityOrdered(QuantityOrdered quantityOrdered);
+  Purchase findPurchaseByQuantitiesOrdered(QuantityOrdered quantityOrdered);
 
   /**
    * 

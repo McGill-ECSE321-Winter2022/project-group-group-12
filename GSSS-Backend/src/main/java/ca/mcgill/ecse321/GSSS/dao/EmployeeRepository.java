@@ -21,10 +21,10 @@ public interface EmployeeRepository extends CrudRepository<Employee, String> {
    * @return the list of employees associated to that particular shift
    * @author Theo Ghanem
    */
-  List<Employee> findEmployeesByShift(Shift shift);
+  List<Employee> findEmployeesByShifts(Shift shift);
 
-  Employee findEmployeeByAddress(Address address);
+  Employee findEmployeeByAddresses(Address address);
 
-  Employee findEmployeeByAssignedPurchase(Purchase assignedPurchase);
+  Employee findEmployeeByAssignedPurchases(Purchase assignedPurchase);
 
 }
