@@ -35,4 +35,35 @@ public class Customer extends FireableUser {
     this.cart = cart;
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((cart == null) ? 0 : cart.hashCode());
+    result = prime * result + ((pastOrders == null) ? 0 : pastOrders.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Customer other = (Customer) obj;
+    if (cart == null) {
+      if (other.cart != null)
+        return false;
+    } else if (!cart.equals(other.cart))
+      return false;
+    if (pastOrders == null) {
+      if (other.pastOrders != null)
+        return false;
+    } else if (!pastOrders.equals(other.pastOrders))
+      return false;
+    return true;
+  }
+
 }

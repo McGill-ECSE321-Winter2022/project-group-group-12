@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.GSSS.model;
 
-import java.util.UUID;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -69,6 +67,58 @@ public class Address {
 
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
+  }
+
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((city == null) ? 0 : city.hashCode());
+    result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((postalCode == null) ? 0 : postalCode.hashCode());
+    result = prime * result + ((streetName == null) ? 0 : streetName.hashCode());
+    result = prime * result + streetNumber;
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Address other = (Address) obj;
+    if (city == null) {
+      if (other.city != null)
+        return false;
+    } else if (!city.equals(other.city))
+      return false;
+    if (fullName == null) {
+      if (other.fullName != null)
+        return false;
+    } else if (!fullName.equals(other.fullName))
+      return false;
+    if (id == null) {
+      if (other.id != null)
+        return false;
+    } else if (!id.equals(other.id))
+      return false;
+    if (postalCode == null) {
+      if (other.postalCode != null)
+        return false;
+    } else if (!postalCode.equals(other.postalCode))
+      return false;
+    if (streetName == null) {
+      if (other.streetName != null)
+        return false;
+    } else if (!streetName.equals(other.streetName))
+      return false;
+    if (streetNumber != other.streetNumber)
+      return false;
+    return true;
   }
 
 }
