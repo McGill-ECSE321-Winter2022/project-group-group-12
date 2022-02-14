@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
  *
  */
 @Entity
-public class Account {
+public abstract class Account {
 
   private String username;
   private String email;
