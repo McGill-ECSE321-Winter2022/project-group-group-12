@@ -23,10 +23,6 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestOrderPersistence {
@@ -37,8 +33,9 @@ public class TestOrderPersistence {
 
   //Initialize variables that will be used to test an order
   // order
-  OrderType orderType = OrderType.Delivery;
-  OrderStatus orderStatus = OrderStatus.OutForDelivery;
+  OrderType OrderTypeEnum = OrderType.Delivery;
+  OrderStatus OrederStatusEnum = OrderStatus.OutForDelivery;
+
   // purchase
   Date date = Date.valueOf(LocalDate.of(2022, Month.JANUARY,31));
   Time time = java.sql.Time.valueOf(LocalTime.of(13, 25)); 
@@ -68,8 +65,8 @@ public class TestOrderPersistence {
     purchase.setQuantitiesOrdered(quantitiesOrdered);
 
     Order order = new Order();
-    order.setOrderType(orderType);
-    order.setOrderStatus(orderStatus);
+    order.setOrderType(OrderTypeEnum);
+    order.setOrderStatus(OrederStatusEnum);
 
     orderRepository.save(order);
 
@@ -81,8 +78,8 @@ public class TestOrderPersistence {
     assertEquals(order.getDate(), date);
     assertEquals(order.getTime(), time);
     assertEquals(order.getId(), purchaseId);
-    assertEquals(order.getOrderStatus(), orderStatus);
-    assertEquals(order.getOrderType(), orderType);
+    assertEquals(order.getOrderStatus(), OrederStatusEnum);
+    assertEquals(order.getOrderType(), OrderTypeEnum);
     assertEquals(order.getQuantitiesOrdered(), quantitiesOrdered);
 
   }
@@ -103,8 +100,8 @@ public class TestOrderPersistence {
     purchase.setQuantitiesOrdered(quantitiesOrdered);
 
     Order order = new Order();
-    order.setOrderType(orderType);
-    order.setOrderStatus(orderStatus);
+    order.setOrderType(OrderTypeEnum);
+    order.setOrderStatus(OrederStatusEnum);
 
 
     QuantityOrdered quantityOrdered = new QuantityOrdered();
@@ -122,8 +119,8 @@ public class TestOrderPersistence {
     assertEquals(order.getDate(), date);
     assertEquals(order.getTime(), time);
     assertEquals(order.getId(), purchaseId);
-    assertEquals(order.getOrderStatus(), orderStatus);
-    assertEquals(order.getOrderType(), orderType);
+    assertEquals(order.getOrderStatus(), OrederStatusEnum);
+    assertEquals(order.getOrderType(), OrderTypeEnum);
     assertEquals(order.getQuantitiesOrdered(), quantitiesOrdered);
 
   }
@@ -144,21 +141,21 @@ public class TestOrderPersistence {
     purchase.setQuantitiesOrdered(quantitiesOrdered);
 
     Order order = new Order();
-    order.setOrderType(orderType);
-    order.setOrderStatus(orderStatus);
+    order.setOrderType(OrderTypeEnum);
+    order.setOrderStatus(OrederStatusEnum);
 
     orderRepository.save(order);
 
     order=null;
 
-    order = (Order) orderRepository.findOrdersByOrderType(orderType);
+    order = (Order) orderRepository.findOrdersByOrderType(OrderTypeEnum);
 
     assertNotNull(order);
     assertEquals(order.getDate(), date);
     assertEquals(order.getTime(), time);
     assertEquals(order.getId(), purchaseId);
-    assertEquals(order.getOrderStatus(), orderStatus);
-    assertEquals(order.getOrderType(), orderType);
+    assertEquals(order.getOrderStatus(), OrederStatusEnum);
+    assertEquals(order.getOrderType(), OrderTypeEnum);
     assertEquals(order.getQuantitiesOrdered(), quantitiesOrdered);
 
   }
@@ -180,21 +177,21 @@ public class TestOrderPersistence {
     purchase.setQuantitiesOrdered(quantitiesOrdered);
 
     Order order = new Order();
-    order.setOrderType(orderType);
-    order.setOrderStatus(orderStatus);
+    order.setOrderType(OrderTypeEnum);
+    order.setOrderStatus(OrederStatusEnum);
 
     orderRepository.save(order);
 
     order=null;
 
-    order =  (Order) orderRepository.findOrdersByOrderStatus(orderStatus);
+    order =  (Order) orderRepository.findOrdersByOrderStatus(OrederStatusEnum);
 
     assertNotNull(order);
     assertEquals(order.getDate(), date);
     assertEquals(order.getTime(), time);
     assertEquals(order.getId(), purchaseId);
-    assertEquals(order.getOrderStatus(), orderStatus);
-    assertEquals(order.getOrderType(), orderType);
+    assertEquals(order.getOrderStatus(), OrederStatusEnum);
+    assertEquals(order.getOrderType(), OrderTypeEnum);
     assertEquals(order.getQuantitiesOrdered(), quantitiesOrdered);
 
   }
