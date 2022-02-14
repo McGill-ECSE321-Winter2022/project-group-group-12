@@ -34,7 +34,6 @@ public class GSSS {
 	String id; // Since none of the above attributes can be used as a primary key
 
 	@Id
-	@GeneratedValue
 	public String getId() {
 		return id;
 	}

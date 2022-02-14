@@ -26,7 +26,6 @@ public class QuantityOrdered {
   }
 
   @Id
-  @GeneratedValue
   public String getId() {
     return id;
   }

@@ -12,7 +12,6 @@ public class Shift extends TimeInterval {
   private String id;
 
   @Id
-  @GeneratedValue
   public String getId() {
     return id;
   }
