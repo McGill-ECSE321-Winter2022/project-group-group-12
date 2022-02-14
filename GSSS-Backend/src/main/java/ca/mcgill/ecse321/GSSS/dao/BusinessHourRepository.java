@@ -1,8 +1,8 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
+import org.springframework.data.repository.CrudRepository;
 import ca.mcgill.ecse321.GSSS.model.BusinessHour;
 import ca.mcgill.ecse321.GSSS.model.Weekday;
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * This interface defines the repository for the CRUD functionalities relating to the Business Hours.

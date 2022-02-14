@@ -9,6 +9,6 @@ package ca.mcgill.ecse321.GSSS.model;
  *
  */
 public enum OrderType {
- Delivery, Pickup
+ Delivery, Pickup, InPerson
 
 }

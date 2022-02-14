@@ -1,9 +1,7 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
 import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
-
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 
@@ -29,7 +27,7 @@ public interface ItemRepository extends CrudRepository<Item, String> {
    * 
    * @author Philippe Sarouphim Hochar.
    * 
-   * @param isAvailableForOrder Availability for order.
+   * @param availableForOrder Availability for order.
    * @return List of queries items.
    */
   List<Item> findItemsByAvailableForOrder(boolean availableForOrder);
@@ -39,7 +37,7 @@ public interface ItemRepository extends CrudRepository<Item, String> {
    * 
    * @author Philippe Sarouphim Hochar.
    * 
-   * @param isStillAvailable Availability of items.
+   * @param stillAvailable Availability of items.
    * @return List of queried items.
    */
   List<Item> findItemsByStillAvailable(boolean stillAvailable);
@@ -61,8 +59,8 @@ public interface ItemRepository extends CrudRepository<Item, String> {
    * @author Philippe Sarouphim Hochar.
    * 
    * @param category Category of items.
-   * @param isAvailableForOrder Availability for orders.
-   * @param isStillAvailable Availability in shop.
+   * @param availableForOrder Availability for orders.
+   * @param stillAvailable Availability in shop.
    * @return List of queried items.
    */
   List<Item> findItemsByCategoryAndAvailableForOrderAndStillAvailable(ItemCategory category,

@@ -10,9 +10,9 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-public class Employee extends User {
+public class Employee extends Account {
   
-  Set<Shift> shifts;
+  private Set<Shift> shifts;
   
   @OneToMany
   public Set<Shift> getShifts() {

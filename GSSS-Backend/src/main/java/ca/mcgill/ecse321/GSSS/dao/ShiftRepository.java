@@ -1,11 +1,9 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
-import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.model.Shift;
-import org.springframework.data.repository.CrudRepository;
-
 import java.sql.Date;
 import java.util.List;
+import org.springframework.data.repository.CrudRepository;
+import ca.mcgill.ecse321.GSSS.model.Shift;
 
 /**
  * This interface defines the repository for the CRUD functionalities relating to the Shifts.

@@ -10,13 +10,13 @@ import javax.persistence.OneToOne;
  *
  */
 @Entity
-public abstract class User {
+public class Account {
 
-  String username;
-  String email;
-  String password;
-  boolean disabled;
-  Address address;
+  private String username;
+  private String email;
+  private String password;
+  private boolean disabled;
+  private Address address;
   
   @OneToOne
   public Address getAddress() {

@@ -2,11 +2,13 @@ package ca.mcgill.ecse321.GSSS.model;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * This class represents a purchase.
@@ -22,7 +24,17 @@ public class Purchase {
     private OrderStatus orderStatus;
     private Date date;
     private Time time;
-    private Map<Item, Integer> items;
+    private Map<Item, Integer> items = new HashMap<Item, Integer>(); ;
+    private Employee employee;
+
+    @ManyToOne
+    public Employee getEmployee() {
+      return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+      this.employee = employee;
+    }
 
     @Id
     public String getId() {

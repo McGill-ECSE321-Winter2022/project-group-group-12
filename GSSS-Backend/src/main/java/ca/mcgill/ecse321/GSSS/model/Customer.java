@@ -9,10 +9,10 @@ import javax.persistence.OneToOne;
  * This class represents the customer.
  * Its primary key is its email in its superclass User.
  * 
- * @Habib Jarweh
+ * @author Habib Jarweh
  */
 @Entity
-public class Customer extends User {
+public class Customer extends Account {
 
   private Set<Purchase> purchases;
 

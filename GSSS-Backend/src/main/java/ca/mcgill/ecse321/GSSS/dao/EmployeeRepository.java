@@ -1,12 +1,9 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
 import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
-
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 
 /**
@@ -46,14 +43,14 @@ public interface EmployeeRepository extends CrudRepository<Employee, String> {
    * @return the employee associated to that particular address
    * @author Theo Ghanem
    */
-  Employee findEmployeeByAddresses(Address address);
-
+  Employee findEmployeeByAddress(Address address);
+  
   /**
-   * This method queries the database an employee associated to a particular assigned purchase.
-   * @param assignedPurchase One of the employee's assigned purchase
-   * @return the employee associated to that particular purchase
-   * @author Theo Ghanem
+   * 
+   * @author Wassim Jabbour
+   * @param disabled
+   * @return
    */
-  Employee findEmployeeByAssignedPurchases(Purchase assignedPurchase);
+  List<Employee> findEmployeesByDisabled(boolean disabled);
 
 }

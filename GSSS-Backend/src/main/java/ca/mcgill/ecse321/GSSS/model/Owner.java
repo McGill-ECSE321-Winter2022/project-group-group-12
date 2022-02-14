@@ -9,6 +9,6 @@ import javax.persistence.Entity;
  * @author Philippe Sarouphim Hochar.
  */
 @Entity
-public class Owner extends User {
+public class Owner extends Account {
 
 }
