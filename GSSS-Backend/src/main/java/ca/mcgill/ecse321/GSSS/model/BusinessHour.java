@@ -12,6 +12,18 @@ public class BusinessHour {
   private Time startTime;
   private Time endTime;
 
+  /**
+   *
+   * enumeration Weekday, used by the BusinessHour class this is to define opening hours on a specific
+   * day of the week
+   *
+   * @author Habib Jarweh
+   *
+   */
+  public enum Weekday {
+    Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+  }
+
   @Id
   public Weekday getWeekday() {
     return weekday;
