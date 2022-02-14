@@ -9,10 +9,27 @@ import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 
+/**
+ * This interface defines the repository for the CRUD functionalities relating to the Employees.
+ *
+ * @author Theo Ghanem
+ */
 public interface EmployeeRepository extends CrudRepository<Employee, String> {
 
+  /**
+   * This method queries the database for an employee associated to a particular email.
+   * @param email the employee's email
+   * @return the employee associated to that particular email
+   * @author Theo Ghanem
+   */
   Employee findEmployeeByEmail(String email);
 
+  /**
+   * This method queries the database for a list of employees associated to a particular username (that isn't unique).
+   * @param username the employees that have that particular username
+   * @return a list of employees associated to that particular username
+   * @author Theo Ghanem
+   */
   List<Employee> findEmployeesByUsername(String username);
   
   /**
@@ -23,8 +40,20 @@ public interface EmployeeRepository extends CrudRepository<Employee, String> {
    */
   List<Employee> findEmployeesByShifts(Shift shift);
 
+  /**
+   * This method queries the database an employee associated to an address.
+   * @param address One of the employee's address
+   * @return the employee associated to that particular address
+   * @author Theo Ghanem
+   */
   Employee findEmployeeByAddresses(Address address);
 
+  /**
+   * This method queries the database an employee associated to a particular assigned purchase.
+   * @param assignedPurchase One of the employee's assigned purchase
+   * @return the employee associated to that particular purchase
+   * @author Theo Ghanem
+   */
   Employee findEmployeeByAssignedPurchases(Purchase assignedPurchase);
 
 }
