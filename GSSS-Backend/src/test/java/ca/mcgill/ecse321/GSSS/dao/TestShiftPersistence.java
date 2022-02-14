@@ -21,6 +21,8 @@ public class TestShiftPersistence {
 
   @Autowired
   ShiftRepository shiftRepository;
+  
+ 
   Date date = new Date(System.currentTimeMillis());
   
   @Test
