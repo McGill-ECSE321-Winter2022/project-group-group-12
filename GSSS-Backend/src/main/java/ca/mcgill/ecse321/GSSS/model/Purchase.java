@@ -4,12 +4,15 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
-
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * This class represents a purchase.
@@ -79,6 +82,8 @@ public class Purchase {
     }
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @OnDelete(action= OnDeleteAction.CASCADE)
+    @JoinColumn(name = "purchase_id")
     public Map<Item, Integer> getItems() {
         return items;
     }
