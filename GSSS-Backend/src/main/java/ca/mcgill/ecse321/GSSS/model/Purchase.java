@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -77,7 +78,7 @@ public class Purchase {
         this.time = time;
     }
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     public Map<Item, Integer> getItems() {
         return items;
     }

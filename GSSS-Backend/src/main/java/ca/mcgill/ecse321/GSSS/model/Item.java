@@ -90,6 +90,23 @@ public class Item {
   }
 
   @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + (availableForOrder ? 1231 : 1237);
+    result = prime * result + ((category == null) ? 0 : category.hashCode());
+    result = prime * result + ((description == null) ? 0 : description.hashCode());
+    result = prime * result + ((imageUrl == null) ? 0 : imageUrl.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    long temp;
+    temp = Double.doubleToLongBits(price);
+    result = prime * result + (int) (temp ^ (temp >>> 32));
+    result = prime * result + remainingQuantity;
+    result = prime * result + (stillAvailable ? 1231 : 1237);
+    return result;
+  }
+
+  @Override
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
