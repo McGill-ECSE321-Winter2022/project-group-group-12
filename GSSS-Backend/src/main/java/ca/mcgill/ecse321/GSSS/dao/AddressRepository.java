@@ -7,6 +7,9 @@ import ca.mcgill.ecse321.GSSS.model.Address;
 /**
  * 
  * To find the addresses in the system
+ * 
+ * @author Wassim Jabbour
+ * @author Habib Jarweh
  *
  */
 

@@ -12,20 +12,22 @@ import ca.mcgill.ecse321.GSSS.model.Shift;
  */
 public interface ShiftRepository extends CrudRepository<Shift, String> {
 
-    /**
-     * This method queries the database for the unique shift associated to the shift's ID.
-     * @param id unique id of the Shift
-     * @return the shift
-     * @author Theo Ghanem
-     */
-    Shift findShiftById(String id);
+  /**
+   * This method queries the database for the unique shift associated to the shift's ID.
+   * 
+   * @param id unique id of the Shift
+   * @return the shift
+   * @author Theo Ghanem
+   */
+  Shift findShiftById(String id);
 
-    /**
-     * This method queries the database for the lists of shifts associated to a particular date.
-     * @param date a particular date
-     * @return the list of shifts associated to that date
-     * @author Theo Ghanem
-     */
-    List<Shift> findShiftsByDate(Date date);
+  /**
+   * This method queries the database for the lists of shifts associated to a particular date.
+   * 
+   * @param date a particular date
+   * @return the list of shifts associated to that date
+   * @author Theo Ghanem
+   */
+  List<Shift> findShiftsByDate(Date date);
 
 }
