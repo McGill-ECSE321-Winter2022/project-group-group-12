@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.GSSS.dao;
 
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Owner;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,18 @@ public class TestOwnerPersistence {
 
     @Autowired
     private AddressRepository addressRepository;
-
+    
+    /**
+     * This method is executed after each test and clears the concerned tables.
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @AfterEach
+    public void clearDatabase() {
+      ownerRepository.deleteAll();
+      addressRepository.deleteAll();
+    }
+    
     //Initialize variables that will be used to successfully create a complete owner
     String username = "OwnerDude";
     String email = "owner@email.com";

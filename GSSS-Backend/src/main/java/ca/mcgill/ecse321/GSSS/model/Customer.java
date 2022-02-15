@@ -1,9 +1,12 @@
 package ca.mcgill.ecse321.GSSS.model;
 
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  * This class represents the customer.
@@ -13,15 +16,16 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Customer extends Account {
+	
 
   private Set<Purchase> purchases;
 
-
-  @OneToMany
+  @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+  @JoinColumn(name = "customer_Id")
   public Set<Purchase> getPurchases() {
     return purchases;
   }
-
+ 
   public void setPurchases(Set<Purchase> purchases) {
     this.purchases = purchases;
   }
