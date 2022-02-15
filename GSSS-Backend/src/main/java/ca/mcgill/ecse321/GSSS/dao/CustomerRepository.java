@@ -8,7 +8,10 @@ import ca.mcgill.ecse321.GSSS.model.Purchase;
 
 /**
  * 
- * To find the a customer in the system
+ * To find the a customer in the system.
+ * 
+ * @author Habib Jarweh
+ * @author Wassim Jabbour
  *
  */
 
