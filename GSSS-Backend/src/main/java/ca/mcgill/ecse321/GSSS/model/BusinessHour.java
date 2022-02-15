@@ -4,7 +4,12 @@ import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-
+/**
+ * This class represents the Grocery Store's Weekly Business Hours.
+ * Its primary key is a weekday.
+ *
+ * @author Theo Ghanem
+ */
 @Entity
 public class BusinessHour {
 
@@ -32,7 +37,6 @@ public class BusinessHour {
   public void setEndTime(Time endTime) {
     this.endTime = endTime;
   }
-
 
   public void setWeekday(Weekday weekday) {
     this.weekday = weekday;
