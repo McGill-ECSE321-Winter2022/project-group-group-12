@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.GSSS.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
 /**
@@ -9,6 +11,7 @@ import javax.persistence.OneToOne;
  * @author Wassim Jabbour
  *
  */
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 public abstract class Account {
 
