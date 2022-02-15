@@ -11,6 +11,14 @@ import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+
+/**
+ * 
+ * this class is to test persistence of itemCategory, with find by name (its primary key)
+ * 
+ * @author Habib Jarweh
+ *
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestItemCategoryPersistence {
