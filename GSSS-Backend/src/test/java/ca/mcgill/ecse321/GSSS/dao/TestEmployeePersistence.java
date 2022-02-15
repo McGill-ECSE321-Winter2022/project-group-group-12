@@ -2,9 +2,6 @@ package ca.mcgill.ecse321.GSSS.dao;
 
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.model.Item;
-import ca.mcgill.ecse321.GSSS.model.ItemCategory;
-import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -32,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 public class TestEmployeePersistence {
 
+
   /**
    * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
    * exceptions being thrown when deleting
@@ -54,14 +52,23 @@ public class TestEmployeePersistence {
 
   @Autowired
   private EmployeeRepository employeeRepository;
+  @Autowired
   private AddressRepository addressRepository;
+  @Autowired
   private ShiftRepository shiftRepository;
+  @Autowired
   private BusinessHourRepository businessHourRepository;
+  @Autowired
   private CustomerRepository customerRepository;
+  @Autowired
   private ItemCategoryRepository itemCategoryRepository;
+  @Autowired
   private ItemRepository itemRepository;
+  @Autowired
   private OwnerRepository ownerRepository;
+  @Autowired
   private PurchaseRepository purchaseRepository;
+  @Autowired
   private AccountRepository accountRepository;
 
   //Initialize variables that will be used to successfully create a complete employee
@@ -209,8 +216,9 @@ public class TestEmployeePersistence {
     setOfShifts.add(shift);
 
     Employee employee = persistEmployee(email, password, address, setOfShifts, false);
-    Employee actualEmployee  =  (Employee) employeeRepository.findEmployeesByUsername(username);
-    verify(employee,actualEmployee);
+    List<Employee> listOfEmployees = new ArrayList<Employee>();
+    listOfEmployees  =  employeeRepository.findEmployeesByUsername(username);
+    verify(employee, listOfEmployees.get(0));
 
   }
 
@@ -230,8 +238,10 @@ public class TestEmployeePersistence {
     setOfShifts.add(shift);
 
     Employee employee = persistEmployee(email, password, address, setOfShifts, false);
-    Employee actualEmployee  =  (Employee) employeeRepository.findEmployeesByShifts(shift);
-    verify(employee,actualEmployee);
+    List<Employee> listOfEmployees = new ArrayList<Employee>();
+    listOfEmployees  =  employeeRepository.findEmployeesByShifts(shift);
+
+    verify(employee,listOfEmployees.get(0));
 
   }
 
