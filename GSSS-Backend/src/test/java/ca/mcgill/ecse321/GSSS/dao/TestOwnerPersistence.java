@@ -36,7 +36,7 @@ public class TestOwnerPersistence {
     /**
      * Testing the persistence and loading for the Owner Repository.
      * This tests the findOwnerByEmail method
-     * @author 
+     * @author Theo Ghanem and Enzo Benoit-Jeannin
      */
     @Test
     public void testPersistAndLoadOwnerByEmail(){
@@ -52,28 +52,25 @@ public class TestOwnerPersistence {
         owner.setEmail(email);
         owner.setUsername(username);
         owner.setPassword(password);
-        HashSet<Address> setOfAddresses = new HashSet<>();
-        owner.setAddresses(setOfAddresses);
+        owner.setAddress(address);
 
         addressRepository.save(address);
         ownerRepository.save(owner);
         
-        owner=null;
-
         owner = ownerRepository.findOwnerByEmail(email);
 
         assertNotNull(owner);
         assertEquals(owner.getUsername(), username);
         assertEquals(owner.getEmail(), email);
         assertEquals(owner.getPassword(), password);
-        assertEquals(owner.getAddresses(), setOfAddresses);
+        assertEquals(owner.getAddress(), address);
 
     }
 
     /**
      * Testing the persistence and loading for the Owner Repository.
      * This tests the findOwnerByAddress method
-     * @author
+     * @author Theo Ghanem and Enzo Benoit-Jeannin
      */
     @Test
     public void testPersistAndLoadOwnerByAddress(){
@@ -89,21 +86,18 @@ public class TestOwnerPersistence {
         owner.setEmail(email);
         owner.setUsername(username);
         owner.setPassword(password);
-        HashSet<Address> setOfAddresses = new HashSet<>();
-        owner.setAddresses(setOfAddresses);
+        owner.setAddress(address);
 
         addressRepository.save(address);
         ownerRepository.save(owner);
 
-        owner=null;
-
-        owner = ownerRepository.findOwnerByAddresses(address);
+        owner = ownerRepository.findOwnerByAddress(address);
 
         assertNotNull(owner);
         assertEquals(owner.getUsername(), username);
         assertEquals(owner.getEmail(), email);
         assertEquals(owner.getPassword(), password);
-        assertEquals(owner.getAddresses(), setOfAddresses);
+        assertEquals(owner.getAddress(), address);
 
     }
         
