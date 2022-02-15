@@ -9,55 +9,55 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class CommonTests {
-  
-//  @Autowired
-//  private AddressRepository addressRepository;
-//
-//  @Autowired
-//  private BusinessHourRepository businessHourRepository;
-//
-//  @Autowired
-//  private CustomerRepository customerRepository;
-//
-//  @Autowired
-//  private EmployeeRepository employeeRepository;
-//
-//  @Autowired
-//  private ItemCategoryRepository itemCategoryRepository;
-//
-//  @Autowired
-//  private ItemRepository itemRepository;
-//
-//  @Autowired
-//  private OrderRepository orderRepository;
-//
-//  @Autowired
-//  private OwnerRepository ownerRepository;
-//
-//  @Autowired
-//  private PurchaseRepository purchaseRepository;
-//
-//  @Autowired
-//  private QuantityOrderedRepository quantityOrderedRepository;
-//
-//  @Autowired
-//  private ShiftRepository shiftRepository;
-//
-//  @AfterEach
-//  public void clearDatabase() {
-//
-//    // Deleting all the database contents from the most dependent to most independent
-//    customerRepository.deleteAll();
-//    employeeRepository.deleteAll();
-//    ownerRepository.deleteAll();
-//    addressRepository.deleteAll();
-//    purchaseRepository.deleteAll();
-//    orderRepository.deleteAll();
-//    quantityOrderedRepository.deleteAll();
-//    itemRepository.deleteAll();
-//    itemCategoryRepository.deleteAll();
-//    shiftRepository.deleteAll();
-//    businessHourRepository.deleteAll();
-//  }
+
+  @Autowired
+  private AddressRepository addressRepository;
+
+  @Autowired
+  private BusinessHourRepository businessHourRepository;
+
+  @Autowired
+  private CustomerRepository customerRepository;
+
+  @Autowired
+  private EmployeeRepository employeeRepository;
+
+  @Autowired
+  private ItemCategoryRepository itemCategoryRepository;
+
+  @Autowired
+  private ItemRepository itemRepository;
+
+  @Autowired
+  private OwnerRepository ownerRepository;
+
+  @Autowired
+  private PurchaseRepository purchaseRepository;
+
+  @Autowired
+  private ShiftRepository shiftRepository;
+
+  @Autowired
+  private AccountRepository accountRepository;
+
+  /**
+   * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
+   * exceptions being thrown when deleting
+   * 
+   * @author Wassim Jabbour
+   */
+  @AfterEach
+  public void clearDatabase() {
+    accountRepository.deleteAll();
+    customerRepository.deleteAll();
+    purchaseRepository.deleteAll();
+    employeeRepository.deleteAll();
+    shiftRepository.deleteAll();
+    ownerRepository.deleteAll();
+    addressRepository.deleteAll();
+    itemRepository.deleteAll();
+    itemCategoryRepository.deleteAll();
+    businessHourRepository.deleteAll();
+  }
 
 }

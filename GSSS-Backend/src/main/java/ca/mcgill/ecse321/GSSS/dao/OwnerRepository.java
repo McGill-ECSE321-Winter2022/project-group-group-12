@@ -14,7 +14,7 @@ import ca.mcgill.ecse321.GSSS.model.Owner;
 public interface OwnerRepository extends CrudRepository<Owner, String> {
 
   /**
-   *  
+   * 
    * Find the owner by his email
    * 
    * @author Wassim Jabbour
@@ -24,7 +24,7 @@ public interface OwnerRepository extends CrudRepository<Owner, String> {
   Owner findOwnerByEmail(String email);
 
   /**
-   *  
+   * 
    * Find the owner by his address
    * 
    * @author Wassim Jabbour

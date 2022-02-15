@@ -18,10 +18,10 @@ public interface PurchaseRepository extends CrudRepository<Purchase, String> {
 
   /**
    * 
-   * method to find a specific Purchase by its unique ID
+   * Method to find a specific Purchase by its unique ID
    * 
    * @author Habib Jarweh
-   * @param id, unique id of purchase
+   * @param id Unique id of purchase
    * @return purchase we want to find
    * 
    */
@@ -29,10 +29,10 @@ public interface PurchaseRepository extends CrudRepository<Purchase, String> {
 
   /**
    * 
-   * method that returns a list of purchases based on their date
+   * Method that returns a list of purchases based on their date
    * 
    * @author Habib Jarweh
-   * @param date the date of purchase
+   * @param date The date of purchase
    * @return List<Purchase>
    */
   List<Purchase> findPurchasesByDate(Date date);
@@ -48,13 +48,13 @@ public interface PurchaseRepository extends CrudRepository<Purchase, String> {
    * 
    */
   List<Purchase> findPurchasesByDateAndTime(Date date, Time time);
-  
+
   /**
    * 
-   * method that returns list of purchases based on the employee that handled them
+   * Method that returns a list of purchases based on the employee that handled them
    * 
    * @author Wassim Jabbour
-   * @param employee the employee who handled the purchase
+   * @param employee The employee who handled the purchase
    */
   List<Purchase> findPurchasesByEmployee(Employee employee);
 }
