@@ -24,7 +24,7 @@ import ca.mcgill.ecse321.GSSS.model.ItemCategory;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TestItemPersistance {
+public class TestItemPersistence {
 
   @Autowired
   private ItemRepository itemRepository;

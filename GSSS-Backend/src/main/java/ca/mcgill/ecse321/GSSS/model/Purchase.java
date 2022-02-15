@@ -24,7 +24,7 @@ public class Purchase {
     private OrderStatus orderStatus;
     private Date date;
     private Time time;
-    private Map<Item, Integer> items = new HashMap<Item, Integer>(); ;
+    private Map<Item, Integer> items = new HashMap<Item, Integer>();
     private Employee employee;
 
     @ManyToOne

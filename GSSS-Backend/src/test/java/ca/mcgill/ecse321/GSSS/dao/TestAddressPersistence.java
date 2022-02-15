@@ -14,11 +14,57 @@ import ca.mcgill.ecse321.GSSS.model.Address;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestAddressPersistence {
-
+  
   @Autowired
   private AddressRepository addressRepository;
-  
 
+  @Autowired
+  private BusinessHourRepository businessHourRepository;
+
+  @Autowired
+  private CustomerRepository customerRepository;
+
+  @Autowired
+  private EmployeeRepository employeeRepository;
+
+  @Autowired
+  private ItemCategoryRepository itemCategoryRepository;
+
+  @Autowired
+  private ItemRepository itemRepository;
+
+  @Autowired
+  private OwnerRepository ownerRepository;
+
+  @Autowired
+  private PurchaseRepository purchaseRepository;
+
+  @Autowired
+  private ShiftRepository shiftRepository;
+
+  @Autowired
+  private AccountRepository accountRepository;
+
+  /**
+   * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
+   * exceptions being thrown when deleting
+   * 
+   * @author Wassim Jabbour
+   */
+  @AfterEach
+  public void clearDatabase() {
+    accountRepository.deleteAll();
+    customerRepository.deleteAll();
+    purchaseRepository.deleteAll();
+    employeeRepository.deleteAll();
+    shiftRepository.deleteAll();
+    ownerRepository.deleteAll();
+    addressRepository.deleteAll();
+    itemRepository.deleteAll();
+    itemCategoryRepository.deleteAll();
+    businessHourRepository.deleteAll();
+  }
+  
   /**
    * To test the method findAddressById() for the address
    * 
