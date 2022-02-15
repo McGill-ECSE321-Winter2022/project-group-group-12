@@ -116,7 +116,24 @@ public class TestEmployeePersistence {
     assertEquals(expected.getAddress(), actual.getAddress());
     
   }
-  
+
+  /**
+   *
+   */
+  private void verifyContains(Employee employee, List<Employee> employees){
+
+    boolean found = false;
+
+    for(Employee e: employees){
+      if(e.getEmail()!=null && e.getEmail().equals(employee.getEmail())){
+        found = true;
+        verify(employee, e);
+      }
+    }
+
+    assertTrue(found);
+  }
+
   /**
    * This method creates an address from the specified parameters, and saves it to the database.
    * 
@@ -294,8 +311,8 @@ public class TestEmployeePersistence {
     Set<Shift> setOfShifts = new HashSet<>();
     setOfShifts.add(shift);
     Employee employee = persistEmployee(email, password, address, setOfShifts, true);
-    Employee actualEmployee  =  (Employee) employeeRepository.findEmployeesByDisabled(true);
-    verify(employee,actualEmployee);
+    List<Employee> listOfEmployees =  employeeRepository.findEmployeesByDisabled(true);
+    verifyContains(employee, listOfEmployees);
 
   }
 }

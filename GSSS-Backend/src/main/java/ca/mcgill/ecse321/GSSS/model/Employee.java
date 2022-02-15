@@ -17,7 +17,6 @@ public class Employee extends Account {
   private Set<Shift> shifts;
 
   @OneToMany(fetch = FetchType.EAGER)
-  @JoinColumn(name = "customer_Id")
   public Set<Shift> getShifts() {
     return shifts;
   }

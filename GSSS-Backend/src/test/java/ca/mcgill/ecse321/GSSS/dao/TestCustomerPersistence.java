@@ -99,8 +99,10 @@ public class TestCustomerPersistence {
     String addressId = UUID.randomUUID().toString();
     
     // Initialize variables to create employee and its address 
+
     String employeeFullName = "Asap Rocky";
     String employeeStreetName = "Univeristy Street";
+
     String employeeCity = "Montreal";
     int employeeStreetNumber = 12;
     String employeePostalCode = "H2Y 4X3";
@@ -304,8 +306,6 @@ public class TestCustomerPersistence {
         purchaseRepository.save(purchase);
         customerRepository.save(customer);
         
-        customer = null;
-        
         List<Customer> myCustomers = customerRepository.findCustomersByUsername(name);
         customer = myCustomers.get(0);
         
@@ -358,8 +358,6 @@ public class TestCustomerPersistence {
         itemRepository.save(item);
         purchaseRepository.save(purchase);
         customerRepository.save(customer);
-        
-        customer = null;
         
         List<Customer> myCustomers = customerRepository.findCustomersByDisabled(true);
         customer = myCustomers.get(0);
@@ -414,8 +412,6 @@ public class TestCustomerPersistence {
         purchaseRepository.save(purchase);
         customerRepository.save(customer);
         
-        customer = null;
-        
         customer = customerRepository.findCustomerByEmail(email);
         
         assertNotNull(customer);		
@@ -466,8 +462,6 @@ public class TestCustomerPersistence {
         itemRepository.save(item);
         purchaseRepository.save(purchase);
         customerRepository.save(customer);
-        
-        customer = null;
         
         customer = customerRepository.findCustomerByAddress(customerAddress);
         
