@@ -70,8 +70,8 @@ public class TestEmployeePersistence {
         employee.setEmail(email);
         employee.setUsername(username);
         employee.setPassword(password);
-        HashSet<Address> setOfAddresses = new HashSet<>();
-        employee.setAddresses(setOfAddresses);
+        employee.setAddress(address);
+
 
         Shift shift = new Shift();
         shift.setDate(date);
@@ -80,16 +80,9 @@ public class TestEmployeePersistence {
         HashSet<Shift> setOfShifts = new HashSet<>();
         employee.setShifts(setOfShifts);
 
-        Purchase purchase = new Purchase();
-        purchase.setDate(purchaseDate);
-        purchase.setTime(purchaseTime);
-        purchase.setId(purchaseId);
-        HashSet<Purchase> setOfPurchases = new HashSet<>();
-        employee.setAssignedPurchases(setOfPurchases);
 
         employeeRepository.save(employee);
         addressRepository.save(address);
-        purchaseRepository.save(purchase);
         shiftRepository.save(shift);
 
         employee=null;
@@ -101,8 +94,7 @@ public class TestEmployeePersistence {
         assertEquals(employee.getEmail(), email);
         assertEquals(employee.getPassword(), password);
         assertEquals(employee.getShifts(), setOfShifts);
-        assertEquals(employee.getAddresses(), setOfAddresses);
-        assertEquals(employee.getAssignedPurchases(), setOfPurchases);
+        assertEquals(employee.getAddress(), address);
 
     }
 
@@ -126,8 +118,8 @@ public class TestEmployeePersistence {
         employee.setEmail(email);
         employee.setUsername(username);
         employee.setPassword(password);
-        HashSet<Address> setOfAddresses = new HashSet<>();
-        employee.setAddresses(setOfAddresses);
+        employee.setAddress(address);
+
 
         Shift shift = new Shift();
         shift.setDate(date);
@@ -136,30 +128,22 @@ public class TestEmployeePersistence {
         HashSet<Shift> setOfShifts = new HashSet<>();
         employee.setShifts(setOfShifts);
 
-        Purchase purchase = new Purchase();
-        purchase.setDate(purchaseDate);
-        purchase.setTime(purchaseTime);
-        purchase.setId(purchaseId);
-        HashSet<Purchase> setOfPurchases = new HashSet<>();
-        employee.setAssignedPurchases(setOfPurchases);
 
         employeeRepository.save(employee);
         addressRepository.save(address);
-        purchaseRepository.save(purchase);
         shiftRepository.save(shift);
 
         employee=null;
+        List<Employee> listOfEmployees;
+        listOfEmployees = employeeRepository.findEmployeesByUsername(username);
+        employee = listOfEmployees.get(0);
 
-        List<Employee> employeeList = new ArrayList<Employee>();
-        employeeList =  employeeRepository.findEmployeesByUsername(username);
-
-        assertNotNull(employeeList);
+        assertNotNull(listOfEmployees);
         assertEquals(employee.getUsername(), username);
         assertEquals(employee.getEmail(), email);
         assertEquals(employee.getPassword(), password);
         assertEquals(employee.getShifts(), setOfShifts);
-        assertEquals(employee.getAddresses(), setOfAddresses);
-        assertEquals(employee.getAssignedPurchases(), setOfPurchases);
+        assertEquals(employee.getAddress(), address);
 
     }
 
@@ -184,8 +168,8 @@ public class TestEmployeePersistence {
         employee.setEmail(email);
         employee.setUsername(username);
         employee.setPassword(password);
-        HashSet<Address> setOfAddresses = new HashSet<>();
-        employee.setAddresses(setOfAddresses);
+        employee.setAddress(address);
+
 
         Shift shift = new Shift();
         shift.setDate(date);
@@ -194,26 +178,22 @@ public class TestEmployeePersistence {
         HashSet<Shift> setOfShifts = new HashSet<>();
         employee.setShifts(setOfShifts);
 
-        Purchase purchase = new Purchase();
-        purchase.setDate(purchaseDate);
-        purchase.setTime(purchaseTime);
-        purchase.setId(purchaseId);
-        HashSet<Purchase> setOfPurchases = new HashSet<>();
-        employee.setAssignedPurchases(setOfPurchases);
 
         employeeRepository.save(employee);
+        addressRepository.save(address);
+        shiftRepository.save(shift);
 
         employee=null;
+        List<Employee> listOfEmployees;
+        listOfEmployees = employeeRepository.findEmployeesByShifts(shift);
+        employee = listOfEmployees.get(0);
 
-        employee = (Employee) employeeRepository.findEmployeesByShifts(shift);
-
-        assertNotNull(employee);
+        assertNotNull(listOfEmployees);
         assertEquals(employee.getUsername(), username);
         assertEquals(employee.getEmail(), email);
         assertEquals(employee.getPassword(), password);
         assertEquals(employee.getShifts(), setOfShifts);
-        assertEquals(employee.getAddresses(), setOfAddresses);
-        assertEquals(employee.getAssignedPurchases(), setOfPurchases);
+        assertEquals(employee.getAddress(), address);
 
     }
 
@@ -223,7 +203,7 @@ public class TestEmployeePersistence {
      * @author Theo Ghanem
      */
     @Test
-    public void testPersistAndLoadEmployeeByAddresses(){
+    public void testPersistAndLoadEmployeeByAddress(){
 
         Address address = new Address();
         address.setFullName(fullName);
@@ -237,8 +217,8 @@ public class TestEmployeePersistence {
         employee.setEmail(email);
         employee.setUsername(username);
         employee.setPassword(password);
-        HashSet<Address> setOfAddresses = new HashSet<>();
-        employee.setAddresses(setOfAddresses);
+        employee.setAddress(address);
+
 
         Shift shift = new Shift();
         shift.setDate(date);
@@ -247,35 +227,30 @@ public class TestEmployeePersistence {
         HashSet<Shift> setOfShifts = new HashSet<>();
         employee.setShifts(setOfShifts);
 
-        Purchase purchase = new Purchase();
-        purchase.setDate(purchaseDate);
-        purchase.setTime(purchaseTime);
-        purchase.setId(purchaseId);
-        HashSet<Purchase> setOfPurchases = new HashSet<>();
-        employee.setAssignedPurchases(setOfPurchases);
 
         employeeRepository.save(employee);
+        addressRepository.save(address);
+        shiftRepository.save(shift);
 
         employee=null;
 
-        employee = employeeRepository.findEmployeeByAddresses(address);
+        employee = employeeRepository.findEmployeeByAddress(address);
 
         assertNotNull(employee);
         assertEquals(employee.getUsername(), username);
         assertEquals(employee.getEmail(), email);
         assertEquals(employee.getPassword(), password);
         assertEquals(employee.getShifts(), setOfShifts);
-        assertEquals(employee.getAddresses(), setOfAddresses);
-        assertEquals(employee.getAssignedPurchases(), setOfPurchases);
+        assertEquals(employee.getAddress(), address);
     }
 
     /**
      * Testing the persistence and loading for the Employee Repository.
-     * This tests the findEmployeeByAssignedPurchases method
+     * This tests the findEmployeeByDisabled method
      * @author Theo Ghanem
      */
     @Test
-    public void testPersistAndLoadEmployeeByAssignedPurchases(){
+    public void testPersistAndLoadEmployeeByDisabled(){
 
         Address address = new Address();
         address.setFullName(fullName);
@@ -289,37 +264,26 @@ public class TestEmployeePersistence {
         employee.setEmail(email);
         employee.setUsername(username);
         employee.setPassword(password);
-        HashSet<Address> setOfAddresses = new HashSet<>();
-        employee.setAddresses(setOfAddresses);
+        employee.setAddress(address);
 
-        Shift shift = new Shift();
-        shift.setDate(date);
-        shift.setEndTime(endTime);
-        shift.setStartTime(startTime);
-        HashSet<Shift> setOfShifts = new HashSet<>();
-        employee.setShifts(setOfShifts);
 
-        Purchase purchase = new Purchase();
-        purchase.setDate(purchaseDate);
-        purchase.setTime(purchaseTime);
-        purchase.setId(purchaseId);
-        HashSet<Purchase> setOfPurchases = new HashSet<>();
-        employee.setAssignedPurchases(setOfPurchases);
+        employee.setDisabled(true);
 
 
         employeeRepository.save(employee);
+        addressRepository.save(address);
 
         employee=null;
 
-        employee = employeeRepository.findEmployeeByAssignedPurchases(purchase);
+        List<Employee> listOfDisabledEmployees;
+        listOfDisabledEmployees = employeeRepository.findEmployeesByDisabled(true);
+        employee = listOfDisabledEmployees.get(0);
 
         assertNotNull(employee);
         assertEquals(employee.getUsername(), username);
         assertEquals(employee.getEmail(), email);
         assertEquals(employee.getPassword(), password);
-        assertEquals(employee.getShifts(), setOfShifts);
-        assertEquals(employee.getAddresses(), setOfAddresses);
-        assertEquals(employee.getAssignedPurchases(), setOfPurchases);
+        assertEquals(employee.getAddress(), address);
 
     }
 }

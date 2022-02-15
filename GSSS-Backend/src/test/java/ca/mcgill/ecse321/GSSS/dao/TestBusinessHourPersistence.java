@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
+import ca.mcgill.ecse321.GSSS.model.Weekday;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -5,6 +5,12 @@ import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+* This class represents the employee's shifts.
+* Its primary key is a string.
+*
+* @author Theo Ghanem
+*/
 @Entity
 public class Shift{
 
