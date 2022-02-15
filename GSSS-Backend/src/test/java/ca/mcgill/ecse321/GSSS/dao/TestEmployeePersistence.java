@@ -21,16 +21,21 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Class to test the persistence and loading of the Employee Repository
+ *
+ * @author  Theo Ghanem
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestEmployeePersistence {
 
-    /**
-     * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
-     * exceptions being thrown when deleting
-     *
-     * @author Wassim Jabbour
-     */
+/**
+ * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
+ * exceptions being thrown when deleting
+ *
+ * @author Wassim Jabbour
+ */
     @AfterEach
     public void clearDatabase() {
         accountRepository.deleteAll();
@@ -312,3 +317,4 @@ public class TestEmployeePersistence {
 
     }
 }
+
