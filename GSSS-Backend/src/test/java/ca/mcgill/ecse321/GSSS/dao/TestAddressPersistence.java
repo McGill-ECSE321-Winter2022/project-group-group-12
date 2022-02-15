@@ -18,56 +18,16 @@ public class TestAddressPersistence {
   @Autowired
   private AddressRepository addressRepository;
   
-//  @Autowired
-//  private BusinessHourRepository businessHourRepository;
-//
-//  @Autowired
-//  private CustomerRepository customerRepository;
-//
-//  @Autowired
-//  private EmployeeRepository employeeRepository;
-//
-//  @Autowired
-//  private ItemCategoryRepository itemCategoryRepository;
-//
-//  @Autowired
-//  private ItemRepository itemRepository;
-//
-//  @Autowired
-//  private OrderRepository orderRepository;
-//
-//  @Autowired
-//  private OwnerRepository ownerRepository;
-//
-//  @Autowired
-//  private PurchaseRepository purchaseRepository;
-//
-//  @Autowired
-//  private QuantityOrderedRepository quantityOrderedRepository;
-//
-//  @Autowired
-//  private ShiftRepository shiftRepository;
-//
-//  @AfterEach
-//  public void clearDatabase() {
-//
-//    // Deleting all the database contents from the most dependent to most independent
-//    customerRepository.deleteAll();
-//    employeeRepository.deleteAll();
-//    ownerRepository.deleteAll();
-//    addressRepository.deleteAll();
-//    purchaseRepository.deleteAll();
-//    orderRepository.deleteAll();
-//    quantityOrderedRepository.deleteAll();
-//    itemRepository.deleteAll();
-//    itemCategoryRepository.deleteAll();
-//    shiftRepository.deleteAll();
-//    businessHourRepository.deleteAll();
-//  }
 
+  /**
+   * To test the method findAddressById() for the address
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testPersistAndLoadAddressById() {
 
+    // Initializing the address to test
     String fullName = "Enzo Ferrari";
     String streetName = "Crescent";
     int streetNumber = 43;
@@ -75,6 +35,7 @@ public class TestAddressPersistence {
     String postalCode = "W4S 5I3";
     String id = UUID.randomUUID().toString();
 
+    // Creating the address and setting the fields
     Address address = new Address();
     address.setFullName(fullName);
     address.setStreetName(streetName);
@@ -83,12 +44,16 @@ public class TestAddressPersistence {
     address.setPostalCode(postalCode);
     address.setId(id);
 
+    // Saving the address in memory
     addressRepository.save(address);
 
+    // Setting the address to null
     address = null;
 
+    // Finding the address by ID
     address = addressRepository.findAddressById(id);
 
+    // Checking that this is the same address we saved earlier
     assertNotNull(address);
     assertEquals(address.getFullName(), fullName);
     assertEquals(address.getStreetName(), streetName);
