@@ -99,11 +99,11 @@ public class TestCustomerPersistence {
     String addressId = UUID.randomUUID().toString();
     
     // Initialize variables to create employee and its address 
-    String employeeFullName = "Tyler TheCreator";
-    String employeeStreetName = "Lorne Crescent";
+    String employeeFullName = "Asap Rocky";
+    String employeeStreetName = "Univeristy Street";
     String employeeCity = "Montreal";
-    int employeeStreetNumber = 69;
-    String employeePostalCode = "H2X 2B3";
+    int employeeStreetNumber = 12;
+    String employeePostalCode = "H2Y 4X3";
     String employeeAddressId = UUID.randomUUID().toString();
     String employeeName = "ASAP Rocky";
     String employeeEmail = "praisethelord@gmail.com";
@@ -147,7 +147,6 @@ public class TestCustomerPersistence {
      * @author Enzo Benoit-Jeannin
      */
     private Address persistEmployeeAddress() {
-    	// Create employee address
         Address employeeAddress = new Address();
         employeeAddress.setFullName(employeeFullName);
         employeeAddress.setStreetName(employeeStreetName);
