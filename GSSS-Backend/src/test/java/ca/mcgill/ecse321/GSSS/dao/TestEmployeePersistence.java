@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.GSSS.dao;
 
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
+import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -17,8 +18,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Class to test the persistence and loading of the Employee Repository
@@ -99,7 +99,20 @@ public class TestEmployeePersistence {
     assertEquals(expected.getUsername(), actual.getUsername());
     assertEquals(expected.getEmail(), actual.getEmail());
     assertEquals(expected.getPassword(), actual.getPassword());
-    assertEquals(expected.getShifts(), actual.getShifts());
+
+    assertNotNull(actual.getShifts());
+    assertNotNull(expected.getShifts());
+    assertEquals(actual.getShifts().size(), expected.getShifts().size());
+    for(Shift expectedShift : expected.getShifts()){
+      boolean contains = false;
+      for(Shift actualShift : actual.getShifts()){
+        if(expectedShift.equals(actualShift)){
+            contains = true;
+        }
+      }
+      assertTrue(contains);
+    }
+
     assertEquals(expected.getAddress(), actual.getAddress());
     
   }
@@ -216,6 +229,7 @@ public class TestEmployeePersistence {
     setOfShifts.add(shift);
 
     Employee employee = persistEmployee(email, password, address, setOfShifts, false);
+
     List<Employee> listOfEmployees = new ArrayList<Employee>();
     listOfEmployees  =  employeeRepository.findEmployeesByUsername(username);
     verify(employee, listOfEmployees.get(0));
@@ -238,10 +252,10 @@ public class TestEmployeePersistence {
     setOfShifts.add(shift);
 
     Employee employee = persistEmployee(email, password, address, setOfShifts, false);
-    List<Employee> listOfEmployees = new ArrayList<Employee>();
-    listOfEmployees  =  employeeRepository.findEmployeesByShifts(shift);
 
-    verify(employee,listOfEmployees.get(0));
+    Employee loadedEmployee =  employeeRepository.findEmployeeByShifts(shift);
+
+    verify(employee,loadedEmployee);
 
   }
 

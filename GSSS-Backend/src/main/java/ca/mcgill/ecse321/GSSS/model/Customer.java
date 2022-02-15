@@ -20,7 +20,7 @@ public class Customer extends Account {
 
   private Set<Purchase> purchases;
 
-  @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(fetch = FetchType.EAGER)
   @JoinColumn(name = "customer_Id")
   public Set<Purchase> getPurchases() {
     return purchases;

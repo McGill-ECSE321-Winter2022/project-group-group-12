@@ -2,6 +2,8 @@ package ca.mcgill.ecse321.GSSS.model;
 
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 /**
@@ -13,8 +15,9 @@ import javax.persistence.OneToMany;
 public class Employee extends Account {
   
   private Set<Shift> shifts;
-  
-  @OneToMany
+
+  @OneToMany(fetch = FetchType.EAGER)
+  @JoinColumn(name = "customer_Id")
   public Set<Shift> getShifts() {
     return shifts;
   }
