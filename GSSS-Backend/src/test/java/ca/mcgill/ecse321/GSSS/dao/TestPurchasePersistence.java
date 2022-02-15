@@ -38,7 +38,7 @@ import ca.mcgill.ecse321.GSSS.model.Shift;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TestPurchasePersistance {
+public class TestPurchasePersistence {
  
     @Autowired
     private PurchaseRepository purchaseRepository;
