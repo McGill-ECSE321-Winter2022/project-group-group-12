@@ -21,7 +21,11 @@ import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 
-
+/**
+ * Test the loading and persistence of the Customer repository
+ * @author Enzo Benoit-Jeannin
+ *
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestCustomerPersistence {
@@ -45,6 +49,10 @@ public class TestCustomerPersistence {
     Date purchaseDate = Date.valueOf(LocalDate.of(2020, Month.FEBRUARY, 14));
     String purchaseId =  UUID.randomUUID().toString();
     
+    /**
+     * Test the findCustomerByUsername() method
+     * @author Enzo Benoit-Jeannin
+     */
     @Test
     public void testPersistAndLoadCustomersByUsername(){
     	Address address = new Address();
@@ -87,6 +95,10 @@ public class TestCustomerPersistence {
         assertEquals(customer.getPurchases(), setOfPurchases);
     }
     
+    /**
+     * Test the findCustomerByDisabled() method
+     * @author Enzo Benoit-Jeannin
+     */
     @Test
     public void testPersistAndLoadCustomersByDisabled(){
     	Address address = new Address();
@@ -129,6 +141,10 @@ public class TestCustomerPersistence {
         assertEquals(customer.getPurchases(), setOfPurchases);
     }
     
+    /**
+     * Test the findCustomerByEmail() method
+     * @author Enzo Benoit-Jeannin
+     */
     @Test
     public void testPersistAndLoadCustomersByEmail(){
     	Address address = new Address();
@@ -169,6 +185,10 @@ public class TestCustomerPersistence {
         assertEquals(customer.getPurchases(), setOfPurchases);
     }
     
+    /**
+     * Test the findCustomerByAddress() method
+     * @author Enzo Benoit-Jeannin
+     */
     @Test
     public void testPersistAndLoadCustomersByAddress(){
     	Address address = new Address();
@@ -209,6 +229,10 @@ public class TestCustomerPersistence {
         assertEquals(customer.getPurchases(), setOfPurchases);
     }
     
+    /**
+     * Test the findCustomerByPurchases() method
+     * @author Enzo Benoit-Jeannin
+     */
     @Test
     public void testPersistAndLoadCustomersByPurchases(){
     	Address address = new Address();
