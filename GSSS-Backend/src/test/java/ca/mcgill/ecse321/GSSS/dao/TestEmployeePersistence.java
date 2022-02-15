@@ -4,6 +4,7 @@ import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,37 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 public class TestEmployeePersistence {
 
+    /**
+     * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
+     * exceptions being thrown when deleting
+     *
+     * @author Wassim Jabbour
+     */
+    @AfterEach
+    public void clearDatabase() {
+        accountRepository.deleteAll();
+        customerRepository.deleteAll();
+        purchaseRepository.deleteAll();
+        employeeRepository.deleteAll();
+        shiftRepository.deleteAll();
+        ownerRepository.deleteAll();
+        addressRepository.deleteAll();
+        itemRepository.deleteAll();
+        itemCategoryRepository.deleteAll();
+        businessHourRepository.deleteAll();
+    }
+
     @Autowired
     private EmployeeRepository employeeRepository;
     private AddressRepository addressRepository;
     private ShiftRepository shiftRepository;
+    private BusinessHourRepository businessHourRepository;
+    private CustomerRepository customerRepository;
+    private ItemCategoryRepository itemCategoryRepository;
+    private ItemRepository itemRepository;
+    private OwnerRepository ownerRepository;
+    private PurchaseRepository purchaseRepository;
+    private AccountRepository accountRepository;
 
     //Initialize variables that will be used to successfully create a complete employee
     String username = "bobthebuilder";
