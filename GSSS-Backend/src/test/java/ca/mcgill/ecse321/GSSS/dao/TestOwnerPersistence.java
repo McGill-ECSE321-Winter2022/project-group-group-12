@@ -20,6 +20,8 @@ public class TestOwnerPersistence {
 
     @Autowired
     private OwnerRepository ownerRepository;
+
+    @Autowired
     private AddressRepository addressRepository;
 
     //Initialize variables that will be used to successfully create a complete owner
