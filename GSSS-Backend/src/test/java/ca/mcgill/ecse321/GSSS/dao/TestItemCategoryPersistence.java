@@ -26,6 +26,12 @@ public class TestItemCategoryPersistence {
   @Autowired
   ItemCategoryRepository itemCategoryRepository;
 
+  /**
+   * 
+   * this method is to test if item category found by name is the same as actual one
+   * 
+   * @author Habib Jarweh
+   */
   @Test
   public void testPersistAndLoadItemCategoryByName() {
 
@@ -44,13 +50,6 @@ public class TestItemCategoryPersistence {
 
   }
 
-  // @AfterEach
-  // public void clearDatabase() {
-  //
-  // // Deleting all the database contents of item category
-  // itemCategoryRepository.deleteAll();
-  //
-  // }
 
 
 }

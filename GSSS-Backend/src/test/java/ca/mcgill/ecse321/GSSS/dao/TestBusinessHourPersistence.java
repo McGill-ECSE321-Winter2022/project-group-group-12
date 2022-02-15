@@ -27,6 +27,12 @@ public class TestBusinessHourPersistence {
   @Autowired
   private BusinessHourRepository businessHourRepository;
 
+  /**
+   * 
+   * this method is to test wether business hour found by weekday is same as expected one
+   * 
+   * @author Habib Jarweh
+   */
   @Test
   public void testPersistAndLoadBusinessHourByWeekday() {
 
@@ -47,8 +53,4 @@ public class TestBusinessHourPersistence {
     assertEquals(weekday, businessHour.getWeekday());
   }
 
-  @AfterEach
-  public void clearDatabase() {
-    businessHourRepository.deleteAll();
-  }
 }

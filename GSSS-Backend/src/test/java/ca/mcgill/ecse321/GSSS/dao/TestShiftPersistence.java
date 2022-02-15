@@ -5,9 +5,12 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.Map.Entry;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import ca.mcgill.ecse321.GSSS.model.Item;
+import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.jupiter.api.Test;
@@ -28,41 +31,83 @@ public class TestShiftPersistence {
   @Autowired
   ShiftRepository shiftRepository;
 
-  private void verify(List<Shift> shifts1, List<Shift> shifts2) {
-    assertNotNull(shifts2);
-    assertEquals(shifts1.size(), shifts2.size());
-    for (int i = 0; i < shifts1.size(); i++) {
-      assertTrue(shifts2.contains(shifts1.get(i)));
+  /**
+   * This method asserts whether the actual list of shifts matches the expected one.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param expected Expected list of shifts.
+   * @param actual Actual list of shifts.
+   */
+  private void verify(List<Shift> expected, List<Shift> actual) {
+    assertNotNull(actual);
+    assertEquals(expected.size(), actual.size());
+
+    for (Shift e : expected) {
+      boolean found = false;
+      for (Shift a : actual) {
+        if (e.getId().equals(a.getId())) {
+          verify(e, a);
+          found = true;
+          break;
+        }
+      }
+      assertTrue(found);
     }
   }
 
-  @Test
-  public void testPersistAndLoadEmployeeById() {
-    Shift shift = new Shift();
-    Time startTime = Time.valueOf("8:00:00");
-    Time endTime = Time.valueOf("17:00:00");
-    Date date = new Date(System.currentTimeMillis());
-    String id = UUID.randomUUID().toString();
-    shift.setStartTime(startTime);
-    shift.setEndTime(endTime);
-    shift.setDate(date);
-    shift.setId(id);
-    shiftRepository.save(shift);
-    shift = null;
-    shift = shiftRepository.findShiftById(id);
-    assertNotNull(shift);
-    assertEquals(date, shift.getDate());
-    assertEquals(startTime, shift.getStartTime());
-    assertEquals(endTime, shift.getEndTime());
-    assertEquals(id, shift.getId());
+  /**
+   * This method asserts whether the actual shift matches the expected one.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param expected Expected shift.
+   * @param actual Actual shift.
+   */
+  private void verify(Shift expected, Shift actual) {
+    assertNotNull(actual);
+    assertEquals(expected.getId(), actual.getId());
+    assertEquals(expected.getDate(), actual.getDate());
+    assertEquals(expected.getStartTime(), actual.getStartTime());
+    assertEquals(expected.getEndTime(), actual.getEndTime());
   }
 
+  /**
+   * 
+   * this method is to test if shift found by id is same as actual
+   * 
+   * @author Habib Jarweh
+   */
+  @Test
+  public void testPersistAndLoadEmployeeById() {
+    Shift shift1 = new Shift();
+    Time startTime = Time.valueOf("8:00:00");
+    Time endTime = Time.valueOf("17:00:00");
+    Date date = Date.valueOf("2022-02-15");
+    String id = UUID.randomUUID().toString();
+    shift1.setStartTime(startTime);
+    shift1.setEndTime(endTime);
+    shift1.setDate(date);
+    shift1.setId(id);
+    shiftRepository.save(shift1);
+
+    Shift shift2 = shiftRepository.findShiftById(id);
+
+    verify(shift1, shift2);
+  }
+
+  /**
+   * 
+   * this method is to test if shifts found by date is same as actual shifts of the same date
+   * 
+   * @author Habib Jarweh
+   */
   @Test
   public void testPersistAndLoadEmployeeByDate() {
     List<Shift> shifts1 = new ArrayList<Shift>();
     Time startTime1 = Time.valueOf("8:00:00");
     Time endTime1 = Time.valueOf("17:00:00");
-    Date date = new Date(System.currentTimeMillis());
+    Date date = Date.valueOf("2022-02-15");;
     String id1 = UUID.randomUUID().toString();
     Shift shift1 = new Shift();
     shift1.setStartTime(startTime1);
