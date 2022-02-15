@@ -28,7 +28,6 @@ public class TestEmployeePersistence {
     private EmployeeRepository employeeRepository;
     private AddressRepository addressRepository;
     private ShiftRepository shiftRepository;
-    private PurchaseRepository purchaseRepository;
 
     //Initialize variables that will be used to successfully create a complete employee
     String username = "bobthebuilder";
@@ -44,9 +43,7 @@ public class TestEmployeePersistence {
     Time startTime = java.sql.Time.valueOf(LocalTime.of(11, 35));
     Time endTime = java.sql.Time.valueOf(LocalTime.of(13, 25));
     String shiftId =  UUID.randomUUID().toString();
-    Time purchaseTime = java.sql.Time.valueOf(LocalTime.of(12, 25));
-    Date purchaseDate = Date.valueOf(LocalDate.of(2020, Month.JANUARY, 31));
-    String purchaseId =  UUID.randomUUID().toString();
+   
 
 
     /**
