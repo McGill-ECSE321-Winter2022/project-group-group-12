@@ -13,6 +13,7 @@ import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,6 +31,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestShiftPersistence {
   @Autowired
   ShiftRepository shiftRepository;
+
+
+  /**
+   * This method gets executed after each test, and clears the relevant tables.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   */
+  @AfterEach
+  public void clearTables(){
+    shiftRepository.deleteAll();
+  }
 
   /**
    * This method asserts whether the actual list of shifts matches the expected one.
@@ -117,19 +129,20 @@ public class TestShiftPersistence {
     shiftRepository.save(shift1);
     shifts1.add(shift1);
     shift1 = null;
+
     Time startTime2 = Time.valueOf("8:00:00");
     Time endTime2 = Time.valueOf("12:00:00");
     String id2 = UUID.randomUUID().toString();
     Shift shift2 = new Shift();
     shift2.setStartTime(startTime2);
     shift2.setEndTime(endTime2);
-    shift2.setDate(date);
+    shift2.setDate(Date.valueOf("2022-02-14"));
     shift2.setId(id2);
     shiftRepository.save(shift2);
-    shifts1.add(shift2);
     shift2 = null;
-    List<Shift> shifts2 = new ArrayList<Shift>();
-    shifts2 = shiftRepository.findShiftsByDate(date);
+
+    List<Shift> shifts2 = shiftRepository.findShiftsByDate(date);
+
     verify(shifts1, shifts2);
   }
 }
