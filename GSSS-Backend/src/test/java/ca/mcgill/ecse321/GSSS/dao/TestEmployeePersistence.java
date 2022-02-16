@@ -8,7 +8,6 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -278,7 +277,7 @@ public class TestEmployeePersistence {
     setOfShifts1.add(shift2);
 
     Employee employee1 = persistEmployee(email1, username1, password1, address1, setOfShifts1, false);
-    Employee employee2 = persistEmployee(email2, username2, password2, address2, setOfShifts2, false);
+    persistEmployee(email2, username2, password2, address2, setOfShifts2, false);
     
     List<Employee> listOfEmployees = employeeRepository.findEmployeesByUsername(username1);
     verifyContains(employee1, listOfEmployees);

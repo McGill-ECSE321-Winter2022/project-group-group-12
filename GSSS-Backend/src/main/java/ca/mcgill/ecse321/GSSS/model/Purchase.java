@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
