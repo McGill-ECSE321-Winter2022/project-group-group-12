@@ -116,9 +116,9 @@ public class TestEmployeePersistence {
     assertEquals(expected.getUsername(), actual.getUsername());
     assertEquals(expected.getEmail(), actual.getEmail());
     assertEquals(expected.getPassword(), actual.getPassword());
-
     assertNotNull(actual.getShifts());
     assertNotNull(expected.getShifts());
+    assertEquals(expected.isDisabled(), actual.isDisabled());
     assertEquals(actual.getShifts().size(), expected.getShifts().size());
     for (Shift expectedShift : expected.getShifts()) {
       boolean contains = false;
@@ -166,7 +166,7 @@ public class TestEmployeePersistence {
    * @param postalCode, postal code of the employee
    * @param addressId, unique UUID for the address
    * @param streetNumber, street number of the employee
-   * @return
+   * @return The persisted address
    */
   private Address persistAddress(String fullName, String streetName, String city, String postalCode,
       String addressId, int streetNumber) {

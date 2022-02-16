@@ -36,7 +36,7 @@ import ca.mcgill.ecse321.GSSS.model.Shift;
 @SpringBootTest
 public class TestCustomerPersistence {
 	
-	@Autowired
+	  @Autowired
 	  private AddressRepository addressRepository;
 
 	  @Autowired
