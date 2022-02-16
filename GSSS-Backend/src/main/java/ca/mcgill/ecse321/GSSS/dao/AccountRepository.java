@@ -2,8 +2,8 @@ package ca.mcgill.ecse321.GSSS.dao;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
-import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Account;
+import ca.mcgill.ecse321.GSSS.model.Address;
 
 /**
  * 
