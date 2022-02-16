@@ -49,7 +49,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, String> {
    * 
    * @author Wassim Jabbour
    * @param disabled boolean to see if employee is banned, or in other words his account disabled
-   * @return
+   * @return list of employees we want to find
    */
   List<Employee> findEmployeesByDisabled(boolean disabled);
 

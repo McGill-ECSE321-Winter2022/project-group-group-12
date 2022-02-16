@@ -33,7 +33,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, String> {
    * 
    * @author Habib Jarweh
    * @param date The date of purchase
-   * @return List<Purchase>
+   * @return List<Purchase> list of purchases we want to find
    */
   List<Purchase> findPurchasesByDate(Date date);
 
@@ -44,7 +44,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, String> {
    * @author Habib Jarweh
    * @param date The date of the purchase
    * @param time The time of the purchase
-   * @return List<Purchase>
+   * @return List<Purchase> list of purchases we want to find
    * 
    */
   List<Purchase> findPurchasesByDateAndTime(Date date, Time time);
@@ -55,6 +55,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, String> {
    * 
    * @author Wassim Jabbour
    * @param employee The employee who handled the purchase
+   * @return list of purchases we want to find
    */
   List<Purchase> findPurchasesByEmployee(Employee employee);
 }

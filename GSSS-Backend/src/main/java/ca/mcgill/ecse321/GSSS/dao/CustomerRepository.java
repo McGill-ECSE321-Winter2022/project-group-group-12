@@ -19,7 +19,7 @@ public interface CustomerRepository extends CrudRepository<Customer, String> {
    * this method finds a customer based on their email
    * @author Wassim Jabbour
    * @param email email of the customer, it is the primary key
-   * @return customer
+   * @return customer with the particular email
    */
   
   Customer findCustomerByEmail(String email);
@@ -29,7 +29,7 @@ public interface CustomerRepository extends CrudRepository<Customer, String> {
    * this method finds a list of customers with a particular username
    * @author Habib Jarweh
    * @param username username of user, here a customer
-   * @return list of customers
+   * @return list of customers we want to find with the particular username
    */
   List<Customer> findCustomersByUsername(String username);
 
@@ -39,7 +39,7 @@ public interface CustomerRepository extends CrudRepository<Customer, String> {
    * 
    * @author Habib Jarweh
    * @param purchase the purchase of a client
-   * @return customer
+   * @return customer with the particular purchase
    */
   Customer findCustomerByPurchases(Purchase purchase);
 
@@ -49,7 +49,7 @@ public interface CustomerRepository extends CrudRepository<Customer, String> {
    * 
    * @author Wassim Jabbour
    * @param address the address of the customer
-   * @return customer
+   * @return customer with the particular address
    */
   Customer findCustomerByAddress(Address address);
   
