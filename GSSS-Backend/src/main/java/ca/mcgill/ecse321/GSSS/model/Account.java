@@ -7,9 +7,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
 /**
- * 
- * @author Wassim Jabbour
+ * This class represents the accounts of users.
  *
+ * @author Wassim Jabbour
  */
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity

@@ -14,96 +14,96 @@ import ca.mcgill.ecse321.GSSS.model.Address;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestAddressPersistence {
-  
-  @Autowired
-  private AddressRepository addressRepository;
 
-  @Autowired
-  private BusinessHourRepository businessHourRepository;
+	@Autowired
+	private AddressRepository addressRepository;
 
-  @Autowired
-  private CustomerRepository customerRepository;
+	@Autowired
+	private BusinessHourRepository businessHourRepository;
 
-  @Autowired
-  private EmployeeRepository employeeRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
 
-  @Autowired
-  private ItemCategoryRepository itemCategoryRepository;
+	@Autowired
+	private EmployeeRepository employeeRepository;
 
-  @Autowired
-  private ItemRepository itemRepository;
+	@Autowired
+	private ItemCategoryRepository itemCategoryRepository;
 
-  @Autowired
-  private OwnerRepository ownerRepository;
+	@Autowired
+	private ItemRepository itemRepository;
 
-  @Autowired
-  private PurchaseRepository purchaseRepository;
+	@Autowired
+	private OwnerRepository ownerRepository;
 
-  @Autowired
-  private ShiftRepository shiftRepository;
+	@Autowired
+	private PurchaseRepository purchaseRepository;
 
-  /**
-   * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
-   * exceptions being thrown when deleting
-   * 
-   * @author Wassim Jabbour
-   */
-  @AfterEach
-  public void clearDatabase() {
-    customerRepository.deleteAll();
-    purchaseRepository.deleteAll();
-    employeeRepository.deleteAll();
-    shiftRepository.deleteAll();
-    ownerRepository.deleteAll();
-    addressRepository.deleteAll();
-    itemRepository.deleteAll();
-    itemCategoryRepository.deleteAll();
-    businessHourRepository.deleteAll();
-  }
-  
-  /**
-   * To test the method findAddressById() for the address
-   * 
-   * @author Wassim Jabbour
-   */
-  @Test
-  public void testPersistAndLoadAddressById() {
+	@Autowired
+	private ShiftRepository shiftRepository;
 
-    // Initializing the address to test
-    String fullName = "Enzo Ferrari";
-    String streetName = "Crescent";
-    int streetNumber = 43;
-    String city = "Montreal";
-    String postalCode = "W4S 5I3";
-    String id = UUID.randomUUID().toString();
+	/**
+	 * Deletes all the database contents. Goes from the independent to the dependent
+	 * classes to avoid exceptions being thrown when deleting
+	 * 
+	 * @author Wassim Jabbour
+	 */
+	@AfterEach
+	public void clearDatabase() {
+		customerRepository.deleteAll();
+		purchaseRepository.deleteAll();
+		employeeRepository.deleteAll();
+		shiftRepository.deleteAll();
+		ownerRepository.deleteAll();
+		addressRepository.deleteAll();
+		itemRepository.deleteAll();
+		itemCategoryRepository.deleteAll();
+		businessHourRepository.deleteAll();
+	}
 
-    // Creating the address and setting the fields
-    Address address = new Address();
-    address.setFullName(fullName);
-    address.setStreetName(streetName);
-    address.setStreetNumber(streetNumber);
-    address.setCity(city);
-    address.setPostalCode(postalCode);
-    address.setId(id);
+	/**
+	 * To test the method findAddressById() for the address
+	 * 
+	 * @author Wassim Jabbour
+	 */
+	@Test
+	public void testPersistAndLoadAddressById() {
 
-    // Saving the address in memory
-    addressRepository.save(address);
+		// Initializing the address to test
+		String fullName = "Enzo Ferrari";
+		String streetName = "Crescent";
+		int streetNumber = 43;
+		String city = "Montreal";
+		String postalCode = "W4S 5I3";
+		String id = UUID.randomUUID().toString();
 
-    // Setting the address to null
-    address = null;
+		// Creating the address and setting the fields
+		Address address = new Address();
+		address.setFullName(fullName);
+		address.setStreetName(streetName);
+		address.setStreetNumber(streetNumber);
+		address.setCity(city);
+		address.setPostalCode(postalCode);
+		address.setId(id);
 
-    // Finding the address by ID
-    address = addressRepository.findAddressById(id);
+		// Saving the address in memory
+		addressRepository.save(address);
 
-    // Checking that this is the same address we saved earlier
-    assertNotNull(address);
-    assertEquals(address.getFullName(), fullName);
-    assertEquals(address.getStreetName(), streetName);
-    assertEquals(address.getStreetNumber(), streetNumber);
-    assertEquals(address.getCity(), city);
-    assertEquals(address.getPostalCode(), postalCode);
-    assertEquals(address.getId(), id);
+		// Setting the address to null
+		address = null;
 
-  }
+		// Finding the address by ID
+		address = addressRepository.findAddressById(id);
+
+		// Checking that this is the same address we saved earlier
+		assertNotNull(address);
+		assertEquals(address.getFullName(), fullName);
+		assertEquals(address.getStreetName(), streetName);
+		assertEquals(address.getStreetNumber(), streetNumber);
+		assertEquals(address.getCity(), city);
+		assertEquals(address.getPostalCode(), postalCode);
+		assertEquals(address.getId(), id);
+
+	}
 
 }

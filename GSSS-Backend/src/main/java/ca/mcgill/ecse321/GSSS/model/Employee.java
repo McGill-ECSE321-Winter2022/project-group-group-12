@@ -6,9 +6,9 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 /**
- * 
- * @author Wassim Jabbour
+ * This class represents the Employees.
  *
+ * @author Wassim Jabbour
  */
 @Entity
 public class Employee extends Account {

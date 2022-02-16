@@ -4,9 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * 
- * @author Wassim Jabbour
+ * This class represents the Addresses of the users.
  *
+ * @author Wassim Jabbour
  */
 
 @Entity
