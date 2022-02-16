@@ -25,17 +25,6 @@ public class TestItemCategoryPersistence {
 
   @Autowired
   ItemCategoryRepository itemCategoryRepository;
-  
-  /**
-   * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
-   * exceptions being thrown when deleting
-   * 
-   * @author Habib Jarweh
-   */
-  @AfterEach
-  public void clearDatabase() {
-    itemCategoryRepository.deleteAll();
-  }
 
   /**
    * 

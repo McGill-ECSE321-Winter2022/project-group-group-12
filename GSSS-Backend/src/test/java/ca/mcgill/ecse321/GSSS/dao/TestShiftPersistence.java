@@ -13,7 +13,6 @@ import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,17 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestShiftPersistence {
   @Autowired
   ShiftRepository shiftRepository;
-
-  /**
-   * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
-   * exceptions being thrown when deleting
-   * 
-   * @author Habib Jarweh
-   */
-  @AfterEach
-  public void clearDatabase() {
-    shiftRepository.deleteAll();
-  }
 
   /**
    * This method asserts whether the actual list of shifts matches the expected one.

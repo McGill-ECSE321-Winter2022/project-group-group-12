@@ -28,17 +28,6 @@ public class TestBusinessHourPersistence {
   private BusinessHourRepository businessHourRepository;
 
   /**
-   * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
-   * exceptions being thrown when deleting
-   * 
-   * @author Habib Jarweh
-   */
-  @AfterEach
-  public void clearDatabase() {
-    businessHourRepository.deleteAll();
-  }
-
-  /**
    * 
    * this method is to test wether business hour found by weekday is same as expected one
    * 
