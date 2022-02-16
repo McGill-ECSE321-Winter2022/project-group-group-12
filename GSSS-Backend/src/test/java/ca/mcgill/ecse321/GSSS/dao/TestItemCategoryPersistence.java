@@ -10,6 +10,8 @@ import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.AfterEach;
+
 
 /**
  * 
@@ -24,6 +26,16 @@ public class TestItemCategoryPersistence {
 
   @Autowired
   ItemCategoryRepository itemCategoryRepository;
+
+  /**
+   * This method gets executed after each test, and clears the relevant tables.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   */
+  @AfterEach
+  public void clearTables(){
+      itemCategoryRepository.deleteAll();
+  }
 
   /**
    * 

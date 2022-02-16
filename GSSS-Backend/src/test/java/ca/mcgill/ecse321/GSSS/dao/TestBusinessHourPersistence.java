@@ -8,6 +8,8 @@ import ca.mcgill.ecse321.GSSS.model.Weekday;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.sql.Time;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -25,6 +27,16 @@ public class TestBusinessHourPersistence {
 
   @Autowired
   private BusinessHourRepository businessHourRepository;
+
+  /**
+   * This method gets executed after each test, and clears the relevant tables.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   */
+  @AfterEach
+  public void clearTables(){
+      businessHourRepository.deleteAll();
+  }
 
   /**
    * 
