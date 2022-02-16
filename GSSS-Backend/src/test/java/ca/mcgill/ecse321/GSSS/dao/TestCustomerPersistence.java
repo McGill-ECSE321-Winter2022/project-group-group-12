@@ -63,9 +63,6 @@ public class TestCustomerPersistence {
 
 	  @Autowired
 	  private ShiftRepository shiftRepository;
-
-	  @Autowired
-	  private AccountRepository accountRepository;
 	
 	
     /**
@@ -75,7 +72,6 @@ public class TestCustomerPersistence {
      */
     @AfterEach
     public void clearDatabase() {
-    	accountRepository.deleteAll();
         customerRepository.deleteAll();
         purchaseRepository.deleteAll();
         employeeRepository.deleteAll();

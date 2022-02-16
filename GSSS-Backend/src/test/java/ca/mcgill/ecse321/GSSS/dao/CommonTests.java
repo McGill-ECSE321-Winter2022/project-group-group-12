@@ -37,9 +37,6 @@ public class CommonTests {
   @Autowired
   private ShiftRepository shiftRepository;
 
-  @Autowired
-  private AccountRepository accountRepository;
-
   /**
    * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
    * exceptions being thrown when deleting
@@ -48,7 +45,6 @@ public class CommonTests {
    */
   @AfterEach
   public void clearDatabase() {
-    accountRepository.deleteAll();
     customerRepository.deleteAll();
     purchaseRepository.deleteAll();
     employeeRepository.deleteAll();

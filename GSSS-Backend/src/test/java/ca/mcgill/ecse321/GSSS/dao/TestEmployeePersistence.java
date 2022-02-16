@@ -37,7 +37,6 @@ public class TestEmployeePersistence {
 	 */
 	@AfterEach
 	public void clearDatabase() {
-		accountRepository.deleteAll();
 		customerRepository.deleteAll();
 		purchaseRepository.deleteAll();
 		employeeRepository.deleteAll();
@@ -67,8 +66,6 @@ public class TestEmployeePersistence {
 	private OwnerRepository ownerRepository;
 	@Autowired
 	private PurchaseRepository purchaseRepository;
-	@Autowired
-	private AccountRepository accountRepository;
 
 	// Initialize variables that will be used to successfully create a complete
 	// employee

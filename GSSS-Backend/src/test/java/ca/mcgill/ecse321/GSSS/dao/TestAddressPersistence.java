@@ -42,9 +42,6 @@ public class TestAddressPersistence {
   @Autowired
   private ShiftRepository shiftRepository;
 
-  @Autowired
-  private AccountRepository accountRepository;
-
   /**
    * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
    * exceptions being thrown when deleting
@@ -53,7 +50,6 @@ public class TestAddressPersistence {
    */
   @AfterEach
   public void clearDatabase() {
-    accountRepository.deleteAll();
     customerRepository.deleteAll();
     purchaseRepository.deleteAll();
     employeeRepository.deleteAll();
