@@ -247,7 +247,7 @@ public class TestEmployeePersistence {
     Set<Shift> setOfShifts = new HashSet<>();
     setOfShifts.add(shift);
 
-    Employee employee = persistEmployee(email1, password1, address, setOfShifts, false);
+    Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, false);
     Employee actualEmployee = employeeRepository.findEmployeeByEmail(email1);
     verify(employee, actualEmployee);
 
