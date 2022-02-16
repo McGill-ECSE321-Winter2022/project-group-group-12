@@ -24,11 +24,13 @@ import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
+import ca.mcgill.ecse321.GSSS.model.OrderStatus;
+import ca.mcgill.ecse321.GSSS.model.OrderType;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 
 /**
- * Test the loading and persistence of the Customer repository
+ * Test the loading and persistence of the Customer repository.
  * @author Enzo Benoit-Jeannin
  *
  */
@@ -82,162 +84,153 @@ public class TestCustomerPersistence {
         businessHourRepository.deleteAll();
     }
     
-    // Initialize variables to create customer and its address 
-    String name = "Tyler The Creator";
-    String email = "whodatboy@gmail.com";
-    String password = "tylerpassword";
-    String fullName = "Tyler TheCreator";
-    String streetName = "Lorne Crescent";
-    String city = "Montreal";
-    int streetNumber = 69;
-    String postalCode = "H2X 2B3";
-    String addressId = UUID.randomUUID().toString();
-    
-    // Initialize variables to create employee and its address 
-
-    String employeeFullName = "Asap Rocky";
-    String employeeStreetName = "Univeristy Street";
-
-    String employeeCity = "Montreal";
-    int employeeStreetNumber = 12;
-    String employeePostalCode = "H2Y 4X3";
-    String employeeAddressId = UUID.randomUUID().toString();
-    String employeeName = "ASAP Rocky";
-    String employeeEmail = "praisethelord@gmail.com";
-    String employeePassword = "asaprocky";
-    String employeeId = UUID.randomUUID().toString();
-    
-    // Initialiaze variables to create purchase
-    Time purchaseTime = java.sql.Time.valueOf(LocalTime.of(13, 30));
-    Date purchaseDate = Date.valueOf(LocalDate.of(2020, Month.FEBRUARY, 14));
-    String purchaseId =  UUID.randomUUID().toString();
-    
-    //Initialize variables to create ItemCatgeroy and items
-    String itemName = "Pizza";
-    String itemDescription = "Italian dish";
-    String itemURL = "imgur.com/pizza";
-    double itemPrice = 5.0;
-    int itemQuantityRemaining = 3;
-    boolean itemAvailibility = true;
-    boolean itemOrderAvailability = true;
-    String categoryName = "Food";
-    int itemQuantityDesired = 3;
-
     /**
-     * Method to create customer Address variable
-     * @return customer address
+     * Method to create customer Address object from the given parameters.
      * @author Enzo Benoit-Jeannin
+     * 
+     * @param fullName
+     * @param streetName
+     * @param streetNumber
+     * @param city
+     * @param postalCode
+     * @param iD
+     * @return address
      */
-    private Address persistAddress() {
+    private Address persistAddress(String fullName, String streetName, int streetNumber, String city, String postalCode, String iD) {
     	Address address = new Address();
         address.setFullName(fullName);
         address.setStreetName(streetName);
         address.setStreetNumber(streetNumber);
         address.setCity(city);
         address.setPostalCode(postalCode);
-        address.setId(addressId);
+        address.setId(iD);
+        
+        addressRepository.save(address);
+        
         return address;
-    }
-    /**
-     * Method to create employee Address variable
-     * @return employee address
-     * @author Enzo Benoit-Jeannin
-     */
-    private Address persistEmployeeAddress() {
-        Address employeeAddress = new Address();
-        employeeAddress.setFullName(employeeFullName);
-        employeeAddress.setStreetName(employeeStreetName);
-        employeeAddress.setStreetNumber(employeeStreetNumber);
-        employeeAddress.setCity(employeeCity);
-        employeeAddress.setPostalCode(employeePostalCode);
-        employeeAddress.setId(employeeAddressId);
-        return employeeAddress;
     }
     
     /**
-     * Method to create the customer object
+     * Method to create the customer object given the parameters.
+     * @author Enzo Benoit-Jeannin
+     * 
+     * @param email
+     * @param username
+     * @param password
      * @param customerAddress
      * @param setOfPurchase
      * @param disabled
      * @return customer
-     * @author Enzo Benoit-Jeannin
      */
-    private Customer persist(Address customerAddress, Set<Purchase> setOfPurchase, boolean disabled) {
-    	// Create customer
+    private Customer persist(String email, String username, String password, Address customerAddress, Set<Purchase> setOfPurchase, boolean disabled) {
         Customer customer = new Customer();
         customer.setEmail(email);
-        customer.setUsername(name);
+        customer.setUsername(username);
         customer.setPassword(password);
         customer.setAddress(customerAddress);
         customer.setDisabled(disabled);
         customer.setPurchases(setOfPurchase);
+        
+        customerRepository.save(customer);
         return customer;
     }
     
+
     /**
-     *  Method to create the employee object
-     * @param employeeAddress2
-     * @return employee
+     * Method to create the employee object given the parameters.
      * @author Enzo Benoit-Jeannin
+     * 
+     * @param email
+     * @param password
+     * @param username
+     * @param address
+     * @param disabled
+     * @return employee
      */
-    private Employee persistEmployee (Address employeeAddress2) {
-    	// Create employee 
+    private Employee persistEmployee(String email, String password, String username, Address address, boolean disabled) {
         Employee employee = new Employee();
-        employee.setAddress(employeeAddress2);
-        employee.setEmail(employeeEmail);
-        employee.setPassword(employeePassword);
+        employee.setAddress(address);
+        employee.setEmail(email);
+        employee.setPassword(password);
         employee.setDisabled(false);
         employee.setShifts(new HashSet<Shift>(0));
+        
+        employeeRepository.save(employee);
         return employee;
     }
     
     /**
-     * Method to create ItemCategory object
-     * @return an item category
+     * Method to create ItemCategory object given the parameters.
      * @author Enzo Benoit-Jeannin
+     * 
+     * @param name
+     * @return an item category
      */
-    private ItemCategory persistItemCategory() {
-    	// Create ItemCategory
+    private ItemCategory persistItemCategory(String name) {
         ItemCategory category = new ItemCategory();
-        category.setName(categoryName);
+        category.setName(name);
+        
+        itemCategoryRepository.save(category);
+        
         return category;
     }
     
     /**
-     * Method to create Item object
-     * @param itemcategory
-     * @return an item
+     * Method to create Item object given the parameters.
      * @author Enzo Benoit-Jeannin
+     * 
+     * @param name
+     * @param description
+     * @param imageUrl
+     * @param price
+     * @param remainingQuantity
+     * @param availableForOrder
+     * @param stillAvailable
+     * @param category
+     * @return item object
+     * 
      */
-    private Item persistItem(ItemCategory itemcategory) {
-    	 // Create Item and put it in Hashmap
+    private Item persistItem(String name, String description, String imageUrl, double price, int remainingQuantity, boolean availableForOrder, boolean stillAvailable, ItemCategory category){
         Item item = new Item();
         item.setName(name);
-        item.setDescription(itemDescription);
-        item.setImageUrl(itemURL);
-        item.setPrice(itemPrice);
-        item.setRemainingQuantity(itemQuantityRemaining);
-        item.setAvailableForOrder(itemAvailibility);
-        item.setStillAvailable(itemOrderAvailability);
-        item.setCategory(itemcategory);
+        item.setDescription(description);
+        item.setImageUrl(imageUrl);
+        item.setPrice(price);
+        item.setRemainingQuantity(remainingQuantity);
+        item.setAvailableForOrder(availableForOrder);
+        item.setStillAvailable(stillAvailable);
+        item.setCategory(category);
+
+        itemRepository.save(item);
+
         return item;
     }
-    
+ 
     /**
-     * Method to create a purchase object
-     * @param employee
-     * @param items
-     * @return a purchase
+     * Method to create a purchase object given the parameters.
      * @author Enzo Benoit-Jeannin
+     * 
+     * @param id
+     * @param date
+     * @param time
+     * @param items
+     * @param orderType
+     * @param orderStatus
+     * @param employee
+     * @return a purchase
      */
-    private Purchase persistPurchase(Employee employee, HashMap<Item, Integer> items) {
-    	// Create Purchase and add it to customer's set of purchase
+    private Purchase persistPurchase(String id, Date date, Time time, Map<Item, Integer> items, OrderType orderType, OrderStatus orderStatus, Employee employee){
         Purchase purchase = new Purchase();
-        purchase.setDate(purchaseDate);
-        purchase.setTime(purchaseTime);
-        purchase.setId(purchaseId);
-        purchase.setEmployee(employee);
+        purchase.setId(id);
+        purchase.setDate(date);
+        purchase.setTime(time);
         purchase.setItems(items);
+        purchase.setOrderType(orderType);
+        purchase.setOrderStatus(orderStatus);
+        purchase.setEmployee(employee);
+
+        purchaseRepository.save(purchase);
+
         return purchase;
     }
     
@@ -249,7 +242,7 @@ public class TestCustomerPersistence {
      * @param expected Expected purchase.
      * @param actual Actual purchase.
      */
-    private void verify(Purchase expected, Purchase actual){
+    private void verifyPurchase(Purchase expected, Purchase actual){
         assertNotNull(actual);
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getDate(), actual.getDate());
@@ -273,53 +266,30 @@ public class TestCustomerPersistence {
             assertTrue(contains);
         }
     }
-    
     /**
-     * Test the findCustomerByUsername() method
+     * Method asserts whether the given customers given match.
      * @author Enzo Benoit-Jeannin
+     * 
+     * @param expected Expected customer
+     * @param actual Actual Cutomer
+     * 
      */
-    @Test
-    public void testPersistAndLoadCustomersByUsername(){
+    private void verify(Customer expected, Customer actual) {
+    	assertNotNull(actual);		
+        assertEquals(expected.getUsername(), actual.getUsername());
+        assertEquals(expected.getEmail(), actual.getEmail());
+        assertEquals(expected.getPassword(), actual.getPassword());
+        assertEquals(expected.getAddress(), actual.getAddress());
+        assertEquals(expected.isDisabled(), actual.isDisabled());
         
-    	Address customerAddress = persistAddress();
-    	Address employeeAddress = persistEmployeeAddress();
-    	Employee employee = persistEmployee(employeeAddress);
-    	ItemCategory itemCategory = persistItemCategory();
-    	Item item = persistItem(itemCategory);
-    	HashMap<Item, Integer> items = new HashMap<>();
-        items.put(item, itemQuantityDesired);
-    	Purchase purchase = persistPurchase(employee, items);
-    	Set<Purchase> setOfPurchases = new HashSet<Purchase>();
-        setOfPurchases.add(purchase);
-        Customer customer = persist(customerAddress, setOfPurchases, false);
+        assertNotNull(expected.getPurchases());
+        assertEquals(expected.getPurchases().size(), actual.getPurchases().size());
         
-        itemCategoryRepository.save(itemCategory);
-        addressRepository.save(employeeAddress);
-        employeeRepository.save(employee);
-        addressRepository.save(customerAddress);
-        itemRepository.save(item);
-        purchaseRepository.save(purchase);
-        customerRepository.save(customer);
-        
-        List<Customer> myCustomers = customerRepository.findCustomersByUsername(name);
-        customer = myCustomers.get(0);
-        
-        assertNotNull(myCustomers);
-        assertNotNull(customer);		
-        assertEquals(customer.getUsername(), name);
-        assertEquals(customer.getEmail(), email);
-        assertEquals(customer.getPassword(), password);
-        assertEquals(customer.getAddress(), customerAddress);
-        assertEquals(customer.isDisabled(), false);
-        assertNotNull(customer.getPurchases());
-        
-        assertEquals(customer.getPurchases().size(), setOfPurchases.size());
-        
-        for(Purchase p1 : setOfPurchases) {
+        for(Purchase p1 : actual.getPurchases()) {
         	boolean contains = false;
-        	for(Purchase p2 : customer.getPurchases()) {
+        	for(Purchase p2 : expected.getPurchases()) {
         		if(p1.getId().equals(p2.getId())){
-                    verify(p1, p2);
+                    verifyPurchase(p1, p2);
                     contains = true;
                     break;
                 }
@@ -327,6 +297,97 @@ public class TestCustomerPersistence {
         	assertTrue(contains);
         }
     }
+    /**
+     * Method evaluates whether the two given lists of customers contain the same customer objects.
+     * 
+     * @author Enzo Benoit-Jeannin
+     * @param expected
+     * @param actual
+     */
+    private void verify(List<Customer> expected, List<Customer> actual) {
+    	assertNotNull(actual);
+        assertEquals(expected.size(), actual.size());
+        
+        for(Customer c1: expected){
+            boolean found = false;
+            for(Customer c2: actual){
+                if(c1.getEmail().equals(c2.getEmail())){
+                    verify(c1, c2);
+                    found = true;
+                    break;
+                }
+            }
+            assertTrue(found);
+        }
+    }
+
+    
+    /**
+     * Test the findCustomerByUsername() method
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testPersistAndLoadCustomersByUsername(){
+    	
+        String addressId1 = UUID.randomUUID().toString();
+        String addressId2 = UUID.randomUUID().toString();
+        String addressId3 = UUID.randomUUID().toString();
+
+        String employeeAddressId = UUID.randomUUID().toString();
+        String purchaseId1 = UUID.randomUUID().toString();
+        String purchaseId2 = UUID.randomUUID().toString();
+        String purchaseId3 = UUID.randomUUID().toString();
+
+        String name1 = "Tyler The Creator";
+        String name2 = "Drake";
+        
+    	Address employeeAddress = persistAddress("ASAP Rocky", "Uni Street", 5, "Ottawa", "H6F 7U8", employeeAddressId);
+    	Employee employee = persistEmployee("rock@gm.com", "5678", "ASAP Rocky", employeeAddress, false);
+    	
+    	ItemCategory itemCategory = persistItemCategory("Food");
+    	HashMap<Item, Integer> items = new HashMap<>();
+    	
+    	items.put(persistItem("Steak", "vegan", "imgur.com/steak", 20.0, 3, true, true, itemCategory), 3);
+    	
+    	Set<Purchase> setOfPurchases = new HashSet<Purchase>();
+    	setOfPurchases.add(persistPurchase(purchaseId1, 
+    		Date.valueOf(LocalDate.now()), 
+    		Time.valueOf(LocalTime.now()), 
+    		items,
+            OrderType.Delivery,
+            OrderStatus.OutForDelivery,
+            employee));
+    	
+    	Set<Purchase> setOfPurchases2 = new HashSet<Purchase>();
+    	setOfPurchases.add(persistPurchase(purchaseId2, 
+    		Date.valueOf(LocalDate.now()), 
+    		Time.valueOf(LocalTime.now()), 
+    		items,
+            OrderType.Delivery,
+            OrderStatus.OutForDelivery,
+            employee));
+    	
+    	Set<Purchase> setOfPurchases3 = new HashSet<Purchase>();
+    	setOfPurchases.add(persistPurchase(purchaseId3, 
+    		Date.valueOf(LocalDate.now()), 
+    		Time.valueOf(LocalTime.now()), 
+    		items,
+            OrderType.Delivery,
+            OrderStatus.OutForDelivery,
+            employee));
+    	
+    	Address customerAddress1 = persistAddress("Tyler TheCreator", "Lorne Crescent", 4, "Montreal", "H2X 2B3", addressId1);
+    	Address customerAddress2 = persistAddress("Tyler TheCreator", "Montreal street", 8, "Montreal", "H2X 4B3", addressId2);
+    	Address customerAddress3 = persistAddress("Tyler TheCreator", "Unknown street", 22, "Montreal", "H2X 4H3", addressId3);
+    	
+    	List<Customer> expected = new ArrayList<Customer>(2);
+    	expected.add(persist("whodatboy@gm.com", name1, "1234", customerAddress1, setOfPurchases, false));
+    	expected.add(persist("whodatboy2@gm.com", name1, "5678", customerAddress2, setOfPurchases2, false));
+    	persist("drake@gm.com", name2, "90123", customerAddress3, setOfPurchases3, false);
+        List<Customer> actual = customerRepository.findCustomersByUsername(name1);
+        verify(expected, actual);
+    }
+    
     
     /**
      * Test the findCustomerByDisabled() method
@@ -334,51 +395,64 @@ public class TestCustomerPersistence {
      */
     @Test
     public void testPersistAndLoadCustomersByDisabled(){
-    	Address customerAddress = persistAddress();
-    	Address employeeAddress = persistEmployeeAddress();
-    	Employee employee = persistEmployee(employeeAddress);
-    	ItemCategory itemCategory = persistItemCategory();
-    	Item item = persistItem(itemCategory);
-    	HashMap<Item, Integer> items = new HashMap<>();
-        items.put(item, itemQuantityDesired);
-    	Purchase purchase = persistPurchase(employee, items);
-    	Set<Purchase> setOfPurchases = new HashSet<Purchase>();
-        setOfPurchases.add(purchase);
-        Customer customer = persist(customerAddress, setOfPurchases, true);
+    	
+    	 String addressId1 = UUID.randomUUID().toString();
+         String addressId2 = UUID.randomUUID().toString();
+         String addressId3 = UUID.randomUUID().toString();
+
+         String employeeAddressId = UUID.randomUUID().toString();
+         String purchaseId1 = UUID.randomUUID().toString();
+         String purchaseId2 = UUID.randomUUID().toString();
+         String purchaseId3 = UUID.randomUUID().toString();
+         
+     	Address employeeAddress = persistAddress("ASAP Rocky", "Uni Street", 5, "Ottawa", "H6F 7U8", employeeAddressId);
+     	Employee employee = persistEmployee("rock@gm.com", "5678", "ASAP Rocky", employeeAddress, false);
+     	
+     	ItemCategory itemCategory = persistItemCategory("Food");
+     	HashMap<Item, Integer> items = new HashMap<>();
+     	
+     	items.put(persistItem("Steak", "vegan", "imgur.com/steak", 20.0, 3, true, true, itemCategory), 3);
+     	
+     	Set<Purchase> setOfPurchases = new HashSet<Purchase>();
+     	setOfPurchases.add(persistPurchase(purchaseId1, 
+     		Date.valueOf(LocalDate.now()), 
+     		Time.valueOf(LocalTime.now()), 
+     		items,
+             OrderType.Delivery,
+             OrderStatus.OutForDelivery,
+             employee));
+     	
+     	Set<Purchase> setOfPurchases2 = new HashSet<Purchase>();
+     	setOfPurchases.add(persistPurchase(purchaseId2, 
+     		Date.valueOf(LocalDate.now()), 
+     		Time.valueOf(LocalTime.now()), 
+     		items,
+             OrderType.Delivery,
+             OrderStatus.OutForDelivery,
+             employee));
+     	
+     	Set<Purchase> setOfPurchases3 = new HashSet<Purchase>();
+     	setOfPurchases.add(persistPurchase(purchaseId3, 
+     		Date.valueOf(LocalDate.now()), 
+     		Time.valueOf(LocalTime.now()), 
+     		items,
+             OrderType.Delivery,
+             OrderStatus.OutForDelivery,
+             employee));
+     	
+     	Address customerAddress1 = persistAddress("Tyler TheCreator", "Lorne Crescent", 4, "Montreal", "H2X 2B3", addressId1);
+     	Address customerAddress2 = persistAddress("Tyler TheCreator", "Montreal street", 8, "Montreal", "H2X 4B3", addressId2);
+     	Address customerAddress3 = persistAddress("Drake", "Unknown street", 22, "Montreal", "H2X 4H3", addressId3);
+     	
+     	List<Customer> expected = new ArrayList<Customer>(2);
+     	expected.add(persist("whodatboy@gm.com", "Tyler TheCreator", "1234", customerAddress1, setOfPurchases, true));
+     	expected.add(persist("whodatboy2@gm.com", "Tyler", "5678", customerAddress2, setOfPurchases2, true));
+     
+     	persist("drake@gm.com", "Drake", "90123", customerAddress3, setOfPurchases3, false);
+       
         
-        itemCategoryRepository.save(itemCategory);
-        addressRepository.save(employeeAddress);
-        employeeRepository.save(employee);
-        addressRepository.save(customerAddress);
-        itemRepository.save(item);
-        purchaseRepository.save(purchase);
-        customerRepository.save(customer);
-        
-        List<Customer> myCustomers = customerRepository.findCustomersByDisabled(true);
-        customer = myCustomers.get(0);
-        
-        assertNotNull(myCustomers);
-        assertNotNull(customer);			
-        assertEquals(customer.getUsername(), name);
-        assertEquals(customer.getEmail(), email);
-        assertEquals(customer.getPassword(), password);
-        assertEquals(customer.getAddress(), customerAddress);
-        assertEquals(customer.isDisabled(), true);
-        assertNotNull(customer.getPurchases());
-        
-        assertEquals(customer.getPurchases().size(), setOfPurchases.size());
-        
-        for(Purchase p1 : setOfPurchases) {
-        	boolean contains = false;
-        	for(Purchase p2 : customer.getPurchases()) {
-        		if(p1.getId().equals(p2.getId())){
-                    verify(p1, p2);
-                    contains = true;
-                    break;
-                }
-        	}
-        	assertTrue(contains);
-        }
+        List<Customer> actual = customerRepository.findCustomersByDisabled(true);
+        verify(expected, actual);
     }
     
     /**
@@ -387,49 +461,47 @@ public class TestCustomerPersistence {
      */
     @Test
     public void testPersistAndLoadCustomersByEmail(){
-    	Address customerAddress = persistAddress();
-    	Address employeeAddress = persistEmployeeAddress();
-    	Employee employee = persistEmployee(employeeAddress);
-    	ItemCategory itemCategory = persistItemCategory();
-    	Item item = persistItem(itemCategory);
+    	
+
+   	 String addressId1 = UUID.randomUUID().toString();
+        String addressId2 = UUID.randomUUID().toString();
+        String employeeAddressId = UUID.randomUUID().toString();
+        String purchaseId1 = UUID.randomUUID().toString();
+        String purchaseId2 = UUID.randomUUID().toString();        
+        String email = "whodatboy@gm.com";
+    	Address employeeAddress = persistAddress("ASAP Rocky", "Uni Street", 5, "Ottawa", "H6F 7U8", employeeAddressId);
+    	Employee employee = persistEmployee("rock@gm.com", "5678", "ASAP Rocky", employeeAddress, false);
+    	ItemCategory itemCategory = persistItemCategory("Food");
     	HashMap<Item, Integer> items = new HashMap<>();
-        items.put(item, itemQuantityDesired);
-    	Purchase purchase = persistPurchase(employee, items);
+    	items.put(persistItem("Steak", "vegan", "imgur.com/steak", 20.0, 3, true, true, itemCategory), 3);
+    	
     	Set<Purchase> setOfPurchases = new HashSet<Purchase>();
-        setOfPurchases.add(purchase);
-        Customer customer = persist(customerAddress, setOfPurchases, false);
+    	setOfPurchases.add(persistPurchase(purchaseId1, 
+    		Date.valueOf(LocalDate.now()), 
+    		Time.valueOf(LocalTime.now()), 
+    		items,
+            OrderType.Delivery,
+            OrderStatus.OutForDelivery,
+            employee));
+    	
+    	Set<Purchase> setOfPurchases2 = new HashSet<Purchase>();
+    	setOfPurchases.add(persistPurchase(purchaseId2, 
+    		Date.valueOf(LocalDate.now()), 
+    		Time.valueOf(LocalTime.now()), 
+    		items,
+            OrderType.Delivery,
+            OrderStatus.OutForDelivery,
+            employee));
+    	
+    	Address customerAddress1 = persistAddress("Tyler TheCreator", "Lorne Crescent", 4, "Montreal", "H2X 2B3", addressId1);
+    	Address customerAddress2 = persistAddress("Tyler TheCreator", "Montreal street", 8, "Montreal", "H2X 4B3", addressId2);
+    	
+    	Customer expected = persist(email, "Tyler TheCreator", "1234", customerAddress1, setOfPurchases, false);
+    	persist("whodatboy2@gm.com", "Tyler", "5678", customerAddress2, setOfPurchases2, false);
+       
+       Customer actual = customerRepository.findCustomerByEmail(email);
+       verify(expected, actual);
         
-        itemCategoryRepository.save(itemCategory);
-        addressRepository.save(employeeAddress);
-        employeeRepository.save(employee);
-        addressRepository.save(customerAddress);
-        itemRepository.save(item);
-        purchaseRepository.save(purchase);
-        customerRepository.save(customer);
-        
-        customer = customerRepository.findCustomerByEmail(email);
-        
-        assertNotNull(customer);		
-        assertEquals(customer.getUsername(), name);
-        assertEquals(customer.getEmail(), email);
-        assertEquals(customer.getPassword(), password);
-        assertEquals(customer.getAddress(), customerAddress);
-        assertEquals(customer.isDisabled(), false);
-        assertNotNull(customer.getPurchases());
-        
-        assertEquals(customer.getPurchases().size(), setOfPurchases.size());
-        
-        for(Purchase p1 : setOfPurchases) {
-        	boolean contains = false;
-        	for(Purchase p2 : customer.getPurchases()) {
-        		if(p1.getId().equals(p2.getId())){
-                    verify(p1, p2);
-                    contains = true;
-                    break;
-                }
-        	}
-        	assertTrue(contains);
-        }
     }
     
     /**
@@ -438,49 +510,44 @@ public class TestCustomerPersistence {
      */
     @Test
     public void testPersistAndLoadCustomersByAddress(){
-    	Address customerAddress = persistAddress();
-    	Address employeeAddress = persistEmployeeAddress();
-    	Employee employee = persistEmployee(employeeAddress);
-    	ItemCategory itemCategory = persistItemCategory();
-    	Item item = persistItem(itemCategory);
+    	
+    	String addressId1 = UUID.randomUUID().toString();
+        String addressId2 = UUID.randomUUID().toString();
+        String employeeAddressId = UUID.randomUUID().toString();
+        String purchaseId1 = UUID.randomUUID().toString();
+        String purchaseId2 = UUID.randomUUID().toString();        
+    	Address employeeAddress = persistAddress("ASAP Rocky", "Uni Street", 5, "Ottawa", "H6F 7U8", employeeAddressId);
+    	Employee employee = persistEmployee("rock@gm.com", "5678", "ASAP Rocky", employeeAddress, false);
+    	ItemCategory itemCategory = persistItemCategory("Food");
     	HashMap<Item, Integer> items = new HashMap<>();
-        items.put(item, itemQuantityDesired);
-    	Purchase purchase = persistPurchase(employee, items);
+    	items.put(persistItem("Steak", "vegan", "imgur.com/steak", 20.0, 3, true, true, itemCategory), 3);
+    	
     	Set<Purchase> setOfPurchases = new HashSet<Purchase>();
-        setOfPurchases.add(purchase);
-        Customer customer = persist(customerAddress, setOfPurchases, false);
+    	setOfPurchases.add(persistPurchase(purchaseId1, 
+    		Date.valueOf(LocalDate.now()), 
+    		Time.valueOf(LocalTime.now()), 
+    		items,
+            OrderType.Delivery,
+            OrderStatus.OutForDelivery,
+            employee));
+    	
+    	Set<Purchase> setOfPurchases2 = new HashSet<Purchase>();
+    	setOfPurchases.add(persistPurchase(purchaseId2, 
+    		Date.valueOf(LocalDate.now()), 
+    		Time.valueOf(LocalTime.now()), 
+    		items,
+            OrderType.Delivery,
+            OrderStatus.OutForDelivery,
+            employee));
+    	
+    	Address customerAddress1 = persistAddress("Tyler TheCreator", "Lorne Crescent", 4, "Montreal", "H2X 2B3", addressId1);
+    	Address customerAddress2 = persistAddress("Tyler TheCreator", "Montreal street", 8, "Montreal", "H2X 4B3", addressId2);
+    	
+    	Customer expected = persist("whodatboy@gm.com", "Tyler TheCreator", "1234", customerAddress1, setOfPurchases, false);
+    	persist("whodatboy2@gm.com", "Tyler", "5678", customerAddress2, setOfPurchases2, false);
+        Customer actual = customerRepository.findCustomerByAddress(customerAddress1);
+        verify(expected, actual);
         
-        itemCategoryRepository.save(itemCategory);
-        addressRepository.save(employeeAddress);
-        employeeRepository.save(employee);
-        addressRepository.save(customerAddress);
-        itemRepository.save(item);
-        purchaseRepository.save(purchase);
-        customerRepository.save(customer);
-        
-        customer = customerRepository.findCustomerByAddress(customerAddress);
-        
-        assertNotNull(customer);		
-        assertEquals(customer.getUsername(), name);
-        assertEquals(customer.getEmail(), email);
-        assertEquals(customer.getPassword(), password);
-        assertEquals(customer.getAddress(), customerAddress);
-        assertEquals(customer.isDisabled(), false);
-        assertNotNull(customer.getPurchases());
-        
-        assertEquals(customer.getPurchases().size(), setOfPurchases.size());
-        
-        for(Purchase p1 : setOfPurchases) {
-        	boolean contains = false;
-        	for(Purchase p2 : customer.getPurchases()) {
-        		if(p1.getId().equals(p2.getId())){
-                    verify(p1, p2);
-                    contains = true;
-                    break;
-                }
-        	}
-        	assertTrue(contains);
-        }
     }
     
     /**
@@ -489,50 +556,42 @@ public class TestCustomerPersistence {
      */
     @Test
     public void testPersistAndLoadCustomersByPurchases(){
-    	Address customerAddress = persistAddress();
-    	Address employeeAddress = persistEmployeeAddress();
-    	Employee employee = persistEmployee(employeeAddress);
-    	ItemCategory itemCategory = persistItemCategory();
-    	Item item = persistItem(itemCategory);
+    	String addressId1 = UUID.randomUUID().toString();
+        String addressId2 = UUID.randomUUID().toString();
+        String employeeAddressId = UUID.randomUUID().toString();
+        String purchaseId1 = UUID.randomUUID().toString();
+        String purchaseId2 = UUID.randomUUID().toString();        
+    	Address employeeAddress = persistAddress("ASAP Rocky", "Uni Street", 5, "Ottawa", "H6F 7U8", employeeAddressId);
+    	Employee employee = persistEmployee("rock@gm.com", "5678", "ASAP Rocky", employeeAddress, false);
+    	ItemCategory itemCategory = persistItemCategory("Food");
     	HashMap<Item, Integer> items = new HashMap<>();
-        items.put(item, itemQuantityDesired);
-    	Purchase purchase = persistPurchase(employee, items);
+    	items.put(persistItem("Steak", "vegan", "imgur.com/steak", 20.0, 3, true, true, itemCategory), 3);
+    	
     	Set<Purchase> setOfPurchases = new HashSet<Purchase>();
-        setOfPurchases.add(purchase);
-        Customer customer = persist(customerAddress, setOfPurchases, false);
-        
-        itemCategoryRepository.save(itemCategory);
-        addressRepository.save(employeeAddress);
-        employeeRepository.save(employee);
-        addressRepository.save(customerAddress);
-        itemRepository.save(item);
-        purchaseRepository.save(purchase);
-        customerRepository.save(customer);
-        
-        customer = null;
-        
-        customer = customerRepository.findCustomerByPurchases(purchase);
-        
-        assertNotNull(customer);		
-        assertEquals(customer.getUsername(), name);
-        assertEquals(customer.getEmail(), email);
-        assertEquals(customer.getPassword(), password);
-        assertEquals(customer.getAddress(), customerAddress);
-        assertEquals(customer.isDisabled(), false);
-        assertNotNull(customer.getPurchases());
-        
-        assertEquals(customer.getPurchases().size(), setOfPurchases.size());
-        
-        for(Purchase p1 : setOfPurchases) {
-        	boolean contains = false;
-        	for(Purchase p2 : customer.getPurchases()) {
-        		if(p1.getId().equals(p2.getId())){
-                    verify(p1, p2);
-                    contains = true;
-                    break;
-                }
-        	}
-        	assertTrue(contains);
-        }
+    	setOfPurchases.add(persistPurchase(purchaseId1, 
+    		Date.valueOf(LocalDate.now()), 
+    		Time.valueOf(LocalTime.now()), 
+    		items,
+            OrderType.Delivery,
+            OrderStatus.OutForDelivery,
+            employee));
+    	
+    	Set<Purchase> setOfPurchases2 = new HashSet<Purchase>();
+    	Purchase purchase2 = persistPurchase(purchaseId2, 
+        		Date.valueOf(LocalDate.now()), 
+        		Time.valueOf(LocalTime.now()), 
+        		items,
+                OrderType.Delivery,
+                OrderStatus.OutForDelivery,
+                employee);
+    	setOfPurchases.add(purchase2);
+    	
+    	Address customerAddress1 = persistAddress("Tyler TheCreator", "Lorne Crescent", 4, "Montreal", "H2X 2B3", addressId1);
+    	Address customerAddress2 = persistAddress("Tyler TheCreator", "Montreal street", 8, "Montreal", "H2X 4B3", addressId2);
+    	
+    	Customer expected = persist("whodatboy@gm.com", "Tyler TheCreator", "1234", customerAddress1, setOfPurchases, false);
+    	persist("whodatboy2@gm.com", "Tyler", "5678", customerAddress2, setOfPurchases2, false);
+        Customer actual = customerRepository.findCustomerByPurchases(purchase2);
+        verify(expected, actual);
     }
 }
