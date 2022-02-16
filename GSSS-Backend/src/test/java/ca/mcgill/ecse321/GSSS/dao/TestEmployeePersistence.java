@@ -302,7 +302,7 @@ public class TestEmployeePersistence {
     Set<Shift> setOfShifts = new HashSet<>();
     setOfShifts.add(shift);
 
-    Employee employee = persistEmployee(email1, password1, address, setOfShifts, false);
+    Employee employee = persistEmployee(email1, username1,password1, address, setOfShifts, false);
 
     Employee loadedEmployee = employeeRepository.findEmployeeByShifts(shift);
 
@@ -326,7 +326,7 @@ public class TestEmployeePersistence {
     Set<Shift> setOfShifts = new HashSet<>();
     setOfShifts.add(shift);
 
-    Employee employee = persistEmployee(email1, password1, address, setOfShifts, false);
+    Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, false);
     Employee actualEmployee = employeeRepository.findEmployeeByAddress(address);
     verify(employee, actualEmployee);
   }
@@ -346,7 +346,7 @@ public class TestEmployeePersistence {
 
     Set<Shift> setOfShifts = new HashSet<>();
     setOfShifts.add(shift);
-    Employee employee = persistEmployee(email1, password1, address, setOfShifts, true);
+    Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, true);
     List<Employee> listOfEmployees = employeeRepository.findEmployeesByDisabled(true);
     verifyContains(employee, listOfEmployees);
 
