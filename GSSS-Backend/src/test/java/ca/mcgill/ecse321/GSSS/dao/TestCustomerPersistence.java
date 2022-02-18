@@ -89,12 +89,12 @@ public class TestCustomerPersistence {
 	 * 
 	 * @author Enzo Benoit-Jeannin
 	 * 
-	 *@param fullName Full name of the customer's address
-	 * @param streetName Name of the customer's street
-	 * @param streetNumber Customer's street number 
-	 * @param city Customer's city
-	 * @param postalCode Customer's postal code
-	 * @param iD Customer's address' iD
+	 * @param fullName     Full name of the customer's address
+	 * @param streetName   Name of the customer's street
+	 * @param streetNumber Customer's street number
+	 * @param city         Customer's city
+	 * @param postalCode   Customer's postal code
+	 * @param iD           Customer's address' iD
 	 * @return address Save the address in repository and return it
 	 */
 	private Address persistAddress(String fullName, String streetName, int streetNumber, String city, String postalCode,
@@ -117,12 +117,12 @@ public class TestCustomerPersistence {
 	 * 
 	 * @author Enzo Benoit-Jeannin
 	 * 
-	 * @param email Customer's email
-	 * @param username Customer's username
-	 * @param password Customer's password
+	 * @param email           Customer's email
+	 * @param username        Customer's username
+	 * @param password        Customer's password
 	 * @param customerAddress Customer's address
-	 * @param setOfPurchase Customer's purchases
-	 * @param disabled value specifying if the customer is disabled
+	 * @param setOfPurchase   Customer's purchases
+	 * @param disabled        value specifying if the customer is disabled
 	 * @return customer Save the customer in repository and return it
 	 */
 	private Customer persist(String email, String username, String password, Address customerAddress,
@@ -144,10 +144,10 @@ public class TestCustomerPersistence {
 	 * 
 	 * @author Enzo Benoit-Jeannin
 	 * 
-	 * @param email Employee's email
+	 * @param email    Employee's email
 	 * @param password Employee's password
 	 * @param username Employee's username
-	 * @param address Employee's address
+	 * @param address  Employee's address
 	 * @param disabled Value specifying if the employee is disabled
 	 * @return employee Save the employee in repository and return it
 	 */
@@ -186,14 +186,14 @@ public class TestCustomerPersistence {
 	 * 
 	 * @author Enzo Benoit-Jeannin
 	 * 
-	 * @param name Item's name
-	 * @param description Item's description
-	 * @param imageUrl Item's url
-	 * @param price Item's price
+	 * @param name              Item's name
+	 * @param description       Item's description
+	 * @param imageUrl          Item's url
+	 * @param price             Item's price
 	 * @param remainingQuantity Item's remaining quantity
 	 * @param availableForOrder Value specifying if the item is available for orders
-	 * @param stillAvailable Value specifying if the item is available
-	 * @param category Item's category
+	 * @param stillAvailable    Value specifying if the item is available
+	 * @param category          Item's category
 	 * @return item Save the item on repository and return it
 	 * 
 	 */
@@ -219,13 +219,13 @@ public class TestCustomerPersistence {
 	 * 
 	 * @author Enzo Benoit-Jeannin
 	 * 
-	 * @param id Purchase's id
-	 * @param date Purchase's date
-	 * @param time Purchase's time
-	 * @param items Purchase's items
-	 * @param orderType Purchase's order type
+	 * @param id          Purchase's id
+	 * @param date        Purchase's date
+	 * @param time        Purchase's time
+	 * @param items       Purchase's items
+	 * @param orderType   Purchase's order type
 	 * @param orderStatus Purchase's order status
-	 * @param employee Purchase's assigned employee 
+	 * @param employee    Purchase's assigned employee
 	 * @return purchase Save the purchase on repository and return it
 	 */
 	private Purchase persistPurchase(String id, Date date, Time time, Map<Item, Integer> items, OrderType orderType,
@@ -250,7 +250,7 @@ public class TestCustomerPersistence {
 	 * @author Philippe Sarouphim Hochar.
 	 * 
 	 * @param expected Expected purchase.
-	 * @param actual Actual purchase.
+	 * @param actual   Actual purchase.
 	 */
 	private void verifyPurchase(Purchase expected, Purchase actual) {
 		assertNotNull(actual);
@@ -283,7 +283,7 @@ public class TestCustomerPersistence {
 	 * @author Enzo Benoit-Jeannin
 	 * 
 	 * @param expected Expected customer
-	 * @param actual Actual customer
+	 * @param actual   Actual customer
 	 * 
 	 */
 	private void verify(Customer expected, Customer actual) {
@@ -316,7 +316,7 @@ public class TestCustomerPersistence {
 	 * 
 	 * @author Enzo Benoit-Jeannin
 	 * @param expected Expected list of customers retrieved.
-	 * @param actual Actual list of customers retrieved
+	 * @param actual   Actual list of customers retrieved
 	 */
 	private void verify(List<Customer> expected, List<Customer> actual) {
 		assertNotNull(actual);
