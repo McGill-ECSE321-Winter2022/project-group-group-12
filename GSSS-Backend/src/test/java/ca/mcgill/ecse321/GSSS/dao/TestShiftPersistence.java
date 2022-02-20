@@ -1,20 +1,20 @@
 package ca.mcgill.ecse321.GSSS.dao;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ca.mcgill.ecse321.GSSS.model.Shift;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * implementation of tests for shift persistence, testing find by id and by date
@@ -88,7 +88,7 @@ public class TestShiftPersistence {
    * @author Habib Jarweh
    */
   @Test
-  public void testPersistAndLoadEmployeeById() {
+  public void testPersistAndLoadShiftById() {
     Shift shift1 = new Shift();
     Time startTime = Time.valueOf("8:00:00");
     Time endTime = Time.valueOf("17:00:00");
@@ -112,7 +112,7 @@ public class TestShiftPersistence {
    * @author Habib Jarweh
    */
   @Test
-  public void testPersistAndLoadEmployeeByDate() {
+  public void testPersistAndLoadShiftByDate() {
     List<Shift> shifts1 = new ArrayList<Shift>();
     Time startTime1 = Time.valueOf("8:00:00");
     Time endTime1 = Time.valueOf("17:00:00");

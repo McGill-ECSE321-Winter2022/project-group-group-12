@@ -11,7 +11,7 @@ public abstract class TimeInterval {
 
   public Time getStartTime() {
     return startTime;
-    }
+  }
 
   public void setStartTime(Time startTime) {
     this.startTime = startTime;

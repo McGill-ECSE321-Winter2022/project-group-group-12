@@ -5,8 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * This class represents the Grocery Store's Weekly Business Hours.
- * Its primary key is a weekday.
+ * This class represents the Grocery Store's Weekly Business Hours. Its primary key is a weekday.
  *
  * @author Theo Ghanem
  */

@@ -20,41 +20,49 @@ public abstract class Account {
   private String password;
   private boolean disabled;
   private Address address;
-  
+
   @OneToOne
   public Address getAddress() {
     return address;
   }
+
   public void setAddress(Address address) {
     this.address = address;
   }
+
   public String getUsername() {
     return username;
   }
+
   public void setUsername(String username) {
     this.username = username;
   }
-  
+
   @Id
   public String getEmail() {
     return email;
   }
+
   public void setEmail(String email) {
     this.email = email;
   }
+
   public String getPassword() {
     return password;
   }
+
   public void setPassword(String password) {
     this.password = password;
   }
+
   public boolean isDisabled() {
     return disabled;
   }
+
   public void setDisabled(boolean disabled) {
     this.disabled = disabled;
   }
-  
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
@@ -89,5 +97,5 @@ public abstract class Account {
     return true;
   }
 
-  
+
 }

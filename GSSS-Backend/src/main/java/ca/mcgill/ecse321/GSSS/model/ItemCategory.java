@@ -4,8 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * This item represents a Category of items.
- * Its primary key is its only field: name.
+ * This item represents a Category of items. Its primary key is its only field: name.
  * 
  * @author Philippe Sarouphim Hochar.
  */

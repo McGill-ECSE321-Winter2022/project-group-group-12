@@ -5,10 +5,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
- * This class represents a shop Item.
- * Its primary key is its name.
+ * This class represents a shop Item. Its primary key is its name.
  * 
- * @author Chris Hatoum 
+ * @author Chris Hatoum
  */
 @Entity
 public class Item {
@@ -22,7 +21,7 @@ public class Item {
   private boolean stillAvailable;
   private ItemCategory category;
 
-  // Setters and getters 
+  // Setters and getters
   @Id
   public String getName() {
     return name;

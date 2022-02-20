@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Employee extends Account {
-  
+
   private Set<Shift> shifts;
 
   @OneToMany(fetch = FetchType.EAGER)
@@ -41,6 +41,6 @@ public class Employee extends Account {
     return true;
   }
 
-  
-  
+
+
 }

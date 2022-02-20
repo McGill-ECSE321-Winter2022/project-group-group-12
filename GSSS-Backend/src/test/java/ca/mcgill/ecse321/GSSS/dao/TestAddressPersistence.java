@@ -11,10 +11,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ca.mcgill.ecse321.GSSS.model.Address;
 
+/**
+ * To test the Address CRUD repository methods.
+ * 
+ * @author Wassim Jabbour
+ *
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestAddressPersistence {
-  
+
   @Autowired
   private AddressRepository addressRepository;
 
@@ -60,7 +66,7 @@ public class TestAddressPersistence {
     itemCategoryRepository.deleteAll();
     businessHourRepository.deleteAll();
   }
-  
+
   /**
    * To test the method findAddressById() for the address
    * 
