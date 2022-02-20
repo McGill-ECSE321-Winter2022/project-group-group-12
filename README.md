@@ -15,4 +15,4 @@ JPAtient is a software engineering student team composed of 6 members: Wassim ja
   
   <ins>Figure 1: Overview Table</ins>
   
-  Project Report: 
+  Project Report: https://github.com/McGill-ECSE321-Winter2022/project-group-group-12/wiki/Deliverable-1:-Report
