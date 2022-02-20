@@ -12,11 +12,9 @@ import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 
 
 /**
- * 
- * this class is to test persistence of itemCategory, with find by name (its primary key)
- * 
- * @author Habib Jarweh
+ * This class is to test persistence of itemCategory, with find by name (its primary key)
  *
+ * @author Habib Jarweh
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -57,8 +55,6 @@ public class TestItemCategoryPersistence {
     assertNotNull(itemCategory);
     assertEquals(name, itemCategory.getName());
 
-  }
-
-
+}
 
 }

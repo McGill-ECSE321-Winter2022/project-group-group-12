@@ -467,7 +467,7 @@ public class TestPurchasePersistence {
 
         List<Purchase> actual = purchaseRepository.findPurchasesByEmployee(employee);
 
-        verify(expected, actual);
-    }
+		verify(expected, actual);
+	}
 
 }

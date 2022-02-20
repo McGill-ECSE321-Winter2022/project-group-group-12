@@ -31,324 +31,320 @@ import ca.mcgill.ecse321.GSSS.model.Shift;
 @SpringBootTest
 public class TestEmployeePersistence {
 
-  /**
-   * Deletes all the database contents. Goes from the independent to the dependent classes to avoid
-   * exceptions being thrown when deleting
-   *
-   * @author Wassim Jabbour
-   */
-  @AfterEach
-  public void clearDatabase() {
-    customerRepository.deleteAll();
-    purchaseRepository.deleteAll();
-    employeeRepository.deleteAll();
-    shiftRepository.deleteAll();
-    ownerRepository.deleteAll();
-    addressRepository.deleteAll();
-    itemRepository.deleteAll();
-    itemCategoryRepository.deleteAll();
-    businessHourRepository.deleteAll();
-  }
+	/**
+	 * Deletes all the database contents. Goes from the independent to the dependent
+	 * classes to avoid exceptions being thrown when deleting
+	 *
+	 * @author Wassim Jabbour
+	 */
+	@AfterEach
+	public void clearDatabase() {
+		customerRepository.deleteAll();
+		purchaseRepository.deleteAll();
+		employeeRepository.deleteAll();
+		shiftRepository.deleteAll();
+		ownerRepository.deleteAll();
+		addressRepository.deleteAll();
+		itemRepository.deleteAll();
+		itemCategoryRepository.deleteAll();
+		businessHourRepository.deleteAll();
+	}
 
-  @Autowired
-  private EmployeeRepository employeeRepository;
-  @Autowired
-  private AddressRepository addressRepository;
-  @Autowired
-  private ShiftRepository shiftRepository;
-  @Autowired
-  private BusinessHourRepository businessHourRepository;
-  @Autowired
-  private CustomerRepository customerRepository;
-  @Autowired
-  private ItemCategoryRepository itemCategoryRepository;
-  @Autowired
-  private ItemRepository itemRepository;
-  @Autowired
-  private OwnerRepository ownerRepository;
-  @Autowired
-  private PurchaseRepository purchaseRepository;
+	@Autowired
+	private EmployeeRepository employeeRepository;
+	@Autowired
+	private AddressRepository addressRepository;
+	@Autowired
+	private ShiftRepository shiftRepository;
+	@Autowired
+	private BusinessHourRepository businessHourRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private ItemCategoryRepository itemCategoryRepository;
+	@Autowired
+	private ItemRepository itemRepository;
+	@Autowired
+	private OwnerRepository ownerRepository;
+	@Autowired
+	private PurchaseRepository purchaseRepository;
 
-  // Initialize variables that will be used to successfully create a complete
-  // employee
-  String username1 = "bobthebuilder";
-  String email1 = "bob@email.com";
-  String password1 = "bobpassword";
-  String fullName1 = "Bob Builder";
-  String streetName1 = "Crescent";
-  String city1 = "Montreal";
-  int streetNumber1 = 43;
-  String postalCode1 = "W2S L0S";
-  String addressId1 = UUID.randomUUID().toString();
-  
-  // Doing the same for another employee
-  String username2 = "jackychan";
-  String email2 = "jackychan@gmail.com";
-  String password2 = "jackychan";
-  String fullName2 = "Jacky Chan";
-  String streetName2 = "Lordside";
-  String city2 = "Beirut";
-  int streetNumber2 = 4;
-  String postalCode2 = "W2S L0S";
-  String addressId2 = UUID.randomUUID().toString();
-  
-  Date date1 = Date.valueOf(LocalDate.of(2020, Month.JANUARY, 31));
-  Time startTime1 = java.sql.Time.valueOf(LocalTime.of(11, 35));
-  Time endTime1 = java.sql.Time.valueOf(LocalTime.of(13, 25));
-  String shiftId1 = UUID.randomUUID().toString();
-  
-  Date date2 = Date.valueOf(LocalDate.of(2020, Month.FEBRUARY, 20));
-  Time startTime2 = java.sql.Time.valueOf(LocalTime.of(10, 35));
-  Time endTime2 = java.sql.Time.valueOf(LocalTime.of(15, 25));
-  String shiftId2 = UUID.randomUUID().toString();
-  
+	// Initialize variables that will be used to successfully create a complete
+	// employee
+	String username1 = "bobthebuilder";
+	String email1 = "bob@email.com";
+	String password1 = "bobpassword";
+	String fullName1 = "Bob Builder";
+	String streetName1 = "Crescent";
+	String city1 = "Montreal";
+	int streetNumber1 = 43;
+	String postalCode1 = "W2S L0S";
+	String addressId1 = UUID.randomUUID().toString();
 
-  /**
-   * This method asserts whether the actual Employee matches the expected one.
-   * 
-   * @author Chris Hatoum & Theo Ghanem
-   * @param expected
-   * @param actual
-   */
-  private void verify(Employee expected, Employee actual) {
+	// Doing the same for another employee
+	String username2 = "jackychan";
+	String email2 = "jackychan@gmail.com";
+	String password2 = "jackychan";
+	String fullName2 = "Jacky Chan";
+	String streetName2 = "Lordside";
+	String city2 = "Beirut";
+	int streetNumber2 = 4;
+	String postalCode2 = "W2S L0S";
+	String addressId2 = UUID.randomUUID().toString();
 
-    assertNotNull(actual);
-    assertEquals(expected.getUsername(), actual.getUsername());
-    assertEquals(expected.getEmail(), actual.getEmail());
-    assertEquals(expected.getPassword(), actual.getPassword());
-    assertNotNull(actual.getShifts());
-    assertNotNull(expected.getShifts());
-    assertEquals(expected.isDisabled(), actual.isDisabled());
-    assertEquals(actual.getShifts().size(), expected.getShifts().size());
-    for (Shift expectedShift : expected.getShifts()) {
-      boolean contains = false;
-      for (Shift actualShift : actual.getShifts()) {
-        if (expectedShift.equals(actualShift)) {
-          contains = true;
-        }
-      }
-      assertTrue(contains);
-    }
+	Date date1 = Date.valueOf(LocalDate.of(2020, Month.JANUARY, 31));
+	Time startTime1 = java.sql.Time.valueOf(LocalTime.of(11, 35));
+	Time endTime1 = java.sql.Time.valueOf(LocalTime.of(13, 25));
+	String shiftId1 = UUID.randomUUID().toString();
 
-    assertEquals(expected.getAddress(), actual.getAddress());
+	Date date2 = Date.valueOf(LocalDate.of(2020, Month.FEBRUARY, 20));
+	Time startTime2 = java.sql.Time.valueOf(LocalTime.of(10, 35));
+	Time endTime2 = java.sql.Time.valueOf(LocalTime.of(15, 25));
+	String shiftId2 = UUID.randomUUID().toString();
 
-  }
+	/**
+	 * This method asserts whether the actual Employee matches the expected one.
+	 * 
+	 * @author Chris Hatoum & Theo Ghanem
+	 * @param expected The element we are expecting to get back from the database
+	 * @param actual   The actual element we are retrieving from the database
+	 */
+	private void verify(Employee expected, Employee actual) {
 
-  /**
-   * This method checks whether the employee desired is in the list.
-   * 
-   * @author Wassim Jabbour
-   * @employee The expected employee
-   * @employees The list to check
-   */
-  private void verifyContains(Employee employee, List<Employee> employees) {
+		assertNotNull(actual);
+		assertEquals(expected.getUsername(), actual.getUsername());
+		assertEquals(expected.getEmail(), actual.getEmail());
+		assertEquals(expected.getPassword(), actual.getPassword());
+		assertNotNull(actual.getShifts());
+		assertNotNull(expected.getShifts());
+		assertEquals(expected.isDisabled(), actual.isDisabled());
+		assertEquals(actual.getShifts().size(), expected.getShifts().size());
+		for (Shift expectedShift : expected.getShifts()) {
+			boolean contains = false;
+			for (Shift actualShift : actual.getShifts()) {
+				if (expectedShift.equals(actualShift)) {
+					contains = true;
+				}
+			}
+			assertTrue(contains);
+		}
 
-    boolean found = false;
+		assertEquals(expected.getAddress(), actual.getAddress());
 
-    for (Employee e : employees) {
-      if (e.getEmail() != null && e.getEmail().equals(employee.getEmail())) {
-        found = true;
-        verify(employee, e);
-      }
-    }
+	}
 
-    assertTrue(found);
-  }
+	/**
+	 * This method checks whether the desired employee is in the list.
+	 * 
+	 * @author Wassim Jabbour
+	 * @employee The expected employee
+	 * @employees The list to check
+	 */
+	private void verifyContains(Employee employee, List<Employee> employees) {
 
-  /**
-   * This method creates an address from the specified parameters, and saves it to the database.
-   * 
-   * @author Chris Hatoum & Theo Ghanem
-   * 
-   * @param fullName, full name of the employee
-   * @param streetName, street name of the employee
-   * @param city, city of the employee
-   * @param postalCode, postal code of the employee
-   * @param addressId, unique UUID for the address
-   * @param streetNumber, street number of the employee
-   * @return The persisted address
-   */
-  private Address persistAddress(String fullName, String streetName, String city, String postalCode,
-      String addressId, int streetNumber) {
-    Address address = new Address();
-    address.setFullName(fullName);
-    address.setStreetName(streetName);
-    address.setStreetNumber(streetNumber);
-    address.setCity(city);
-    address.setPostalCode(postalCode);
-    address.setId(addressId);
+		boolean found = false;
 
-    addressRepository.save(address);
-    return address;
-  }
+		for (Employee e : employees) {
+			if (e.getEmail() != null && e.getEmail().equals(employee.getEmail())) {
+				found = true;
+				verify(employee, e);
+			}
+		}
 
-  /**
-   * 
-   * This method creates a shift from the specified parameters, and saves it to the database.
-   * 
-   * @author Chris Hatoum & Theo Ghanem
-   * 
-   * @param shiftId, unique UUID for the shift
-   * @param date, date of the shift
-   * @param endTime, end time of the shift
-   * @param startTime, start time of the shift
-   * @return
-   */
-  private Shift persistShift(String shiftId, Date date, Time endTime, Time startTime) {
-    Shift shift = new Shift();
-    shift.setId(shiftId);
-    shift.setDate(date);
-    shift.setEndTime(endTime);
-    shift.setStartTime(startTime);
+		assertTrue(found);
+	}
 
-    shiftRepository.save(shift);
-    return shift;
-  }
+	/**
+	 * This method creates an address from the specified parameters, and saves it to
+	 * the database.
+	 * 
+	 * @author Chris Hatoum & Theo Ghanem
+	 * 
+	 * @param fullName,     full name of the employee
+	 * @param streetName,   street name of the employee
+	 * @param city,         city of the employee
+	 * @param postalCode,   postal code of the employee
+	 * @param addressId,    unique UUID for the address
+	 * @param streetNumber, street number of the employee
+	 * @return The persisted address
+	 */
+	private Address persistAddress(String fullName, String streetName, String city, String postalCode, String addressId,
+			int streetNumber) {
+		Address address = new Address();
+		address.setFullName(fullName);
+		address.setStreetName(streetName);
+		address.setStreetNumber(streetNumber);
+		address.setCity(city);
+		address.setPostalCode(postalCode);
+		address.setId(addressId);
 
-  /**
-   * This method creates an employee from the specified parameters, and saves it to the database.
-   * 
-   * @author Chris Hatoum & Theo Ghanem
-   * 
-   * @param email, the employee's email
-   * @param password, the employee's password
-   * @param address, the address of the employee
-   * @param setOfShifts, a set of shifts
-   * @return
-   */
-  private Employee persistEmployee(String email, String username, String password, Address address,
-      Set<Shift> setOfShifts, Boolean bool) {
-    Employee employee = new Employee();
-    employee.setEmail(email);
-    employee.setUsername(username);
-    employee.setPassword(password);
-    employee.setAddress(address);
-    employee.setShifts(setOfShifts);
-    employee.setDisabled(bool);
+		addressRepository.save(address);
+		return address;
+	}
 
-    employeeRepository.save(employee);
-    return employee;
-  }
+	/**
+	 * 
+	 * This method creates a shift from the specified parameters, and saves it to
+	 * the database.
+	 * 
+	 * @author Chris Hatoum & Theo Ghanem
+	 * 
+	 * @param shiftId,   unique UUID for the shift
+	 * @param date,      date of the shift
+	 * @param endTime,   end time of the shift
+	 * @param startTime, start time of the shift
+	 * @return the persisted shift
+	 */
+	private Shift persistShift(String shiftId, Date date, Time endTime, Time startTime) {
+		Shift shift = new Shift();
+		shift.setId(shiftId);
+		shift.setDate(date);
+		shift.setEndTime(endTime);
+		shift.setStartTime(startTime);
 
-  /**
-   * Testing the persistence and loading for the Employee Repository. This tests the
-   * findEmployeeByEmail method
-   * 
-   * @author Theo Ghanem & Chris Hatoum
-   */
-  @Test
-  public void testPersistAndLoadEmployeeByEmail() {
+		shiftRepository.save(shift);
+		return shift;
+	}
 
-    Address address =
-        persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
-    Shift shift = persistShift(shiftId1, date1, endTime1, startTime1);
+	/**
+	 * This method creates an employee from the specified parameters, and saves it
+	 * to the database.
+	 * 
+	 * @author Chris Hatoum & Theo Ghanem
+	 * 
+	 * @param email,       the employee's email
+	 * @param password,    the employee's password
+	 * @param address,     the address of the employee
+	 * @param setOfShifts, a set of shifts
+	 * @return the persisted employee
+	 */
+	private Employee persistEmployee(String email, String username, String password, Address address,
+			Set<Shift> setOfShifts, Boolean bool) {
+		Employee employee = new Employee();
+		employee.setEmail(email);
+		employee.setUsername(username);
+		employee.setPassword(password);
+		employee.setAddress(address);
+		employee.setShifts(setOfShifts);
+		employee.setDisabled(bool);
 
-    Set<Shift> setOfShifts = new HashSet<>();
-    setOfShifts.add(shift);
+		employeeRepository.save(employee);
+		return employee;
+	}
 
-    Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, false);
-    Employee actualEmployee = employeeRepository.findEmployeeByEmail(email1);
-    verify(employee, actualEmployee);
+	/**
+	 * Testing the persistence and loading for the Employee Repository. This tests
+	 * the findEmployeeByEmail method
+	 * 
+	 * @author Theo Ghanem & Chris Hatoum
+	 */
+	@Test
+	public void testPersistAndLoadEmployeeByEmail() {
 
-  }
+		Address address = persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
+		Shift shift = persistShift(shiftId1, date1, endTime1, startTime1);
 
-  /**
-   * Testing the persistence and loading for the Employee Repository. This tests the
-   * findEmployeesByUsername method
-   * 
-   * @author Theo Ghanem
-   * @author Wassim Jabbour
-   */
-  @Test
-  public void testPersistAndLoadEmployeesByUsername() {
+		Set<Shift> setOfShifts = new HashSet<>();
+		setOfShifts.add(shift);
 
-    Address address1 =
-        persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
-    Address address2 = 
-        persistAddress(fullName2, streetName2, city2, postalCode2, addressId2, streetNumber2);
-    
-    Shift shift1 = persistShift(shiftId1, date1, endTime1, startTime1);
-    Shift shift2 = persistShift(shiftId2, date2, endTime2, startTime2);
+		Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, false);
+		Employee actualEmployee = employeeRepository.findEmployeeByEmail(email1);
+		verify(employee, actualEmployee);
 
-    Set<Shift> setOfShifts1 = new HashSet<>();
-    setOfShifts1.add(shift1);
-    
-    Set<Shift> setOfShifts2 = new HashSet<>();
-    setOfShifts1.add(shift2);
+	}
 
-    Employee employee1 = persistEmployee(email1, username1, password1, address1, setOfShifts1, false);
-    persistEmployee(email2, username2, password2, address2, setOfShifts2, false);
-    
-    List<Employee> listOfEmployees = employeeRepository.findEmployeesByUsername(username1);
-    verifyContains(employee1, listOfEmployees);
-    assertEquals(1, listOfEmployees.size()); // Checking that only employee1 was retrieved
+	/**
+	 * Testing the persistence and loading for the Employee Repository. This tests
+	 * the findEmployeesByUsername method
+	 * 
+	 * @author Theo Ghanem
+	 * @author Wassim Jabbour
+	 */
+	@Test
+	public void testPersistAndLoadEmployeesByUsername() {
 
-  }
+		Address address1 = persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
+		Address address2 = persistAddress(fullName2, streetName2, city2, postalCode2, addressId2, streetNumber2);
 
-  /**
-   * Testing the persistence and loading for the Employee Repository. This tests the
-   * findEmployeesByShifts method
-   * 
-   * @author Theo Ghanem & Chris Hatoum
-   */
-  @Test
-  public void testPersistAndLoadEmployeesByShifts() {
+		Shift shift1 = persistShift(shiftId1, date1, endTime1, startTime1);
+		Shift shift2 = persistShift(shiftId2, date2, endTime2, startTime2);
 
-    Address address =
-        persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
-    Shift shift = persistShift(shiftId1, date1, endTime1, startTime1);
+		Set<Shift> setOfShifts1 = new HashSet<>();
+		setOfShifts1.add(shift1);
 
-    Set<Shift> setOfShifts = new HashSet<>();
-    setOfShifts.add(shift);
+		Set<Shift> setOfShifts2 = new HashSet<>();
+		setOfShifts1.add(shift2);
 
-    Employee employee = persistEmployee(email1, username1,password1, address, setOfShifts, false);
+		Employee employee1 = persistEmployee(email1, username1, password1, address1, setOfShifts1, false);
+		persistEmployee(email2, username2, password2, address2, setOfShifts2, false);
 
-    Employee loadedEmployee = employeeRepository.findEmployeeByShifts(shift);
+		List<Employee> listOfEmployees = employeeRepository.findEmployeesByUsername(username1);
+		verifyContains(employee1, listOfEmployees);
+		assertEquals(1, listOfEmployees.size()); // Checking that only employee1 was retrieved
 
-    verify(employee, loadedEmployee);
+	}
 
-  }
+	/**
+	 * Testing the persistence and loading for the Employee Repository. This tests
+	 * the findEmployeesByShifts method
+	 * 
+	 * @author Theo Ghanem & Chris Hatoum
+	 */
+	@Test
+	public void testPersistAndLoadEmployeesByShifts() {
 
-  /**
-   * Testing the persistence and loading for the Employee Repository. This tests the
-   * findEmployeeByAddresses method
-   * 
-   * @author Theo Ghanem & Chris Hatoum
-   */
-  @Test
-  public void testPersistAndLoadEmployeeByAddress() {
+		Address address = persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
+		Shift shift = persistShift(shiftId1, date1, endTime1, startTime1);
 
-    Address address =
-        persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
-    Shift shift = persistShift(shiftId1, date1, endTime1, startTime1);
+		Set<Shift> setOfShifts = new HashSet<>();
+		setOfShifts.add(shift);
 
-    Set<Shift> setOfShifts = new HashSet<>();
-    setOfShifts.add(shift);
+		Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, false);
 
-    Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, false);
-    Employee actualEmployee = employeeRepository.findEmployeeByAddress(address);
-    verify(employee, actualEmployee);
-  }
+		Employee loadedEmployee = employeeRepository.findEmployeeByShifts(shift);
 
-  /**
-   * Testing the persistence and loading for the Employee Repository. This tests the
-   * findEmployeeByDisabled method
-   * 
-   * @author Theo Ghanem & Chris Hatoum
-   */
-  @Test
-  public void testPersistAndLoadEmployeeByDisabled() {
+		verify(employee, loadedEmployee);
 
-    Address address =
-        persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
-    Shift shift = persistShift(shiftId1, date1, endTime1, startTime1);
+	}
 
-    Set<Shift> setOfShifts = new HashSet<>();
-    setOfShifts.add(shift);
-    Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, true);
-    List<Employee> listOfEmployees = employeeRepository.findEmployeesByDisabled(true);
-    verifyContains(employee, listOfEmployees);
+	/**
+	 * Testing the persistence and loading for the Employee Repository. This tests
+	 * the findEmployeeByAddresses method
+	 * 
+	 * @author Theo Ghanem & Chris Hatoum
+	 */
+	@Test
+	public void testPersistAndLoadEmployeeByAddress() {
 
-  }
+		Address address = persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
+		Shift shift = persistShift(shiftId1, date1, endTime1, startTime1);
+
+		Set<Shift> setOfShifts = new HashSet<>();
+		setOfShifts.add(shift);
+
+		Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, false);
+		Employee actualEmployee = employeeRepository.findEmployeeByAddress(address);
+		verify(employee, actualEmployee);
+	}
+
+	/**
+	 * Testing the persistence and loading for the Employee Repository. This tests
+	 * the findEmployeeByDisabled method
+	 * 
+	 * @author Theo Ghanem & Chris Hatoum
+	 */
+	@Test
+	public void testPersistAndLoadEmployeeByDisabled() {
+
+		Address address = persistAddress(fullName1, streetName1, city1, postalCode1, addressId1, streetNumber1);
+		Shift shift = persistShift(shiftId1, date1, endTime1, startTime1);
+
+		Set<Shift> setOfShifts = new HashSet<>();
+		setOfShifts.add(shift);
+		Employee employee = persistEmployee(email1, username1, password1, address, setOfShifts, true);
+		List<Employee> listOfEmployees = employeeRepository.findEmployeesByDisabled(true);
+		verifyContains(employee, listOfEmployees);
+
+	}
 
 }
