@@ -13,6 +13,6 @@
 | Theo Ghanem               | Testing & Recording           |      30 hours      |
 | Chris Hatoum              | Testing & Documenting         |                    |
   
-  <ins>Figure 1: Overview Table for delievrable 1</ins>
+  <ins>Figure 1: Overview Table for deliverable 1</ins>
   
   Project Report: https://github.com/McGill-ECSE321-Winter2022/project-group-group-12/wiki/Deliverable-1:-Report
