@@ -23,7 +23,14 @@ public class Employee extends Account {
   public void setShifts(Set<Shift> shifts) {
     this.shifts = shifts;
   }
-
+  
+  /**
+   * Overrode the equals method to use it in tests
+   * 
+   * @author Philippe Sarouphim Hochar
+   * @param obj The object to compare
+   * @return True if it's the same object, false otherwise
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj)
