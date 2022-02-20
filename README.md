@@ -6,8 +6,8 @@
 | Deliverable 1             |           |                    |
 |---------------------------|-----------|--------------------|
 | Name                      | Team Role | Individual efforts |
-| Enzo Benoit-Jeannin       |           |                    |
-| Wassim Jabbour            |           |      30 hours          |
+| Enzo Benoit-Jeannin       |           |      30 hours      |
+| Wassim Jabbour            |           |      45 hours      |
 | Philippe Sarouphim Hochar |           |                    |
 | Habib Jarweh              |           |                    |
 | Theo Ghanem               |           |                    |
