@@ -7,7 +7,7 @@
 |---------------------------|-----------|--------------------|
 | Name                      | Team Role | Individual efforts |
 | Enzo Benoit-Jeannin       |           |                    |
-| Wassim Jabbour            |           |                  45  |
+| Wassim Jabbour            |           |      30 hours          |
 | Philippe Sarouphim Hochar |           |                    |
 | Habib Jarweh              |           |                    |
 | Theo Ghanem               |           |                    |
