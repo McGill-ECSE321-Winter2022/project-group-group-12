@@ -9,8 +9,8 @@
 | Enzo Benoit-Jeannin       | Testing & Recording           |      30 hours      |
 | Wassim Jabbour            | Managing & Testing & Modeling |      45 hours      |
 | Philippe Sarouphim Hochar | Reviewing & Testing & Modeling|                    |
-| Habib Jarweh              | Testing & Modeling            |                    |
-| Theo Ghanem               | Testing & Recording           |       30 hours     |
+| Habib Jarweh              | Testing & Modeling            |      30 hours      |
+| Theo Ghanem               | Testing & Recording           |      30 hours      |
 | Chris Hatoum              | Testing & Documenting         |                    |
   
   <ins>Figure 1: Overview Table for delievrable 1</ins>
