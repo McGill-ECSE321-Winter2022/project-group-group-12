@@ -8,7 +8,7 @@
 |---------------------------|-------------------------------|--------------------|
 | Enzo Benoit-Jeannin       | Testing & Recording           |      30 hours      |
 | Wassim Jabbour            | Managing & Testing & Modeling |      40 hours      |
-| Philippe Sarouphim Hochar | Reviewing & Testing & Modeling|                    |
+| Philippe Sarouphim Hochar | Reviewing & Testing & Modeling|      35 hours      |
 | Habib Jarweh              | Testing & Modeling            |      33 hours      |
 | Theo Ghanem               | Testing & Recording           |      30 hours      |
 | Chris Hatoum              | Testing & Documenting         |                    |
