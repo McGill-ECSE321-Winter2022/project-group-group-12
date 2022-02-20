@@ -6,7 +6,7 @@ import ca.mcgill.ecse321.GSSS.model.Owner;
 
 /**
  * 
- * To find the owner of the system
+ * To find the owner of the system. We did not write the findOwnerByDisabled method because the system only has one owner.
  * 
  * @author Wassim Jabbour
  *

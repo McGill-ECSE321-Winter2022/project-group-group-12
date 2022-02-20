@@ -15,6 +15,12 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Test the loading and persistence of the Owner repository.
+ * 
+ * @author Enzo Benoit-Jeannin
+ *
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestOwnerPersistence {
