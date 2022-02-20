@@ -7,7 +7,7 @@
 |---------------------------|-----------|--------------------|
 | Name                      | Team Role | Individual efforts |
 | Enzo Benoit-Jeannin       |           |                    |
-| Wassim Jabbour            |           |                    |
+| Wassim Jabbour            |           |         45           |
 | Philippe Sarouphim Hochar |           |                    |
 | Habib Jarweh              |           |                    |
 | Theo Ghanem               |           |                    |
