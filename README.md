@@ -6,12 +6,12 @@
 | Deliverable 1             |           |                    |
 |---------------------------|-----------|--------------------|
 | Name                      | Team Role | Individual efforts |
-| Enzo Benoit-Jeannin       |           |      30 hours      |
-| Wassim Jabbour            |           |      45 hours      |
-| Philippe Sarouphim Hochar |           |                    |
-| Habib Jarweh              |           |                    |
-| Theo Ghanem               |           |                    |
-| Chris Hatoum              |           |                    |
+| Enzo Benoit-Jeannin       | Testing & Recording         |      30 hours      |
+| Wassim Jabbour            | Managing & Testing & Modeling         |      45 hours      |
+| Philippe Sarouphim Hochar | Reviewing & Testing & Modeling         |                    |
+| Habib Jarweh              | Testing & Modeling          |                    |
+| Theo Ghanem               | Testing & Recording         |                    |
+| Chris Hatoum              | Testing & Documenting        |                    |
   
   <ins>Figure 1: Overview Table</ins>
   
