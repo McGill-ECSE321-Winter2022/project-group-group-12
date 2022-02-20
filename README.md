@@ -7,7 +7,7 @@
 | Name                      |     Team Role                 | Individual efforts |
 |---------------------------|-------------------------------|--------------------|
 | Enzo Benoit-Jeannin       | Testing & Recording           |      30 hours      |
-| Wassim Jabbour            | Managing & Testing & Modeling |      45 hours      |
+| Wassim Jabbour            | Managing & Testing & Modeling |      40 hours      |
 | Philippe Sarouphim Hochar | Reviewing & Testing & Modeling|                    |
 | Habib Jarweh              | Testing & Modeling            |      30 hours      |
 | Theo Ghanem               | Testing & Recording           |      30 hours      |
