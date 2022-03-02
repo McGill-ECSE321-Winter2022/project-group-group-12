@@ -17,9 +17,18 @@ public abstract class Account {
 
   private String username;
   private String email;
-  private String password;
+  private String password; // Hashed and salted
+  private String salt; // The salt used for the above encryption
   private boolean disabled;
   private Address address;
+
+  public String getSalt() {
+    return salt;
+  }
+
+  public void setSalt(String salt) {
+    this.salt = salt;
+  }
 
   @OneToOne
   public Address getAddress() {
