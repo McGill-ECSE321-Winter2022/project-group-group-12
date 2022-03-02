@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.GSSS.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -153,6 +154,19 @@ public class CustomerService {
 
 
   // OTHER methods
+  
+  /**
+   * method to get order history of customer
+   * 
+   * @author Habib Jarweh
+   * @param customerEmail
+   * @return list of purchases
+   */
+  public List<Purchase > getOrderHistory(String customerEmail) {
+    Customer customer = customerRepository.findCustomerByEmail(customerEmail);
+    List<Purchase> list = new ArrayList<>(customer.getPurchases()) ;
+    return list;
+  }
 
 
 }
