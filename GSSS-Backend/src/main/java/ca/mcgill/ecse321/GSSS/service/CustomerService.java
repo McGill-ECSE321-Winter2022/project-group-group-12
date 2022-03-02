@@ -11,6 +11,12 @@ import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 
+/**
+ * Services of the customer class
+ * 
+ * @author Wassim Jabbour
+ *
+ */
 @Service
 public class CustomerService {
 
@@ -83,6 +89,12 @@ public class CustomerService {
     return customer;
   }
 
+  /**
+   * Finds all customers in the database
+   * 
+   * @author Wassim Jabbour
+   * @return A list of all the customers
+   */
   @Transactional
   public List<Customer> getAllCustomers() {
     return HelperClass.toList(customerRepository.findAll());
