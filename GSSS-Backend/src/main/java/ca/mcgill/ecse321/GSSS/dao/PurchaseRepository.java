@@ -64,14 +64,4 @@ public interface PurchaseRepository extends CrudRepository<Purchase, String> {
 	 */
 	List<Purchase> findPurchasesByEmployee(Employee employee);
 	
-	/**
-	 * 
-	 * method that returns a list of purchases based on customer and purchase type
-	 * 
-	 * @author Habib Jarweh
-	 * @param customer customer who bought the purchase
-	 * @param ordewrType the type of order
-	 * @return list of purchases we want to find
-	 */
-	List<Purchase> findPurchasesByCustomerAndOrderType(Customer customer, OrderType orderType);
 }

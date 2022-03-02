@@ -155,18 +155,5 @@ public class CustomerService {
 
   // OTHER methods
 
-  /**
-   * Method to get order history of a customer by their email
-   * 
-   * @author Habib Jarweh
-   * @param customerEmail email of the customer
-   * @return list of purchases of customer
-   */
-  @Transactional
-  public List<Purchase> getOrderHistory(String customerEmail, OrderType orderType) {
-    Customer customer = customerRepository.findCustomerByEmail(customerEmail);
-    List<Purchase> purchases = purchaseRepository.findPurchasesByCustomerAndOrderType(customer, orderType);
-    return purchases;
-  }
 
 }
