@@ -16,6 +16,7 @@ import ca.mcgill.ecse321.GSSS.model.Purchase;
  * database
  * 
  * @author Habib Jarweh
+ * @author Wassim Jabbour
  *
  */
 public interface PurchaseRepository extends CrudRepository<Purchase, String> {
