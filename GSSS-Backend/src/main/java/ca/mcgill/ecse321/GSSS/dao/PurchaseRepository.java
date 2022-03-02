@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.ui.context.Theme;
 import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.OrderType;
@@ -69,7 +70,8 @@ public interface PurchaseRepository extends CrudRepository<Purchase, String> {
 	 * 
 	 * @author Habib Jarweh
 	 * @param customer customer who bought the purchase
+	 * @param ordewrType the type of order
 	 * @return list of purchases we want to find
 	 */
-	List<Purchase> findPurchasesByCustomerAndOrderType(Customer customer);
+	List<Purchase> findPurchasesByCustomerAndOrderType(Customer customer, OrderType orderType);
 }

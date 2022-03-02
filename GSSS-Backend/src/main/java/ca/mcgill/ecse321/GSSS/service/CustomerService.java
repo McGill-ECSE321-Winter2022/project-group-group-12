@@ -162,9 +162,10 @@ public class CustomerService {
    * @return list of purchases of customer
    */
   @Transactional
-  public List<Purchase> getOrderHistory(String customerEmail) {
+  public List<Purchase> getOrderHistory(String customerEmail, OrderType orderType) {
     Customer customer = customerRepository.findCustomerByEmail(customerEmail);
-    return purchaseRepository.findPurchasesByCustomerAndOrderType(customer);
+    List<Purchase> purchases = purchaseRepository.findPurchasesByCustomerAndOrderType(customer, orderType);
+    return purchases;
   }
 
 }
