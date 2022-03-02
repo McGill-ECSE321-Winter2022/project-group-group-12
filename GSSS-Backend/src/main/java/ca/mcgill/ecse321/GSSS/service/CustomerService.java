@@ -140,5 +140,19 @@ public class CustomerService {
   }
 
 
+  // OTHER methods
+
+  /**
+   * Method to get order history of a customer by their email
+   * 
+   * @author Habib Jarweh
+   * @param customerEmail email of the customer
+   * @return list of purchases of customer
+   */
+  @Transactional
+  public List<Purchase> getOrderHistory(String customerEmail) {
+    Customer customer = customerRepository.findCustomerByEmail(customerEmail);
+    return purchaseRepository.findPurchasesByCustomerAndOrderType(customer);
+  }
 
 }
