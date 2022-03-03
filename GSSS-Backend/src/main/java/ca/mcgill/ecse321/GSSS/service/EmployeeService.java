@@ -5,14 +5,10 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import ca.mcgill.ecse321.GSSS.dao.CustomerRepository;
-import ca.mcgill.ecse321.GSSS.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ca.mcgill.ecse321.GSSS.dao.AddressRepository;
 import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
-import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
@@ -25,11 +21,6 @@ public class EmployeeService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 	
-	@Autowired
-	ShiftRepository shiftRepository;
-	
-	@Autowired
-	AddressRepository addressRepository;
 	
 	// CREATE METHODS
 	
@@ -41,15 +32,31 @@ public class EmployeeService {
 	 * @param email The email of the employee
 	 * @param password The password of the employee
 	 * @param isDisabled True if the employee is disabled
+	 * @param address Address of the employee
 	 * @return The new created employee
 	 */
 	@Transactional
-	public Employee createEmployee(String username, String email, String password, boolean isDisabled) {
+	public Employee createEmployee(String username, String email, String password, Address address, boolean isDisabled) {
+		
+		// Input validation
+	    String error = "";
+	    if(email == null || email.trim().length() == 0)
+	      error += "Employee email cannot be empty! ";
+	    if(username == null || username.trim().length() == 0)
+	      error += "Employee username cannot be empty! ";
+	    if(password == null || password.trim().length() == 0)
+	      error += "Employee username cannot be empty! ";
+	    if(address == null)
+	      error += "Address cannot be null! ";
+	    if(error.length() > 0)
+	      throw new IllegalArgumentException(error);
+		
 		Employee employee = new Employee();
 		employee.setUsername(username);
 		employee.setEmail(email);
 		employee.setSalt(HelperClass.getSalt());
 		employee.setPassword(HelperClass.hashAndSaltPassword(password, employee.getSalt()));
+		employee.setAddress(address);
 		employee.setDisabled(isDisabled);
 		employeeRepository.save(employee);
 		return employee;
@@ -62,15 +69,31 @@ public class EmployeeService {
 	 * @param username The username of the employee
 	 * @param email The email of the employee
 	 * @param password The password of the employee
+	 * @param address Address of the employee
 	 * @return The new created employee
 	 */
 	@Transactional
-	public Employee createEmployee(String username, String email, String password) {
+	public Employee createEmployee(String username, String email, String password, Address address) {
+		
+		// Input validation
+	    String error = "";
+	    if(email == null || email.trim().length() == 0)
+	      error += "Employee email cannot be empty! ";
+	    if(username == null || username.trim().length() == 0)
+	      error += "Employee username cannot be empty! ";
+	    if(password == null || password.trim().length() == 0)
+	      error += "Employee username cannot be empty! ";
+	    if(address == null)
+	      error += "Address cannot be null! ";
+	    if(error.length() > 0)
+	      throw new IllegalArgumentException(error);
+	    
 		Employee employee = new Employee();
 		employee.setUsername(username);
 		employee.setEmail(email);
 		employee.setSalt(HelperClass.getSalt());
 		employee.setPassword(HelperClass.hashAndSaltPassword(password, employee.getSalt()));
+		employee.setAddress(address);
 		employee.setDisabled(false);
 		employeeRepository.save(employee);
 		return employee;
@@ -86,7 +109,11 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public void deleteEmployee(String email) {
-	  employeeRepository.deleteById(email);
+		// Input validation
+	    if(email == null || email.trim().length() == 0)
+	      throw new IllegalArgumentException("Employee email cannot be empty!");
+	    
+	    employeeRepository.deleteById(email);
 	}
 	
 	
@@ -101,6 +128,10 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public Employee getEmployee(String email) {
+		// Input validation
+	    if(email == null || email.trim().length() == 0)
+	      throw new IllegalArgumentException("Emnployee email cannot be empty!");
+	    
 		return employeeRepository.findEmployeeByEmail(email);
 	}
 	
@@ -113,6 +144,10 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public List<Employee> getEmployeeByUsername(String username) {
+		// Input validation
+	    if(username == null || username.trim().length() == 0)
+	      throw new IllegalArgumentException("Employee username cannot be empty!");
+	    
 		return employeeRepository.findEmployeesByUsername(username);
 	}
 	
@@ -124,9 +159,12 @@ public class EmployeeService {
 	 * @return The found employee
 	 */
 	@Transactional
-	public Employee getEmployeeByShift(String shiftId) {
-		Shift shift = shiftRepository.findShiftById(shiftId);
-		return employeeRepository.findEmployeeByShifts(shift);
+	public Employee getEmployeeByShift(Shift shift) {
+		// Input validation
+	    if(shift == null)
+	      throw new IllegalArgumentException("Shift cannot be null!");
+	    
+	    return employeeRepository.findEmployeeByShifts(shift);
 	}
 	
 	/**
@@ -137,9 +175,12 @@ public class EmployeeService {
 	 * @return The employee with the address corresponding to that ID
 	 */
 	@Transactional
-	public Employee getEmployeeByAddress(String addressId) {
-	  Address address = addressRepository.findAddressById(addressId);
-	  return employeeRepository.findEmployeeByAddress(address);
+	public Employee getEmployeeByAddress(Address address) {
+		// Input validation
+	    if(address == null)
+	      throw new IllegalArgumentException("Address cannot be null!");
+	    
+	    return employeeRepository.findEmployeeByAddress(address);
 	}
 	
 	/**
@@ -150,7 +191,7 @@ public class EmployeeService {
      * @return The employees with the corresponding state
      */
     @Transactional
-    public List<Employee> getCustomersByAccountState(boolean disabled) {
+    public List<Employee> getEmployeesByAccountState(boolean disabled) {
       return employeeRepository.findEmployeesByDisabled(disabled);
     }  
 	  
