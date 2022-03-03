@@ -54,7 +54,7 @@ public class ShiftService {
     @Transactional
     public List<Shift> getShiftsByDate(Date date) {
         if (date == null) {
-            throw new IllegalArgumentException("Shift date cannot be empty! ");
+            throw new IllegalArgumentException("Shift date cannot be null! ");
         }
         List<Shift> shifts = shiftRepository.findShiftsByDate(date);
         return shifts;
@@ -82,13 +82,13 @@ public class ShiftService {
             error = error + "Shift id cannot be empty! ";
         }
         if (date == null) {
-            error = error + "Shift date cannot be empty! ";
+            error = error + "Shift date cannot be null! ";
         }
         if (startTime == null) {
-            error = error + "Shift start time cannot be empty! ";
+            error = error + "Shift start time cannot be null! ";
         }
         if (endTime == null) {
-            error = error + "Shift end time cannot be empty! ";
+            error = error + "Shift end time cannot be null! ";
         }
         if (endTime != null && startTime != null && endTime.before(startTime)) {
             error = error + "Shift end time cannot be before shift start time!";
@@ -143,13 +143,13 @@ public class ShiftService {
             error = error + "Shift id cannot be empty! ";
         }
         if (date == null) {
-            error = error + "Shift date cannot be empty! ";
+            error = error + "Shift date cannot be null! ";
         }
         if (startTime == null) {
-            error = error + "Shift start time cannot be empty! ";
+            error = error + "Shift start time cannot be null! ";
         }
         if (endTime == null) {
-            error = error + "Shift end time cannot be empty! ";
+            error = error + "Shift end time cannot be null! ";
         }
         if (endTime != null && startTime != null && endTime.before(startTime)) {
             error = error + "Shift end time cannot be before shift start time!";
