@@ -181,48 +181,15 @@ public class CustomerService {
    */
   @Transactional
   public void deleteCustomer(String email) {
+    
+    // Input validation
+    if(email == null || email.trim().length() == 0)
+      throw new IllegalArgumentException("Customer email cannot be empty!");
+    
     customerRepository.deleteById(email);
   }
 
 
   // OTHER methods
-  
-  /**
-   * method to get order history of customer
-   * 
-   * @author Habib Jarweh
-   * @param customerEmail
-   * @return list of purchases
-   */
-  @Transactional
-  public List<Purchase> getOrderHistory(String customerEmail) {
-    Customer customer = customerRepository.findCustomerByEmail(customerEmail);
-    List<Purchase> list = new ArrayList<>(customer.getPurchases()) ;
-    return list;
-  }
-
-  /**
-   * Method that takes the customer's email and disables his account(setDisabled = true)
-   * @author Chris Hatoum
-   * @param customerEmail the customer's email
-   */
-  @Transactional
-  public void disableCustomer(String customerEmail){
-    Customer customer = customerRepository.findCustomerByEmail(customerEmail);
-    customer.setDisabled(true);
-  }
-
-  /**
-   * Method that takes the customer's email and enables his account(setDisabled = false)
-   * @author Chris Hatoum
-   * @param customerEmail the customer's email
-   */
-  @Transactional
-  public void enableCustomer(String customerEmail){
-    Customer customer = customerRepository.findCustomerByEmail(customerEmail);
-    customer.setDisabled(false);
-  }
-
-
 
 }
