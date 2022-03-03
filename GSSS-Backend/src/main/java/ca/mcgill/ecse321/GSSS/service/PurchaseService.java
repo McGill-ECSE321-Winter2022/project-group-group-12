@@ -3,13 +3,23 @@ package ca.mcgill.ecse321.GSSS.service;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
 import ca.mcgill.ecse321.GSSS.dao.PurchaseRepository;
 import ca.mcgill.ecse321.GSSS.model.Employee;
+import ca.mcgill.ecse321.GSSS.model.Item;
+import ca.mcgill.ecse321.GSSS.model.OrderStatus;
+import ca.mcgill.ecse321.GSSS.model.OrderType;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 
+/**
+ * Service methods of the Purchase class
+ * 
+ * @author Wassim Jabbour
+ *
+ */
 @Service
 public class PurchaseService {
 
@@ -75,5 +85,44 @@ public class PurchaseService {
     return purchases;
   }
 
+
+  // CREATE method
+
+  /**
+   * Creates a new purchase using the passed parameters. The date and time are set to the creation
+   * time.
+   * 
+   * @author Wassim Jabbour
+   * @param orderType The type of purchase
+   * @param employee The employee associated with the purchase
+   * @param orderStatus The status of the order (Delivered, etc...)
+   * @param items The items purchased
+   * @return The newly created purchase
+   */
+  public Purchase createPurchase(OrderType orderType, Employee employee, OrderStatus orderStatus,
+      Map<Item, Integer> items) {
+    Purchase purchase = new Purchase();
+    purchase.setOrderStatus(orderStatus);
+    purchase.setOrderType(orderType);
+    purchase.setItems(items);
+    purchase.setDate(new Date(System.currentTimeMillis()));
+    purchase.setTime(new Time(System.currentTimeMillis()));
+    purchase.setEmployee(employee);
+    purchaseRepository.save(purchase);
+    return purchase;
+  }
+
+  
+  // DELETE method
+
+  /**
+   * Deletes a purchase based on its ID
+   * 
+   * @author Wassim Jabbour
+   * @param purchaseId The ID of the purchase to delete
+   */
+  public void deletePurchase(String purchaseId) {
+    purchaseRepository.deleteById(purchaseId);
+  }
 
 }
