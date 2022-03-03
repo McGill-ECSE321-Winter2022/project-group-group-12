@@ -112,7 +112,7 @@ public class PurchaseService {
     return purchase;
   }
 
-  
+
   // DELETE method
 
   /**
@@ -123,6 +123,29 @@ public class PurchaseService {
    */
   public void deletePurchase(String purchaseId) {
     purchaseRepository.deleteById(purchaseId);
+  }
+
+
+  // MODIFY method
+
+  /**
+   * Method used to modify a purchase
+   * 
+   * @author Wassim Jabbour
+   * @param orderType The new order type
+   * @param orderStatus The new order status
+   * @param purchaseId The ID of the purchase to modify
+   * @param newItems The new items of the purchase
+   * @return The modified purchase
+   */
+  public Purchase modifyPurchase(OrderType orderType, OrderStatus orderStatus, String purchaseId,
+      Map<Item, Integer> newItems) {
+    Purchase purchase = getPurchase(purchaseId);
+    purchase.setOrderStatus(orderStatus);
+    purchase.setOrderType(orderType);
+    purchase.setItems(newItems);
+    purchaseRepository.save(purchase);
+    return purchase;
   }
 
 }
