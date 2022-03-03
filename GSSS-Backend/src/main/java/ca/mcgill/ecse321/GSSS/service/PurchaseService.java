@@ -2,12 +2,14 @@ package ca.mcgill.ecse321.GSSS.service;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
 import ca.mcgill.ecse321.GSSS.dao.PurchaseRepository;
+import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.OrderStatus;
@@ -146,6 +148,25 @@ public class PurchaseService {
     purchase.setItems(newItems);
     purchaseRepository.save(purchase);
     return purchase;
+  }
+  
+  // OTHER methods
+  
+  /**
+   * method to get order history of customer
+   * 
+   * @author Habib Jarweh
+   * @param customer The customer 
+   * @return list of his purchases
+   */
+  public List<Purchase> getOrderHistory(Customer customer) {
+    
+    // Input validation
+    if(customer == null)
+      throw new IllegalArgumentException("Customer cannot be null!");
+    
+    List<Purchase> list = new ArrayList<>(customer.getPurchases()) ;
+    return list;
   }
 
 }
