@@ -37,6 +37,9 @@ public class ShiftService {
      */
     @Transactional
     public Shift getShift(String id) {
+        if (id == null || id.trim().length() == 0) {
+            throw new IllegalArgumentException("Shift id cannot be empty!");
+        }
         Shift shift = shiftRepository.findShiftById(id);
         return shift;
     }
@@ -50,6 +53,9 @@ public class ShiftService {
      */
     @Transactional
     public List<Shift> getShiftsByDate(Date date) {
+        if (date == null) {
+            throw new IllegalArgumentException("Shift date cannot be empty! ");
+        }
         List<Shift> shifts = shiftRepository.findShiftsByDate(date);
         return shifts;
     }
@@ -69,6 +75,28 @@ public class ShiftService {
      */
     @Transactional
     public Shift createShift (String id, Date date, Time startTime, Time endTime ){
+
+        // Input validation
+        String error = "";
+        if (id == null || id.trim().length() == 0) {
+            error = error + "Shift id cannot be empty! ";
+        }
+        if (date == null) {
+            error = error + "Shift date cannot be empty! ";
+        }
+        if (startTime == null) {
+            error = error + "Shift start time cannot be empty! ";
+        }
+        if (endTime == null) {
+            error = error + "Shift end time cannot be empty! ";
+        }
+        if (endTime != null && startTime != null && endTime.before(startTime)) {
+            error = error + "Shift end time cannot be before shift start time!";
+        }
+        error = error.trim();
+        if (error.length() > 0) {
+            throw new IllegalArgumentException(error);
+        }
         Shift shift = new Shift();
         shift.setId(id);
         shift.setDate(date);
@@ -88,6 +116,9 @@ public class ShiftService {
      */
     @Transactional
     public void deleteShift(String id){
+        if (id == null || id.trim().length() == 0) {
+            throw new IllegalArgumentException("Shift id cannot be empty!");
+        }
         shiftRepository.deleteById(id);
     }
 
@@ -106,6 +137,27 @@ public class ShiftService {
      */
     @Transactional
     public Shift modifyShift (String id, Date date, Time startTime, Time endTime ){
+        // Input validation
+        String error = "";
+        if (id == null || id.trim().length() == 0) {
+            error = error + "Shift id cannot be empty! ";
+        }
+        if (date == null) {
+            error = error + "Shift date cannot be empty! ";
+        }
+        if (startTime == null) {
+            error = error + "Shift start time cannot be empty! ";
+        }
+        if (endTime == null) {
+            error = error + "Shift end time cannot be empty! ";
+        }
+        if (endTime != null && startTime != null && endTime.before(startTime)) {
+            error = error + "Shift end time cannot be before shift start time!";
+        }
+        error = error.trim();
+        if (error.length() > 0) {
+            throw new IllegalArgumentException(error);
+        }
         Shift shift = shiftRepository.findShiftById(id);
         shift.setDate(date);
         shift.setStartTime(startTime);
