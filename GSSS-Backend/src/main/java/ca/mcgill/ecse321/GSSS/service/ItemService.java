@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.GSSS.service;
 
+import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
+import ca.mcgill.ecse321.GSSS.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,10 +13,8 @@ import java.util.List;
 
 /**
  * Services of the item class
- *
- * @author Theo Ghanem
- * @author Habib Jarweh
  * @author Chris Hatoum
+ * @author Habib Jarweh
  *
  */
 @Service
@@ -26,37 +26,41 @@ public class ItemService {
 
 
   //GET Methods
-
   /**
-   *Get the item based on its name
-   *
-   * @author Theo Ghanem
    * @author Chris Hatoum
-   * @param name name of the item we want to get
-   * @return the item we are looking for
+   * @param name Name of the item
+   * @return The item we want
    */
   @Transactional
-public Item getItemByName(String name){
-  Item item = itemRepository.findItemByName(name);
-  return item;
-}
+public Item getItemByName(String name){ return itemRepository.findItemByName(name);}
+
+  /**
+   * Finds all the items stored in the database
+   * This method uses a method defined in HelperClass
+   * @author Chris Hatoum
+   * @return A list of all the items stored in the database
+   */
+  @Transactional
+  public List<Item> getAllItems(){
+    return HelperClass.toList(itemRepository.findAll());
+  }
 
 
   //CREATE Methods
 
   /**
-   * Method to create a new item and saves it into the database
    *
-   * @author Theo Ghanem
+   * This method creates an item given the parameters below
+   *
    * @author Chris Hatoum
-   * @param name primary key of the item
-   * @param description description of the item
-   * @param imageUrl image URL of the item
-   * @param remainingQuantity remaining quantity of the item
+   * @param name The item's name
+   * @param description The item's description
+   * @param imageUrl The URL for the item's image
+   * @param remainingQuantity The amount of the item left in the inventory
    * @param price price of the item
-   * @param availableForOrder boolean to see if the item is still available for order
-   * @param stillAvailable boolean to see if the item is still available
-   * @return the item we want to create
+   * @param availableForOrder If the item id available for online order or not
+   * @param stillAvailable  Item's availability
+   * @return The item that has been created
    */
   @Transactional
   public Item createItem(String name, String description, String imageUrl, int remainingQuantity,
@@ -71,21 +75,22 @@ public Item getItemByName(String name){
     item.setStillAvailable(stillAvailable);
     itemRepository.save(item);
     return item;
+
   }
 
   //DELETE Methods
 
   /**
-   * Deletes the item based on the specified id
-   *
-   * @author Theo Ghanem
+   * This method deletes an item
    * @author Chris Hatoum
-   * @param name name of the item we want to delete
+   * @param name Delete the item with the name ("name")
    */
   @Transactional
   public void deleteItem(String name) {
-    itemRepository.deleteById(name);
+    Item item = itemRepository.findItemByName(name);
+    itemRepository.delete(item);
   }
+
 
 
   //MODIFY Methods

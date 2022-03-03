@@ -31,9 +31,9 @@ public class ShiftService {
     /**
      * Get the shift associated to an id
      *
-     * @author Theo Ghanem
      * @param id id of the shift we are looking for
      * @return the shift associated to that id
+     * @author Theo Ghanem
      */
     @Transactional
     public Shift getShift(String id) {
@@ -47,9 +47,9 @@ public class ShiftService {
     /**
      * Get the list of shifts associated to a date
      *
-     * @author Theo Ghanem
      * @param date The date we are looking for
      * @return a list of the shifts on that date
+     * @author Theo Ghanem
      */
     @Transactional
     public List<Shift> getShiftsByDate(Date date) {
@@ -66,15 +66,15 @@ public class ShiftService {
     /**
      * Creates a new shift and saves it to the database
      *
-     * @author Theo Ghanem
-     * @param id The shift's id
-     * @param date The shift's date
+     * @param id        The shift's id
+     * @param date      The shift's date
      * @param startTime The shift's start time
-     * @param endTime The shift's end time
+     * @param endTime   The shift's end time
      * @return The newly created shift
+     * @author Theo Ghanem
      */
     @Transactional
-    public Shift createShift (String id, Date date, Time startTime, Time endTime ){
+    public Shift createShift(String id, Date date, Time startTime, Time endTime) {
 
         // Input validation
         String error = "";
@@ -111,11 +111,11 @@ public class ShiftService {
     /**
      * Deletes the shift associated to the particular id
      *
-     * @author Theo Ghanem
      * @param id id of the shift we want to delete
+     * @author Theo Ghanem
      */
     @Transactional
-    public void deleteShift(String id){
+    public void deleteShift(String id) {
         if (id == null || id.trim().length() == 0) {
             throw new IllegalArgumentException("Shift id cannot be empty!");
         }
@@ -128,15 +128,15 @@ public class ShiftService {
     /**
      * Modifies an existing shift and saves it to the database
      *
-     * @author Theo Ghanem
-     * @param id The shift's id
-     * @param date The shift's date
+     * @param id        The shift's id
+     * @param date      The shift's date
      * @param startTime The shift's start time
-     * @param endTime The shift's end time
+     * @param endTime   The shift's end time
      * @return The newly created shift
+     * @author Theo Ghanem
      */
     @Transactional
-    public Shift modifyShift (String id, Date date, Time startTime, Time endTime ){
+    public Shift modifyShift(String id, Date date, Time startTime, Time endTime) {
         // Input validation
         String error = "";
         if (id == null || id.trim().length() == 0) {

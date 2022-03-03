@@ -1,9 +1,12 @@
 package ca.mcgill.ecse321.GSSS.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import ca.mcgill.ecse321.GSSS.dao.CustomerRepository;
+import ca.mcgill.ecse321.GSSS.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -161,6 +164,38 @@ public class EmployeeService {
 	public List<Employee> getAllEmployees(){
 		return HelperClass.toList(employeeRepository.findAll());
 	}
-	
 
+	// OTHER Methods
+	/**
+	 * Method to get all the shifts of an employee
+	 * @author Chris Hatoum
+	 * @param employeeEmail The employee's email
+	 * @return the list of the employee's shifts
+	 */
+	@Transactional
+	public List<Shift> getShifts(String employeeEmail) {
+		Employee employee = employeeRepository.findEmployeeByEmail(employeeEmail);
+		List<Shift> shiftList = new ArrayList<>(employee.getShifts());
+		return shiftList;
+	}
+
+	/**
+	 * Method that takes the employee's email and disables his account(setDisabled = true)
+	 * @author Chris Hatoum
+	 * @param employeeEmail the employee's email
+	 */
+	public void disableEmployee(String employeeEmail){
+		Employee employee = employeeRepository.findEmployeeByEmail(employeeEmail);
+		employee.setDisabled(true);
+	}
+
+	/**
+	 * Method that takes the employee's email and enables his account(setDisabled = false)
+	 * @author Chris Hatoum
+	 * @param employeeEmail the employee's email
+	 */
+	public void enableEmployee(String employeeEmail){
+		Employee employee = employeeRepository.findEmployeeByEmail(employeeEmail);
+		employee.setDisabled(false);
+	}
 }
