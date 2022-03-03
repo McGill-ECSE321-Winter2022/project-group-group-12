@@ -194,11 +194,35 @@ public class CustomerService {
    * @param customerEmail
    * @return list of purchases
    */
-  public List<Purchase > getOrderHistory(String customerEmail) {
+  @Transactional
+  public List<Purchase> getOrderHistory(String customerEmail) {
     Customer customer = customerRepository.findCustomerByEmail(customerEmail);
     List<Purchase> list = new ArrayList<>(customer.getPurchases()) ;
     return list;
   }
+
+  /**
+   * Method that takes the customer's email and disables his account(setDisabled = true)
+   * @author Chris Hatoum
+   * @param customerEmail the customer's email
+   */
+  @Transactional
+  public void disableCustomer(String customerEmail){
+    Customer customer = customerRepository.findCustomerByEmail(customerEmail);
+    customer.setDisabled(true);
+  }
+
+  /**
+   * Method that takes the customer's email and enables his account(setDisabled = false)
+   * @author Chris Hatoum
+   * @param customerEmail the customer's email
+   */
+  @Transactional
+  public void enableCustomer(String customerEmail){
+    Customer customer = customerRepository.findCustomerByEmail(customerEmail);
+    customer.setDisabled(false);
+  }
+
 
 
 }
