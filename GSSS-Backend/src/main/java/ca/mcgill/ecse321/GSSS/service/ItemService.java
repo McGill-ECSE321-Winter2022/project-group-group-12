@@ -1,8 +1,5 @@
 package ca.mcgill.ecse321.GSSS.service;
 
-import ca.mcgill.ecse321.GSSS.model.Address;
-import ca.mcgill.ecse321.GSSS.model.Customer;
-import ca.mcgill.ecse321.GSSS.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +10,7 @@ import java.util.List;
 
 /**
  * Services of the item class
+ * 
  * @author Chris Hatoum
  * @author Habib Jarweh
  *
@@ -20,33 +18,35 @@ import java.util.List;
 @Service
 public class ItemService {
 
-  //CRUD repositories
+  // CRUD repositories
   @Autowired
   ItemRepository itemRepository;
 
 
-  //GET Methods
+  // GET Methods
   /**
    * @author Chris Hatoum
    * @param name Name of the item
    * @return The item we want
    */
   @Transactional
-public Item getItemByName(String name){ return itemRepository.findItemByName(name);}
+  public Item getItemByName(String name) {
+    return itemRepository.findItemByName(name);
+  }
 
   /**
-   * Finds all the items stored in the database
-   * This method uses a method defined in HelperClass
+   * Finds all the items stored in the database This method uses a method defined in HelperClass
+   * 
    * @author Chris Hatoum
    * @return A list of all the items stored in the database
    */
   @Transactional
-  public List<Item> getAllItems(){
+  public List<Item> getAllItems() {
     return HelperClass.toList(itemRepository.findAll());
   }
 
 
-  //CREATE Methods
+  // CREATE Methods
 
   /**
    *
@@ -59,12 +59,12 @@ public Item getItemByName(String name){ return itemRepository.findItemByName(nam
    * @param remainingQuantity The amount of the item left in the inventory
    * @param price price of the item
    * @param availableForOrder If the item id available for online order or not
-   * @param stillAvailable  Item's availability
+   * @param stillAvailable Item's availability
    * @return The item that has been created
    */
   @Transactional
   public Item createItem(String name, String description, String imageUrl, int remainingQuantity,
-                         double price, boolean availableForOrder, boolean stillAvailable) {
+      double price, boolean availableForOrder, boolean stillAvailable) {
     Item item = new Item();
     item.setName(name);
     item.setDescription(description);
@@ -78,10 +78,11 @@ public Item getItemByName(String name){ return itemRepository.findItemByName(nam
 
   }
 
-  //DELETE Methods
+  // DELETE Methods
 
   /**
    * This method deletes an item
+   * 
    * @author Chris Hatoum
    * @param name Delete the item with the name ("name")
    */
@@ -93,7 +94,7 @@ public Item getItemByName(String name){ return itemRepository.findItemByName(nam
 
 
 
-  //MODIFY Methods
+  // MODIFY Methods
 
   /**
    * method to edit/modify item
@@ -105,12 +106,25 @@ public Item getItemByName(String name){ return itemRepository.findItemByName(nam
    * @param remainingQuantity remaining quantity of item
    * @param price price of item
    * @param availableForOrder boolean if item is still available for order
-   * @param stillAvailable boolean to see if item is still available 
+   * @param stillAvailable boolean to see if item is still available
    * @return item we want to update
    */
   @Transactional
   public Item modifyItem(String name, String description, String imageUrl, int remainingQuantity,
       double price, boolean availableForOrder, boolean stillAvailable) {
+    // Input validation
+    String error = "";
+    if (description == null || description.trim().length() == 0)
+      error += "item's description cannot be empty! ";
+    if (imageUrl == null || imageUrl.trim().length() == 0)
+      error += "item's image URL cannot be empty! ";
+    if (remainingQuantity < 0)
+      error += "item's remaining quantity cannot be less than 0! ";
+    if (price < 0)
+      error += "item's price cannot be less than 0! ";
+    if (error.length() > 0)
+      throw new IllegalArgumentException(error);
+
     Item item = itemRepository.findItemByName(name);
     item.setDescription(description);
     item.setImageUrl(imageUrl);
@@ -118,7 +132,7 @@ public Item getItemByName(String name){ return itemRepository.findItemByName(nam
     item.setPrice(price);
     item.setAvailableForOrder(availableForOrder);
     item.setStillAvailable(stillAvailable);
-    itemRepository.save(item); 
+    itemRepository.save(item);
     return item;
   }
 

@@ -68,7 +68,6 @@ public class BusinessHourService {
     if (endTime != null && startTime != null && endTime.before(startTime)) {
       error += "business hour end time cannot be before business hour start time!";
     }
-    error = error.trim();
     if (error.length() > 0) {
       throw new IllegalArgumentException(error);
     }
