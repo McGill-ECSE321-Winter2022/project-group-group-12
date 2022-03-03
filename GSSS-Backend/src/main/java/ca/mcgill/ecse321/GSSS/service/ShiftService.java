@@ -49,7 +49,7 @@ public class ShiftService {
      * @return a list of the shifts on that date
      */
     @Transactional
-    public List<Shift> getShiftByDate(Date date) {
+    public List<Shift> getShiftsByDate(Date date) {
         List<Shift> shifts = shiftRepository.findShiftsByDate(date);
         return shifts;
     }
