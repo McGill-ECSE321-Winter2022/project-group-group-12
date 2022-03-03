@@ -15,14 +15,6 @@ public class BusinessHourService {
   @Autowired
   BusinessHourRepository businessHourRepository;
 
-  private <T> List<T> toList(Iterable<T> iterable) {
-    List<T> resultList = new ArrayList<T>();
-    for (T t : iterable) {
-      resultList.add(t);
-    }
-    return resultList;
-  }
-
   /**
    * method that creates new business hour
    * 
@@ -62,7 +54,7 @@ public class BusinessHourService {
    */
   @Transactional
   public List<BusinessHour> getAllBusinessHours() {
-    return toList(businessHourRepository.findAll());
+    return HelperClass.toList(businessHourRepository.findAll());
   }
 
   /**
