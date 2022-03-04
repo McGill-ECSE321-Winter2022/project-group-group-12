@@ -1,9 +1,7 @@
 package ca.mcgill.ecse321.GSSS.dto;
 
-import ca.mcgill.ecse321.GSSS.model.ItemCategory;
-
 /**
- *Data Transfer Object Class for Item Class
+ * Data Transfer Object Class for Item Class
  *
  * @author Theo Ghanem
  */
@@ -16,20 +14,21 @@ public class ItemDto {
   private double price;
   private boolean availableForOrder;
   private boolean stillAvailable;
-  private ItemCategory category;
+  private ItemCategoryDto category;
 
   /**
    * Default constructor
    *
    * @author Theo Ghanem
    */
-  public ItemDto() {
-  }
-  public ItemDto(String name, String description, String imageUrl, int remainingQuantity, double price, boolean availableForOrder, boolean stillAvailable, ItemCategory category) {
+  public ItemDto() {}
+
+  public ItemDto(String name, String description, String imageUrl, int remainingQuantity,
+      double price, boolean availableForOrder, boolean stillAvailable, ItemCategoryDto category) {
 
     this.name = name;
     this.description = description;
-    this.imageUrl =imageUrl;
+    this.imageUrl = imageUrl;
     this.remainingQuantity = remainingQuantity;
     this.price = price;
     this.availableForOrder = availableForOrder;
@@ -65,7 +64,7 @@ public class ItemDto {
     return stillAvailable;
   }
 
-  public ItemCategory getCategory() {
+  public ItemCategoryDto getCategory() {
     return category;
   }
 
