@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemDto;
 import ca.mcgill.ecse321.GSSS.model.Item;
+import ca.mcgill.ecse321.GSSS.model.ItemCategory;
+import ca.mcgill.ecse321.GSSS.service.ItemCategoryService;
 import ca.mcgill.ecse321.GSSS.service.ItemService;
 
 @CrossOrigin(origins = "*")
@@ -18,6 +22,8 @@ public class GsssRestController {
 
   @Autowired
   private ItemService itemService;
+  @Autowired
+  private ItemCategoryService itemCategoryService;
 
   /**
    * method to convert from type item to type itemDto
@@ -26,14 +32,32 @@ public class GsssRestController {
    * @param i item we want to convert
    * @return item converted to type itemDto
    */
-  private ItemDto convertToDto(Item i) {
+  private ItemDto convertToDto(Item i, ItemCategory ic) {
     if (i == null) {
       throw new IllegalArgumentException("There is no such Item!");
     }
+    if (ic == null) {
+      throw new IllegalArgumentException("There is no such Item Category!");
+    }
     ItemDto itemDto =
         new ItemDto(i.getName(), i.getDescription(), i.getImageUrl(), i.getRemainingQuantity(),
-            i.getPrice(), i.isAvailableForOrder(), i.isStillAvailable(), i.getCategory());
+            i.getPrice(), i.isAvailableForOrder(), i.isStillAvailable(), convertToDto(ic));
     return itemDto;
+  }
+
+  /**
+   * method to convert from type itemCategory to type itemCategoryDto
+   * 
+   * @author Habib Jarweh
+   * @param ic item category we want to convert
+   * @return item converted to type itemDto
+   */
+  private ItemCategoryDto convertToDto(ItemCategory ic) {
+    if (ic == null) {
+      throw new IllegalArgumentException("There is no such Item Category!");
+    }
+    ItemCategoryDto itemCategoryDto = new ItemCategoryDto(ic.getName());
+    return itemCategoryDto;
   }
 
   /**
@@ -46,7 +70,8 @@ public class GsssRestController {
    */
   @GetMapping(value = {"/items/{name}", "/items/{name}/"})
   public ItemDto getItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
-    return convertToDto(itemService.getItemByName(name));
+    Item item = itemService.getItemByName(name);
+    return convertToDto(item, item.getCategory());
   }
 
   /**
@@ -59,7 +84,7 @@ public class GsssRestController {
   public List<ItemDto> getAllItems() {
     List<ItemDto> itemDtos = new ArrayList<>();
     for (Item item : itemService.getAllItems()) {
-      itemDtos.add(convertToDto(item));
+      itemDtos.add(convertToDto(item, item.getCategory()));
     }
     return itemDtos;
   }
@@ -85,10 +110,13 @@ public class GsssRestController {
       @PathVariable("description") String description, @PathVariable("imageUrl") String imageUrl,
       @PathVariable("remainingQuantity") int remainingQuantity, @PathVariable("price") double price,
       @PathVariable("availableForOrder") boolean availableForOrder,
-      @PathVariable("stillAvailable") boolean stillAvailable) throws IllegalArgumentException {
+      @PathVariable("stillAvailable") boolean stillAvailable,
+      @RequestParam(name = "itemCategory") ItemCategoryDto itemCategoryDto)
+      throws IllegalArgumentException {
+    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
     Item item = itemService.createItem(name, description, imageUrl, remainingQuantity, price,
-        availableForOrder, stillAvailable);
-    return convertToDto(item);
+        availableForOrder, stillAvailable, itemCategory);
+    return convertToDto(item, itemCategory);
   }
 
   /**
@@ -107,10 +135,10 @@ public class GsssRestController {
    */
   @PostMapping(value = {"/items/{name}", "/items/{name}/"})
   public ItemDto modifyItem(@PathVariable("name") String name, String description, String imageUrl,
-      int remainingQuantity, double price, boolean availableForOrder, boolean stillAvailable)
-      throws IllegalArgumentException {
+      int remainingQuantity, double price, boolean availableForOrder, boolean stillAvailable,
+      ItemCategory itemCategory) throws IllegalArgumentException {
     Item item = itemService.modifyItem(name, description, imageUrl, remainingQuantity, price,
-        availableForOrder, stillAvailable);
-    return convertToDto(item);
+        availableForOrder, stillAvailable, itemCategory);
+    return convertToDto(item, itemCategory);
   }
 }
