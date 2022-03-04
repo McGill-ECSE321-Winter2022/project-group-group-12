@@ -210,13 +210,16 @@ public class EmployeeService {
   /**
    * Method to get all the shifts of an employee
    * 
-   * @author Chris Hatoum
-   * @param employeeEmail The employee's email
+   * @author Chris Hatoum and Enzo Benoit-Jeannin
+   * @param employee The employee to retrieve shifts from
    * @return the list of the employee's shifts
    */
   @Transactional
-  public List<Shift> getShifts(String employeeEmail) {
-    Employee employee = employeeRepository.findEmployeeByEmail(employeeEmail);
+  public List<Shift> getShifts(Employee employee) {
+    // Input validation
+    if (employee == null)
+      throw new IllegalArgumentException("Employee cannot be null!");
+
     List<Shift> shiftList = new ArrayList<>(employee.getShifts());
     return shiftList;
   }
@@ -224,11 +227,15 @@ public class EmployeeService {
   /**
    * Method that takes the employee's email and disables his account(setDisabled = true)
    * 
-   * @author Chris Hatoum
-   * @param employeeEmail the employee's email
+   * @author Chris Hatoum and Enzo Benoit-Jeannin
+   * @param employee the employee to disable
    */
-  public void disableEmployee(String employeeEmail) {
-    Employee employee = employeeRepository.findEmployeeByEmail(employeeEmail);
+  @Transactional
+  public void disableEmployee(Employee employee) {
+	// Input validation
+	if (employee == null)
+	  throw new IllegalArgumentException("Employee cannot be null!");
+
     employee.setDisabled(true);
   }
 
@@ -259,12 +266,28 @@ public class EmployeeService {
    * 
    * @author Philippe Sarouphim Hochar.
    * 
-   * @param employees Employees to add tghe shift to.
+   * @param employees Employees to add the shift to.
    * @param shift Shift to add to the employees.
    * @return Then list of employees with the newly added shifts.
    */
   @Transactional
   public List<Employee> addShift(Employee[] employees, Shift shift) {
+	// Input validation
+    String error = "";
+    if (shift == null)
+      error += "Shift cannot be null! ";
+    if (employees == null) {
+      error += "List of employees cannot be null! ";
+    }else {
+    	for (Employee e: employees) {
+    		if(e == null) {
+    			error+= "Employee cannot be null! ";
+    		}
+    	}
+    }
+    if (error.length() > 0)
+        throw new IllegalArgumentException(error);
+      
     List<Employee> employeeList = new ArrayList<>();
     for (Employee e : employees)
       employeeList.add(addShift(e, shift));
@@ -303,6 +326,22 @@ public class EmployeeService {
    */
   @Transactional
   public List<Employee> removeShift(Employee[] employees, Shift shift) {
+	// Input validation
+    String error = "";
+    if (shift == null)
+      error += "Shift cannot be null! ";
+    if (employees == null) {
+      error += "List of employees cannot be null! ";
+    }else {
+    	for (Employee e: employees) {
+    		if(e == null) {
+    			error+= "Employee cannot be null! ";
+    		}
+    	}
+    }
+    if (error.length() > 0)
+      throw new IllegalArgumentException(error);
+    
     List<Employee> employeeList = new ArrayList<>();
     for (Employee e : employees)
       employeeList.add(removeShift(e, shift));
@@ -312,11 +351,14 @@ public class EmployeeService {
   /**
    * Method that takes the employee's email and enables his account(setDisabled = false)
    * 
-   * @author Chris Hatoum
-   * @param employeeEmail the employee's email
+   * @author Chris Hatoum and Enzo Benoit-Jeannin
+   * @param employee the employee to enable
    */
-  public void enableEmployee(String employeeEmail) {
-    Employee employee = employeeRepository.findEmployeeByEmail(employeeEmail);
+  public void enableEmployee(Employee employee) {
+    // Input validation
+    if (employee == null)
+      throw new IllegalArgumentException("Employee cannot be null!");
+
     employee.setDisabled(false);
   }
 }
