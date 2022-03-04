@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Services of the shift class
@@ -54,7 +55,7 @@ public class ShiftService {
     @Transactional
     public List<Shift> getShiftsByDate(Date date) {
         if (date == null) {
-            throw new IllegalArgumentException("Shift date cannot be empty! ");
+            throw new IllegalArgumentException("Shift date cannot be null! ");
         }
         List<Shift> shifts = shiftRepository.findShiftsByDate(date);
         return shifts;
@@ -74,21 +75,18 @@ public class ShiftService {
      * @author Theo Ghanem
      */
     @Transactional
-    public Shift createShift(String id, Date date, Time startTime, Time endTime) {
+    public Shift createShift(Date date, Time startTime, Time endTime) {
 
         // Input validation
         String error = "";
-        if (id == null || id.trim().length() == 0) {
-            error = error + "Shift id cannot be empty! ";
-        }
         if (date == null) {
-            error = error + "Shift date cannot be empty! ";
+            error = error + "Shift date cannot be null! ";
         }
         if (startTime == null) {
-            error = error + "Shift start time cannot be empty! ";
+            error = error + "Shift start time cannot be null! ";
         }
         if (endTime == null) {
-            error = error + "Shift end time cannot be empty! ";
+            error = error + "Shift end time cannot be null! ";
         }
         if (endTime != null && startTime != null && endTime.before(startTime)) {
             error = error + "Shift end time cannot be before shift start time!";
@@ -98,7 +96,7 @@ public class ShiftService {
             throw new IllegalArgumentException(error);
         }
         Shift shift = new Shift();
-        shift.setId(id);
+        shift.setId(UUID.randomUUID().toString());
         shift.setDate(date);
         shift.setStartTime(startTime);
         shift.setEndTime(endTime);
@@ -143,13 +141,13 @@ public class ShiftService {
             error = error + "Shift id cannot be empty! ";
         }
         if (date == null) {
-            error = error + "Shift date cannot be empty! ";
+            error = error + "Shift date cannot be null! ";
         }
         if (startTime == null) {
-            error = error + "Shift start time cannot be empty! ";
+            error = error + "Shift start time cannot be null! ";
         }
         if (endTime == null) {
-            error = error + "Shift end time cannot be empty! ";
+            error = error + "Shift end time cannot be null! ";
         }
         if (endTime != null && startTime != null && endTime.before(startTime)) {
             error = error + "Shift end time cannot be before shift start time!";

@@ -12,12 +12,12 @@ import javax.persistence.Id;
 @Entity
 public class Address {
 
-  String fullName;
-  String streetName;
-  Integer streetNumber;
-  String city;
-  String postalCode;
-  String id;
+  private String fullName;
+  private String streetName;
+  private Integer streetNumber;
+  private String city;
+  private String postalCode;
+  private String id;
 
   public String getFullName() {
     return fullName;
