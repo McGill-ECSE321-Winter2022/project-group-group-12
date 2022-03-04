@@ -109,7 +109,7 @@ public class GsssRestController {
   public ItemDto modifyItem(@PathVariable("name") String name, String description, String imageUrl,
       int remainingQuantity, double price, boolean availableForOrder, boolean stillAvailable)
       throws IllegalArgumentException {
-    Item item = itemService.createItem(name, description, imageUrl, remainingQuantity, price,
+    Item item = itemService.modifyItem(name, description, imageUrl, remainingQuantity, price,
         availableForOrder, stillAvailable);
     return convertToDto(item);
   }
