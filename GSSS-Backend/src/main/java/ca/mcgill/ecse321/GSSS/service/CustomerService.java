@@ -45,6 +45,11 @@ public class CustomerService {
    */
   @Transactional
   public Customer getCustomer(String email) {
+    
+    // Input validation
+    if(email == null || email.trim().length() == 0)
+      throw new IllegalArgumentException("Customer email cannot be empty!");
+    
     Customer customer = customerRepository.findCustomerByEmail(email);
     return customer;
   }
@@ -58,6 +63,11 @@ public class CustomerService {
    */
   @Transactional
   public List<Customer> getCustomersByUsername(String username) {
+    
+    // Input validation
+    if(username == null || username.trim().length() == 0)
+      throw new IllegalArgumentException("Customer username cannot be empty!");
+    
     List<Customer> customers = customerRepository.findCustomersByUsername(username);
     return customers;
   }
@@ -66,12 +76,16 @@ public class CustomerService {
    * Finds the customer with a given purchase
    * 
    * @author Wassim Jabbour
-   * @param purchaseId The ID of the purchase to search for
-   * @return The customer with the purchase corresponding to that ID
+   * @param purchase The purchase to search for
+   * @return The customer with that purchase
    */
   @Transactional
-  public Customer getCustomerByPurchase(String purchaseId) {
-    Purchase purchase = purchaseRepository.findPurchaseById(purchaseId);
+  public Customer getCustomerByPurchase(Purchase purchase) {
+    
+    // Input validation
+    if(purchase == null)
+      throw new IllegalArgumentException("Purchase cannot be null!");
+    
     Customer customer = customerRepository.findCustomerByPurchases(purchase);
     return customer;
   }
@@ -80,12 +94,16 @@ public class CustomerService {
    * Finds the customer with a given address
    * 
    * @author Wassim Jabbour
-   * @param addressId The ID of the address to search for
-   * @return The customer with the address corresponding to that ID
+   * @param address The address to search for
+   * @return The customer with that address
    */
   @Transactional
-  public Customer getCustomerByAddress(String addressId) {
-    Address address = addressRepository.findAddressById(addressId);
+  public Customer getCustomerByAddress(Address address) {
+    
+    // Input validation
+    if(address == null)
+      throw new IllegalArgumentException("Address cannot be null!");
+    
     Customer customer = customerRepository.findCustomerByAddress(address);
     return customer;
   }
@@ -128,6 +146,20 @@ public class CustomerService {
    */
   @Transactional
   public Customer createCustomer(String email, String username, String password, Address address) {
+    
+    // Input validation
+    String error = "";
+    if(email == null || email.trim().length() == 0)
+      error += "Customer email cannot be empty! ";
+    if(username == null || username.trim().length() == 0)
+      error += "Customer username cannot be empty! ";
+    if(password == null || password.trim().length() == 0)
+      error += "Customer username cannot be empty! ";
+    if(address == null)
+      error += "Address cannot be null! ";
+    if(error.length() > 0)
+      throw new IllegalArgumentException(error);
+    
     Customer customer = new Customer();
     customer.setEmail(email);
     customer.setUsername(username);
@@ -149,24 +181,15 @@ public class CustomerService {
    */
   @Transactional
   public void deleteCustomer(String email) {
+    
+    // Input validation
+    if(email == null || email.trim().length() == 0)
+      throw new IllegalArgumentException("Customer email cannot be empty!");
+    
     customerRepository.deleteById(email);
   }
 
 
   // OTHER methods
-  
-  /**
-   * method to get order history of customer
-   * 
-   * @author Habib Jarweh
-   * @param customerEmail
-   * @return list of purchases
-   */
-  public List<Purchase > getOrderHistory(String customerEmail) {
-    Customer customer = customerRepository.findCustomerByEmail(customerEmail);
-    List<Purchase> list = new ArrayList<>(customer.getPurchases()) ;
-    return list;
-  }
-
 
 }
