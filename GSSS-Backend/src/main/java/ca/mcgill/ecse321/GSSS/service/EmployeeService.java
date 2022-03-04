@@ -178,7 +178,7 @@ public class EmployeeService {
   public Employee getEmployeeByAddress(Address address) {
     // Input validation
     if (address == null)
-//      throw new IllegalArgumentException("Address cannot be null!");
+      throw new IllegalArgumentException("Address cannot be null!");
 
     return employeeRepository.findEmployeeByAddress(address);
   }
