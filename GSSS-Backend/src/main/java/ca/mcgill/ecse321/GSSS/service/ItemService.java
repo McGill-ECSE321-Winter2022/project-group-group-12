@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.GSSS.dao.ItemRepository;
 import ca.mcgill.ecse321.GSSS.model.Item;
-
+import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import java.util.List;
 
 /**
@@ -111,7 +111,7 @@ public class ItemService {
    */
   @Transactional
   public Item modifyItem(String name, String description, String imageUrl, int remainingQuantity,
-      double price, boolean availableForOrder, boolean stillAvailable) {
+      double price, boolean availableForOrder, boolean stillAvailable, ItemCategory itemCategory) {
     // Input validation
     String error = "";
     if (description == null || description.trim().length() == 0)
@@ -122,6 +122,8 @@ public class ItemService {
       error += "item's remaining quantity cannot be less than 0! ";
     if (price < 0)
       error += "item's price cannot be less than 0! ";
+    if (itemCategory == null)
+      error += "item's category cannot be empty! ";
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
 
@@ -132,6 +134,7 @@ public class ItemService {
     item.setPrice(price);
     item.setAvailableForOrder(availableForOrder);
     item.setStillAvailable(stillAvailable);
+    item.setCategory(itemCategory);
     itemRepository.save(item);
     return item;
   }
