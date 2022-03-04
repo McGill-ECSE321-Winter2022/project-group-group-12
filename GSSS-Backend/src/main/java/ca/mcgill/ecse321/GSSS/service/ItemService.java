@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.GSSS.service;
 
-import ca.mcgill.ecse321.GSSS.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,56 +10,61 @@ import java.util.List;
 
 /**
  * Services of the item class
- *
- * @author Theo Ghanem
- * @author Habib Jarweh
+ * 
  * @author Chris Hatoum
+ * @author Habib Jarweh
  *
  */
 @Service
 public class ItemService {
 
-  //CRUD repositories
+  // CRUD repositories
   @Autowired
   ItemRepository itemRepository;
 
 
-  //GET Methods
-
+  // GET Methods
   /**
-   *Get the item based on its name
-   *
-   * @author Theo Ghanem
    * @author Chris Hatoum
-   * @param name name of the item we want to get
-   * @return the item we are looking for
+   * @param name Name of the item
+   * @return The item we want
    */
   @Transactional
-public Item getItemByName(String name){
-  Item item = itemRepository.findItemByName(name);
-  return item;
-}
-
-
-  //CREATE Methods
+  public Item getItemByName(String name) {
+    return itemRepository.findItemByName(name);
+  }
 
   /**
-   * Method to create a new item and saves it into the database
-   *
-   * @author Theo Ghanem
+   * Finds all the items stored in the database This method uses a method defined in HelperClass
+   * 
    * @author Chris Hatoum
-   * @param name primary key of the item
-   * @param description description of the item
-   * @param imageUrl image URL of the item
-   * @param remainingQuantity remaining quantity of the item
+   * @return A list of all the items stored in the database
+   */
+  @Transactional
+  public List<Item> getAllItems() {
+    return HelperClass.toList(itemRepository.findAll());
+  }
+
+
+  // CREATE Methods
+
+  /**
+   *
+   * This method creates an item given the parameters below
+   *
+   * @author Chris Hatoum
+   * @param name The item's name
+   * @param description The item's description
+   * @param imageUrl The URL for the item's image
+   * @param remainingQuantity The amount of the item left in the inventory
    * @param price price of the item
-   * @param availableForOrder boolean to see if the item is still available for order
-   * @param stillAvailable boolean to see if the item is still available
-   * @return the item we want to create
+   * @param availableForOrder If the item id available for online order or not
+   * @param stillAvailable Item's availability
+   * @return The item that has been created
    */
   @Transactional
   public Item createItem(String name, String description, String imageUrl, int remainingQuantity,
-                         double price, boolean availableForOrder, boolean stillAvailable) {
+      double price, boolean availableForOrder, boolean stillAvailable) {
     Item item = new Item();
     item.setName(name);
     item.setDescription(description);
@@ -71,24 +75,26 @@ public Item getItemByName(String name){
     item.setStillAvailable(stillAvailable);
     itemRepository.save(item);
     return item;
+
   }
 
-  //DELETE Methods
+  // DELETE Methods
 
   /**
-   * Deletes the item based on the specified id
-   *
-   * @author Theo Ghanem
+   * This method deletes an item
+   * 
    * @author Chris Hatoum
-   * @param name name of the item we want to delete
+   * @param name Delete the item with the name ("name")
    */
   @Transactional
   public void deleteItem(String name) {
-    itemRepository.deleteById(name);
+    Item item = itemRepository.findItemByName(name);
+    itemRepository.delete(item);
   }
 
 
-  //MODIFY Methods
+
+  // MODIFY Methods
 
   /**
    * method to edit/modify item
@@ -100,12 +106,25 @@ public Item getItemByName(String name){
    * @param remainingQuantity remaining quantity of item
    * @param price price of item
    * @param availableForOrder boolean if item is still available for order
-   * @param stillAvailable boolean to see if item is still available 
+   * @param stillAvailable boolean to see if item is still available
    * @return item we want to update
    */
   @Transactional
   public Item modifyItem(String name, String description, String imageUrl, int remainingQuantity,
       double price, boolean availableForOrder, boolean stillAvailable) {
+    // Input validation
+    String error = "";
+    if (description == null || description.trim().length() == 0)
+      error += "item's description cannot be empty! ";
+    if (imageUrl == null || imageUrl.trim().length() == 0)
+      error += "item's image URL cannot be empty! ";
+    if (remainingQuantity < 0)
+      error += "item's remaining quantity cannot be less than 0! ";
+    if (price < 0)
+      error += "item's price cannot be less than 0! ";
+    if (error.length() > 0)
+      throw new IllegalArgumentException(error);
+
     Item item = itemRepository.findItemByName(name);
     item.setDescription(description);
     item.setImageUrl(imageUrl);
@@ -113,7 +132,7 @@ public Item getItemByName(String name){
     item.setPrice(price);
     item.setAvailableForOrder(availableForOrder);
     item.setStillAvailable(stillAvailable);
-    itemRepository.save(item); 
+    itemRepository.save(item);
     return item;
   }
 

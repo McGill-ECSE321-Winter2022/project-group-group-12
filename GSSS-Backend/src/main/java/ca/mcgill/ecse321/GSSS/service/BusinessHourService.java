@@ -3,6 +3,8 @@ package ca.mcgill.ecse321.GSSS.service;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.mcgill.ecse321.GSSS.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +17,30 @@ public class BusinessHourService {
   @Autowired
   BusinessHourRepository businessHourRepository;
 
-  private <T> List<T> toList(Iterable<T> iterable) {
-    List<T> resultList = new ArrayList<T>();
-    for (T t : iterable) {
-      resultList.add(t);
+  /**
+   * method that gets business hour by weekday
+   * 
+   * @author Habib Jarweh
+   * @param weekday desired day of the week
+   * @return business hour we want to find
+   */
+  @Transactional
+  public BusinessHour getBusinessHourByWeekday(Weekday weekday) {
+    if (weekday == null) {
+      throw new IllegalArgumentException("weekday of business hour cannot be null! ");
     }
-    return resultList;
+    return businessHourRepository.findBusinessHourByWeekday(weekday);
+  }
+
+  /**
+   * method that gets all business hours
+   * 
+   * @author Habib Jarweh
+   * @return list<BusinessHour> list of all business hours
+   */
+  @Transactional
+  public List<BusinessHour> getAllBusinessHours() {
+    return HelperClass.toList(businessHourRepository.findAll());
   }
 
   /**
@@ -34,35 +54,30 @@ public class BusinessHourService {
    */
   @Transactional
   public BusinessHour createBusinessHour(Weekday weekday, Time startTime, Time endTime) {
+    // Input validation
+    String error = "";
+    if (weekday == null) {
+      error += "weekday of business hour cannot be null! ";
+    }
+    if (startTime == null) {
+      error += "business hour start time cannot be null! ";
+    }
+    if (endTime == null) {
+      error += "business hour end time cannot be null! ";
+    }
+    if (endTime != null && startTime != null && endTime.before(startTime)) {
+      error += "business hour end time cannot be before business hour start time!";
+    }
+    if (error.length() > 0) {
+      throw new IllegalArgumentException(error);
+    }
+
     BusinessHour businessHour = new BusinessHour();
     businessHour.setWeekday(weekday);
     businessHour.setStartTime(startTime);
     businessHour.setEndTime(endTime);
     businessHourRepository.save(businessHour);
     return businessHour;
-  }
-
-  /**
-   * method that gets business hour by weekday
-   * 
-   * @author Habib Jarweh
-   * @param weekday desired day of the week
-   * @return business hour we want to find
-   */
-  @Transactional
-  public BusinessHour getBusinessHourByWeekday(Weekday weekday) {
-    return businessHourRepository.findBusinessHourByWeekday(weekday);
-  }
-
-  /**
-   * method that gets all business hours
-   * 
-   * @author Habib Jarweh
-   * @return list<BusinessHour> list of all business hours
-   */
-  @Transactional
-  public List<BusinessHour> getAllBusinessHours() {
-    return toList(businessHourRepository.findAll());
   }
 
   /**
@@ -74,9 +89,31 @@ public class BusinessHourService {
    */
   @Transactional
   public BusinessHour deleteBusinessHour(Weekday weekday) {
+    if (weekday == null) {
+      throw new IllegalArgumentException("weekday of business hour cannot be null! ");
+    }
     BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(weekday);
     businessHourRepository.delete(businessHour);
     return businessHour;
 
+  }
+
+  /**
+   * method to edit/modify a business hour of a certain day
+   *
+   * @author Chris Hatoum
+   * @param day specific weekday
+   * @param startTime start time of the day we want
+   * @param endTime end time of the day we want
+   * @return Buisness hours ( opening and closing ) of the day we want to update
+   */
+  @Transactional
+  public BusinessHour modifyBusinessHour(Weekday day, Time startTime, Time endTime) {
+
+    BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(day);
+    businessHour.setStartTime(startTime);
+    businessHour.setEndTime(endTime);
+    businessHourRepository.save(businessHour);
+    return businessHour;
   }
 }
