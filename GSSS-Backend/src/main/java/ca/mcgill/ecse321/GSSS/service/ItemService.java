@@ -64,7 +64,25 @@ public Item getItemByName(String name){ return itemRepository.findItemByName(nam
    */
   @Transactional
   public Item createItem(String name, String description, String imageUrl, int remainingQuantity,
+<<<<<<< Updated upstream
                          double price, boolean availableForOrder, boolean stillAvailable) {
+=======
+      double price, boolean availableForOrder, boolean stillAvailable,ItemCategory itemCategory) {
+    // Input validation
+    String error = "";
+    if (description == null || description.trim().length() == 0)
+      error += "item's description cannot be empty! ";
+    if (imageUrl == null || imageUrl.trim().length() == 0)
+      error += "item's image URL cannot be empty! ";
+    if (remainingQuantity < 0)
+      error += "item's remaining quantity cannot be less than 0! ";
+    if (price < 0)
+      error += "item's price cannot be less than 0! ";
+    if (itemCategory == null)
+      error += "item's category cannot be empty! ";
+    if (error.length() > 0)
+      throw new IllegalArgumentException(error);
+>>>>>>> Stashed changes
     Item item = new Item();
     item.setName(name);
     item.setDescription(description);
@@ -73,6 +91,7 @@ public Item getItemByName(String name){ return itemRepository.findItemByName(nam
     item.setPrice(price);
     item.setAvailableForOrder(availableForOrder);
     item.setStillAvailable(stillAvailable);
+    item.setCategory(itemCategory);
     itemRepository.save(item);
     return item;
 
@@ -110,7 +129,29 @@ public Item getItemByName(String name){ return itemRepository.findItemByName(nam
    */
   @Transactional
   public Item modifyItem(String name, String description, String imageUrl, int remainingQuantity,
+<<<<<<< Updated upstream
       double price, boolean availableForOrder, boolean stillAvailable) {
+=======
+      double price, boolean availableForOrder, boolean stillAvailable, ItemCategory itemCategory) {
+    // Input validation
+    String error = "";
+
+    if (name == null|| name.trim().length()==0)
+      error += "Item's name cannot be empty!";
+    if (description == null || description.trim().length() == 0)
+      error += "Item's description cannot be empty! ";
+    if (imageUrl == null || imageUrl.trim().length() == 0)
+      error += "Item's image URL cannot be empty! ";
+    if (remainingQuantity < 0)
+      error += "Item's remaining quantity cannot be less than 0! ";
+    if (price < 0)
+      error += "Item's price cannot be less than 0! ";
+    if (itemCategory == null)
+      error += "Item's category cannot be empty! ";
+    if (error.length() > 0)
+      throw new IllegalArgumentException(error);
+
+>>>>>>> Stashed changes
     Item item = itemRepository.findItemByName(name);
     item.setDescription(description);
     item.setImageUrl(imageUrl);

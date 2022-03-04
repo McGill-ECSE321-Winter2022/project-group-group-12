@@ -83,6 +83,7 @@ public class BusinessHourService {
    * @return Buisness hours ( opening and closing ) of the day we want to update
    */
   @Transactional
+<<<<<<< Updated upstream
   public BusinessHour modifyBusinessHour(Weekday day, Time startTime, Time endTime){
 
      BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(day);
@@ -93,3 +94,30 @@ public class BusinessHourService {
    }
  }
 
+=======
+  public BusinessHour modifyBusinessHour(Weekday day, Time startTime, Time endTime) {
+    // Input validation
+    String error = "";
+    if (day == null) {
+      error += "Weekday of business hour cannot be null! ";
+    }
+    if (startTime == null) {
+      error += "Business hour start time cannot be null! ";
+    }
+    if (endTime == null) {
+      error += "Business hour end time cannot be null! ";
+    }
+    if (endTime != null && startTime != null && endTime.before(startTime)) {
+      error += "Business hour end time cannot be before business hour start time!";
+    }
+    if (error.length() > 0) {
+      throw new IllegalArgumentException(error);
+    }
+    BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(day);
+    businessHour.setStartTime(startTime);
+    businessHour.setEndTime(endTime);
+    businessHourRepository.save(businessHour);
+    return businessHour;
+  }
+}
+>>>>>>> Stashed changes
