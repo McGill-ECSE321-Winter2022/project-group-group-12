@@ -243,6 +243,12 @@ public class EmployeeService {
    */
   @Transactional
   public Employee addShift(Employee employee, Shift shift) {
+    if(employee == null)
+        throw new IllegalArgumentException("Employee cannot be null.");
+    
+    if(shift == null)
+        throw new IllegalArgumentException("Shift cannot be null.");
+
     // Add shift to employee and save in database
     employee.getShifts().add(shift);
     return employeeRepository.save(employee);
@@ -276,6 +282,12 @@ public class EmployeeService {
    */
   @Transactional
   public Employee removeShift(Employee employee, Shift shift) {
+    if(employee == null)
+        throw new IllegalArgumentException("Employee cannot be null.");
+
+    if(shift == null)
+        throw new IllegalArgumentException("Shift cannot be null.");
+
     employee.getShifts().remove(shift);
     return employeeRepository.save(employee);
   }
