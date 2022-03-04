@@ -35,6 +35,9 @@ public class ItemCategoryService {
         // Check if category already exists in database
         if(itemCategoryRepository.findItemCategoryByName(name) != null) return null;
 
+        // Input validation
+        if(name == null || name.equals("")) return null;
+
         // Createand attempt to add new category to database
         ItemCategory category = new ItemCategory();
         category.setName(name);
