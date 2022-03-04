@@ -24,6 +24,8 @@ public class ItemDto {
    * @author Theo Ghanem
    */
   public ItemDto() {
+  }
+  public ItemDto(String name, String description, String imageUrl, int remainingQuantity, double price, boolean availableForOrder, boolean stillAvailable, ItemCategory category) {
 
     this.name = name;
     this.description = description;

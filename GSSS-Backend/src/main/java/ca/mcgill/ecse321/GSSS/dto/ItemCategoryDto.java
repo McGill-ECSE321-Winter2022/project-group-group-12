@@ -16,6 +16,10 @@ public class ItemCategoryDto {
    * @author Theo Ghanem
    */
   public ItemCategoryDto() {
+  }
+
+  public ItemCategoryDto(String name) {
+
     this.name = name;
   }
 
