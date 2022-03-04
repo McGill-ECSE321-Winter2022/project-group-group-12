@@ -1,9 +1,9 @@
 package ca.mcgill.ecse321.GSSS.dto;
 
-public class OwnerDto {
+public class OwnerDto extends AccountDto{
 
   public OwnerDto() {
-    // TODO Auto-generated constructor stub
+    
   }
 
 }

@@ -1,9 +1,24 @@
 package ca.mcgill.ecse321.GSSS.dto;
 
-public class EmployeeDto {
+import java.util.Set;
+
+public class EmployeeDto extends AccountDto {
+
+  private Set<ShiftDto> shifts;
 
   public EmployeeDto() {
-    // TODO Auto-generated constructor stub
+
   }
+
+  public EmployeeDto(Set<ShiftDto> shifts) {
+    super();
+    this.shifts = shifts;
+  }
+
+  public Set<ShiftDto> getShifts() {
+    return shifts;
+  }
+
+
 
 }

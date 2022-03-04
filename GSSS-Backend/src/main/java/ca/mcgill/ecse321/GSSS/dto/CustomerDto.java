@@ -1,9 +1,26 @@
 package ca.mcgill.ecse321.GSSS.dto;
 
-public class CustomerDto {
+import java.util.List;
+
+public class CustomerDto extends AccountDto {
+
+  private List<PurchaseDto> purchases;
 
   public CustomerDto() {
-    // TODO Auto-generated constructor stub
+    
   }
+  
+  public CustomerDto(List<PurchaseDto> purchases) {
+    super();
+    this.purchases = purchases;
+  }
+
+  public List<PurchaseDto> getPurchases() {
+    return purchases;
+  }
+  
+  
+  
+  
 
 }
