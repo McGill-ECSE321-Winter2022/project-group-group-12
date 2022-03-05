@@ -7,20 +7,19 @@ public class CustomerDto extends AccountDto {
   private List<PurchaseDto> purchases;
 
   public CustomerDto() {
-    
+
   }
-  
-  public CustomerDto(List<PurchaseDto> purchases) {
-    super();
+
+  public CustomerDto(String username, String email, String password, String salt, boolean disabled,
+      AddressDto address, List<PurchaseDto> purchases) {
+    super(username, email, password, salt, disabled, address);
     this.purchases = purchases;
   }
 
   public List<PurchaseDto> getPurchases() {
     return purchases;
   }
-  
-  
-  
-  
+
+
 
 }

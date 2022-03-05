@@ -10,8 +10,9 @@ public class EmployeeDto extends AccountDto {
 
   }
 
-  public EmployeeDto(Set<ShiftDto> shifts) {
-    super();
+  public EmployeeDto(String username, String email, String password, String salt, boolean disabled,
+      AddressDto address, Set<ShiftDto> shifts) {
+    super(username, email, password, salt, disabled, address);
     this.shifts = shifts;
   }
 
