@@ -289,7 +289,7 @@ public class DtoConversion {
    * Converts an address to its DTO equivalent
    * 
    * @author Wassim Jabbour
-   * @param employee The object to convert
+   * @param address The object to convert
    * @return The corresponding dto
    */
   static AddressDto convertToDto(Address address) {
@@ -303,6 +303,8 @@ public class DtoConversion {
 
     return addressDto;
   }
+
+
 
   /**
    * Converts a shift to its DTO equivalent
@@ -323,6 +325,8 @@ public class DtoConversion {
     return shiftDto;
 
   }
+
+
 
   /**
    * Converts a set of shifts to a list of shift dtos
