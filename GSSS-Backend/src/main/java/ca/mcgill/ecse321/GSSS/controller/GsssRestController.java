@@ -1,14 +1,23 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.Time;
+import java.time.LocalTime;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemDto;
 import ca.mcgill.ecse321.GSSS.model.Item;
@@ -16,9 +25,151 @@ import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.service.ItemCategoryService;
 import ca.mcgill.ecse321.GSSS.service.ItemService;
 
+import ca.mcgill.ecse321.GSSS.dto.BusinessHourDto;
+import ca.mcgill.ecse321.GSSS.model.BusinessHour;
+import ca.mcgill.ecse321.GSSS.model.Weekday;
+import ca.mcgill.ecse321.GSSS.service.BusinessHourService;
+
+
 @CrossOrigin(origins = "*")
 @RestController
 public class GsssRestController {
+
+
+  @Autowired
+  BusinessHourService businessHourService;
+
+
+  /**
+   * GET method that retrieves the business hour corresponding to a certain day of the week
+   * 
+   * @author Wassim Jabbour
+   * @param weekday A string with the weekday we want to find
+   * @return The corresponding business hour dto
+   */
+  @GetMapping(value = {"/businesshour/{weekday}", "/businesshour/{weekday}/"})
+  public BusinessHourDto getBusinessHourByWeekday(@PathVariable("weekday") String weekday) {
+
+    Weekday correspondingWeekday = findWeekdayByName(weekday); // Helper method defined below
+
+    if (correspondingWeekday == null)
+      throw new IllegalArgumentException("There is no such weekday!");
+
+    BusinessHourDto businessHourDto =
+        convertToDto(businessHourService.getBusinessHourByWeekday(correspondingWeekday));
+
+    return businessHourDto;
+
+  }
+
+  /**
+   * Method that overrides the business hour for a particular day
+   * 
+   * @author Wassim Jabbour
+   * @param weekday The day of the week the BusinessHour is happening on
+   * @param startTime The start time of the opening hours for that day
+   * @param endTime The end time of the opening hours for that day
+   * @return The Dto corresponding to the created business hour
+   */
+  @PostMapping(value = {"/businesshour", "/businesshour/"})
+  public BusinessHourDto overrideBusinessHour(@RequestParam(name = "weekday") String weekday,
+      @RequestParam(name = "starttime") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME,
+          pattern = "HH:mm") LocalTime startTime,
+      @RequestParam(name = "endtime") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME,
+          pattern = "HH:mm") LocalTime endTime) {
+
+    Weekday correspondingWeekday = findWeekdayByName(weekday); // Helper method defined below
+
+    if (correspondingWeekday == null)
+      throw new IllegalArgumentException("There is no such weekday!");
+
+    BusinessHour businessHour = businessHourService.createBusinessHour(correspondingWeekday,
+        Time.valueOf(startTime), Time.valueOf(endTime));
+
+    return convertToDto(businessHour);
+
+  }
+
+  /**
+   * Helper method that converts a BusinessHour to its DTO equivalent
+   * 
+   * @author Wassim Jabbour
+   * @param businessHour The BusinessHour to convert
+   * @return The converted DTO
+   */
+  private BusinessHourDto convertToDto(BusinessHour businessHour) {
+
+    if (businessHour == null)
+      throw new IllegalArgumentException("There is no such business hour!");
+
+    BusinessHourDto businessHourDto = new BusinessHourDto(businessHour.getWeekday(),
+        businessHour.getStartTime(), businessHour.getEndTime());
+
+    return businessHourDto;
+  }
+
+  /**
+   * Helper method that converts a BusinessHourDto to its domain model equivalent
+   * 
+   * @author Wassim Jabbour
+   * @param businessHourDto The DTO to convert
+   * @return The domain model object
+   */
+  private BusinessHour convertToDomainObject(BusinessHourDto businessHourDto) {
+
+    // Checking the input is non null
+    if (businessHourDto == null)
+      throw new IllegalArgumentException("There is no such business hour!");
+
+    // Getting all the business hours in the system
+    List<BusinessHour> allBusinessHours = businessHourService.getAllBusinessHours();
+
+    // Cycling through them till we find the one with the desired weekday and returning it
+    for (BusinessHour businessHour : allBusinessHours) {
+
+      if (businessHour.getWeekday() == businessHourDto.getWeekday()) {
+        return businessHour;
+      }
+
+    }
+
+    // Returning null if we don't find it
+    return null;
+
+  }
+
+  /**
+   * Helper method that converts a weekDayName string to its corresponding weekday
+   * 
+   * @param weekDayName The string representing the weekday name
+   * @return The weekday
+   */
+  private Weekday findWeekdayByName(String weekDayName) {
+
+    if (weekDayName.equals("Monday"))
+      return Weekday.Monday;
+
+    else if (weekDayName.equals("Tuesday"))
+      return Weekday.Tuesday;
+
+    else if (weekDayName.equals("Wednesday"))
+      return Weekday.Wednesday;
+
+    else if (weekDayName.equals("Thursday"))
+      return Weekday.Thursday;
+
+    else if (weekDayName.equals("Friday"))
+      return Weekday.Friday;
+
+    else if (weekDayName.equals("Saturday"))
+      return Weekday.Saturday;
+
+    else if (weekDayName.equals("Sunday"))
+      return Weekday.Sunday;
+
+    else
+      return null;
+  }
 
   @Autowired
   private ItemService itemService;

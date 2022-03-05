@@ -132,7 +132,6 @@ public class ItemService {
       double price, boolean availableForOrder, boolean stillAvailable, ItemCategory itemCategory) {
     // Input validation
     String error = "";
-
     if (name == null || name.trim().length() == 0)
       error += "Item's name cannot be empty!";
     if (description == null || description.trim().length() == 0)
@@ -147,7 +146,6 @@ public class ItemService {
       error += "Item's category cannot be empty! ";
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
-
 
     Item item = itemRepository.findItemByName(name);
     item.setDescription(description);
