@@ -68,7 +68,7 @@ public class GsssRestController {
    * @return itemDto item we want to find
    * @throws IllegalArgumentException
    */
-  @GetMapping(value = {"/items/{name}", "/items/{name}/"})
+  @GetMapping(value = {"/item/{name}", "/item/{name}/"})
   public ItemDto getItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
     Item item = itemService.getItemByName(name);
     return convertToDto(item, item.getCategory());
@@ -81,7 +81,7 @@ public class GsssRestController {
    * @return list of all itemDtos
    */
   @GetMapping(value = {"/items", "/items/"})
-  public List<ItemDto> getAllItems() throws IllegalArgumentException{
+  public List<ItemDto> getAllItems() throws IllegalArgumentException {
     List<ItemDto> itemDtos = new ArrayList<>();
     for (Item item : itemService.getAllItems()) {
       itemDtos.add(convertToDto(item, item.getCategory()));
@@ -103,14 +103,14 @@ public class GsssRestController {
    * @return itemDto we created
    * @throws IllegalArgumentException
    */
-  @PostMapping(value = {
-      "/items/{name}{description}{imageUrl}{remainingQuantity}{price}{availableForOrder}{stillAvailable}",
-      "/items/{name}{description}{imageUrl}{remainingQuantity}{price}{availableForOrder}{stillAvailable}/"})
-  public ItemDto createItem(@PathVariable("name") String name,
-      @PathVariable("description") String description, @PathVariable("imageUrl") String imageUrl,
-      @PathVariable("remainingQuantity") int remainingQuantity, @PathVariable("price") double price,
-      @PathVariable("availableForOrder") boolean availableForOrder,
-      @PathVariable("stillAvailable") boolean stillAvailable,
+  @PostMapping(value = {"/item", "/item/"})
+  public ItemDto createItem(@RequestParam(name = "name") String name,
+      @RequestParam(name = "description") String description,
+      @RequestParam(name = "imageUrl") String imageUrl,
+      @RequestParam(name = "remainingQuantity") int remainingQuantity,
+      @RequestParam(name = "price") double price,
+      @RequestParam(name = "availableForOrder") boolean availableForOrder,
+      @RequestParam(name = "stillAvailable") boolean stillAvailable,
       @RequestParam(name = "itemCategory") ItemCategoryDto itemCategoryDto)
       throws IllegalArgumentException {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
@@ -133,10 +133,17 @@ public class GsssRestController {
    * @return itemDto we want to update
    * @throws IllegalArgumentException
    */
-  @PostMapping(value = {"/items/{name}", "/items/{name}/"})
-  public ItemDto modifyItem(@PathVariable("name") String name, String description, String imageUrl,
-      int remainingQuantity, double price, boolean availableForOrder, boolean stillAvailable,
-      ItemCategory itemCategory) throws IllegalArgumentException {
+  @PostMapping(value = {"/item/{name}", "/item/{name}/"})
+  public ItemDto modifyItem(@PathVariable("name") String name,
+      @RequestParam(name = "description") String description,
+      @RequestParam(name = "imageUrl") String imageUrl,
+      @RequestParam(name = "remainingQuantity") int remainingQuantity,
+      @RequestParam(name = "price") double price,
+      @RequestParam(name = "availableForOrder") boolean availableForOrder,
+      @RequestParam(name = "stillAvailable") boolean stillAvailable,
+      @RequestParam(name = "itemCategory") ItemCategoryDto itemCategoryDto)
+      throws IllegalArgumentException {
+    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
     Item item = itemService.modifyItem(name, description, imageUrl, remainingQuantity, price,
         availableForOrder, stillAvailable, itemCategory);
     return convertToDto(item, itemCategory);
