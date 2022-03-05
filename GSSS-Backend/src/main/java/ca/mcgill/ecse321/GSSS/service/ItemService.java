@@ -106,6 +106,8 @@ public class ItemService {
    */
   @Transactional
   public void deleteItem(String name) {
+    if (name == null) 
+      throw new IllegalArgumentException("Name cannot be empty!");
     Item item = itemRepository.findItemByName(name);
     itemRepository.delete(item);
   }
