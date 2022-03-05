@@ -81,7 +81,7 @@ public class GsssRestController {
    * @return list of all itemDtos
    */
   @GetMapping(value = {"/items", "/items/"})
-  public List<ItemDto> getAllItems() {
+  public List<ItemDto> getAllItems() throws IllegalArgumentException{
     List<ItemDto> itemDtos = new ArrayList<>();
     for (Item item : itemService.getAllItems()) {
       itemDtos.add(convertToDto(item, item.getCategory()));

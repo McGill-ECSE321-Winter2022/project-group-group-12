@@ -64,7 +64,7 @@ public class ItemService {
    */
   @Transactional
   public Item createItem(String name, String description, String imageUrl, int remainingQuantity,
-      double price, boolean availableForOrder, boolean stillAvailable) {
+      double price, boolean availableForOrder, boolean stillAvailable, ItemCategory itemCategory) {
     Item item = new Item();
     item.setName(name);
     item.setDescription(description);
@@ -73,6 +73,7 @@ public class ItemService {
     item.setPrice(price);
     item.setAvailableForOrder(availableForOrder);
     item.setStillAvailable(stillAvailable);
+    item.setCategory(itemCategory);
     itemRepository.save(item);
     return item;
 
