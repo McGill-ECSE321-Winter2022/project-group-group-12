@@ -15,10 +15,9 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 /**
+ * ItemCategory controller methods
+ * 
  * @author Chris Hatoum
- *
- *         ItemCategory controller methods
- *
  */
 public class ItemCategoryRestController {
 
