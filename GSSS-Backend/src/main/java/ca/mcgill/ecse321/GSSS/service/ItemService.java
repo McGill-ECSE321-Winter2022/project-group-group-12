@@ -65,6 +65,23 @@ public class ItemService {
   @Transactional
   public Item createItem(String name, String description, String imageUrl, int remainingQuantity,
       double price, boolean availableForOrder, boolean stillAvailable, ItemCategory itemCategory) {
+    // Input validation
+    String error = "";
+    if (name == null || name.trim().length() == 0)
+      error += "Item's name cannot be empty!";
+    if (description == null || description.trim().length() == 0)
+      error += "item's description cannot be empty! ";
+    if (imageUrl == null || imageUrl.trim().length() == 0)
+      error += "item's image URL cannot be empty! ";
+    if (remainingQuantity < 0)
+      error += "item's remaining quantity cannot be less than 0! ";
+    if (price < 0)
+      error += "item's price cannot be less than 0! ";
+    if (itemCategory == null)
+      error += "item's category cannot be empty! ";
+    if (error.length() > 0)
+      throw new IllegalArgumentException(error);
+
     Item item = new Item();
     item.setName(name);
     item.setDescription(description);
@@ -108,7 +125,6 @@ public class ItemService {
    * @param price price of item
    * @param availableForOrder boolean if item is still available for order
    * @param stillAvailable boolean to see if item is still available
-   * @param itemCategory category of item
    * @return item we want to update
    */
   @Transactional
@@ -116,18 +132,22 @@ public class ItemService {
       double price, boolean availableForOrder, boolean stillAvailable, ItemCategory itemCategory) {
     // Input validation
     String error = "";
+
+    if (name == null || name.trim().length() == 0)
+      error += "Item's name cannot be empty!";
     if (description == null || description.trim().length() == 0)
-      error += "item's description cannot be empty! ";
+      error += "Item's description cannot be empty! ";
     if (imageUrl == null || imageUrl.trim().length() == 0)
-      error += "item's image URL cannot be empty! ";
+      error += "Item's image URL cannot be empty! ";
     if (remainingQuantity < 0)
-      error += "item's remaining quantity cannot be less than 0! ";
+      error += "Item's remaining quantity cannot be less than 0! ";
     if (price < 0)
-      error += "item's price cannot be less than 0! ";
+      error += "Item's price cannot be less than 0! ";
     if (itemCategory == null)
-      error += "item's category cannot be empty! ";
+      error += "Item's category cannot be empty! ";
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
+
 
     Item item = itemRepository.findItemByName(name);
     item.setDescription(description);
