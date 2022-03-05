@@ -23,7 +23,7 @@ import ca.mcgill.ecse321.GSSS.model.Shift;
 import ca.mcgill.ecse321.GSSS.model.Weekday;
 import ca.mcgill.ecse321.GSSS.service.PurchaseService;
 
-public class HelperClass {
+public class DtoConversion {
 
   @Autowired
   PurchaseService purchaseService;

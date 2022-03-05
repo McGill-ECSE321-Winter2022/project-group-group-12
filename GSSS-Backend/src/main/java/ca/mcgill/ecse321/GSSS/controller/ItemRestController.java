@@ -36,7 +36,7 @@ public class ItemRestController {
   @GetMapping(value = {"/item/{name}", "/item/{name}/"})
   public ItemDto getItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
     Item item = itemService.getItemByName(name);
-    return HelperClass.convertToDto(item, item.getCategory());
+    return DtoConversion.convertToDto(item, item.getCategory());
   }
 
   /**
@@ -49,7 +49,7 @@ public class ItemRestController {
   public List<ItemDto> getAllItems() throws IllegalArgumentException {
     List<ItemDto> itemDtos = new ArrayList<>();
     for (Item item : itemService.getAllItems()) {
-      itemDtos.add(HelperClass.convertToDto(item, item.getCategory()));
+      itemDtos.add(DtoConversion.convertToDto(item, item.getCategory()));
     }
     return itemDtos;
   }
@@ -82,7 +82,7 @@ public class ItemRestController {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
     Item item = itemService.createItem(name, description, imageUrl, remainingQuantity, price,
         availableForOrder, stillAvailable, itemCategory);
-    return HelperClass.convertToDto(item, itemCategory);
+    return DtoConversion.convertToDto(item, itemCategory);
   }
 
   /**
@@ -113,7 +113,7 @@ public class ItemRestController {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
     Item item = itemService.modifyItem(name, description, imageUrl, remainingQuantity, price,
         availableForOrder, stillAvailable, itemCategory);
-    return HelperClass.convertToDto(item, itemCategory);
+    return DtoConversion.convertToDto(item, itemCategory);
   }
 
 }
