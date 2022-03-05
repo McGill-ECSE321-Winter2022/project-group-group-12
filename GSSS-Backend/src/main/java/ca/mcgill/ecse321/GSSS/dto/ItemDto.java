@@ -1,7 +1,7 @@
 package ca.mcgill.ecse321.GSSS.dto;
 
 /**
- *Data Transfer Object Class for Item Class
+ * Data Transfer Object Class for Item Class
  *
  * @author Theo Ghanem
  */
@@ -21,13 +21,15 @@ public class ItemDto {
    *
    * @author Theo Ghanem
    */
-  public ItemDto() {
-  }
-  public ItemDto(String name, String description, String imageUrl, int remainingQuantity, double price, boolean availableForOrder, boolean stillAvailable, ItemCategoryDto category) {
+
+  public ItemDto() {}
+
+  public ItemDto(String name, String description, String imageUrl, int remainingQuantity,
+      double price, boolean availableForOrder, boolean stillAvailable, ItemCategoryDto category) {
 
     this.name = name;
     this.description = description;
-    this.imageUrl =imageUrl;
+    this.imageUrl = imageUrl;
     this.remainingQuantity = remainingQuantity;
     this.price = price;
     this.availableForOrder = availableForOrder;

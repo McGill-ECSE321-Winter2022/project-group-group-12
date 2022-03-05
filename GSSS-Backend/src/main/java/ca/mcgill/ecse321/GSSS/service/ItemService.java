@@ -64,10 +64,10 @@ public class ItemService {
    */
   @Transactional
   public Item createItem(String name, String description, String imageUrl, int remainingQuantity,
-      double price, boolean availableForOrder, boolean stillAvailable,ItemCategory itemCategory) {
+      double price, boolean availableForOrder, boolean stillAvailable, ItemCategory itemCategory) {
     // Input validation
     String error = "";
-    if (name == null|| name.trim().length()==0)
+    if (name == null || name.trim().length() == 0)
       error += "Item's name cannot be empty!";
     if (description == null || description.trim().length() == 0)
       error += "item's description cannot be empty! ";
@@ -81,7 +81,7 @@ public class ItemService {
       error += "item's category cannot be empty! ";
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
-    
+
     Item item = new Item();
     item.setName(name);
     item.setDescription(description);
@@ -132,8 +132,7 @@ public class ItemService {
       double price, boolean availableForOrder, boolean stillAvailable, ItemCategory itemCategory) {
     // Input validation
     String error = "";
-
-    if (name == null|| name.trim().length()==0)
+    if (name == null || name.trim().length() == 0)
       error += "Item's name cannot be empty!";
     if (description == null || description.trim().length() == 0)
       error += "Item's description cannot be empty! ";
@@ -148,7 +147,6 @@ public class ItemService {
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
 
-   
     Item item = itemRepository.findItemByName(name);
     item.setDescription(description);
     item.setImageUrl(imageUrl);
