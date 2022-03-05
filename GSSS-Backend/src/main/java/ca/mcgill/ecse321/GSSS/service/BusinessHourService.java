@@ -12,6 +12,13 @@ import ca.mcgill.ecse321.GSSS.dao.BusinessHourRepository;
 import ca.mcgill.ecse321.GSSS.model.BusinessHour;
 import ca.mcgill.ecse321.GSSS.model.Weekday;
 
+/**
+ * Services of the item class
+ * 
+ * @author Chris Hatoum
+ * @author Habib Jarweh
+ *
+ */
 @Service
 public class BusinessHourService {
   @Autowired
