@@ -18,15 +18,22 @@ import ca.mcgill.ecse321.GSSS.model.BusinessHour;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
+import ca.mcgill.ecse321.GSSS.model.OrderStatus;
+import ca.mcgill.ecse321.GSSS.model.OrderType;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import ca.mcgill.ecse321.GSSS.model.Weekday;
+import ca.mcgill.ecse321.GSSS.service.ItemService;
 import ca.mcgill.ecse321.GSSS.service.PurchaseService;
 
 public class DtoConversion {
 
   @Autowired
   PurchaseService purchaseService;
+  
+  @Autowired
+  static
+  ItemService itemService;
 
   /**
    * Helper method that converts a weekDayName string to its corresponding weekday
@@ -59,6 +66,50 @@ public class DtoConversion {
       return Weekday.Sunday;
 
     else
+      return null;
+  }
+  
+  /**
+   * Helper method that converts an OrderType string to its enum equivalent
+   * 
+   * @author Wassim Jabbour
+   * @param weekDayName The string representing the type
+   * @return The type
+   */
+  static OrderType findOrderTypeByName(String orderType) {
+
+    if (orderType.equals("Delivery"))
+      return OrderType.Delivery;
+
+    else if (orderType.equals("Pickup"))
+      return OrderType.Pickup;
+
+    else if (orderType.equals("InPerson"))
+      return OrderType.InPerson;
+
+    else 
+      return null;
+  }
+  
+  /**
+   * Helper method that converts an OrderStatus string to its enum equivalent
+   * 
+   * @author Wassim Jabbour
+   * @param weekDayName The string representing the status
+   * @return The status
+   */
+  static OrderStatus findOrderStatusByName(String orderStatus) {
+
+    if (orderStatus.equals("BeingPrepared"))
+      return OrderStatus.BeingPrepared;
+
+    else if (orderStatus.equals("OutForDelivery"))
+      return OrderStatus.OutForDelivery;
+
+    else if (orderStatus.equals("Completed"))
+      return OrderStatus.Completed;
+
+    else 
       return null;
   }
 
@@ -163,28 +214,28 @@ public class DtoConversion {
     return purchaseDto;
 
   }
-
+  
   /**
-   * Helper method that converts a PurchaseDto to its domain model equivalent
+   * Helper method that converts an itemDto to its domain model equivalent
    * 
    * @author Wassim Jabbour
-   * @param businessHourDto The DTO to convert
+   * @param itemDto The DTO to convert
    * @return The domain model object
    */
-  private Purchase convertToDomainObject(PurchaseDto purchaseDto) throws IllegalArgumentException {
+  static Item convertToDomainObject(ItemDto itemDto) throws IllegalArgumentException {
 
     // Checking the input is non null
-    if (purchaseDto == null)
-      throw new IllegalArgumentException("There is no such purchase!");
+    if (itemDto == null)
+      throw new IllegalArgumentException("There is no such item!");
 
     // Getting all the purchases in the system
-    List<Purchase> allPurchases = purchaseService.getAllPurchases();
+    List<Item> allItems = itemService.getAllItems();
 
     // Cycling through them till we find the one with the desired weekday and returning it
-    for (Purchase purchase : allPurchases) {
+    for (Item item : allItems) {
 
-      if (purchase.getId() == purchaseDto.getId()) {
-        return purchase;
+      if (item.getName().equals(itemDto.getName())) {
+        return item;
       }
 
     }
