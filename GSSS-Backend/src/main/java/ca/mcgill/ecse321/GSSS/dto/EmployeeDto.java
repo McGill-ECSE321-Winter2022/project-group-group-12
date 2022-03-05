@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.GSSS.dto;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Set;
  */
 public class EmployeeDto extends AccountDto {
 
-  private Set<ShiftDto> shifts;
+  private List<ShiftDto> shifts;
 
   /**
    * Default constructor
@@ -34,7 +35,7 @@ public class EmployeeDto extends AccountDto {
    * @param shifts The shifts of the employee
    */
   public EmployeeDto(String username, String email, String password, String salt, boolean disabled,
-      AddressDto address, Set<ShiftDto> shifts) {
+      AddressDto address, List<ShiftDto> shifts) {
     super(username, email, password, salt, disabled, address);
     this.shifts = shifts;
   }
@@ -43,9 +44,9 @@ public class EmployeeDto extends AccountDto {
    * Shifts getter
    * 
    * @author Wassim Jabbour
-   * @return The shifts of the employee
+   * @return The shifts of the employe
    */
-  public Set<ShiftDto> getShifts() {
+  public List<ShiftDto> getShifts() {
     return shifts;
   }
 

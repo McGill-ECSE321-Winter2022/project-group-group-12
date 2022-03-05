@@ -54,6 +54,18 @@ public class PurchaseService {
     Purchase purchase = purchaseRepository.findPurchaseById(purchaseId);
     return purchase;
   }
+  
+  /**
+   * Returns a list of all the purchases in the system
+   * 
+   * @author Wassim Jabbour
+   * @return The list of purchases
+   */
+  public List<Purchase> getAllPurchases() {
+    
+    return HelperClass.toList(purchaseRepository.findAll());
+    
+  }
 
   /**
    * Finds all purchases that happened on a given date

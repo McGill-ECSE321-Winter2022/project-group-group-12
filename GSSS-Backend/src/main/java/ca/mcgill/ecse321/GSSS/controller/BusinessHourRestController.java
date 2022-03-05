@@ -35,13 +35,13 @@ public class BusinessHourRestController {
   @GetMapping(value = {"/businesshour/{weekday}", "/businesshour/{weekday}/"})
   public BusinessHourDto getBusinessHourByWeekday(@PathVariable("weekday") String weekday) {
 
-    Weekday correspondingWeekday = findWeekdayByName(weekday); // Helper method defined below
+    Weekday correspondingWeekday = HelperClass.findWeekdayByName(weekday); // Helper method defined below
 
     if (correspondingWeekday == null)
       throw new IllegalArgumentException("There is no such weekday!");
 
     BusinessHourDto businessHourDto =
-        convertToDto(businessHourService.getBusinessHourByWeekday(correspondingWeekday));
+        HelperClass.convertToDto(businessHourService.getBusinessHourByWeekday(correspondingWeekday));
 
     return businessHourDto;
 
@@ -64,7 +64,7 @@ public class BusinessHourRestController {
           pattern = "HH:mm") LocalTime endTime)
       throws IllegalArgumentException {
 
-    Weekday correspondingWeekday = findWeekdayByName(weekday); // Helper method defined below
+    Weekday correspondingWeekday = HelperClass.findWeekdayByName(weekday); // Helper method defined below
 
     if (correspondingWeekday == null)
       throw new IllegalArgumentException("There is no such weekday!");
@@ -72,26 +72,8 @@ public class BusinessHourRestController {
     BusinessHour businessHour = businessHourService.createBusinessHour(correspondingWeekday,
         Time.valueOf(startTime), Time.valueOf(endTime));
 
-    return convertToDto(businessHour);
+    return HelperClass.convertToDto(businessHour);
 
-  }
-
-  /**
-   * Helper method that converts a BusinessHour to its DTO equivalent
-   * 
-   * @author Wassim Jabbour
-   * @param businessHour The BusinessHour to convert
-   * @return The converted DTO
-   */
-  private BusinessHourDto convertToDto(BusinessHour businessHour) throws IllegalArgumentException {
-
-    if (businessHour == null)
-      throw new IllegalArgumentException("There is no such business hour!");
-
-    BusinessHourDto businessHourDto = new BusinessHourDto(businessHour.getWeekday(),
-        businessHour.getStartTime(), businessHour.getEndTime());
-
-    return businessHourDto;
   }
 
   /**
@@ -104,73 +86,9 @@ public class BusinessHourRestController {
   public List<BusinessHourDto> getAllBusinessHours() throws IllegalArgumentException {
     List<BusinessHourDto> businessHourDtos = new ArrayList<>();
     for (BusinessHour businessHour : businessHourService.getAllBusinessHours()) {
-      businessHourDtos.add(convertToDto(businessHour));
+      businessHourDtos.add(HelperClass.convertToDto(businessHour));
     }
     return businessHourDtos;
-  }
-
-  /**
-   * Helper method that converts a BusinessHourDto to its domain model equivalent
-   * 
-   * @author Wassim Jabbour
-   * @param businessHourDto The DTO to convert
-   * @return The domain model object
-   */
-  private BusinessHour convertToDomainObject(BusinessHourDto businessHourDto)
-      throws IllegalArgumentException {
-
-    // Checking the input is non null
-    if (businessHourDto == null)
-      throw new IllegalArgumentException("There is no such business hour!");
-
-    // Getting all the business hours in the system
-    List<BusinessHour> allBusinessHours = businessHourService.getAllBusinessHours();
-
-    // Cycling through them till we find the one with the desired weekday and returning it
-    for (BusinessHour businessHour : allBusinessHours) {
-
-      if (businessHour.getWeekday() == businessHourDto.getWeekday()) {
-        return businessHour;
-      }
-
-    }
-
-    // Returning null if we don't find it
-    return null;
-
-  }
-
-  /**
-   * Helper method that converts a weekDayName string to its corresponding weekday
-   * 
-   * @param weekDayName The string representing the weekday name
-   * @return The weekday
-   */
-  private Weekday findWeekdayByName(String weekDayName) {
-
-    if (weekDayName.equals("Monday"))
-      return Weekday.Monday;
-
-    else if (weekDayName.equals("Tuesday"))
-      return Weekday.Tuesday;
-
-    else if (weekDayName.equals("Wednesday"))
-      return Weekday.Wednesday;
-
-    else if (weekDayName.equals("Thursday"))
-      return Weekday.Thursday;
-
-    else if (weekDayName.equals("Friday"))
-      return Weekday.Friday;
-
-    else if (weekDayName.equals("Saturday"))
-      return Weekday.Saturday;
-
-    else if (weekDayName.equals("Sunday"))
-      return Weekday.Sunday;
-
-    else
-      return null;
   }
 
 }

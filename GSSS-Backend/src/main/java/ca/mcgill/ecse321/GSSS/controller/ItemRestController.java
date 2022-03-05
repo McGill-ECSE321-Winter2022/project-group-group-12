@@ -26,41 +26,6 @@ public class ItemRestController {
   private ItemCategoryService itemCategoryService;
 
   /**
-   * method to convert from type item to type itemDto
-   * 
-   * @author Habib Jarweh
-   * @param i item we want to convert
-   * @return item converted to type itemDto
-   */
-  private ItemDto convertToDto(Item i, ItemCategory ic) {
-    if (i == null) {
-      throw new IllegalArgumentException("There is no such Item!");
-    }
-    if (ic == null) {
-      throw new IllegalArgumentException("There is no such Item Category!");
-    }
-    ItemDto itemDto =
-        new ItemDto(i.getName(), i.getDescription(), i.getImageUrl(), i.getRemainingQuantity(),
-            i.getPrice(), i.isAvailableForOrder(), i.isStillAvailable(), convertToDto(ic));
-    return itemDto;
-  }
-
-  /**
-   * method to convert from type itemCategory to type itemCategoryDto
-   * 
-   * @author Habib Jarweh
-   * @param ic item category we want to convert
-   * @return item converted to type itemDto
-   */
-  private ItemCategoryDto convertToDto(ItemCategory ic) {
-    if (ic == null) {
-      throw new IllegalArgumentException("There is no such Item Category!");
-    }
-    ItemCategoryDto itemCategoryDto = new ItemCategoryDto(ic.getName());
-    return itemCategoryDto;
-  }
-
-  /**
    * method to get itemDto by name
    * 
    * @author Habib Jarweh
@@ -71,7 +36,7 @@ public class ItemRestController {
   @GetMapping(value = {"/item/{name}", "/item/{name}/"})
   public ItemDto getItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
     Item item = itemService.getItemByName(name);
-    return convertToDto(item, item.getCategory());
+    return HelperClass.convertToDto(item, item.getCategory());
   }
 
   /**
@@ -84,7 +49,7 @@ public class ItemRestController {
   public List<ItemDto> getAllItems() throws IllegalArgumentException {
     List<ItemDto> itemDtos = new ArrayList<>();
     for (Item item : itemService.getAllItems()) {
-      itemDtos.add(convertToDto(item, item.getCategory()));
+      itemDtos.add(HelperClass.convertToDto(item, item.getCategory()));
     }
     return itemDtos;
   }
@@ -116,7 +81,7 @@ public class ItemRestController {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
     Item item = itemService.createItem(name, description, imageUrl, remainingQuantity, price,
         availableForOrder, stillAvailable, itemCategory);
-    return convertToDto(item, itemCategory);
+    return HelperClass.convertToDto(item, itemCategory);
   }
 
   /**
@@ -146,7 +111,7 @@ public class ItemRestController {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
     Item item = itemService.modifyItem(name, description, imageUrl, remainingQuantity, price,
         availableForOrder, stillAvailable, itemCategory);
-    return convertToDto(item, itemCategory);
+    return HelperClass.convertToDto(item, itemCategory);
   }
 
 }
