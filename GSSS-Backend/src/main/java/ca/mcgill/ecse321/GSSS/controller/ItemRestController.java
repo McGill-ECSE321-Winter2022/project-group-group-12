@@ -100,6 +100,7 @@ public class ItemRestController {
    * @param price of item
    * @param availableForOrder if item is available for order
    * @param stillAvailable if item is still available
+   * @param itemCategory item category
    * @return itemDto we created
    * @throws IllegalArgumentException
    */
@@ -130,6 +131,7 @@ public class ItemRestController {
    * @param price of item we want to update
    * @param availableForOrder availability for order of item we want to update
    * @param stillAvailable availability of item we want to update
+   * @param itemCategory item category
    * @return itemDto we want to update
    * @throws IllegalArgumentException
    */
