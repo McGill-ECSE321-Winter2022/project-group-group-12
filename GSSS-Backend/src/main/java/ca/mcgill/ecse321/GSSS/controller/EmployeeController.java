@@ -78,7 +78,7 @@ public class EmployeeController {
    * 
    * @author Philippe Sarouphim Hochar.
    * 
-   * @param employee Employee DTO with non-changing fields set as null (passed in the request body).
+   * @param employee Employee DTO with non-changing fields set as what they were before the change
    * @return DTO of the newly updated employee.
    */
   @PutMapping(value = {"/employee", "/employee/"})

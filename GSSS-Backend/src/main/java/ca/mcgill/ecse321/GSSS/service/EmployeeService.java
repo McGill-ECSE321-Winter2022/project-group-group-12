@@ -113,13 +113,13 @@ public class EmployeeService {
   }
 
   /**
-   * This service updates an employee based on the inputs if they are not null.
+   * This service updates an employee based on the inputs.
    * 
    * @author Philippe Sarouphim Hochar
    * 
-   * @param username Username (may be null).
-   * @param email Email (may not be null).
-   * @param address Address (may be null).
+   * @param username Username
+   * @param email Email
+   * @param address Address
    * @param disabled Disabled.
    * @return The updated employee
    */
@@ -130,17 +130,19 @@ public class EmployeeService {
     String error = "";
     if (email == null || email.trim().length() == 0)
       error += "Employee email cannot be empty! ";
+    if (username == null || username.trim().length() == 0)
+      error += "Employee username cannot be empty! ";
+    if (address == null)
+      error += "Address cannot be empty! ";
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
 
     Employee employee = employeeRepository.findEmployeeByEmail(email);
-    if(employee == null)
+    if (employee == null)
       throw new IllegalArgumentException("Employee does not exist");
 
-    if(username != null)
-      employee.setUsername(username);
-    if(address != null)
-      employee.setAddress(address);
+    employee.setUsername(username);
+    employee.setAddress(address);
     employee.setDisabled(disabled);
 
     employeeRepository.save(employee);
@@ -178,11 +180,11 @@ public class EmployeeService {
   public Employee getEmployee(String email) {
     // Input validation
     if (email == null || email.trim().length() == 0)
-      throw new IllegalArgumentException("Emnployee email cannot be empty!");
+      throw new IllegalArgumentException("Employee email cannot be empty!");
 
     return employeeRepository.findEmployeeByEmail(email);
   }
-  
+
   /**
    * This service fetches all of the emails of employees.
    * 
@@ -191,9 +193,9 @@ public class EmployeeService {
    * @return All emails of employees.
    */
   @Transactional
-  public List<String> getEmployeeList(){
+  public List<String> getEmployeeList() {
     List<String> employeeList = new ArrayList<String>();
-    for(Employee e: employeeRepository.findAll())
+    for (Employee e : employeeRepository.findAll())
       employeeList.add(e.getEmail());
     return employeeList;
   }
@@ -394,68 +396,66 @@ public class EmployeeService {
    * @return The employee
    */
   public Employee getClosestEmployee() {
-    
+
     // Getting all shifts
     List<Shift> shifts = HelperClass.toList(shiftRepository.findAll());
-    
+
     // Current date and time
     Date currentDate = new Date(System.currentTimeMillis());
     Time currentTime = new Time(System.currentTimeMillis());
-    
+
     // Sorting based on date first, then start time
     Collections.sort(shifts, new Comparator<Shift>() {
 
       @Override
       public int compare(Shift o1, Shift o2) {
-        if(o1.getDate().before(o2.getDate())) {
+        if (o1.getDate().before(o2.getDate())) {
           return -1;
-        }
-        else if(o1.getDate().after(o2.getDate())) {
+        } else if (o1.getDate().after(o2.getDate())) {
           return 1;
-        }
-        else {
-          if(o1.getStartTime().before(o2.getStartTime())) {
+        } else {
+          if (o1.getStartTime().before(o2.getStartTime())) {
             return -1;
-          }
-          else if(o1.getStartTime().after(o2.getStartTime())) {
+          } else if (o1.getStartTime().after(o2.getStartTime())) {
             return 1;
-          }
-          else {
+          } else {
             return 0;
           }
         }
       }
-      
+
     });
-    
+
     Shift bestShift = null;
-    
+
     // Finding the first shift that is in the future
-    for(int i = 0; i < shifts.size(); i++) {
-      
+    for (int i = 0; i < shifts.size(); i++) {
+
       // Current shift
       Shift shift = shifts.get(i);
-      
+
       // If its date is today, check it ends after now
-      if(shift.getDate().equals(currentDate)) {
-        if(shift.getEndTime().after(currentTime)) {
+      if (shift.getDate().equals(currentDate)) {
+        if (shift.getEndTime().after(currentTime)) {
           bestShift = shift;
           break;
         }
       }
-      
+
       // If its date is in the future, take it
-      else if(shift.getDate().after(currentDate)) {
+      else if (shift.getDate().after(currentDate)) {
         bestShift = shift;
         break;
       }
-      
+
     }
-    
+
     // If we found a shift, we return its employee
     // Else we return any employee
-    if(bestShift == null) return employeeRepository.findEmployeeByShifts(shifts.get(0));
-    else return employeeRepository.findEmployeeByShifts(bestShift);
+    if (bestShift == null)
+      return employeeRepository.findEmployeeByShifts(shifts.get(0));
+    else
+      return employeeRepository.findEmployeeByShifts(bestShift);
   }
 
 
