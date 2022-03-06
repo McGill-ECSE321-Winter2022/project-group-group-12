@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ca.mcgill.ecse321.GSSS.dao.AddressRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AddressService {
 	
 	// CRUD Repositories

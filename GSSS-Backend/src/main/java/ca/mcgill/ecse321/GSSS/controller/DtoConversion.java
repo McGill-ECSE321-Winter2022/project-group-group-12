@@ -73,7 +73,7 @@ public class DtoConversion {
    * Helper method that converts an OrderType string to its enum equivalent
    * 
    * @author Wassim Jabbour
-   * @param weekDayName The string representing the type
+   * @param orderType The string representing the type
    * @return The type
    */
   static OrderType findOrderTypeByName(String orderType) {
@@ -95,7 +95,7 @@ public class DtoConversion {
    * Helper method that converts an OrderStatus string to its enum equivalent
    * 
    * @author Wassim Jabbour
-   * @param weekDayName The string representing the status
+   * @param orderStatus The string representing the status
    * @return The status
    */
   static OrderStatus findOrderStatusByName(String orderStatus) {
@@ -298,7 +298,7 @@ public class DtoConversion {
     if (address == null)
       throw new IllegalArgumentException("There is no such address!");
 
-    AddressDto addressDto = new AddressDto(address.getFullName(), address.getStreetName(),
+    AddressDto addressDto = new AddressDto(address.getId(), address.getFullName(), address.getStreetName(),
         address.getStreetNumber(), address.getCity(), address.getPostalCode());
 
     return addressDto;
@@ -310,7 +310,7 @@ public class DtoConversion {
    * Converts a shift to its DTO equivalent
    * 
    * @author Wassim Jabbour
-   * @param employee The object to convert
+   * @param shift The object to convert
    * @return The corresponding dto
    */
   static ShiftDto convertToDto(Shift shift) {
@@ -332,7 +332,7 @@ public class DtoConversion {
    * Converts a set of shifts to a list of shift dtos
    * 
    * @author Wassim Jabbour
-   * @param employee The object to convert
+   * @param shifts The object to convert
    * @return The corresponding dto
    */
   static List<ShiftDto> convertShiftList(Set<Shift> shifts) {
