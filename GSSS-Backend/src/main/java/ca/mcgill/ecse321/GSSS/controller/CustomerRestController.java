@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,7 @@ import ca.mcgill.ecse321.GSSS.dto.BusinessHourDto;
 import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemDto;
+import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Item;
@@ -88,6 +91,19 @@ public class CustomerRestController {
 		  return DtoConversion.convertToDto(customerService.createCustomer(username, email, password, address));
 	  }
 	  
+	  /**
+	   * Method to delete a customer based on its email.
+	   * 
+	   * @author Enzo Benoit-Jeannin
+	   * @param email Email of the customer to delete
+	   */
+	  @DeleteMapping(value = {"/customer/{email}", "/customer/{email}/"})
+	  public void deleteCustomer(@PathVariable("email") String email) {
+		  customerService.deleteCustomer(email);
+	  }
 	  
-	  
+	  @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
+	  public CustomerDto addPurchase(@PathVariable String email, @RequestBody PurchaseDto purchaseDto) {
+		  return DtoConversion.convertToDto(customerService.addPurchase(customerService.getCustomer(email), DtoConversion.convertToDao(purchaseDto)));
+	  }
 }
