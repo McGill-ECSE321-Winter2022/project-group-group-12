@@ -114,7 +114,9 @@ public class EmployeeController {
   }
 
   /**
-   * This API endpoint creates and adds a shift to an employee.
+   * This API endpoint creates and adds a shift to an employee We don't need a shift controller
+   * because this method takes care of creating the shifts anyways (You cannot have a shift without
+   * an employee so might as well create both in one go)
    * 
    * @author Philippe Sarouphim Hochar.
    * 

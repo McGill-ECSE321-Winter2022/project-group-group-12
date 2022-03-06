@@ -67,8 +67,8 @@ public class ItemCategoryRestController {
   @GetMapping(value = {"/itemCategory/{name}", "/itemCategory/{name}/"})
   public ItemCategoryDto getCategoryByName(@PathVariable("name") String name)
       throws IllegalArgumentException {
-    ItemCategory itemCategory1 = itemCategoryService.getCategoryByName(name);
-    return DtoConversion.convertToDto(itemCategory1);
+    ItemCategory itemCategory = itemCategoryService.getCategoryByName(name);
+    return DtoConversion.convertToDto(itemCategory);
   }
 
   /**
