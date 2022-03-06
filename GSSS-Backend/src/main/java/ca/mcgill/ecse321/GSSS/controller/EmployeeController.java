@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GSSS.dto.EmployeeDto;
 import ca.mcgill.ecse321.GSSS.dto.ShiftDto;
+import ca.mcgill.ecse321.GSSS.model.Shift;
 import ca.mcgill.ecse321.GSSS.service.EmployeeService;
 import ca.mcgill.ecse321.GSSS.service.ShiftService;
 
@@ -119,9 +120,10 @@ public class EmployeeController {
      * @param shift Shift (in the req body).
      * @return DTO of the new employee.
      */
-    @PostMapping(value = { "employee/shift/{email}", "/employee/shift/{email}/" })
+    @PostMapping(value = { "/employee/shift/{email}", "/employee/shift/{email}/" })
     public EmployeeDto addShift(@PathVariable String email, @RequestBody ShiftDto shift){
-        return DtoConversion.convertToDto(employeeService.addShift(employeeService.getEmployee(email), DtoConversion.convertToDao(shift)));
+        Shift newShift = shiftService.createShift(shift.getDate(), shift.getStartTime(), shift.getEndTime());
+        return DtoConversion.convertToDto(employeeService.addShift(employeeService.getEmployee(email), newShift));
     }
 
     /**
