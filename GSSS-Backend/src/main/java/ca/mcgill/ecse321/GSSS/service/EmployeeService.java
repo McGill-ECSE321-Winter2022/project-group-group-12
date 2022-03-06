@@ -403,8 +403,8 @@ public class EmployeeService {
     }
     
     // If we found a shift, we return its employee
-    // Else we return null
-    if(bestShift == null) return null;
+    // Else we return any employee
+    if(bestShift == null) return employeeRepository.findEmployeeByShifts(shifts.get(0));
     else return employeeRepository.findEmployeeByShifts(bestShift);
   }
 
