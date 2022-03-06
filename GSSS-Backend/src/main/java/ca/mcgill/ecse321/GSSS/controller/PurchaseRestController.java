@@ -56,7 +56,7 @@ public class PurchaseRestController {
     OrderType actualOrderType = DtoConversion.findOrderTypeByName(orderType);
     OrderStatus actualOrderStatus = DtoConversion.findOrderStatusByName(orderStatus);
     Employee employee = employeeService.getClosestEmployee();
-    HashMap<Item, Integer> items = new HashMap();
+    HashMap<Item, Integer> items = new HashMap<Item, Integer>();
     
     for(Map.Entry<ItemDto, Integer> entry : data.entrySet()) {
       items.put(DtoConversion.convertToDomainObject(entry.getKey()), entry.getValue());
