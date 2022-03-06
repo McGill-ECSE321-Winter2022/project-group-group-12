@@ -225,6 +225,56 @@ public class PurchaseService {
     return purchase;
   }
   
+  /**
+   * Method used to modify the order status of a purchase only
+   * 
+   * @author Wassim Jabbour
+   * @param orderStatus The new order status
+   * @param purchaseId The ID of the purchase to modify
+   * @return The modified purchase
+   */
+  public Purchase modifyPurchaseStatus(OrderStatus orderStatus, String purchaseId) {
+    
+    // Input validation
+    String error = "";
+    if(orderStatus == null)
+      error += "Order status cannot be null! ";
+    if(purchaseId == null || purchaseId.trim().length() == 0)
+      error += "Purchase ID cannot be empty! ";
+    if(error.length() > 0)
+      throw new IllegalArgumentException(error);
+    
+    Purchase purchase = getPurchase(purchaseId);
+    purchase.setOrderStatus(orderStatus);
+    purchaseRepository.save(purchase);
+    return purchase;
+  }
+  
+  /**
+   * Method used to modify the employee of a purchase only
+   * 
+   * @author Wassim Jabbour
+   * @param purchaseId The ID of the purchase to modify
+   * @param employee The employee responsible for the purchase
+   * @return The modified purchase
+   */
+  public Purchase modifyPurchaseEmployee(Employee employee, String purchaseId) {
+    
+    // Input validation
+    String error = "";
+    if(employee == null)
+      error += "Employee cannot be null! ";
+    if(purchaseId == null || purchaseId.trim().length() == 0)
+      error += "Purchase ID cannot be empty! ";
+    if(error.length() > 0)
+      throw new IllegalArgumentException(error);
+    
+    Purchase purchase = getPurchase(purchaseId);
+    purchase.setEmployee(employee);
+    purchaseRepository.save(purchase);
+    return purchase;
+  }
+  
   // OTHER methods
   
   /**

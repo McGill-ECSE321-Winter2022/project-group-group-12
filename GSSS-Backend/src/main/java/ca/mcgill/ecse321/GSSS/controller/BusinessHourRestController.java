@@ -90,5 +90,9 @@ public class BusinessHourRestController {
     }
     return businessHourDtos;
   }
+  
+  /**
+   * No need for a delete method since we always have 7 business hours in the system, one for each day
+   */
 
 }

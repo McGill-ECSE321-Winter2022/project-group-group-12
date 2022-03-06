@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import ca.mcgill.ecse321.GSSS.service.ItemService;
 @CrossOrigin(origins = "*")
 @RestController
 public class ItemRestController {
-  
+
   @Autowired
   private ItemService itemService;
   @Autowired
@@ -114,6 +115,19 @@ public class ItemRestController {
     Item item = itemService.modifyItem(name, description, imageUrl, remainingQuantity, price,
         availableForOrder, stillAvailable, itemCategory);
     return DtoConversion.convertToDto(item, itemCategory);
+  }
+
+
+  /**
+   * method to delete item
+   * 
+   * @author Habib Jarweh
+   * @param name
+   * @throws IllegalArgumentException
+   */
+  @DeleteMapping(value = {"/item/{name}", "/item/{name}/"})
+  public void deleteItem(@PathVariable("name") String name) throws IllegalArgumentException {
+    itemService.deleteItem(name);
   }
 
 }
