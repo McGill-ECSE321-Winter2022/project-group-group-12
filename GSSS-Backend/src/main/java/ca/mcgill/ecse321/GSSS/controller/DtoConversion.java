@@ -299,4 +299,40 @@ public class DtoConversion {
     return shiftDtos;
   }
 
+  /**
+   * This method converts an address DTO to DAO.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param addressDto Address DTO.
+   * @return Address DAO.
+   */
+  static Address convertToDao(AddressDto addressDto){
+    Address address = new Address();
+    address.setCity(addressDto.getCity());
+    address.setFullName(addressDto.getFullName());
+    address.setId(addressDto.getId());
+    address.setPostalCode(addressDto.getPostalCode());
+    address.setStreetName(addressDto.getStreetName());
+    address.setStreetNumber(addressDto.getStreetNumber());
+    return address;
+  }
+
+  /**
+   * This method converts a shift DTO to DAO.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param addressDto Shift DTO.
+   * @return Shift DAO.
+   */
+  static Shift convertToDao(ShiftDto shiftDto){
+    Shift shift = new Shift();
+    shift.setDate(shiftDto.getDate());
+    shift.setEndTime(shiftDto.getEndTime());
+    shift.setId(shiftDto.getId());
+    shift.setStartTime(shiftDto.getStartTime());
+    return shift;
+  }
+
 }

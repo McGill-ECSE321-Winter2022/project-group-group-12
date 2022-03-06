@@ -99,6 +99,41 @@ public class EmployeeService {
     return employee;
   }
 
+  /**
+   * This service updates an employee based on the inputs if they are not null.
+   * 
+   * @author Philippe Sarouphim Hochar
+   * 
+   * @param username Username (may be null).
+   * @param email Email (may not be null).
+   * @param address Address (may be null).
+   * @param disabled Disabled.
+   * @return The updated employee
+   */
+  @Transactional
+  public Employee updateEmployee(String username, String email, Address address, boolean disabled) {
+
+    // Input validation
+    String error = "";
+    if (email == null || email.trim().length() == 0)
+      error += "Employee email cannot be empty! ";
+    if (error.length() > 0)
+      throw new IllegalArgumentException(error);
+
+    Employee employee = employeeRepository.findEmployeeByEmail(email);
+    if(employee == null)
+      throw new IllegalArgumentException("Employee does not exist");
+
+    if(username != null)
+      employee.setUsername(username);
+    if(address != null)
+      employee.setAddress(address);
+    employee.setDisabled(disabled);
+
+    employeeRepository.save(employee);
+    return employee;
+  }
+
   // DELETE METHOD
 
   /**
@@ -133,6 +168,21 @@ public class EmployeeService {
       throw new IllegalArgumentException("Emnployee email cannot be empty!");
 
     return employeeRepository.findEmployeeByEmail(email);
+  }
+  
+  /**
+   * This service fetches all of the emails of employees.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @return All emails of employees.
+   */
+  @Transactional
+  public List<String> getEmployeeList(){
+    List<String> employeeList = new ArrayList<String>();
+    for(Employee e: employeeRepository.findAll())
+      employeeList.add(e.getEmail());
+    return employeeList;
   }
 
   /**
