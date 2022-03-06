@@ -119,7 +119,7 @@ public class EmployeeController {
      * @param shift Shift (in the req body).
      * @return DTO of the new employee.
      */
-    @PostMapping(value = { "employee/shift/{email}", "/employee/shift/{email}/" })
+    @PostMapping(value = { "/employee/shift/{email}", "/employee/shift/{email}/" })
     public EmployeeDto addShift(@PathVariable String email, @RequestBody ShiftDto shift){
         return DtoConversion.convertToDto(employeeService.addShift(employeeService.getEmployee(email), DtoConversion.convertToDao(shift)));
     }
