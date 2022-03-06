@@ -7,12 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.mcgill.ecse321.GSSS.dto.AddressDto;
 import ca.mcgill.ecse321.GSSS.dto.BusinessHourDto;
 import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
+import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
+import ca.mcgill.ecse321.GSSS.dto.ItemDto;
+import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
+import ca.mcgill.ecse321.GSSS.model.Item;
+import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.model.Weekday;
+import ca.mcgill.ecse321.GSSS.service.AddressService;
 import ca.mcgill.ecse321.GSSS.service.CustomerService;
 
 @CrossOrigin(origins = "*")
@@ -21,6 +30,9 @@ public class CustomerRestController {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private AddressService addressService;
 	
 	/**
 	   * Method to get a list of all Customers in DTO form
@@ -54,6 +66,28 @@ public class CustomerRestController {
 	    return customerDto;
 
 	  }
+	  
+	  /**
+	   * Method to create a customer DTO with all parameters of customer
+	   * 
+	   * @author Enzo Benoit-Jeannin
+	   * @param username Username of the Customer DTO to create
+	   * @param email Email of the Customer DTO to create
+	   * @param password Password of the Customer DTO to create
+	   * @param address	Address of the Customer DTO to create
+	   * @return Created customer DTO
+	   * @throws IllegalArgumentException
+	   */
+	  @PostMapping(value = {"/customer", "/customer/"})
+	  public CustomerDto createCustomer(@RequestParam(name = "username") String username,
+	      @RequestParam(name = "email") String email,
+	      @RequestParam(name = "password") String password,
+	      @RequestParam(name = "address") AddressDto addressDto)
+	      throws IllegalArgumentException {
+		  Address address = addressService.getAddress(AddressDto.getId());
+		  return DtoConversion.convertToDto(customerService.createCustomer(username, email, password, address));
+	  }
+	  
 	  
 	  
 }
