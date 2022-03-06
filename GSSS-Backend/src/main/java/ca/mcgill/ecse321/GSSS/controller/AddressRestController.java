@@ -1,14 +1,8 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
 import ca.mcgill.ecse321.GSSS.dto.AddressDto;
-
-import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
-import ca.mcgill.ecse321.GSSS.dto.ItemDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
-import ca.mcgill.ecse321.GSSS.model.Item;
-import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.service.AddressService;
-import ca.mcgill.ecse321.GSSS.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -99,7 +93,7 @@ public class AddressRestController {
      * @throws IllegalArgumentException
      */
     @PostMapping(value = {"/address", "/address/"})
-    public AddressDto createItem(@RequestParam(name = "fullName") String fullName,
+    public AddressDto createAddress(@RequestParam(name = "fullName") String fullName,
                               @RequestParam(name = "streetName") String streetName,
                               @RequestParam(name = "streetNumber") Integer streetNumber,
                               @RequestParam(name = "city") String city,
@@ -123,7 +117,7 @@ public class AddressRestController {
      * @throws IllegalArgumentException
      */
     @PostMapping(value = {"/address/{id}", "/address/{id}/"})
-    public AddressDto modifyItem(@PathVariable("id") String id,
+    public AddressDto modifyAddress(@PathVariable("id") String id,
                                  @RequestParam(name = "fullName") String fullName,
                                  @RequestParam(name = "streetName") String streetName,
                                  @RequestParam(name = "streetNumber") Integer streetNumber,
