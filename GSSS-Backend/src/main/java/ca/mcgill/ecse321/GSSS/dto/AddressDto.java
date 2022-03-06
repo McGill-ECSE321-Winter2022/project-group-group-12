@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.GSSS.dto;
 
 
 public class AddressDto {
+	  private String id;
 	  private String fullName;
 	  private String streetName;
 	  private Integer streetNumber;
@@ -20,19 +21,30 @@ public class AddressDto {
 	   * Constructor for the Address DTO
 	   * 
 	   * @author Enzo Benoit-Jeannin
-	   * @param fullName
-	   * @param streetName
-	   * @param streetNumber
-	   * @param city
-	   * @param postalCode
+	   * @param id Id of the Adress DTO
+	   * @param fullName Full name of the Address DTO
+	   * @param streetName Street name of the Address DTO
+	   * @param streetNumber Street number of the Address DTO
+	   * @param city City of the Address DTO
+	   * @param postalCode Postal code of the Address DTO
 	   */
-	  public AddressDto(String fullName, String streetName, Integer streetNumber, String city, String postalCode) {
+	  public AddressDto( String id, String fullName, String streetName, Integer streetNumber, String city, String postalCode) {
 		  this.fullName=fullName;
 		  this.streetName=streetName;
 		  this.streetNumber=streetNumber;
 		  this.city=city;
 		  this.postalCode=postalCode;
+		  this.id = id;
 	  }
+	  /**
+	   * Method to get the id of the Address DTO
+	   * 
+	   * @author Enzo Benoit-Jeannin
+	   * @return id of the Address DTO
+	   */
+	  public String getId() {
+		    return id;
+		  }
 	  
 	  /**
 	   * Method to get the full name of the Address DTO
