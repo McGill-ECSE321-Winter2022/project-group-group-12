@@ -87,7 +87,7 @@ public class CustomerRestController {
 	      @RequestParam(name = "password") String password,
 	      @RequestParam(name = "address") AddressDto addressDto)
 	      throws IllegalArgumentException {
-		  Address address = addressService.getAddress(AddressDto.getId());
+		  Address address = addressService.getAddress(addressDto.getId());
 		  return DtoConversion.convertToDto(customerService.createCustomer(username, email, password, address));
 	  }
 	  
@@ -104,6 +104,6 @@ public class CustomerRestController {
 	  
 	  @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
 	  public CustomerDto addPurchase(@PathVariable String email, @RequestBody PurchaseDto purchaseDto) {
-		  return DtoConversion.convertToDto(customerService.addPurchase(customerService.getCustomer(email), DtoConversion.convertToDomainObject(purchaseDto)));
+		  return DtoConversion.convertToDto(customerService.addPurchase(customerService.getCustomer(email), DtoConversion.convertToDao(purchaseDto)));
 	  }
 }

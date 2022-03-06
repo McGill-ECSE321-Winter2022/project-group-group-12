@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.GSSS.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -191,5 +190,62 @@ public class CustomerService {
 
 
   // OTHER methods
+  
+  /**
+   * This service updates a customer based on the inputs if they are not null.
+   * 
+   * @author Enzo Benoit-Jeannin
+   * 
+   * @param username Username (may be null).
+   * @param email Email (may not be null).
+   * @param address Address (may be null).
+   * @param disabled Disabled.
+   * @return The updated customer
+   */
+  @Transactional
+  public Customer updateCustomer(String username, String email, Address address, boolean disabled) {
+
+    // Input validation
+    String error = "";
+    if (email == null || email.trim().length() == 0)
+      error += "Customer email cannot be empty! ";
+    if (error.length() > 0)
+      throw new IllegalArgumentException(error);
+
+    Customer customer = customerRepository.findCustomerByEmail(email);
+    if(customer == null)
+      throw new IllegalArgumentException("Customer does not exist");
+
+    if(username != null)
+      customer.setUsername(username);
+    if(address != null)
+      customer.setAddress(address);
+    customer.setDisabled(disabled);
+
+    customerRepository.save(customer);
+    return customer;
+  }
+  
+  /**
+   * Service to add a purchase to a customer
+   * 
+   * @author Enzo Benoit-Jeannin
+   * 
+   * @param customer Customer to add the purchase to
+   * @param purchase Purchase to add
+   * @return The cutomer we added the purchase to
+   */
+  @Transactional
+  public Customer addPurchase(Customer customer, Purchase purchase) {
+	  if (customer == null)
+	      throw new IllegalArgumentException("Customer cannot be null.");
+
+	    if (purchase == null)
+	      throw new IllegalArgumentException("Purchase cannot be null.");
+
+	    // Add purchase to customer and save in database
+	    customer.getPurchases().add(purchase);
+	    return customerRepository.save(customer);
+  }
 
 }

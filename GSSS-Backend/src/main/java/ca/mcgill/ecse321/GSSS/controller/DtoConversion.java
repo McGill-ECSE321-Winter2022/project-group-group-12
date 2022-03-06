@@ -12,6 +12,7 @@ import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 import ca.mcgill.ecse321.GSSS.dto.EmployeeDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemDto;
+import ca.mcgill.ecse321.GSSS.dto.OwnerDto;
 import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
 import ca.mcgill.ecse321.GSSS.dto.ShiftDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
@@ -22,6 +23,7 @@ import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.model.OrderStatus;
 import ca.mcgill.ecse321.GSSS.model.OrderType;
+import ca.mcgill.ecse321.GSSS.model.Owner;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import ca.mcgill.ecse321.GSSS.model.Weekday;
@@ -214,7 +216,6 @@ public class DtoConversion {
         convertItemMap(purchase.getItems()), convertToDto(purchase.getEmployee()));;
 
     return purchaseDto;
-
   }
   
   /**
@@ -430,5 +431,53 @@ public class DtoConversion {
     shift.setStartTime(shiftDto.getStartTime());
     return shift;
   }
+  
+  /**
+   * This method converts a purchase DTO to DAO
+   * 
+   * @author Enzo Benoit-Jeannin
+   * 
+   * @param purchaseDto Purchase DTO
+   * @return Purchase DAO
+   */
+  static Purchase convertToDao (PurchaseDto purchaseDto) {
+	  Purchase purchase = new Purchase();
+	  purchase.setDate(purchaseDto.getDate());
+	  purchase.setEmployee(convertToDao(purchaseDto.getEmployee()));
+	  purchase.setId(purchaseDto.getId());
+	  purchase.setItems(convertToDao(purchaseDto.getItems()));
+	  purchase.setOrderStatus(purchaseDto.getOrderStatus());
+	  purchase.setTime(purchaseDto.getTime());
+	  purchase.setOrderType(purchaseDto.getOrderType());
+  }
+  
+  static Employee convertToDao(EmployeeDto employeeDto) {
+	  Employee employee = new Employee();
+	  employee.setUsername(employeeDto.getUsername());
+	  employee.setPassword(employeeDto.getPassword());
+	  employee.setEmail(employeeDto.getEmail());
+	  employee.setDisabled(employeeDto.isDisabled());
+	  employee.setAddress(convertToDao(employeeDto.getAddress()));
+	  employee.setSalt(employeeDto.getSalt());
+	  employee.setShifts(convertToDao(employeeDto.));
+
+  }
+  
+  /**
+   * Converts the owner to its DTO equivalent
+   * 
+   * @author Enzo Benoit-Jeannin
+   * @param customer The owner object to convert
+   * @return The corresponding dto
+   */
+  static OwnerDto convertToDto(Owner owner) {
+
+    OwnerDto ownerDto = new OwnerDto(owner.getUsername(), owner.getEmail(),
+    		owner.getPassword(), owner.getSalt(), owner.isDisabled(),
+        convertToDto(owner.getAddress()));
+
+    return ownerDto;
+  }
+  
 
 }
