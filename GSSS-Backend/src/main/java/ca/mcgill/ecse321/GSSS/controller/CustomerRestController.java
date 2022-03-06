@@ -104,6 +104,6 @@ public class CustomerRestController {
 	  
 	  @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
 	  public CustomerDto addPurchase(@PathVariable String email, @RequestBody PurchaseDto purchaseDto) {
-		  return DtoConversion.convertToDto(customerService.addPurchase(customerService.getCustomer(email), DtoConversion.convertToDao(purchaseDto)));
+		  return DtoConversion.convertToDto(customerService.addPurchase(customerService.getCustomer(email), DtoConversion.convertToDomainObject(purchaseDto)));
 	  }
 }
