@@ -339,7 +339,7 @@ public class DtoConversion {
 
     // Checking the input is non null
     if (shifts == null)
-      throw new IllegalArgumentException("There is no such shifts!");
+      return new ArrayList<ShiftDto>();
 
     List<ShiftDto> shiftDtos = new ArrayList<ShiftDto>();
 
