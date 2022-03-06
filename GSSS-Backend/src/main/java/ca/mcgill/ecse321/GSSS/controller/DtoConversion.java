@@ -30,10 +30,9 @@ public class DtoConversion {
 
   @Autowired
   PurchaseService purchaseService;
-  
+
   @Autowired
-  static
-  ItemService itemService;
+  static ItemService itemService;
 
   /**
    * Helper method that converts a weekDayName string to its corresponding weekday
@@ -68,7 +67,7 @@ public class DtoConversion {
     else
       return null;
   }
-  
+
   /**
    * Helper method that converts an OrderType string to its enum equivalent
    * 
@@ -87,10 +86,10 @@ public class DtoConversion {
     else if (orderType.equals("InPerson"))
       return OrderType.InPerson;
 
-    else 
+    else
       return null;
   }
-  
+
   /**
    * Helper method that converts an OrderStatus string to its enum equivalent
    * 
@@ -109,7 +108,7 @@ public class DtoConversion {
     else if (orderStatus.equals("Completed"))
       return OrderStatus.Completed;
 
-    else 
+    else
       return null;
   }
 
@@ -200,13 +199,6 @@ public class DtoConversion {
     if (purchase == null)
       throw new IllegalArgumentException("There is no such purchase!");
 
-    // Converting the map of items into a map of itemDtos
-    HashMap<ItemDto, Integer> dtoMap =
-        (HashMap<ItemDto, Integer>) convertItemMap(purchase.getItems());
-
-    // Converting the employee to a dto
-
-
     PurchaseDto purchaseDto = new PurchaseDto(purchase.getId(), purchase.getOrderType(),
         purchase.getOrderStatus(), purchase.getDate(), purchase.getTime(),
         convertItemMap(purchase.getItems()), convertToDto(purchase.getEmployee()));;
@@ -214,7 +206,7 @@ public class DtoConversion {
     return purchaseDto;
 
   }
-  
+
   /**
    * Helper method that converts an itemDto to its domain model equivalent
    * 
@@ -298,8 +290,9 @@ public class DtoConversion {
     if (address == null)
       throw new IllegalArgumentException("There is no such address!");
 
-    AddressDto addressDto = new AddressDto(address.getId(), address.getFullName(), address.getStreetName(),
-        address.getStreetNumber(), address.getCity(), address.getPostalCode());
+    AddressDto addressDto =
+        new AddressDto(address.getId(), address.getFullName(), address.getStreetName(),
+            address.getStreetNumber(), address.getCity(), address.getPostalCode());
 
     return addressDto;
   }
@@ -358,7 +351,7 @@ public class DtoConversion {
    * @param addressDto Address DTO.
    * @return Address DAO.
    */
-  static Address convertToDao(AddressDto addressDto){
+  static Address convertToDao(AddressDto addressDto) {
     Address address = new Address();
     address.setCity(addressDto.getCity());
     address.setFullName(addressDto.getFullName());
@@ -377,7 +370,7 @@ public class DtoConversion {
    * @param addressDto Shift DTO.
    * @return Shift DAO.
    */
-  static Shift convertToDao(ShiftDto shiftDto){
+  static Shift convertToDao(ShiftDto shiftDto) {
     Shift shift = new Shift();
     shift.setDate(shiftDto.getDate());
     shift.setEndTime(shiftDto.getEndTime());

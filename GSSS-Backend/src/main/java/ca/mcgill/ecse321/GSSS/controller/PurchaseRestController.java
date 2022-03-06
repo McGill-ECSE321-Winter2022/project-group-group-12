@@ -86,7 +86,7 @@ public class PurchaseRestController {
    * @param date of purchases
    * @return list of purchaseDto
    */
-  @GetMapping(value = {"/purchases", "/purchases/"})
+  @GetMapping(value = {"/purchasesbydate", "/purchasesbydate/"})
   public List<PurchaseDto> getPurchasesByDate(Date date) throws IllegalArgumentException {
 
     List<Purchase> allPurchases = purchaseService.getPurchasesByDate(date);
@@ -108,7 +108,7 @@ public class PurchaseRestController {
    * @param customerEmail
    * @return list of purchaseDto
    */
-  @GetMapping(value = {"/purchases/{customerEmail}", "/purchases/{customerEmail}"})
+  @GetMapping(value = {"/purchases/{customerEmail}/", "/purchases/{customerEmail}"})
   public List<PurchaseDto> getPurchasesByCustomer(
       @PathVariable("customerEmail") String customerEmail) throws IllegalArgumentException {
 

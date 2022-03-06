@@ -20,7 +20,7 @@ import ca.mcgill.ecse321.GSSS.service.BusinessHourService;
 @CrossOrigin(origins = "*")
 @RestController
 public class BusinessHourRestController {
-  
+
   @Autowired
   BusinessHourService businessHourService;
 
@@ -35,20 +35,22 @@ public class BusinessHourRestController {
   @GetMapping(value = {"/businesshour/{weekday}", "/businesshour/{weekday}/"})
   public BusinessHourDto getBusinessHourByWeekday(@PathVariable("weekday") String weekday) {
 
-    Weekday correspondingWeekday = DtoConversion.findWeekdayByName(weekday); // Helper method defined below
+    Weekday correspondingWeekday = DtoConversion.findWeekdayByName(weekday); // Helper method
+                                                                             // defined below
 
     if (correspondingWeekday == null)
       throw new IllegalArgumentException("There is no such weekday!");
 
-    BusinessHourDto businessHourDto =
-        DtoConversion.convertToDto(businessHourService.getBusinessHourByWeekday(correspondingWeekday));
+    BusinessHourDto businessHourDto = DtoConversion
+        .convertToDto(businessHourService.getBusinessHourByWeekday(correspondingWeekday));
 
     return businessHourDto;
 
   }
 
   /**
-   * Method that overrides the business hour for a particular day
+   * Method that overrides the business hour for a particular day If the business hour doesn't
+   * exist, it creates it Otherwise, it just updates it
    * 
    * @author Wassim Jabbour
    * @param weekday The day of the week the BusinessHour is happening on
@@ -57,14 +59,15 @@ public class BusinessHourRestController {
    * @return The Dto corresponding to the created business hour
    */
   @PostMapping(value = {"/businesshour", "/businesshour/"})
-  public BusinessHourDto overrideBusinessHour(@RequestParam(name = "weekday") String weekday,
+  public BusinessHourDto updateBusinessHour(@RequestParam(name = "weekday") String weekday,
       @RequestParam(name = "starttime") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME,
           pattern = "HH:mm") LocalTime startTime,
       @RequestParam(name = "endtime") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME,
           pattern = "HH:mm") LocalTime endTime)
       throws IllegalArgumentException {
 
-    Weekday correspondingWeekday = DtoConversion.findWeekdayByName(weekday); // Helper method defined below
+    Weekday correspondingWeekday = DtoConversion.findWeekdayByName(weekday); // Helper method
+                                                                             // defined below
 
     if (correspondingWeekday == null)
       throw new IllegalArgumentException("There is no such weekday!");
@@ -90,9 +93,10 @@ public class BusinessHourRestController {
     }
     return businessHourDtos;
   }
-  
+
   /**
-   * No need for a delete method since we always have 7 business hours in the system, one for each day
+   * No need for a delete method since we always have 7 business hours in the system, one for each
+   * day
    */
 
 }

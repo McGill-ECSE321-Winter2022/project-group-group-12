@@ -85,7 +85,7 @@ public class AddressService {
 	 * @return The found address
 	 */
 	@Transactional
-	public List<Address> getAddressByCity(String city) {
+	public List<Address> getAddressesByCity(String city) {
 		
 		// Input validation
 	    if(city == null || city.trim().length() == 0)
@@ -102,7 +102,7 @@ public class AddressService {
 	 * @return The found address
 	 */
 	@Transactional
-	public List<Address> getAddressByStreetName(String streetName) {
+	public List<Address> getAddressesByStreetName(String streetName) {
 		// Input validation
 	    if(streetName == null || streetName.trim().length() == 0)
 	      throw new IllegalArgumentException("Address street name cannot be empty!");

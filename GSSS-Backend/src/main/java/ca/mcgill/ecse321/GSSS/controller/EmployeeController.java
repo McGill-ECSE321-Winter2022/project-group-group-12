@@ -30,113 +30,118 @@ import ca.mcgill.ecse321.GSSS.service.ShiftService;
 @RestController
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
+  @Autowired
+  private EmployeeService employeeService;
 
-    @Autowired
-    private ShiftService shiftService;
+  @Autowired
+  private ShiftService shiftService;
 
-    /**
-     * This API endpoint fetches employees based on the query parameters.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @return A list of employees corresponding to the query.
-     */
-    @GetMapping(value = { "/employee", "/employee/" })
-    public List<EmployeeDto> getEmployees(){
-        return employeeService.getAllEmployees().stream().map(e -> DtoConversion.convertToDto(e)).collect(Collectors.toList());
-    }
+  /**
+   * This API endpoint fetches employees based on the query parameters.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * @return A list of employees corresponding to the query.
+   */
+  @GetMapping(value = {"/employee", "/employee/"})
+  public List<EmployeeDto> getAllEmployees() {
+    return employeeService.getAllEmployees().stream().map(e -> DtoConversion.convertToDto(e))
+        .collect(Collectors.toList());
+  }
 
-    /**
-     * This API endpoint fetches a list of all employees' emails.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @return List of all employees' emails.
-     */
-    @GetMapping(value = { "/employeeList", "/employeeList/" })
-    public List<String> getEmployeeList(){
-        return employeeService.getEmployeeList();
-    }
-    
-    /**
-     * This API endpoint creates a new employee.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @param employee Employee DTO (passed in the request body).
-     * @return DTO of the newly created employee.
-     */
-    @PostMapping(value = { "/employee", "/employee/" })
-    public EmployeeDto createEmployee(@RequestBody EmployeeDto employee){
-        return DtoConversion.convertToDto(employeeService.createEmployee(employee.getUsername(), employee.getEmail(), employee.getPassword(), DtoConversion.convertToDao(employee.getAddress())));
-    }
+  /**
+   * This API endpoint fetches a list of all employees' emails.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * @return List of all employees' emails.
+   */
+  @GetMapping(value = {"/employeeList", "/employeeList/"})
+  public List<String> getEmployeeList() {
+    return employeeService.getEmployeeList();
+  }
 
-    /**
-     * This API endpoint updates an employee.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @param employee Employee DTO with non-changing fields set as null (passed in the request body).
-     * @return DTO of the newly updated employee.
-     */
-    @PutMapping(value = { "/employee", "/employee/" })
-    public EmployeeDto updateEmployee(@RequestBody EmployeeDto employee){
-        return DtoConversion.convertToDto(employeeService.updateEmployee(employee.getUsername(), employee.getEmail(), DtoConversion.convertToDao(employee.getAddress()), employee.isDisabled()));
-    }
+  /**
+   * This API endpoint creates a new employee.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param employee Employee DTO (passed in the request body).
+   * @return DTO of the newly created employee.
+   */
+  @PostMapping(value = {"/employee", "/employee/"})
+  public EmployeeDto createEmployee(@RequestBody EmployeeDto employee) {
+    return DtoConversion
+        .convertToDto(employeeService.createEmployee(employee.getUsername(), employee.getEmail(),
+            employee.getPassword(), DtoConversion.convertToDao(employee.getAddress())));
+  }
 
-    /**
-     * This API endpoint gets and employee based on his email.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @param email Email of the employee to fetch.
-     * @return DTO of the employee corresponding to the email.
-     */
-    @GetMapping(value = { "/employee/{email}", "/employee/{email}/" })
-    public EmployeeDto getEmployee(@PathVariable("email") String email){
-        return DtoConversion.convertToDto(employeeService.getEmployee(email));
-    }
+  /**
+   * This API endpoint updates an employee.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param employee Employee DTO with non-changing fields set as null (passed in the request body).
+   * @return DTO of the newly updated employee.
+   */
+  @PutMapping(value = {"/employee", "/employee/"})
+  public EmployeeDto updateEmployee(@RequestBody EmployeeDto employee) {
+    return DtoConversion
+        .convertToDto(employeeService.updateEmployee(employee.getUsername(), employee.getEmail(),
+            DtoConversion.convertToDao(employee.getAddress()), employee.isDisabled()));
+  }
 
-    /**
-     * This API endpoint deletes an employee based on his email.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @param email Email of the employee to delete.
-     */
-    @DeleteMapping(value = { "/employee/{email}", "/employee/{email}/" })
-    public void deleteEmployee(@PathVariable("email") String email){
-        employeeService.deleteEmployee(email);
-    }
+  /**
+   * This API endpoint gets and employee based on his email.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param email Email of the employee to fetch.
+   * @return DTO of the employee corresponding to the email.
+   */
+  @GetMapping(value = {"/employee/{email}", "/employee/{email}/"})
+  public EmployeeDto getEmployee(@PathVariable("email") String email) {
+    return DtoConversion.convertToDto(employeeService.getEmployee(email));
+  }
 
-    /**
-     * This API endpoint creates and adds a shift to an employee.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @param email Email of the employee (in the path).
-     * @param shift Shift (in the req body).
-     * @return DTO of the new employee.
-     */
-    @PostMapping(value = { "/employee/shift/{email}", "/employee/shift/{email}/" })
-    public EmployeeDto addShift(@PathVariable String email, @RequestBody ShiftDto shift){
-        Shift newShift = shiftService.createShift(shift.getDate(), shift.getStartTime(), shift.getEndTime());
-        return DtoConversion.convertToDto(employeeService.addShift(employeeService.getEmployee(email), newShift));
-    }
+  /**
+   * This API endpoint deletes an employee based on his email.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param email Email of the employee to delete.
+   */
+  @DeleteMapping(value = {"/employee/{email}", "/employee/{email}/"})
+  public void deleteEmployee(@PathVariable("email") String email) {
+    employeeService.deleteEmployee(email);
+  }
 
-    /**
-     * This API endpoint removes a shift from an employee.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @param email Email of the employee (passed in path).
-     * @param id Id of the shift (passed in path).
-     */
-    @DeleteMapping(value = { "employee/shift/{email}/{id}", "/employee/shift/{email}/{id}/" })
-    public void removeShift(@PathVariable("email") String email, @PathVariable("id") String id){
-        employeeService.removeShift(employeeService.getEmployee(email), shiftService.getShift(id));
-    }
-    
+  /**
+   * This API endpoint creates and adds a shift to an employee.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param email Email of the employee (in the path).
+   * @param shift Shift (in the req body).
+   * @return DTO of the new employee.
+   */
+  @PostMapping(value = {"/employee/shift/{email}", "/employee/shift/{email}/"})
+  public EmployeeDto addShift(@PathVariable String email, @RequestBody ShiftDto shift) {
+    Shift newShift =
+        shiftService.createShift(shift.getDate(), shift.getStartTime(), shift.getEndTime());
+    return DtoConversion
+        .convertToDto(employeeService.addShift(employeeService.getEmployee(email), newShift));
+  }
+
+  /**
+   * This API endpoint removes a shift from an employee.
+   * 
+   * @author Philippe Sarouphim Hochar.
+   * 
+   * @param email Email of the employee (passed in path).
+   * @param id Id of the shift (passed in path).
+   */
+  @DeleteMapping(value = {"/employee/shift/{email}/{id}", "/employee/shift/{email}/{id}/"})
+  public void removeShift(@PathVariable("email") String email, @PathVariable("id") String id) {
+    employeeService.removeShift(employeeService.getEmployee(email), shiftService.getShift(id));
+  }
+
 }
