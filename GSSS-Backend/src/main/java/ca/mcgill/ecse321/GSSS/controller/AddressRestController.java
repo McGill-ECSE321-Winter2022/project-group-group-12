@@ -47,7 +47,7 @@ public class AddressRestController {
     @GetMapping(value = {"/address/{city}", "/address/{city}/"})
     public List<AddressDto> getAddressByCity(@PathVariable("city") String city)  throws IllegalArgumentException {
         List<AddressDto> addressDtos = new ArrayList<>();
-        for (Address address : AddressService.getAddressByCity(city)) {
+        for (Address address : addressService.getAddressByCity(city)) {
             addressDtos.add(DtoConversion.convertToDto(address));
         }
         return addressDtos;
@@ -64,7 +64,7 @@ public class AddressRestController {
     @GetMapping(value = {"/address/{streetName}", "/address/{streetName}/"})
     public List<AddressDto> getAddressByStreetName(@PathVariable("streetName") String streetName)  throws IllegalArgumentException {
         List<AddressDto> addressDtos = new ArrayList<>();
-        for (Address address : AddressService.getAddressByStreetName(streetName)) {
+        for (Address address : addressService.getAddressByStreetName(streetName)) {
             addressDtos.add(DtoConversion.convertToDto(address));
         }
         return addressDtos;
@@ -80,7 +80,7 @@ public class AddressRestController {
     @GetMapping(value = {"/address", "/address/"})
     public List<AddressDto> getAllAddress()  throws IllegalArgumentException {
         List<AddressDto> addressDtos = new ArrayList<>();
-        for (Address address : AddressService.getAllAddress()) {
+        for (Address address : addressService.getAllAddress()) {
             addressDtos.add(DtoConversion.convertToDto(address));
         }
         return addressDtos;
