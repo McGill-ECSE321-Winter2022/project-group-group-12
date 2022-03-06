@@ -134,6 +134,11 @@ public class AddressRestController {
         return DtoConversion.convertToDto(address);
     }
 
+    @DeleteMapping(value = {"/address/{id}", "/address/{id}/"})
+    public void deleteAddress(@PathVariable("id") String id) throws IllegalArgumentException {
+        addressService.deleteAddress(id);
+    }
+
 
 
 
