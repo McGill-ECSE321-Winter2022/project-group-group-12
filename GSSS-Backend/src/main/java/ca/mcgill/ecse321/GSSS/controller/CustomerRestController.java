@@ -12,20 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import ca.mcgill.ecse321.GSSS.dto.AddressDto;
-import ca.mcgill.ecse321.GSSS.dto.BusinessHourDto;
 import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
-import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
-import ca.mcgill.ecse321.GSSS.dto.ItemDto;
+
 import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
-import ca.mcgill.ecse321.GSSS.model.Item;
-import ca.mcgill.ecse321.GSSS.model.ItemCategory;
-import ca.mcgill.ecse321.GSSS.model.Weekday;
+import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.service.AddressService;
 import ca.mcgill.ecse321.GSSS.service.CustomerService;
+import ca.mcgill.ecse321.GSSS.service.PurchaseService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -36,6 +32,9 @@ public class CustomerRestController {
 	
 	@Autowired
 	private AddressService addressService;
+	
+	@Autowired
+	private PurchaseService purchaseService;
 	
 	/**
 	   * Method to get a list of all Customers in DTO form
@@ -102,8 +101,40 @@ public class CustomerRestController {
 		  customerService.deleteCustomer(email);
 	  }
 	  
+	  /**
+	   * Method to create a purchase and add it to the purchase history of the customer.
+	   * 
+	   * @author Enzo Benoit-Jeannin
+	   * @param email Email of the cusotmer to add the purchase to 
+	   * @param purchaseDto Purchase Dto to use to create the Purchase object
+	   * @return Customer DTO 
+	   */
 	  @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
 	  public CustomerDto addPurchase(@PathVariable String email, @RequestBody PurchaseDto purchaseDto) {
-		  return DtoConversion.convertToDto(customerService.addPurchase(customerService.getCustomer(email), DtoConversion.convertToDao(purchaseDto)));
+		  Purchase purchase = purchaseService.createPurchase(purchaseDto.getOrderType(), DtoConversion.convertToDomainObject(purchaseDto.getEmployee()), purchaseDto.getOrderStatus(), DtoConversion.convertItemMapDto(purchaseDto.getItems()));
+		  return DtoConversion.convertToDto(customerService.addPurchase(customerService.getCustomer(email), purchase));
+	  }
+	 
+	  /**
+	   * Method to modify/update a customer
+	   * 
+	   * @param email Email of the customer to update
+	   * @param username Username we want to update
+	   * @param password Password we want to update
+	   * @param addressDto Address we want to update 
+	   * @param disabled Change the disable state of the customer
+	   * @return The modified customer as a DTO object
+	   * @throws IllegalArgumentException
+	   */
+	  @PostMapping(value = {"/customer/{email}", "/cusotmer/{email}/"})
+	  public CustomerDto modifyCustomer(@PathVariable("email") String email,
+	      @RequestParam(name = "username") String username,
+	      @RequestParam(name = "password") String password,
+	      @RequestParam(name = "address") AddressDto addressDto,
+	      @RequestParam(name = "disabled") boolean disabled)
+	      throws IllegalArgumentException {
+		  Address address = addressService.getAddress(addressDto.getId());
+		  Customer customer = customerService.modifyCustomer(username, email, password, address, disabled);
+	    return DtoConversion.convertToDto(customer);
 	  }
 }

@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GSSS.dto.EmployeeDto;
@@ -70,7 +68,7 @@ public class EmployeeController {
      */
     @PostMapping(value = { "/employee", "/employee/" })
     public EmployeeDto createEmployee(@RequestBody EmployeeDto employee){
-        return DtoConversion.convertToDto(employeeService.createEmployee(employee.getUsername(), employee.getEmail(), employee.getPassword(), DtoConversion.convertToDao(employee.getAddress())));
+        return DtoConversion.convertToDto(employeeService.createEmployee(employee.getUsername(), employee.getEmail(), employee.getPassword(), DtoConversion.convertToDomainObject(employee.getAddress())));
     }
 
     /**
@@ -83,7 +81,7 @@ public class EmployeeController {
      */
     @PutMapping(value = { "/employee", "/employee/" })
     public EmployeeDto updateEmployee(@RequestBody EmployeeDto employee){
-        return DtoConversion.convertToDto(employeeService.updateEmployee(employee.getUsername(), employee.getEmail(), DtoConversion.convertToDao(employee.getAddress()), employee.isDisabled()));
+        return DtoConversion.convertToDto(employeeService.updateEmployee(employee.getUsername(), employee.getEmail(), DtoConversion.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
     }
 
     /**

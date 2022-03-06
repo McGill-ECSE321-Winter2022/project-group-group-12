@@ -40,7 +40,7 @@ public class CustomerService {
    * 
    * @author Wassim Jabbour
    * @param email The email of the customer
-   * @return The customer with that emaila
+   * @return The customer with that email
    */
   @Transactional
   public Customer getCustomer(String email) {
@@ -192,38 +192,40 @@ public class CustomerService {
   // OTHER methods
   
   /**
-   * This service updates a customer based on the inputs if they are not null.
+   * This service updates a customer based on the inputs
    * 
    * @author Enzo Benoit-Jeannin
    * 
-   * @param username Username (may be null).
-   * @param email Email (may not be null).
-   * @param address Address (may be null).
+   * @param username Username.
+   * @param email Email.
+   * @param password Password.
+   * @param address Address.
    * @param disabled Disabled.
    * @return The updated customer
    */
   @Transactional
-  public Customer updateCustomer(String username, String email, Address address, boolean disabled) {
+  public Customer modifyCustomer(String username, String email, String password, Address address, boolean disabled) {
 
-    // Input validation
-    String error = "";
-    if (email == null || email.trim().length() == 0)
-      error += "Customer email cannot be empty! ";
-    if (error.length() > 0)
-      throw new IllegalArgumentException(error);
-
-    Customer customer = customerRepository.findCustomerByEmail(email);
-    if(customer == null)
-      throw new IllegalArgumentException("Customer does not exist");
-
-    if(username != null)
-      customer.setUsername(username);
-    if(address != null)
-      customer.setAddress(address);
-    customer.setDisabled(disabled);
-
-    customerRepository.save(customer);
-    return customer;
+	// Input validation
+	    String error = "";
+	    if(username == null || username.trim().length() == 0)
+	      error += "Customer username cannot be empty! ";
+	    if(email == null || email.trim().length() == 0)
+	      error += "Customer email cannot be empty! ";
+	    if(password == null || password.trim().length() == 0)
+		  error += "Customer password cannot be empty! ";
+	    if(address == null)
+	      error += "Customer address cannot be null! ";
+	    if(error.length() > 0)
+	      throw new IllegalArgumentException(error);
+		
+		Customer customer = getCustomer(email);
+		customer.setAddress(address);
+		customer.setUsername(username);
+		customer.setDisabled(disabled);
+		customer.setPassword(password);
+		customerRepository.save(customer);
+		return customer;
   }
   
   /**

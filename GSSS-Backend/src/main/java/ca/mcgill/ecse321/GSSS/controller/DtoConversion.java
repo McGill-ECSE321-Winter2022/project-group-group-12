@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.GSSS.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -210,7 +211,6 @@ public class DtoConversion {
 
     // Converting the employee to a dto
 
-
     PurchaseDto purchaseDto = new PurchaseDto(purchase.getId(), purchase.getOrderType(),
         purchase.getOrderStatus(), purchase.getDate(), purchase.getTime(),
         convertItemMap(purchase.getItems()), convertToDto(purchase.getEmployee()));;
@@ -267,7 +267,6 @@ public class DtoConversion {
       ItemDto convertedItem = convertToDto(entry.getKey());
       itemDtoMap.put(convertedItem, entry.getValue());
     }
-
     return itemDtoMap;
   }
 
@@ -404,7 +403,7 @@ public class DtoConversion {
    * @param addressDto Address DTO.
    * @return Address DAO.
    */
-  static Address convertToDao(AddressDto addressDto){
+  static Address convertToDomainObject(AddressDto addressDto){
     Address address = new Address();
     address.setCity(addressDto.getCity());
     address.setFullName(addressDto.getFullName());
@@ -423,7 +422,7 @@ public class DtoConversion {
    * @param addressDto Shift DTO.
    * @return Shift DAO.
    */
-  static Shift convertToDao(ShiftDto shiftDto){
+  static Shift convertToDomainObject(ShiftDto shiftDto){
     Shift shift = new Shift();
     shift.setDate(shiftDto.getDate());
     shift.setEndTime(shiftDto.getEndTime());
@@ -433,35 +432,61 @@ public class DtoConversion {
   }
   
   /**
-   * This method converts a purchase DTO to DAO
+   * This method converts an employee DTO to DAO
    * 
    * @author Enzo Benoit-Jeannin
-   * 
-   * @param purchaseDto Purchase DTO
-   * @return Purchase DAO
+   * @param employeeDto Employee DTO
+   * @return Employee DAO
    */
-  static Purchase convertToDao (PurchaseDto purchaseDto) {
-	  Purchase purchase = new Purchase();
-	  purchase.setDate(purchaseDto.getDate());
-	  purchase.setEmployee(convertToDao(purchaseDto.getEmployee()));
-	  purchase.setId(purchaseDto.getId());
-	  purchase.setItems(convertToDao(purchaseDto.getItems()));
-	  purchase.setOrderStatus(purchaseDto.getOrderStatus());
-	  purchase.setTime(purchaseDto.getTime());
-	  purchase.setOrderType(purchaseDto.getOrderType());
-  }
-  
-  static Employee convertToDao(EmployeeDto employeeDto) {
+  static Employee convertToDomainObject(EmployeeDto employeeDto) {
 	  Employee employee = new Employee();
 	  employee.setUsername(employeeDto.getUsername());
 	  employee.setPassword(employeeDto.getPassword());
 	  employee.setEmail(employeeDto.getEmail());
 	  employee.setDisabled(employeeDto.isDisabled());
-	  employee.setAddress(convertToDao(employeeDto.getAddress()));
+	  employee.setAddress(convertToDomainObject(employeeDto.getAddress()));
 	  employee.setSalt(employeeDto.getSalt());
-	  employee.setShifts(convertToDao(employeeDto.));
-
+	  employee.setShifts(convertToDomainObject(employeeDto.getShifts()));
+	  return employee;
   }
+  
+  static Set<Shift> convertToDomainObject(List<ShiftDto> shiftDtos) {
+	// Checking the input is non null
+    if (shiftDtos == null)
+      return new HashSet<Shift>();
+
+    Set<Shift> shifts = new HashSet<Shift>();
+
+    for (ShiftDto s : shiftDtos) {
+      shifts.add(convertToDomainObject(s));
+    }
+
+    return shifts;
+  }
+  
+  /**
+   * Helper method that converts a map of itemDtos and integers into a map of items and integers
+   * 
+   * @author Enzo Benoit-Jeannin
+   * @param itemMapDto The map of itemDtos and integers
+   * @return The corresponding map of items and integers
+   */
+  static Map<Item, Integer> convertItemMapDto(Map<ItemDto, Integer> itemMapDto) {
+
+    // Checking the input is non null
+    if (itemMapDto == null)
+      throw new IllegalArgumentException("There is no such item selection!");
+
+    Map<Item, Integer> itemMap = new HashMap<Item, Integer>();
+
+    for (Map.Entry<ItemDto, Integer> entry : itemMapDto.entrySet()) {
+      Item convertedItem = convertToDomainObject(entry.getKey());
+      itemMap.put(convertedItem, entry.getValue());
+    }
+    return itemMap;
+  }
+  
+  
   
   /**
    * Converts the owner to its DTO equivalent
