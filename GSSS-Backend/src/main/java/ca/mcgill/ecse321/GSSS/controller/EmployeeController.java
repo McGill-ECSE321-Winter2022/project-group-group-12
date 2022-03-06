@@ -46,7 +46,7 @@ public class EmployeeController {
         .collect(Collectors.toList());
   }
 
-<<<<<<< HEAD
+
   /**
    * This API endpoint fetches a list of all employees' emails.
    * 
@@ -70,47 +70,8 @@ public class EmployeeController {
   public EmployeeDto createEmployee(@RequestBody EmployeeDto employee) {
     return DtoConversion
         .convertToDto(employeeService.createEmployee(employee.getUsername(), employee.getEmail(),
-            employee.getPassword(), DtoConversion.convertToDao(employee.getAddress())));
+            employee.getPassword(), DtoConversion.convertToDomainObject(employee.getAddress())));
   }
-=======
-    /**
-     * This API endpoint fetches a list of all employees' emails.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @return List of all employees' emails.
-     */
-    @GetMapping(value = { "/employeeList", "/employeeList/" })
-    public List<String> getEmployeeList(){
-        return employeeService.getEmployeeList();
-    }
-    
-    /**
-     * This API endpoint creates a new employee.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @param employee Employee DTO (passed in the request body).
-     * @return DTO of the newly created employee.
-     */
-    @PostMapping(value = { "/employee", "/employee/" })
-    public EmployeeDto createEmployee(@RequestBody EmployeeDto employee){
-        return DtoConversion.convertToDto(employeeService.createEmployee(employee.getUsername(), employee.getEmail(), employee.getPassword(), DtoConversion.convertToDomainObject(employee.getAddress())));
-    }
-
-    /**
-     * This API endpoint updates an employee.
-     * 
-     * @author Philippe Sarouphim Hochar.
-     * 
-     * @param employee Employee DTO with non-changing fields set as null (passed in the request body).
-     * @return DTO of the newly updated employee.
-     */
-    @PutMapping(value = { "/employee", "/employee/" })
-    public EmployeeDto updateEmployee(@RequestBody EmployeeDto employee){
-        return DtoConversion.convertToDto(employeeService.updateEmployee(employee.getUsername(), employee.getEmail(), DtoConversion.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
-    }
->>>>>>> 8159b222b977a549d90f0ded8615743c0fe8c7ed
 
   /**
    * This API endpoint updates an employee.
@@ -124,7 +85,7 @@ public class EmployeeController {
   public EmployeeDto updateEmployee(@RequestBody EmployeeDto employee) {
     return DtoConversion
         .convertToDto(employeeService.updateEmployee(employee.getUsername(), employee.getEmail(),
-            DtoConversion.convertToDao(employee.getAddress()), employee.isDisabled()));
+            DtoConversion.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
   }
 
   /**

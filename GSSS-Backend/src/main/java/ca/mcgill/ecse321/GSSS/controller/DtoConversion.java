@@ -204,15 +204,6 @@ public class DtoConversion {
     if (purchase == null)
       throw new IllegalArgumentException("There is no such purchase!");
 
-<<<<<<< HEAD
-=======
-    // Converting the map of items into a map of itemDtos
-    HashMap<ItemDto, Integer> dtoMap =
-        (HashMap<ItemDto, Integer>) convertItemMap(purchase.getItems());
-
-    // Converting the employee to a dto
-
->>>>>>> 8159b222b977a549d90f0ded8615743c0fe8c7ed
     PurchaseDto purchaseDto = new PurchaseDto(purchase.getId(), purchase.getOrderType(),
         purchase.getOrderStatus(), purchase.getDate(), purchase.getTime(),
         convertItemMap(purchase.getItems()), convertToDto(purchase.getEmployee()));;
@@ -406,11 +397,8 @@ public class DtoConversion {
    * @param addressDto Address DTO.
    * @return Address DAO.
    */
-<<<<<<< HEAD
-  static Address convertToDao(AddressDto addressDto) {
-=======
+
   static Address convertToDomainObject(AddressDto addressDto){
->>>>>>> 8159b222b977a549d90f0ded8615743c0fe8c7ed
     Address address = new Address();
     address.setCity(addressDto.getCity());
     address.setFullName(addressDto.getFullName());
@@ -429,11 +417,7 @@ public class DtoConversion {
    * @param addressDto Shift DTO.
    * @return Shift DAO.
    */
-<<<<<<< HEAD
-  static Shift convertToDao(ShiftDto shiftDto) {
-=======
   static Shift convertToDomainObject(ShiftDto shiftDto){
->>>>>>> 8159b222b977a549d90f0ded8615743c0fe8c7ed
     Shift shift = new Shift();
     shift.setDate(shiftDto.getDate());
     shift.setEndTime(shiftDto.getEndTime());
