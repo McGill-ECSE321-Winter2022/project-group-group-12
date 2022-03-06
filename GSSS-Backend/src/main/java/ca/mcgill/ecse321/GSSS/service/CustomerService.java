@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.GSSS.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +40,7 @@ public class CustomerService {
    * 
    * @author Wassim Jabbour
    * @param email The email of the customer
-   * @return The customer with that emaila
+   * @return The customer with that email
    */
   @Transactional
   public Customer getCustomer(String email) {
@@ -191,5 +190,64 @@ public class CustomerService {
 
 
   // OTHER methods
+  
+  /**
+   * This service updates a customer based on the inputs
+   * 
+   * @author Enzo Benoit-Jeannin
+   * 
+   * @param username Username.
+   * @param email Email.
+   * @param password Password.
+   * @param address Address.
+   * @param disabled Disabled.
+   * @return The updated customer
+   */
+  @Transactional
+  public Customer modifyCustomer(String username, String email, String password, Address address, boolean disabled) {
+
+	// Input validation
+	    String error = "";
+	    if(username == null || username.trim().length() == 0)
+	      error += "Customer username cannot be empty! ";
+	    if(email == null || email.trim().length() == 0)
+	      error += "Customer email cannot be empty! ";
+	    if(password == null || password.trim().length() == 0)
+		  error += "Customer password cannot be empty! ";
+	    if(address == null)
+	      error += "Customer address cannot be null! ";
+	    if(error.length() > 0)
+	      throw new IllegalArgumentException(error);
+		
+		Customer customer = getCustomer(email);
+		customer.setAddress(address);
+		customer.setUsername(username);
+		customer.setDisabled(disabled);
+		customer.setPassword(password);
+		customerRepository.save(customer);
+		return customer;
+  }
+  
+  /**
+   * Service to add a purchase to a customer
+   * 
+   * @author Enzo Benoit-Jeannin
+   * 
+   * @param customer Customer to add the purchase to
+   * @param purchase Purchase to add
+   * @return The cutomer we added the purchase to
+   */
+  @Transactional
+  public Customer addPurchase(Customer customer, Purchase purchase) {
+	  if (customer == null)
+	      throw new IllegalArgumentException("Customer cannot be null.");
+
+	    if (purchase == null)
+	      throw new IllegalArgumentException("Purchase cannot be null.");
+
+	    // Add purchase to customer and save in database
+	    customer.getPurchases().add(purchase);
+	    return customerRepository.save(customer);
+  }
 
 }
