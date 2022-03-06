@@ -1,13 +1,21 @@
 package ca.mcgill.ecse321.GSSS.service;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
+import ca.mcgill.ecse321.GSSS.dao.PurchaseRepository;
+import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
+import ca.mcgill.ecse321.GSSS.model.OrderStatus;
+import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 
 @Service
@@ -18,6 +26,11 @@ public class EmployeeService {
   @Autowired
   private EmployeeRepository employeeRepository;
 
+  @Autowired
+  private PurchaseRepository purchaseRepository;
+
+  @Autowired
+  private ShiftRepository shiftRepository;
 
   // CREATE METHODS
 
@@ -232,11 +245,12 @@ public class EmployeeService {
    */
   @Transactional
   public void disableEmployee(Employee employee) {
-	// Input validation
-	if (employee == null)
-	  throw new IllegalArgumentException("Employee cannot be null!");
+    // Input validation
+    if (employee == null)
+      throw new IllegalArgumentException("Employee cannot be null!");
 
     employee.setDisabled(true);
+    employeeRepository.save(employee);
   }
 
   /**
@@ -250,48 +264,15 @@ public class EmployeeService {
    */
   @Transactional
   public Employee addShift(Employee employee, Shift shift) {
-    if(employee == null)
-        throw new IllegalArgumentException("Employee cannot be null.");
-    
-    if(shift == null)
-        throw new IllegalArgumentException("Shift cannot be null.");
+    if (employee == null)
+      throw new IllegalArgumentException("Employee cannot be null.");
+
+    if (shift == null)
+      throw new IllegalArgumentException("Shift cannot be null.");
 
     // Add shift to employee and save in database
     employee.getShifts().add(shift);
     return employeeRepository.save(employee);
-  }
-
-  /**
-   * This service adds a shift to multiple employees.
-   * 
-   * @author Philippe Sarouphim Hochar.
-   * 
-   * @param employees Employees to add the shift to.
-   * @param shift Shift to add to the employees.
-   * @return Then list of employees with the newly added shifts.
-   */
-  @Transactional
-  public List<Employee> addShift(Employee[] employees, Shift shift) {
-	// Input validation
-    String error = "";
-    if (shift == null)
-      error += "Shift cannot be null! ";
-    if (employees == null) {
-      error += "List of employees cannot be null! ";
-    }else {
-    	for (Employee e: employees) {
-    		if(e == null) {
-    			error+= "Employee cannot be null! ";
-    		}
-    	}
-    }
-    if (error.length() > 0)
-        throw new IllegalArgumentException(error);
-      
-    List<Employee> employeeList = new ArrayList<>();
-    for (Employee e : employees)
-      employeeList.add(addShift(e, shift));
-    return employeeList;
   }
 
   /**
@@ -305,47 +286,14 @@ public class EmployeeService {
    */
   @Transactional
   public Employee removeShift(Employee employee, Shift shift) {
-    if(employee == null)
-        throw new IllegalArgumentException("Employee cannot be null.");
+    if (employee == null)
+      throw new IllegalArgumentException("Employee cannot be null.");
 
-    if(shift == null)
-        throw new IllegalArgumentException("Shift cannot be null.");
+    if (shift == null)
+      throw new IllegalArgumentException("Shift cannot be null.");
 
     employee.getShifts().remove(shift);
     return employeeRepository.save(employee);
-  }
-
-  /**
-   * This service removes a shift from multiple employees.
-   * 
-   * @author Philippe Sarouphim Hochar.
-   * 
-   * @param employees Employees to the remove the shift from.
-   * @param shift Shift to remove from the employees.
-   * @return The employees without the shift to remove.
-   */
-  @Transactional
-  public List<Employee> removeShift(Employee[] employees, Shift shift) {
-	// Input validation
-    String error = "";
-    if (shift == null)
-      error += "Shift cannot be null! ";
-    if (employees == null) {
-      error += "List of employees cannot be null! ";
-    }else {
-    	for (Employee e: employees) {
-    		if(e == null) {
-    			error+= "Employee cannot be null! ";
-    		}
-    	}
-    }
-    if (error.length() > 0)
-      throw new IllegalArgumentException(error);
-    
-    List<Employee> employeeList = new ArrayList<>();
-    for (Employee e : employees)
-      employeeList.add(removeShift(e, shift));
-    return employeeList;
   }
 
   /**
@@ -360,5 +308,105 @@ public class EmployeeService {
       throw new IllegalArgumentException("Employee cannot be null!");
 
     employee.setDisabled(false);
+    employeeRepository.save(employee);
   }
+
+  /**
+   * Method that returns the number of purchases an employee currently has assigned to him that are
+   * not completed
+   * 
+   * @author Wassim Jabbour
+   * @param employee The employee
+   * @return The number of ongoing purchases
+   */
+  public int getNumOfOngoingPurchases(Employee employee) {
+
+    // Input validation
+    if (employee == null)
+      throw new IllegalArgumentException("Employee cannot be null!");
+
+    List<Purchase> purchases = purchaseRepository.findPurchasesByEmployee(employee);
+    int total = 0;
+
+    for (Purchase p : purchases) {
+      if (p.getOrderStatus() == OrderStatus.Completed) {
+        total++;
+      }
+    }
+
+    return total;
+  }
+
+  /**
+   * Method that returns the employee with the shift closest to the current time
+   * 
+   * @author Wassim Jabbour
+   * @return The employee
+   */
+  public Employee getClosestEmployee() {
+    
+    // Getting all shifts
+    List<Shift> shifts = HelperClass.toList(shiftRepository.findAll());
+    
+    // Current date and time
+    Date currentDate = new Date(System.currentTimeMillis());
+    Time currentTime = new Time(System.currentTimeMillis());
+    
+    // Sorting based on date first, then start time
+    Collections.sort(shifts, new Comparator<Shift>() {
+
+      @Override
+      public int compare(Shift o1, Shift o2) {
+        if(o1.getDate().before(o2.getDate())) {
+          return -1;
+        }
+        else if(o1.getDate().after(o2.getDate())) {
+          return 1;
+        }
+        else {
+          if(o1.getStartTime().before(o2.getStartTime())) {
+            return -1;
+          }
+          else if(o1.getStartTime().after(o2.getStartTime())) {
+            return 1;
+          }
+          else {
+            return 0;
+          }
+        }
+      }
+      
+    });
+    
+    Shift bestShift = null;
+    
+    // Finding the first shift that is in the future
+    for(int i = 0; i < shifts.size(); i++) {
+      
+      // Current shift
+      Shift shift = shifts.get(i);
+      
+      // If its date is today, check it ends after now
+      if(shift.getDate().equals(currentDate)) {
+        if(shift.getEndTime().after(currentTime)) {
+          bestShift = shift;
+          break;
+        }
+      }
+      
+      // If its date is in the future, take it
+      else if(shift.getDate().after(currentDate)) {
+        bestShift = shift;
+        break;
+      }
+      
+    }
+    
+    // If we found a shift, we return its employee
+    // Else we return null
+    if(bestShift == null) return null;
+    else return employeeRepository.findEmployeeByShifts(bestShift);
+  }
+
+
 }

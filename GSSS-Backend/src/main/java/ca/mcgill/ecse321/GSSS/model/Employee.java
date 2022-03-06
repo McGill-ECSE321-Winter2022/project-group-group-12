@@ -23,7 +23,7 @@ public class Employee extends Account {
   public void setShifts(Set<Shift> shifts) {
     this.shifts = shifts;
   }
-  
+
   /**
    * Overrode the equals method to use it in tests
    * 
