@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import ca.mcgill.ecse321.GSSS.dto.AddressDto;
 import ca.mcgill.ecse321.GSSS.dto.BusinessHourDto;
+import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 import ca.mcgill.ecse321.GSSS.dto.EmployeeDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemDto;
@@ -15,6 +16,7 @@ import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
 import ca.mcgill.ecse321.GSSS.dto.ShiftDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.BusinessHour;
+import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
@@ -233,7 +235,7 @@ public class DtoConversion {
 
     return employeeDto;
   }
-
+  
   /**
    * Converts an address to its DTO equivalent
    * 
@@ -299,4 +301,48 @@ public class DtoConversion {
     return shiftDtos;
   }
 
+  /**
+   * Converts a customer to its DTO equivalent
+   * 
+   * @author Enzo Benoit-Jeannin
+   * @param customer The customer object to convert
+   * @return The corresponding dto
+   */
+  static CustomerDto convertToDto(Customer customer) {
+
+    CustomerDto customerDto = new CustomerDto(customer.getUsername(), customer.getEmail(),
+    		customer.getPassword(), customer.getSalt(), customer.isDisabled(),
+        convertToDto(customer.getAddress()), convertToDto(customer.getPurchases()));
+
+    return customerDto;
+  }
+  
+
+  /**
+   * Method that converts a set of purchase to a list of purchase dto equivalents
+   * 
+   * @author Enzo Benoit-Jeannin
+   * @param purchases The set of purchase to convert
+   * @return A list of dto equivalent to the purchase in the set
+   * @throws IllegalArgumentException
+   */
+  static List<PurchaseDto> convertToDto(Set<Purchase> purchases) {
+
+    // Checking the input is non null
+    if (purchases == null)
+      throw new IllegalArgumentException("There is no such purchase history!");
+    
+    // Initialize the list of purchase dto to return
+    List<PurchaseDto> result = new ArrayList<PurchaseDto>();
+    
+    // For each purchase in the set, convert it to its dto equivalent and add it to the list
+    for (Purchase p: purchases) {
+    	PurchaseDto purchaseDto = convertToDto(p);
+    	result.add(purchaseDto);
+    }
+    
+    return result;
+    
+  }
+  
 }
