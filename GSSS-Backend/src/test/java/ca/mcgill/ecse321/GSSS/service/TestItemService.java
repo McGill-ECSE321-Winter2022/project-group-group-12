@@ -106,10 +106,99 @@ public class TestItemService {
   }
 
   @Test
-  public void testCreateItemNull() {
+  public void testCreateItemWrongNumbers() {
 
     String error = null;
     Item item = null;
+    ItemCategory itemCategory = new ItemCategory();
+    itemCategory.setName("Dish");
+
+    try {
+      item = itemService.createItem("Pasta", "italian", "www.pasta.ca", -1, -1, false, false,
+          itemCategory);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+
+    assertNull(item);
+    // check error
+    assertEquals(
+        "Item's remaining quantity cannot be less than 0! Item's price cannot be less than 0! ",
+        error);
+  }
+
+  @Test
+  public void testCreateItemEmptyStrings() {
+    String name = "";
+    String description = "";
+    String imageUrl = "";
+    String error = null;
+    Item item = null;
+    ItemCategory itemCategory = new ItemCategory();
+    itemCategory.setName("Food");
+
+    try {
+      item = itemService.createItem(name, description, imageUrl, 0, 0, false, false, itemCategory);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+
+    assertNull(item);
+    // check error
+    assertEquals(
+        "Item's name cannot be empty! Item's description cannot be empty! Item's image URL cannot be empty! ",
+        error);
+  }
+
+  @Test
+  public void testCreateItemSpacedStrings() {
+    String name = " ";
+    String description = " ";
+    String imageUrl = " ";
+    String error = null;
+    Item item = null;
+    ItemCategory itemCategory = new ItemCategory();
+    itemCategory.setName("Food");
+
+    try {
+      item = itemService.createItem(name, description, imageUrl, 0, 0, false, false, itemCategory);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+
+    assertNull(item);
+    // check error
+    assertEquals(
+        "Item's name cannot be empty! Item's description cannot be empty! Item's image URL cannot be empty! ",
+        error);
+  }
+
+  @Test
+  public void testCreateItemNullCategory() {
+    String name = "Milk";
+    String description = "beverage";
+    String imageUrl = "www.cows/milk.com";
+    String error = null;
+    Item item = null;
+    ItemCategory itemCategory = null;
+
+    try {
+      item = itemService.createItem(name, description, imageUrl, 0, 0, false, false, itemCategory);
+    } catch (IllegalArgumentException e) {
+      error = e.getMessage();
+    }
+
+    assertNull(item);
+    // check error
+    assertEquals("Item's category cannot be empty!", error);
+  }
+
+  @Test
+  public void testCreateItemAllNullOrWrong() {
+
+    String error = null;
+    Item item = null;
+
     try {
       item = itemService.createItem(null, null, null, -1, -1, false, false, null);
     } catch (IllegalArgumentException e) {
@@ -122,45 +211,10 @@ public class TestItemService {
         "Item's name cannot be empty! Item's description cannot be empty! Item's image URL cannot be empty! Item's remaining quantity cannot be less than 0! Item's price cannot be less than 0! Item's category cannot be empty!",
         error);
   }
-  
-  @Test
-  public void testCreateItemEmpty() {
-    String name = "";
-    String description = "";
-    String imageUrl = "";
-    String error = null;
-    Item item = null;
-    try {
-      item = itemService.createItem(name, description, imageUrl, -1, -1, false, false, null);
-    } catch (IllegalArgumentException e) {
-      error = e.getMessage();
-    }
 
-    assertNull(item);
-    // check error
-    assertEquals(
-        "Item's name cannot be empty! Item's description cannot be empty! Item's image URL cannot be empty! Item's remaining quantity cannot be less than 0! Item's price cannot be less than 0! Item's category cannot be empty!",
-        error);
-  }
-  
   @Test
-  public void testCreateItemSpaces() {
-    String name = " ";
-    String description = " ";
-    String imageUrl = " ";
-    String error = null;
-    Item item = null;
-    try {
-      item = itemService.createItem(name, description, imageUrl, -1, -1, false, false, null);
-    } catch (IllegalArgumentException e) {
-      error = e.getMessage();
-    }
+  public void testDeleteItem() {
 
-    assertNull(item);
-    // check error
-    assertEquals(
-        "Item's name cannot be empty! Item's description cannot be empty! Item's image URL cannot be empty! Item's remaining quantity cannot be less than 0! Item's price cannot be less than 0! Item's category cannot be empty!",
-        error);
   }
 
 
