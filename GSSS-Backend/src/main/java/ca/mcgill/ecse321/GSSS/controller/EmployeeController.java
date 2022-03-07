@@ -46,18 +46,6 @@ public class EmployeeController {
         .collect(Collectors.toList());
   }
 
-
-  /**
-   * This API endpoint fetches a list of all employees' emails.
-   * 
-   * @author Philippe Sarouphim Hochar.
-   * @return List of all employees' emails.
-   */
-  @GetMapping(value = {"/employeeList", "/employeeList/"})
-  public List<String> getEmployeeList() {
-    return employeeService.getEmployeeList();
-  }
-
   /**
    * This API endpoint creates a new employee.
    * 
@@ -98,7 +86,7 @@ public class EmployeeController {
    */
   @GetMapping(value = {"/employee/{email}", "/employee/{email}/"})
   public EmployeeDto getEmployee(@PathVariable("email") String email) {
-    return DtoConversion.convertToDto(employeeService.getEmployee(email));
+    return DtoConversion.convertToDto(employeeService.getEmployeeByEmail(email));
   }
 
   /**
@@ -129,7 +117,7 @@ public class EmployeeController {
     Shift newShift =
         shiftService.createShift(shift.getDate(), shift.getStartTime(), shift.getEndTime());
     return DtoConversion
-        .convertToDto(employeeService.addShift(employeeService.getEmployee(email), newShift));
+        .convertToDto(employeeService.addShift(employeeService.getEmployeeByEmail(email), newShift));
   }
 
   /**
@@ -142,7 +130,7 @@ public class EmployeeController {
    */
   @DeleteMapping(value = {"/employee/shift/{email}/{id}", "/employee/shift/{email}/{id}/"})
   public void removeShift(@PathVariable("email") String email, @PathVariable("id") String id) {
-    employeeService.removeShift(employeeService.getEmployee(email), shiftService.getShift(id));
+    employeeService.removeShift(employeeService.getEmployeeByEmail(email), shiftService.getShift(id));
   }
 
 }

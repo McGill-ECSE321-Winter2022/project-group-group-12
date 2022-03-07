@@ -66,7 +66,7 @@ public class PurchaseRestController {
   public List<PurchaseDto> getPurchasesByEmployee(
       @PathVariable("employeeEmail") String employeeEmail) throws IllegalArgumentException {
 
-    Employee employee = employeeService.getEmployee(employeeEmail);
+    Employee employee = employeeService.getEmployeeByEmail(employeeEmail);
     List<Purchase> allPurchases = purchaseService.getPurchasesByEmployee(employee);
     List<PurchaseDto> purchaseDtos = new ArrayList<PurchaseDto>();
 
@@ -228,7 +228,7 @@ public class PurchaseRestController {
   public PurchaseDto modifyPurchaseEmployee(@PathVariable(name = "purchaseid") String purchaseId,
       @PathVariable(name = "employeeemail") String employeeEmail) throws IllegalArgumentException {
 
-    Employee employee = employeeService.getEmployee(employeeEmail);
+    Employee employee = employeeService.getEmployeeByEmail(employeeEmail);
 
     Purchase purchase = purchaseService.modifyPurchaseEmployee(employee, purchaseId);
 

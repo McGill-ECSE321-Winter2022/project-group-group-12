@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,47 +36,7 @@ public class EmployeeService {
   // CREATE METHODS
 
   /**
-   * Method that creates a new employee, hashing and slating its password before saving it to the
-   * database
-   * 
-   * @author Enzo Benoit-Jeannin
-   * @param username The username of the employee
-   * @param email The email of the employee
-   * @param password The password of the employee
-   * @param isDisabled True if the employee is disabled
-   * @param address Address of the employee
-   * @return The new created employee
-   */
-  @Transactional
-  public Employee createEmployee(String username, String email, String password, Address address,
-      boolean isDisabled) {
-
-    // Input validation
-    String error = "";
-    if (email == null || email.trim().length() == 0)
-      error += "Employee email cannot be empty! ";
-    if (username == null || username.trim().length() == 0)
-      error += "Employee username cannot be empty! ";
-    if (password == null || password.trim().length() == 0)
-      error += "Employee username cannot be empty! ";
-    if (address == null)
-      error += "Address cannot be null! ";
-    if (error.length() > 0)
-      throw new IllegalArgumentException(error);
-
-    Employee employee = new Employee();
-    employee.setUsername(username);
-    employee.setEmail(email);
-    employee.setSalt(HelperClass.getSalt());
-    employee.setPassword(HelperClass.hashAndSaltPassword(password, employee.getSalt()));
-    employee.setAddress(address);
-    employee.setDisabled(isDisabled);
-    employeeRepository.save(employee);
-    return employee;
-  }
-
-  /**
-   * Method that creates a new non disabled employee, hashing and slating its password before saving
+   * Method that creates a new non disabled employee, hashing and salting its password before saving
    * it to the database
    * 
    * @author Enzo Benoit-Jeannin
@@ -177,43 +138,40 @@ public class EmployeeService {
    * @return The found employee
    */
   @Transactional
-  public Employee getEmployee(String email) {
+  public Employee getEmployeeByEmail(String email) {
+
     // Input validation
     if (email == null || email.trim().length() == 0)
       throw new IllegalArgumentException("Employee email cannot be empty!");
 
-    return employeeRepository.findEmployeeByEmail(email);
+    // Finding the employee with that email
+    Employee employee = employeeRepository.findEmployeeByEmail(email);
+    if (employee == null)
+      throw new NoSuchElementException("No employee with email " + email + " exists!");
+
+    return employee;
   }
 
   /**
-   * This service fetches all of the emails of employees.
-   * 
-   * @author Philippe Sarouphim Hochar.
-   * 
-   * @return All emails of employees.
-   */
-  @Transactional
-  public List<String> getEmployeeList() {
-    List<String> employeeList = new ArrayList<String>();
-    for (Employee e : employeeRepository.findAll())
-      employeeList.add(e.getEmail());
-    return employeeList;
-  }
-
-  /**
-   * Finds an employee by its username
+   * Finds a list of employees by their username
    * 
    * @author Enzo Benoit-Jeannin
    * @param username The username of the employee
    * @return The found employee
    */
   @Transactional
-  public List<Employee> getEmployeeByUsername(String username) {
+  public List<Employee> getEmployeesByUsername(String username) {
+
     // Input validation
     if (username == null || username.trim().length() == 0)
       throw new IllegalArgumentException("Employee username cannot be empty!");
 
-    return employeeRepository.findEmployeesByUsername(username);
+    // Finding the employees with that username
+    List<Employee> employees = employeeRepository.findEmployeesByUsername(username);
+    if (employees.size() == 0)
+      throw new NoSuchElementException("No employee with username " + username + " exists!");
+
+    return employees;
   }
 
   /**
@@ -225,27 +183,17 @@ public class EmployeeService {
    */
   @Transactional
   public Employee getEmployeeByShift(Shift shift) {
+
     // Input validation
     if (shift == null)
       throw new IllegalArgumentException("Shift cannot be null!");
 
-    return employeeRepository.findEmployeeByShifts(shift);
-  }
+    // Finding the employee with that email
+    Employee employee = employeeRepository.findEmployeeByShifts(shift);
+    if (employee == null)
+      throw new NoSuchElementException("No employee with the given shift exists!");
 
-  /**
-   * Finds the customer with a given address
-   * 
-   * @author Enzo Benoit-Jeannin
-   * @param addressId The ID of the address to search for
-   * @return The employee with the address corresponding to that ID
-   */
-  @Transactional
-  public Employee getEmployeeByAddress(Address address) {
-    // Input validation
-    if (address == null)
-      throw new IllegalArgumentException("Address cannot be null!");
-
-    return employeeRepository.findEmployeeByAddress(address);
+    return employee;
   }
 
   /**
@@ -257,11 +205,17 @@ public class EmployeeService {
    */
   @Transactional
   public List<Employee> getEmployeesByAccountState(boolean disabled) {
-    return employeeRepository.findEmployeesByDisabled(disabled);
+
+    // Finding the employee with that state
+    List<Employee> employees = employeeRepository.findEmployeesByDisabled(disabled);
+
+    // We don't throw an exception if nobody exists for this one cause it's normal to have nobody
+    // disabled
+    return employees;
   }
 
   /**
-   * FInd all employees in the dataBase
+   * Find all employees in the dataBase
    * 
    * @author Enzo Benoit-Jeannin
    * @return A list of all the employees
@@ -272,38 +226,6 @@ public class EmployeeService {
   }
 
   // OTHER Methods
-  /**
-   * Method to get all the shifts of an employee
-   * 
-   * @author Chris Hatoum and Enzo Benoit-Jeannin
-   * @param employee The employee to retrieve shifts from
-   * @return the list of the employee's shifts
-   */
-  @Transactional
-  public List<Shift> getShifts(Employee employee) {
-    // Input validation
-    if (employee == null)
-      throw new IllegalArgumentException("Employee cannot be null!");
-
-    List<Shift> shiftList = new ArrayList<>(employee.getShifts());
-    return shiftList;
-  }
-
-  /**
-   * Method that takes the employee's email and disables his account(setDisabled = true)
-   * 
-   * @author Chris Hatoum and Enzo Benoit-Jeannin
-   * @param employee the employee to disable
-   */
-  @Transactional
-  public void disableEmployee(Employee employee) {
-    // Input validation
-    if (employee == null)
-      throw new IllegalArgumentException("Employee cannot be null!");
-
-    employee.setDisabled(true);
-    employeeRepository.save(employee);
-  }
 
   /**
    * This service adds a shift to an employee.
@@ -349,52 +271,12 @@ public class EmployeeService {
   }
 
   /**
-   * Method that takes the employee's email and enables his account(setDisabled = false)
-   * 
-   * @author Chris Hatoum and Enzo Benoit-Jeannin
-   * @param employee the employee to enable
-   */
-  public void enableEmployee(Employee employee) {
-    // Input validation
-    if (employee == null)
-      throw new IllegalArgumentException("Employee cannot be null!");
-
-    employee.setDisabled(false);
-    employeeRepository.save(employee);
-  }
-
-  /**
-   * Method that returns the number of purchases an employee currently has assigned to him that are
-   * not completed
-   * 
-   * @author Wassim Jabbour
-   * @param employee The employee
-   * @return The number of ongoing purchases
-   */
-  public int getNumOfOngoingPurchases(Employee employee) {
-
-    // Input validation
-    if (employee == null)
-      throw new IllegalArgumentException("Employee cannot be null!");
-
-    List<Purchase> purchases = purchaseRepository.findPurchasesByEmployee(employee);
-    int total = 0;
-
-    for (Purchase p : purchases) {
-      if (p.getOrderStatus() == OrderStatus.Completed) {
-        total++;
-      }
-    }
-
-    return total;
-  }
-
-  /**
    * Method that returns the employee with the shift closest to the current time
    * 
    * @author Wassim Jabbour
    * @return The employee
    */
+  @Transactional
   public Employee getClosestEmployee() {
 
     // Getting all shifts
