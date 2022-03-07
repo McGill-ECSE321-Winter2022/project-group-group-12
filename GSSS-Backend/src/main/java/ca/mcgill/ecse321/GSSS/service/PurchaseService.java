@@ -131,7 +131,7 @@ public class PurchaseService {
     
     List<Purchase> purchases = purchaseRepository.findPurchasesByEmployee(employee);
     if (purchases == null) 
-      throw new NoSuchElementException("There are no purchases assigned to given employee");
+      throw new NoSuchElementException("There are no purchases assigned to given employee!");
     
     return purchases;
   }

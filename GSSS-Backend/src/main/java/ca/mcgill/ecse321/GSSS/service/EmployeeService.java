@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.GSSS.service;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -15,8 +14,6 @@ import ca.mcgill.ecse321.GSSS.dao.PurchaseRepository;
 import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.model.OrderStatus;
-import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 
 @Service
@@ -26,9 +23,6 @@ public class EmployeeService {
 
   @Autowired
   private EmployeeRepository employeeRepository;
-
-  @Autowired
-  private PurchaseRepository purchaseRepository;
 
   @Autowired
   private ShiftRepository shiftRepository;
@@ -85,7 +79,7 @@ public class EmployeeService {
    * @return The updated employee
    */
   @Transactional
-  public Employee updateEmployee(String username, String email, Address address, boolean disabled) {
+  public Employee modifyEmployee(String username, String email, Address address, boolean disabled) {
 
     // Input validation
     String error = "";
