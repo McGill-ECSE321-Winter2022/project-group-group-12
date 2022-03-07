@@ -36,7 +36,11 @@ public class BusinessHourService {
     if (weekday == null) {
       throw new IllegalArgumentException("weekday of business hour cannot be null! ");
     }
-    return businessHourRepository.findBusinessHourByWeekday(weekday);
+    BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(weekday);
+    if (businessHour == null) {
+		throw new IllegalArgumentException("No businessHour with weekday "+ weekday.name() + " exits!");
+	}
+	return businessHour;
   }
 
   /**
@@ -97,7 +101,7 @@ public class BusinessHourService {
   @Transactional
   public BusinessHour deleteBusinessHour(Weekday weekday) {
     if (weekday == null) {
-      throw new IllegalArgumentException("weekday of business hour cannot be null! ");
+      throw new IllegalArgumentException("Weekday of business hour cannot be null! ");
     }
     BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(weekday);
     businessHourRepository.delete(businessHour);
