@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import ca.mcgill.ecse321.GSSS.dto.AddressDto;
 import ca.mcgill.ecse321.GSSS.dto.BusinessHourDto;
@@ -508,26 +505,6 @@ public class DtoConversion {
         convertToDto(owner.getAddress()));
 
     return ownerDto;
-  }
-
-  /**
-   * Method to check if an email is valid or invalid
-   *
-   * @author Theo Ghanem & inspired from https://mailtrap.io/blog/java-email-validation/
-   * @param email email to check if valid or invalid
-   * @return true if email is valid, and false if email is invalid
-   */
-  static boolean isEmailValid(String email) {
-    String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; //OWASP validation regex:
-
-    //initialize the Pattern object
-    Pattern pattern = Pattern.compile(regex);
-
-    //searching for occurrences of regex
-    Matcher matcher = pattern.matcher(email);
-
-    if(matcher.matches()) return true;
-    return false;
   }
   
 }

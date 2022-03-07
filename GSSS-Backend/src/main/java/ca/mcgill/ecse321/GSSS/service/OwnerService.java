@@ -38,10 +38,8 @@ public class OwnerService {
      * @author Enzo Benoit-Jeannin
      * 
      * @param username Username.
-     * @param email Email.
      * @param password Password.
      * @param address Address.
-     * @param disabled Disabled.
      * @return The updated owner
      */
     @Transactional
