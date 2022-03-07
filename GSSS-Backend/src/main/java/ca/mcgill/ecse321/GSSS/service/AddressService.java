@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.GSSS.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -77,7 +78,7 @@ public class AddressService {
 		Address address = addressRepository.findAddressById(id);
 		
 		if (address == null) {
-			throw new IllegalArgumentException("No address with id "+ id+ " exits!");
+			throw new NoSuchElementException("No address with id "+ id+ " exits!");
 		}
 		return address;
 	}

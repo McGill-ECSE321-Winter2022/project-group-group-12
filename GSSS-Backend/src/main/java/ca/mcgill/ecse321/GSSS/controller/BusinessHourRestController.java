@@ -4,6 +4,8 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,9 +33,10 @@ public class BusinessHourRestController {
    * @author Wassim Jabbour
    * @param weekday A string with the weekday we want to find
    * @return The corresponding business hour dto
+   * @throws IllegalArgumentException, NoSuchElementException
    */
   @GetMapping(value = {"/businesshour/{weekday}", "/businesshour/{weekday}/"})
-  public BusinessHourDto getBusinessHourByWeekday(@PathVariable("weekday") String weekday) {
+  public BusinessHourDto getBusinessHourByWeekday(@PathVariable("weekday") String weekday) throws NoSuchElementException, IllegalArgumentException{
 
     Weekday correspondingWeekday = DtoConversion.findWeekdayByName(weekday); // Helper method
                                                                              // defined below
@@ -57,6 +60,7 @@ public class BusinessHourRestController {
    * @param startTime The start time of the opening hours for that day
    * @param endTime The end time of the opening hours for that day
    * @return The Dto corresponding to the created business hour
+   * @throws IllegalArgumentException
    */
   @PostMapping(value = {"/businesshour", "/businesshour/"})
   public BusinessHourDto updateBusinessHour(@RequestParam(name = "weekday") String weekday,
@@ -86,7 +90,7 @@ public class BusinessHourRestController {
    * @return list of all business hour DTOS
    */
   @GetMapping(value = {"/businesshours", "/businesshours/"})
-  public List<BusinessHourDto> getAllBusinessHours() throws IllegalArgumentException {
+  public List<BusinessHourDto> getAllBusinessHours(){
     List<BusinessHourDto> businessHourDtos = new ArrayList<>();
     for (BusinessHour businessHour : businessHourService.getAllBusinessHours()) {
       businessHourDtos.add(DtoConversion.convertToDto(businessHour));

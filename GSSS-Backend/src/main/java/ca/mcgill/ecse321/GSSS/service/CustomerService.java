@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.GSSS.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +54,7 @@ public class CustomerService {
     Customer customer = customerRepository.findCustomerByEmail(email);
     
     if (customer == null) {
-		throw new IllegalArgumentException("No customer with email "+ email + " exits!");
+		throw new NoSuchElementException("No customer with email "+ email + " exits!");
 	}
 	
     return customer;
@@ -74,7 +76,7 @@ public class CustomerService {
     
     List<Customer> customers = customerRepository.findCustomersByUsername(username);
     if (customers.isEmpty()) {
-		throw new IllegalArgumentException("No customer with username "+ username + " exits!");
+		throw new NoSuchElementException("No customer with username "+ username + " exits!");
 	}
     return customers;
   }
@@ -95,7 +97,7 @@ public class CustomerService {
     
     Customer customer = customerRepository.findCustomerByPurchases(purchase);
     if (customer == null) {
-		throw new IllegalArgumentException("No customer with such purchase exits!");
+		throw new NoSuchElementException("No customer with such purchase exits!");
 	}
     return customer;
   }

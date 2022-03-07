@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -22,46 +23,12 @@ public class AddressRestController {
      * @author Theo Ghanem
      * @param id id of the address we want to get
      * @return an address
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException, NoSuchElementException
      */
     @GetMapping(value = {"/address/{id}", "/address/{id}/"})
-    public AddressDto getAddress(@PathVariable("id") String id) throws IllegalArgumentException {
+    public AddressDto getAddress(@PathVariable("id") String id) throws NoSuchElementException, IllegalArgumentException {
         Address addressDto = addressService.getAddress(id);
         return DtoConversion.convertToDto(addressDto);
-    }
-
-    /**
-     * Method to return a list of all the addresses in a certain city
-     *
-     * @author Theo Ghanem
-     * @param city
-     * @return a list of all the addresses in city
-     * @throws IllegalArgumentException
-     */
-    @GetMapping(value = {"/address/{city}", "/address/{city}/"})
-    public List<AddressDto> getAddressByCity(@PathVariable("city") String city)  throws IllegalArgumentException {
-        List<AddressDto> addressDtos = new ArrayList<AddressDto>();
-        for (Address address : addressService.getAddressesByCity(city)) {
-            addressDtos.add(DtoConversion.convertToDto(address));
-        }
-        return addressDtos;
-    }
-
-    /**
-     * Method to return a list of all the addresses in a certain street
-     *
-     * @author Theo Ghanem
-     * @param streetName name of the street
-     * @return a list of all the addresses in a certain street
-     * @throws IllegalArgumentException
-     */
-    @GetMapping(value = {"/address/{streetName}", "/address/{streetName}/"})
-    public List<AddressDto> getAddressByStreetName(@PathVariable("streetName") String streetName)  throws IllegalArgumentException {
-        List<AddressDto> addressDtos = new ArrayList<AddressDto>();
-        for (Address address : addressService.getAddressesByStreetName(streetName)) {
-            addressDtos.add(DtoConversion.convertToDto(address));
-        }
-        return addressDtos;
     }
 
     /**
@@ -72,7 +39,7 @@ public class AddressRestController {
      * @throws IllegalArgumentException
      */
     @GetMapping(value = {"/address", "/address/"})
-    public List<AddressDto> getAllAddress()  throws IllegalArgumentException {
+    public List<AddressDto> getAllAddress() {
         List<AddressDto> addressDtos = new ArrayList<>();
         for (Address address : addressService.getAllAddress()) {
             addressDtos.add(DtoConversion.convertToDto(address));

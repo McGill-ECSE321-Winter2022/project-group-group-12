@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.GSSS.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,7 +44,7 @@ public class CustomerRestController {
 	   * @return list of all customers DTOs
 	   */
 	  @GetMapping(value = {"/customers", "/customers/"})
-	  public List<CustomerDto> getAllCustomers() throws IllegalArgumentException {
+	  public List<CustomerDto> getAllCustomers(){
 	    List<CustomerDto> customerDtos = new ArrayList<>();
 		for (Customer customer : customerService.getAllCustomers()) {
 			customerDtos.add(DtoConversion.convertToDto(customer));
@@ -57,9 +58,10 @@ public class CustomerRestController {
 	   * @author Enzo Benoit-Jeannin
 	   * @param email The email to search the cutsomer from
 	   * @return The corresponding customer dto
+	   * @throws NoSuchElementException, IllegalArgumentException
 	   */
 	  @GetMapping(value = {"/customer/{email}", "/customer/{email}/"})
-	  public CustomerDto getCustomer(@PathVariable("email") String email) {
+	  public CustomerDto getCustomer(@PathVariable("email") String email) throws IllegalArgumentException, NoSuchElementException {
 
 	    if (email == null)
 	      throw new IllegalArgumentException("There is no such email!");
@@ -108,9 +110,10 @@ public class CustomerRestController {
 	   * @param email Email of the cusotmer to add the purchase to 
 	   * @param purchaseDto Purchase Dto to use to create the Purchase object
 	   * @return Customer DTO 
+	   * @thorws IllegalArgumentException
 	   */
 	  @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
-	  public CustomerDto addPurchase(@PathVariable String email, @RequestBody PurchaseDto purchaseDto) {
+	  public CustomerDto addPurchase(@PathVariable String email, @RequestBody PurchaseDto purchaseDto) throws IllegalArgumentException {
 		  Purchase purchase = purchaseService.createPurchase(purchaseDto.getOrderType(), DtoConversion.convertToDomainObject(purchaseDto.getEmployee()), purchaseDto.getOrderStatus(), DtoConversion.convertItemMapDto(purchaseDto.getItems()));
 		  return DtoConversion.convertToDto(customerService.addPurchase(customerService.getCustomer(email), purchase));
 	  }

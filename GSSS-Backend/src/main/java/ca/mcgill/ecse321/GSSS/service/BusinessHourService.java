@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.GSSS.service;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import ca.mcgill.ecse321.GSSS.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class BusinessHourService {
     }
     BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(weekday);
     if (businessHour == null) {
-		throw new IllegalArgumentException("No businessHour with weekday "+ weekday.name() + " exits!");
+		throw new NoSuchElementException("No businessHour with weekday "+ weekday.name() + " exits!");
 	}
 	return businessHour;
   }
