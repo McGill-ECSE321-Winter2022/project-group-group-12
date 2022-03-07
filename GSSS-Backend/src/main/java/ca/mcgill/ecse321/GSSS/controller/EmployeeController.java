@@ -54,6 +54,7 @@ public class EmployeeController {
    * 
    * @param employee Employee DTO (passed in the request body).
    * @return DTO of the newly created employee.
+   * @throws IllegalArgumentException If the input is invalid
    */
   @PostMapping(value = {"/employee", "/employee/"})
   public EmployeeDto createEmployee(@RequestBody EmployeeDto employee)
@@ -70,6 +71,7 @@ public class EmployeeController {
    * 
    * @param employee Employee DTO
    * @return DTO of the newly updated employee.
+   * @throws IllegalArgumentException If the input is invalid
    */
   @PutMapping(value = {"/employee", "/employee/"})
   public EmployeeDto modifyEmployee(@RequestBody EmployeeDto employee)
@@ -86,6 +88,8 @@ public class EmployeeController {
    * 
    * @param email Email of the employee to fetch.
    * @return DTO of the employee corresponding to the email.
+   * @throws IllegalArgumentException If the input is invalid
+   * @throws NoSuchElementException If the service method finds an element doesn't exist
    */
   @GetMapping(value = {"/employee/{email}", "/employee/{email}/"})
   public EmployeeDto getEmployee(@PathVariable("email") String email)
@@ -99,6 +103,7 @@ public class EmployeeController {
    * @author Philippe Sarouphim Hochar.
    * 
    * @param email Email of the employee to delete.
+   * @throws IllegalArgumentException If the input is invalid
    */
   @DeleteMapping(value = {"/employee/{email}", "/employee/{email}/"})
   public void deleteEmployee(@PathVariable("email") String email) throws IllegalArgumentException {
@@ -115,6 +120,8 @@ public class EmployeeController {
    * @param email Email of the employee (in the path).
    * @param shift Shift (in the req body).
    * @return DTO of the new employee.
+   * @throws IllegalArgumentException If the input is invalid
+   * @throws NoSuchElementException If the service method finds an element doesn't exist
    */
   @PostMapping(value = {"/employee/shift/{email}", "/employee/shift/{email}/"})
   public EmployeeDto addShift(@PathVariable String email, @RequestBody ShiftDto shift)
@@ -132,6 +139,7 @@ public class EmployeeController {
    * 
    * @param email Email of the employee (passed in path).
    * @param id Id of the shift (passed in path).
+   * @throws IllegalArgumentException If the input is invalid
    */
   @DeleteMapping(value = {"/employee/shift/{email}/{id}", "/employee/shift/{email}/{id}/"})
   public void removeShift(@PathVariable("email") String email, @PathVariable("id") String id)
