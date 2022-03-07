@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import ca.mcgill.ecse321.GSSS.dto.AddressDto;
 import ca.mcgill.ecse321.GSSS.dto.BusinessHourDto;
