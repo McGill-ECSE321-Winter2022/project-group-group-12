@@ -23,7 +23,6 @@ import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
 import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Item;
-import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.model.OrderStatus;
 import ca.mcgill.ecse321.GSSS.model.OrderType;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
@@ -48,7 +47,7 @@ public class PurchaseRestController {
    * method to get purchase by id
    * 
    * @author Habib Jarweh
-   * @param id
+   * @param id the purchase's id
    * @return purchaseDto converted purchase
    * @throws IllegalArgumentException if argument is not valid
    * @throws NoSuchElementException if element is null
@@ -216,15 +215,30 @@ public class PurchaseRestController {
  * @return purchaseDto
  * @throws IllegalArgumentException
  */
-  @PostMapping(value = {"purchase/modify/{purchaseid}/", "/purchase/modify/{purchaseId}"})
+  @PostMapping(value = {"purchase/modify/{purchaseid}", "/purchase/modify/{purchaseId}/"})
   public PurchaseDto modifyPurchase(@PathVariable(name = "purchaseid") String purchaseId,
-      @RequestParam(name = "orderType") OrderType orderType,
-      @RequestParam(name = "orderStatus") OrderStatus orderStatus,
-      @RequestParam(name = "newItems") Map<Item, Integer> newItems,
+      @RequestParam(name = "orderType") String orderType,
+      @RequestParam(name = "orderStatus") String orderStatus,
+      @RequestBody HashMap<ItemDto, Integer> data,
       @RequestParam(name = "employeeDto") EmployeeDto employeeDto) throws IllegalArgumentException {
     
+    OrderType actualOrderType = DtoConversion.findOrderTypeByName(orderType);
+    // Checking that it is not null
+    if (actualOrderType == null)
+      throw new IllegalArgumentException("Invalid order type!");
+
+    OrderStatus actualOrderStatus = DtoConversion.findOrderStatusByName(orderStatus);
+    // Checking that it is not null
+    if (actualOrderStatus == null)
+      throw new IllegalArgumentException("Invalid order status!");
+    
+    HashMap<Item, Integer> items = new HashMap<Item, Integer>();
+    for (Map.Entry<ItemDto, Integer> entry : data.entrySet()) {
+      items.put(DtoConversion.convertToDomainObject(entry.getKey()), entry.getValue());
+    }
+    
     Employee employee = employeeService.getEmployeeByEmail(employeeDto.getEmail());
-    Purchase purchase = purchaseService.modifyPurchase(orderType, orderStatus, purchaseId, newItems, employee);
+    Purchase purchase = purchaseService.modifyPurchase(actualOrderType, actualOrderStatus, purchaseId, items, employee);
 
     return DtoConversion.convertToDto(purchase);
 
