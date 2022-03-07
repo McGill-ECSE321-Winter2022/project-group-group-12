@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,9 +26,11 @@ import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.OrderStatus;
 import ca.mcgill.ecse321.GSSS.model.OrderType;
+import ca.mcgill.ecse321.GSSS.model.Owner;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.service.CustomerService;
 import ca.mcgill.ecse321.GSSS.service.EmployeeService;
+import ca.mcgill.ecse321.GSSS.service.OwnerService;
 import ca.mcgill.ecse321.GSSS.service.PurchaseService;
 
 @CrossOrigin(origins = "*")
@@ -42,6 +45,9 @@ public class PurchaseRestController {
 
   @Autowired
   CustomerService customerService;
+  
+  @Autowired
+  OwnerService ownerService;
 
   /**
    * method to get purchase by id
@@ -70,7 +76,8 @@ public class PurchaseRestController {
    */
   @GetMapping(value = {"/purchases/{employeeEmail}", "/purchases/{employeeEmail}/"})
   public List<PurchaseDto> getPurchasesByEmployee(
-      @PathVariable("employeeEmail") String employeeEmail) throws IllegalArgumentException, NoSuchElementException {
+      @PathVariable("employeeEmail") String employeeEmail)
+      throws IllegalArgumentException, NoSuchElementException {
 
     Employee employee = employeeService.getEmployeeByEmail(employeeEmail);
     List<Purchase> allPurchases = purchaseService.getPurchasesByEmployee(employee);
@@ -95,7 +102,8 @@ public class PurchaseRestController {
    * @throws NoSuchElementException if element is null
    */
   @GetMapping(value = {"/purchasesbydate", "/purchasesbydate/"})
-  public List<PurchaseDto> getPurchasesByDate(Date date) throws IllegalArgumentException, NoSuchElementException {
+  public List<PurchaseDto> getPurchasesByDate(Date date)
+      throws IllegalArgumentException, NoSuchElementException {
 
     List<Purchase> allPurchases = purchaseService.getPurchasesByDate(date);
     List<PurchaseDto> purchaseDtos = new ArrayList<PurchaseDto>();
@@ -120,7 +128,8 @@ public class PurchaseRestController {
    */
   @GetMapping(value = {"/purchases/{customerEmail}/", "/purchases/{customerEmail}"})
   public List<PurchaseDto> getPurchasesByCustomer(
-      @PathVariable("customerEmail") String customerEmail) throws IllegalArgumentException, NoSuchElementException {
+      @PathVariable("customerEmail") String customerEmail)
+      throws IllegalArgumentException, NoSuchElementException {
 
     Customer customer = customerService.getCustomer(customerEmail);
     List<Purchase> allPurchases = purchaseService.getOrderHistory(customer);
@@ -203,25 +212,25 @@ public class PurchaseRestController {
 
   }
 
-/**
- * method to update/modify a purchase
- * 
- * @author Habib Jarweh
- * @param purchaseId id of purchase
- * @param orderType type of the purchase
- * @param orderStatus status of order
- * @param newItems items in the purchase
- * @param employeeDto employee assigned to purchase
- * @return purchaseDto
- * @throws IllegalArgumentException
- */
+  /**
+   * method to update/modify a purchase
+   * 
+   * @author Habib Jarweh
+   * @param purchaseId id of purchase
+   * @param orderType type of the purchase
+   * @param orderStatus status of order
+   * @param newItems items in the purchase
+   * @param employeeDto employee assigned to purchase
+   * @return purchaseDto
+   * @throws IllegalArgumentException
+   */
   @PostMapping(value = {"purchase/modify/{purchaseid}", "/purchase/modify/{purchaseId}/"})
   public PurchaseDto modifyPurchase(@PathVariable(name = "purchaseid") String purchaseId,
       @RequestParam(name = "orderType") String orderType,
       @RequestParam(name = "orderStatus") String orderStatus,
       @RequestBody HashMap<ItemDto, Integer> data,
       @RequestParam(name = "employeeDto") EmployeeDto employeeDto) throws IllegalArgumentException {
-    
+
     OrderType actualOrderType = DtoConversion.findOrderTypeByName(orderType);
     // Checking that it is not null
     if (actualOrderType == null)
@@ -231,17 +240,65 @@ public class PurchaseRestController {
     // Checking that it is not null
     if (actualOrderStatus == null)
       throw new IllegalArgumentException("Invalid order status!");
-    
+
     HashMap<Item, Integer> items = new HashMap<Item, Integer>();
     for (Map.Entry<ItemDto, Integer> entry : data.entrySet()) {
       items.put(DtoConversion.convertToDomainObject(entry.getKey()), entry.getValue());
     }
-    
+
     Employee employee = employeeService.getEmployeeByEmail(employeeDto.getEmail());
-    Purchase purchase = purchaseService.modifyPurchase(actualOrderType, actualOrderStatus, purchaseId, items, employee);
+    Purchase purchase = purchaseService.modifyPurchase(actualOrderType, actualOrderStatus,
+        purchaseId, items, employee);
 
     return DtoConversion.convertToDto(purchase);
 
+  }
+
+  /**
+   * Method that returns the total cost of a purchase
+   * 
+   * @author Wassim Jabbour
+   * @param id The id of the purchase
+   * @throws IllegalArgumentException In case the id is null or empty
+   * @throws NoSuchElementException In case the id doesn't correspond to any purchase
+   */
+  @GetMapping(value = {"/purchase/cost/{id}", "/purchase/cost/{id}/"})
+  public double computeTotalCost(@PathVariable("id") String id)
+      throws IllegalArgumentException, NoSuchElementException {
+
+    // Getting the purchase
+    Purchase purchase = purchaseService.getPurchase(id);
+
+    // To keep track of total cost
+    double totalCost = 0;
+
+    // Computing total cost of items
+    for (Entry<Item, Integer> entry : purchase.getItems().entrySet()) {
+      totalCost += entry.getKey().getPrice() * entry.getValue();
+    }
+
+    // Finding the associated customer if it exists (Will be null for an in person purchase)
+    Customer customer;
+    try {
+      customer = customerService.getCustomerByPurchase(purchase);
+    } catch (NoSuchElementException e) { // This exception is thrown if the purchase corresponds to no customer
+      customer = null;
+    }
+    
+    // Getting the system information
+    Owner owner = ownerService.getOwner();
+    String city = owner.getStoreCity();
+    double fee = owner.getOutOfTownDeliveryFee();
+    
+    // Adding the fee if the order is a delivery out of the city
+    if (customer != null && purchase.getOrderType().equals(OrderType.Delivery)) {
+      if(!city.equals(customer.getAddress().getCity())) {
+        totalCost += fee;
+      }
+    }
+    
+    // Returning the total cost
+    return totalCost;
   }
 
   /**

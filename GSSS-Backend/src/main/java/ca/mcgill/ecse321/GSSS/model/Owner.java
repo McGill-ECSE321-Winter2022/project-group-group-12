@@ -10,5 +10,22 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Owner extends Account {
+  
+  // The SYSTEM'S information (Stored in the owner class cause the system only has 1 owner)
+  String storeCity;
+  double outOfTownDeliveryFee;
+  
+  public String getStoreCity() {
+    return storeCity;
+  }
+  public void setStoreCity(String storeCity) {
+    this.storeCity = storeCity;
+  }
+  public double getOutOfTownDeliveryFee() {
+    return outOfTownDeliveryFee;
+  }
+  public void setOutOfTownDeliveryFee(double outOfTownDeliveryFee) {
+    this.outOfTownDeliveryFee = outOfTownDeliveryFee;
+  }
 
 }
