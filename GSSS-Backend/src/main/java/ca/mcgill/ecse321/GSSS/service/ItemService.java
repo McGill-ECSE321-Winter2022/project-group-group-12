@@ -7,6 +7,7 @@ import ca.mcgill.ecse321.GSSS.dao.ItemRepository;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Services of the item class
@@ -31,7 +32,12 @@ public class ItemService {
    */
   @Transactional
   public Item getItemByName(String name) {
+    if(name == null || name.trim().length() == 0)
+      throw new IllegalArgumentException("name cannot be empty!");
+    if (itemRepository.findItemByName(name) == null) 
+      throw new NoSuchElementException("The item with name" +name+ "does not exist!");
     return itemRepository.findItemByName(name);
+    
   }
 
   /**

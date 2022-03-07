@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 /**
@@ -42,6 +43,9 @@ public class ShiftService {
             throw new IllegalArgumentException("Shift id cannot be empty!");
         }
         Shift shift = shiftRepository.findShiftById(id);
+        if (shift == null) {
+          throw new NoSuchElementException("No shift with id " + id + " exists!");
+        }
         return shift;
     }
 
@@ -58,6 +62,9 @@ public class ShiftService {
             throw new IllegalArgumentException("Shift date cannot be null! ");
         }
         List<Shift> shifts = shiftRepository.findShiftsByDate(date);
+        if (shifts == null) {
+          throw new NoSuchElementException("No shifts with the date " + date + " exist!");
+        }
         return shifts;
     }
 
