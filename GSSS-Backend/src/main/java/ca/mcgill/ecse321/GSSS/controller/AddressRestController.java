@@ -38,7 +38,7 @@ public class AddressRestController {
      * @return a list of all the addresses
      * @throws IllegalArgumentException
      */
-    @GetMapping(value = {"/address", "/address/"})
+    @GetMapping(value = {"/addresses", "/addresses/"})
     public List<AddressDto> getAllAddress() {
         List<AddressDto> addressDtos = new ArrayList<>();
         for (Address address : addressService.getAllAddress()) {
