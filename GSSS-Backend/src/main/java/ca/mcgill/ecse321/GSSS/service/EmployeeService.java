@@ -7,6 +7,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
+
+import ca.mcgill.ecse321.GSSS.controller.DtoConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
@@ -47,6 +49,8 @@ public class EmployeeService {
     String error = "";
     if (email == null || email.trim().length() == 0)
       error += "Employee email cannot be empty! ";
+    if (!HelperClass.isEmailValid(email))
+      error += "Email not valid! ";
     if (username == null || username.trim().length() == 0)
       error += "Employee username cannot be empty! ";
     if (password == null || password.trim().length() == 0)

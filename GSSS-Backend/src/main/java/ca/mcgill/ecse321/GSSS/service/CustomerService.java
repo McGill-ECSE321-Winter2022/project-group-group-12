@@ -147,6 +147,8 @@ public class CustomerService {
     String error = "";
     if(email == null || email.trim().length() == 0)
       error += "Customer email cannot be empty! ";
+    if (!HelperClass.isEmailValid(email))
+      error += "Email not valid! ";
     if(username == null || username.trim().length() == 0)
       error += "Customer username cannot be empty! ";
     if(password == null || password.trim().length() == 0)

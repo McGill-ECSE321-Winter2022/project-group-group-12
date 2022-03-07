@@ -422,7 +422,7 @@ public class DtoConversion {
    * 
    * @author Philippe Sarouphim Hochar.
    * 
-   * @param addressDto Shift DTO.
+   * @param shiftDto Shift DTO.
    * @return Shift DAO.
    */
   static Shift convertToDomainObject(ShiftDto shiftDto){
@@ -495,7 +495,7 @@ public class DtoConversion {
    * Converts the owner to its DTO equivalent
    * 
    * @author Enzo Benoit-Jeannin
-   * @param customer The owner object to convert
+   * @param owner The owner object to convert
    * @return The corresponding dto
    */
   static OwnerDto convertToDto(Owner owner) {
@@ -507,5 +507,4 @@ public class DtoConversion {
     return ownerDto;
   }
   
-
 }
