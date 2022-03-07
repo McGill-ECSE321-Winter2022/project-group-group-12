@@ -74,41 +74,14 @@ public class AddressService {
 	    if(id == null || id.trim().length() == 0)
 	      throw new IllegalArgumentException("Address id cannot be empty!");
 	    
-		return addressRepository.findAddressById(id);
-	}
-	
-	/**
-	 * Find an address by its City
-	 * 
-	 * @author Enzo Benoit-Jeannin
-	 * @param city City of the address
-	 * @return The found address
-	 */
-	@Transactional
-	public List<Address> getAddressesByCity(String city) {
+		Address address = addressRepository.findAddressById(id);
 		
-		// Input validation
-	    if(city == null || city.trim().length() == 0)
-	      throw new IllegalArgumentException("Address city cannot be empty!");
-	    
-		return addressRepository.findAddressesByCity(city);
+		if (address == null) {
+			throw new IllegalArgumentException("No address with id "+ id+ " exits!");
+		}
+		return address;
 	}
 	
-	/**
-	 * Find an address by its StreetName
-	 * 
-	 * @author Enzo Benoit-Jeannin
-	 * @param streetName Name of the street of the address
-	 * @return The found address
-	 */
-	@Transactional
-	public List<Address> getAddressesByStreetName(String streetName) {
-		// Input validation
-	    if(streetName == null || streetName.trim().length() == 0)
-	      throw new IllegalArgumentException("Address street name cannot be empty!");
-	    
-		return addressRepository.findAddressesByStreetName(streetName);
-	}
 	
 	/**
 	 * Finds all the addresses stored in the database
