@@ -41,7 +41,7 @@ public class EmployeeController {
    * @author Philippe Sarouphim Hochar.
    * @return A list of employees corresponding to the query.
    */
-  @GetMapping(value = {"/employee", "/employee/"})
+  @GetMapping(value = {"/employees", "/employees/"})
   public List<EmployeeDto> getAllEmployees() {
     return employeeService.getAllEmployees().stream().map(e -> DtoConversion.convertToDto(e))
         .collect(Collectors.toList());
