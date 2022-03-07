@@ -43,7 +43,7 @@ public class EmployeeController {
    */
   @GetMapping(value = {"/employees", "/employees/"})
   public List<EmployeeDto> getAllEmployees() {
-    return employeeService.getAllEmployees().stream().map(e -> DtoConversion.convertToDto(e))
+    return employeeService.getAllEmployees().stream().map(e -> ConversionUtility.convertToDto(e))
         .collect(Collectors.toList());
   }
 
@@ -59,9 +59,9 @@ public class EmployeeController {
   @PostMapping(value = {"/employee", "/employee/"})
   public EmployeeDto createEmployee(@RequestBody EmployeeDto employee)
       throws IllegalArgumentException {
-    return DtoConversion
+    return ConversionUtility
         .convertToDto(employeeService.createEmployee(employee.getUsername(), employee.getEmail(),
-            employee.getPassword(), DtoConversion.convertToDomainObject(employee.getAddress())));
+            employee.getPassword(), ConversionUtility.convertToDomainObject(employee.getAddress())));
   }
 
   /**
@@ -76,9 +76,9 @@ public class EmployeeController {
   @PutMapping(value = {"/employee", "/employee/"})
   public EmployeeDto modifyEmployee(@RequestBody EmployeeDto employee)
       throws IllegalArgumentException {
-    return DtoConversion
+    return ConversionUtility
         .convertToDto(employeeService.modifyEmployee(employee.getUsername(), employee.getEmail(),
-            DtoConversion.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
+            ConversionUtility.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
   }
 
   /**
@@ -94,7 +94,7 @@ public class EmployeeController {
   @GetMapping(value = {"/employee/{email}", "/employee/{email}/"})
   public EmployeeDto getEmployee(@PathVariable("email") String email)
       throws IllegalArgumentException, NoSuchElementException {
-    return DtoConversion.convertToDto(employeeService.getEmployeeByEmail(email));
+    return ConversionUtility.convertToDto(employeeService.getEmployeeByEmail(email));
   }
 
   /**
@@ -128,7 +128,7 @@ public class EmployeeController {
       throws IllegalArgumentException, NoSuchElementException {
     Shift newShift =
         shiftService.createShift(shift.getDate(), shift.getStartTime(), shift.getEndTime());
-    return DtoConversion.convertToDto(
+    return ConversionUtility.convertToDto(
         employeeService.addShift(employeeService.getEmployeeByEmail(email), newShift));
   }
 

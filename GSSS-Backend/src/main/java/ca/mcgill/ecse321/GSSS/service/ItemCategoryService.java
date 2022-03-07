@@ -52,7 +52,7 @@ public class ItemCategoryService {
      */
     @Transactional
     public List<ItemCategory> getAll(){
-        return HelperClass.toList(itemCategoryRepository.findAll());
+        return Utility.toList(itemCategoryRepository.findAll());
     }
 
     /**

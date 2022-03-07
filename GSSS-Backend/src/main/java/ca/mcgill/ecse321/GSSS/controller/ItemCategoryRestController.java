@@ -37,7 +37,7 @@ public class ItemCategoryRestController {
   public ItemCategoryDto createCategory(@RequestParam(name = "name") String name)
       throws IllegalArgumentException {
     ItemCategory itemCategory = itemCategoryService.createCategory(name);
-    return DtoConversion.convertToDto(itemCategory);
+    return ConversionUtility.convertToDto(itemCategory);
   }
 
   /**
@@ -64,7 +64,7 @@ public class ItemCategoryRestController {
   public List<ItemCategoryDto> getAllItemCategories() throws IllegalArgumentException {
     List<ItemCategoryDto> itemCategoryDtos = new ArrayList<>();
     for (ItemCategory itemCategory : itemCategoryService.getAll()) {
-      itemCategoryDtos.add(DtoConversion.convertToDto(itemCategory));
+      itemCategoryDtos.add(ConversionUtility.convertToDto(itemCategory));
     }
     return itemCategoryDtos;
   }
@@ -81,7 +81,7 @@ public class ItemCategoryRestController {
   public ItemCategoryDto getCategoryByName(@PathVariable("name") String name)
       throws IllegalArgumentException {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(name);
-    return DtoConversion.convertToDto(itemCategory);
+    return ConversionUtility.convertToDto(itemCategory);
   }
 
 }

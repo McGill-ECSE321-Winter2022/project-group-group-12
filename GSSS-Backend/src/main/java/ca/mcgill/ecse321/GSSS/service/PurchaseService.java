@@ -66,7 +66,7 @@ public class PurchaseService {
    */
   public List<Purchase> getAllPurchases() {
     
-    return HelperClass.toList(purchaseRepository.findAll());
+    return Utility.toList(purchaseRepository.findAll());
     
   }
 

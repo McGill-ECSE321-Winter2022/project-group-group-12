@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
 
-import ca.mcgill.ecse321.GSSS.controller.DtoConversion;
+import ca.mcgill.ecse321.GSSS.controller.ConversionUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
@@ -49,7 +49,7 @@ public class EmployeeService {
     String error = "";
     if (email == null || email.trim().length() == 0)
       error += "Employee email cannot be empty! ";
-    if (!HelperClass.isEmailValid(email))
+    if (!Utility.isEmailValid(email))
       error += "Email not valid! ";
     if (username == null || username.trim().length() == 0)
       error += "Employee username cannot be empty! ";
@@ -63,8 +63,8 @@ public class EmployeeService {
     Employee employee = new Employee();
     employee.setUsername(username);
     employee.setEmail(email);
-    employee.setSalt(HelperClass.getSalt());
-    employee.setPassword(HelperClass.hashAndSaltPassword(password, employee.getSalt()));
+    employee.setSalt(Utility.getSalt());
+    employee.setPassword(Utility.hashAndSaltPassword(password, employee.getSalt()));
     employee.setAddress(address);
     employee.setDisabled(false);
     employeeRepository.save(employee);
@@ -220,7 +220,7 @@ public class EmployeeService {
    */
   @Transactional
   public List<Employee> getAllEmployees() {
-    return HelperClass.toList(employeeRepository.findAll());
+    return Utility.toList(employeeRepository.findAll());
   }
 
   // OTHER Methods
@@ -278,7 +278,7 @@ public class EmployeeService {
   public Employee getClosestEmployee() {
 
     // Getting all shifts
-    List<Shift> shifts = HelperClass.toList(shiftRepository.findAll());
+    List<Shift> shifts = Utility.toList(shiftRepository.findAll());
 
     // Current date and time
     Date currentDate = new Date(System.currentTimeMillis());

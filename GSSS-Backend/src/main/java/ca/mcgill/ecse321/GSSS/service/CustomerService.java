@@ -111,7 +111,7 @@ public class CustomerService {
    */
   @Transactional
   public List<Customer> getAllCustomers() {
-    return HelperClass.toList(customerRepository.findAll());
+    return Utility.toList(customerRepository.findAll());
   }
 
   /**
@@ -147,7 +147,7 @@ public class CustomerService {
     String error = "";
     if(email == null || email.trim().length() == 0)
       error += "Customer email cannot be empty! ";
-    if (!HelperClass.isEmailValid(email))
+    if (!Utility.isEmailValid(email))
       error += "Email not valid! ";
     if(username == null || username.trim().length() == 0)
       error += "Customer username cannot be empty! ";
@@ -161,8 +161,8 @@ public class CustomerService {
     Customer customer = new Customer();
     customer.setEmail(email);
     customer.setUsername(username);
-    customer.setSalt(HelperClass.getSalt());
-    customer.setPassword(HelperClass.hashAndSaltPassword(password, customer.getSalt()));
+    customer.setSalt(Utility.getSalt());
+    customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));
     customer.setAddress(address);
     customerRepository.save(customer);
     return customer;

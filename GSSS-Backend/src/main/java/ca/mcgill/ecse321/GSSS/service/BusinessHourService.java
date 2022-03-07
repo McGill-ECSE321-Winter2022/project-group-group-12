@@ -52,7 +52,7 @@ public class BusinessHourService {
    */
   @Transactional
   public List<BusinessHour> getAllBusinessHours() {
-    return HelperClass.toList(businessHourRepository.findAll());
+    return Utility.toList(businessHourRepository.findAll());
   }
 
   /**

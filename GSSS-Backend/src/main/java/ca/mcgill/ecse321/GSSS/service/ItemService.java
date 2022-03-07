@@ -48,7 +48,7 @@ public class ItemService {
    */
   @Transactional
   public List<Item> getAllItems() {
-    return HelperClass.toList(itemRepository.findAll());
+    return Utility.toList(itemRepository.findAll());
   }
 
 

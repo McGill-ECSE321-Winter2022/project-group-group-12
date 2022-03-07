@@ -92,7 +92,7 @@ public class AddressService {
 	 */
 	@Transactional
 	public List<Address> getAllAddress(){
-		return HelperClass.toList(addressRepository.findAll());
+		return Utility.toList(addressRepository.findAll());
 	}
 	
 	// DELETE Method

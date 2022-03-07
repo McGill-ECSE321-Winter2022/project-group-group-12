@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * @author Wassim Jabbour
  *
  */
-public class HelperClass {
+public class Utility {
 
   /**
    * Used to hash and salt a password
@@ -102,7 +102,7 @@ public class HelperClass {
    * @return true if email is valid, and false if email is invalid
    */
   static boolean isEmailValid(String email) {
-    String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; //OWASP validation regex:
+    String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // OWASP validation regex 
 
     //initialize the Pattern object
     Pattern pattern = Pattern.compile(regex);
