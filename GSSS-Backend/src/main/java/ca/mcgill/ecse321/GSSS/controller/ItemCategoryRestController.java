@@ -41,6 +41,19 @@ public class ItemCategoryRestController {
   }
 
   /**
+   * This method deletes the category
+   *
+   * @author Chris Hatoum
+   *
+   * @param name the name of the category we want to retrieve Does not return anything
+   * @throws IllegalArgumentException
+   */
+  @DeleteMapping(value = {"/itemCategory/{name}", "/itemCategory/{name}/"})
+  public void deleteCategory(@PathVariable("name") String name) throws IllegalArgumentException {
+    itemCategoryService.deleteCategory(name);
+  }
+
+  /**
    * Method to get list of all the itemCategoryDTO's
    *
    * @author Chris Hatoum
@@ -67,21 +80,8 @@ public class ItemCategoryRestController {
   @GetMapping(value = {"/itemCategory/{name}", "/itemCategory/{name}/"})
   public ItemCategoryDto getCategoryByName(@PathVariable("name") String name)
       throws IllegalArgumentException {
-    ItemCategory itemCategory1 = itemCategoryService.getCategoryByName(name);
-    return DtoConversion.convertToDto(itemCategory1);
-  }
-
-  /**
-   * This method deletes the category
-   *
-   * @author Chris Hatoum
-   *
-   * @param name the name of the category we want to retrieve Does not return anything
-   * @throws IllegalArgumentException
-   */
-  @DeleteMapping(value = {"/itemCategory/{name}", "/itemCategory/{name}/"})
-  public void deleteCategory(@PathVariable("name") String name) throws IllegalArgumentException {
-    itemCategoryService.deleteCategory(name);
+    ItemCategory itemCategory = itemCategoryService.getCategoryByName(name);
+    return DtoConversion.convertToDto(itemCategory);
   }
 
 }

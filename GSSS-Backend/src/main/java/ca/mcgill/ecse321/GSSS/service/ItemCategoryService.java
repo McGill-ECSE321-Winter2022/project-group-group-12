@@ -32,13 +32,11 @@ public class ItemCategoryService {
      */
     @Transactional
     public ItemCategory createCategory(String name){
-        // Check if category already exists in database
-        if(itemCategoryRepository.findItemCategoryByName(name) != null) return null;
-
         // Input validation
-        if(name == null || name.equals("")) return null;
+    	if(name == null || name.trim().length() == 0)
+        	throw new IllegalArgumentException("Item category name cannot be empty!");
 
-        // Createand attempt to add new category to database
+        // Create and attempt to add new category to database
         ItemCategory category = new ItemCategory();
         category.setName(name);
 
@@ -54,9 +52,7 @@ public class ItemCategoryService {
      */
     @Transactional
     public List<ItemCategory> getAll(){
-        List<ItemCategory> categories = new ArrayList<ItemCategory>();
-        for(ItemCategory ic: itemCategoryRepository.findAll()) categories.add(ic);
-        return categories;
+        return HelperClass.toList(itemCategoryRepository.findAll());
     }
 
     /**
@@ -69,7 +65,15 @@ public class ItemCategoryService {
      */
     @Transactional
     public ItemCategory getCategoryByName(String name){
-        return itemCategoryRepository.findItemCategoryByName(name);
+    	 // Input validation
+    	if(name == null || name.trim().length() == 0)
+        	throw new IllegalArgumentException("Item category name cannot be empty!");
+        
+        ItemCategory itemcategory = itemCategoryRepository.findItemCategoryByName(name);
+        if (itemcategory == null) {
+    		throw new IllegalArgumentException("No item category with name "+name+" exits!");
+    	}
+        return itemcategory;
     }
 
     /**
@@ -81,6 +85,10 @@ public class ItemCategoryService {
      */
     @Transactional
     public void deleteCategory(String name){
+    	 // Input validation
+    	if(name == null || name.trim().length() == 0)
+        	throw new IllegalArgumentException("Item category name cannot be empty!");
+        
         itemCategoryRepository.deleteById(name);
     }
 

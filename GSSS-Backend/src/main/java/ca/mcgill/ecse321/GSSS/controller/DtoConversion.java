@@ -31,6 +31,14 @@ import ca.mcgill.ecse321.GSSS.model.Weekday;
 import ca.mcgill.ecse321.GSSS.service.ItemService;
 import ca.mcgill.ecse321.GSSS.service.PurchaseService;
 
+/**
+ * Helper class for methods used across all controller classes
+ *
+ * @author Wassim Jabbour
+ * @author Enzo Benoit Jeannin
+ * @author Philippe Sarouphim Hochar
+ *
+ */
 public class DtoConversion {
 
   @Autowired

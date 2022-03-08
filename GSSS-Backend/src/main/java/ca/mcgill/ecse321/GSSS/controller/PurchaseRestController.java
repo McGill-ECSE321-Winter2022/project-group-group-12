@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ca.mcgill.ecse321.GSSS.dto.EmployeeDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemDto;
 import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
 import ca.mcgill.ecse321.GSSS.model.Customer;
@@ -45,12 +47,14 @@ public class PurchaseRestController {
    * method to get purchase by id
    * 
    * @author Habib Jarweh
-   * @param id
+   * @param id the purchase's id
    * @return purchaseDto converted purchase
+   * @throws IllegalArgumentException if argument is not valid
+   * @throws NoSuchElementException if element is null
    */
   @GetMapping(value = {"/purchase/id", "/purchase/id/"})
   public PurchaseDto getPurchaseById(@PathVariable("id") String id)
-      throws IllegalArgumentException {
+      throws IllegalArgumentException, NoSuchElementException {
     Purchase purchase = purchaseService.getPurchase(id);
     return DtoConversion.convertToDto(purchase);
   }
@@ -61,12 +65,14 @@ public class PurchaseRestController {
    * @author Habib Jarweh
    * @param employeeEmail
    * @return list of purchaseDto
+   * @throws IllegalArgumentException if argument is not valid
+   * @throws NoSuchElementException if element is null
    */
   @GetMapping(value = {"/purchases/{employeeEmail}", "/purchases/{employeeEmail}/"})
   public List<PurchaseDto> getPurchasesByEmployee(
-      @PathVariable("employeeEmail") String employeeEmail) throws IllegalArgumentException {
+      @PathVariable("employeeEmail") String employeeEmail) throws IllegalArgumentException, NoSuchElementException {
 
-    Employee employee = employeeService.getEmployee(employeeEmail);
+    Employee employee = employeeService.getEmployeeByEmail(employeeEmail);
     List<Purchase> allPurchases = purchaseService.getPurchasesByEmployee(employee);
     List<PurchaseDto> purchaseDtos = new ArrayList<PurchaseDto>();
 
@@ -85,9 +91,11 @@ public class PurchaseRestController {
    * @author Habib Jarweh
    * @param date of purchases
    * @return list of purchaseDto
+   * @throws IllegalArgumentException if argument is not valid
+   * @throws NoSuchElementException if element is null
    */
   @GetMapping(value = {"/purchasesbydate", "/purchasesbydate/"})
-  public List<PurchaseDto> getPurchasesByDate(Date date) throws IllegalArgumentException {
+  public List<PurchaseDto> getPurchasesByDate(Date date) throws IllegalArgumentException, NoSuchElementException {
 
     List<Purchase> allPurchases = purchaseService.getPurchasesByDate(date);
     List<PurchaseDto> purchaseDtos = new ArrayList<PurchaseDto>();
@@ -107,10 +115,12 @@ public class PurchaseRestController {
    * @author Habib Jarweh
    * @param customerEmail
    * @return list of purchaseDto
+   * @throws IllegalArgumentException if argument is not valid
+   * @throws NoSuchElementException if element is null
    */
   @GetMapping(value = {"/purchases/{customerEmail}/", "/purchases/{customerEmail}"})
   public List<PurchaseDto> getPurchasesByCustomer(
-      @PathVariable("customerEmail") String customerEmail) throws IllegalArgumentException {
+      @PathVariable("customerEmail") String customerEmail) throws IllegalArgumentException, NoSuchElementException {
 
     Customer customer = customerService.getCustomer(customerEmail);
     List<Purchase> allPurchases = purchaseService.getOrderHistory(customer);
@@ -193,56 +203,55 @@ public class PurchaseRestController {
 
   }
 
-  /**
-   * Modifies the status of a purchase
-   * 
-   * @author Wassim Jabbour
-   * @param purchaseId The id of the purchase
-   * @param orderStatus The new status
-   * @return The new equivalent dto
-   * @throws IllegalArgumentException In case of invalid inputs
-   */
-  @PostMapping(value = {"purchase/modify/{purchaseid}/{orderstatus}/",
-      "/purchase/modify/{purchaseId}/{orderstatus}"})
-  public PurchaseDto modifyPurchaseOrderStatus(@PathVariable(name = "purchaseid") String purchaseId,
-      @PathVariable(name = "orderstatus") String orderStatus) throws IllegalArgumentException {
+/**
+ * method to update/modify a purchase
+ * 
+ * @author Habib Jarweh
+ * @param purchaseId id of purchase
+ * @param orderType type of the purchase
+ * @param orderStatus status of order
+ * @param newItems items in the purchase
+ * @param employeeDto employee assigned to purchase
+ * @return purchaseDto
+ * @throws IllegalArgumentException
+ */
+  @PostMapping(value = {"purchase/modify/{purchaseid}", "/purchase/modify/{purchaseId}/"})
+  public PurchaseDto modifyPurchase(@PathVariable(name = "purchaseid") String purchaseId,
+      @RequestParam(name = "orderType") String orderType,
+      @RequestParam(name = "orderStatus") String orderStatus,
+      @RequestBody HashMap<ItemDto, Integer> data,
+      @RequestParam(name = "employeeDto") EmployeeDto employeeDto) throws IllegalArgumentException {
+    
+    OrderType actualOrderType = DtoConversion.findOrderTypeByName(orderType);
+    // Checking that it is not null
+    if (actualOrderType == null)
+      throw new IllegalArgumentException("Invalid order type!");
 
     OrderStatus actualOrderStatus = DtoConversion.findOrderStatusByName(orderStatus);
-
-    Purchase purchase = purchaseService.modifyPurchaseStatus(actualOrderStatus, purchaseId);
-
-    return DtoConversion.convertToDto(purchase);
-  }
-
-  /**
-   * Modifies the employee of a purchase
-   * 
-   * @author Wassim Jabbour
-   * @param purchaseId The id of the purchase
-   * @param employeeEmail The email of the employee
-   * @return The new equivalent dto
-   * @throws IllegalArgumentException In case of invalid inputs
-   */
-  @PostMapping(value = {"purchase/modify/{purchaseid}/{employeeemail}/",
-      "/purchase/modify/{purchaseId}/{orderstatus}"})
-  public PurchaseDto modifyPurchaseEmployee(@PathVariable(name = "purchaseid") String purchaseId,
-      @PathVariable(name = "employeeemail") String employeeEmail) throws IllegalArgumentException {
-
-    Employee employee = employeeService.getEmployee(employeeEmail);
-
-    Purchase purchase = purchaseService.modifyPurchaseEmployee(employee, purchaseId);
+    // Checking that it is not null
+    if (actualOrderStatus == null)
+      throw new IllegalArgumentException("Invalid order status!");
+    
+    HashMap<Item, Integer> items = new HashMap<Item, Integer>();
+    for (Map.Entry<ItemDto, Integer> entry : data.entrySet()) {
+      items.put(DtoConversion.convertToDomainObject(entry.getKey()), entry.getValue());
+    }
+    
+    Employee employee = employeeService.getEmployeeByEmail(employeeDto.getEmail());
+    Purchase purchase = purchaseService.modifyPurchase(actualOrderType, actualOrderStatus, purchaseId, items, employee);
 
     return DtoConversion.convertToDto(purchase);
+
   }
 
   /**
    * method to delete purchase
    * 
    * @author Habib Jarweh
-   * @param id id of purchase
+   * @param id id of purchase we want to delete
    * @throws IllegalArgumentException
    */
-  @DeleteMapping(value = {"/item/{id}", "/item/{id}/"})
+  @DeleteMapping(value = {"/purchase/{id}", "/purchase/{id}/"})
   public void deletePurchase(@PathVariable("id") String id) throws IllegalArgumentException {
     purchaseService.deletePurchase(id);
   }

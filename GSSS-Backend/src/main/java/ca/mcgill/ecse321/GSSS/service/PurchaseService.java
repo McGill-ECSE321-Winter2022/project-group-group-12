@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,8 @@ public class PurchaseService {
       throw new IllegalArgumentException("Purchase ID cannot be empty!");
     
     Purchase purchase = purchaseRepository.findPurchaseById(purchaseId);
+    if (purchase == null) 
+      throw new NoSuchElementException("The purchase with id" +purchaseId+ "does not exist!");
     return purchase;
   }
   
@@ -81,6 +84,9 @@ public class PurchaseService {
       throw new IllegalArgumentException("Date cannot be null!");
     
     List<Purchase> purchases = purchaseRepository.findPurchasesByDate(date);
+    if (purchases == null) 
+      throw new NoSuchElementException("There are no purchases on " +date+  " !");
+    
     return purchases;
   }
 
@@ -104,6 +110,9 @@ public class PurchaseService {
       throw new IllegalArgumentException(error);
     
     List<Purchase> purchases = purchaseRepository.findPurchasesByDateAndTime(date, time);
+    if (purchases == null) 
+      throw new NoSuchElementException("There are no purchases on " +date+  " and time" +time+ " !");
+    
     return purchases;
   }
 
@@ -121,9 +130,31 @@ public class PurchaseService {
       throw new IllegalArgumentException("Employee cannot be null!");
     
     List<Purchase> purchases = purchaseRepository.findPurchasesByEmployee(employee);
+    if (purchases == null) 
+      throw new NoSuchElementException("There are no purchases assigned to given employee!");
+    
     return purchases;
   }
 
+  // OTHER methods
+  
+  /**
+   * method to get order history of customer
+   * 
+   * @author Habib Jarweh
+   * @param customer The customer 
+   * @return list of his purchases
+   */
+  public List<Purchase> getOrderHistory(Customer customer) {
+    
+    // Input validation
+    if(customer == null)
+      throw new IllegalArgumentException("Customer cannot be null!");
+    
+    List<Purchase> list = new ArrayList<>(customer.getPurchases());
+    
+    return list;
+  }
 
   // CREATE method
 
@@ -225,73 +256,5 @@ public class PurchaseService {
     return purchase;
   }
   
-  /**
-   * Method used to modify the order status of a purchase only
-   * 
-   * @author Wassim Jabbour
-   * @param orderStatus The new order status
-   * @param purchaseId The ID of the purchase to modify
-   * @return The modified purchase
-   */
-  public Purchase modifyPurchaseStatus(OrderStatus orderStatus, String purchaseId) {
-    
-    // Input validation
-    String error = "";
-    if(orderStatus == null)
-      error += "Order status cannot be null! ";
-    if(purchaseId == null || purchaseId.trim().length() == 0)
-      error += "Purchase ID cannot be empty! ";
-    if(error.length() > 0)
-      throw new IllegalArgumentException(error);
-    
-    Purchase purchase = getPurchase(purchaseId);
-    purchase.setOrderStatus(orderStatus);
-    purchaseRepository.save(purchase);
-    return purchase;
-  }
-  
-  /**
-   * Method used to modify the employee of a purchase only
-   * 
-   * @author Wassim Jabbour
-   * @param purchaseId The ID of the purchase to modify
-   * @param employee The employee responsible for the purchase
-   * @return The modified purchase
-   */
-  public Purchase modifyPurchaseEmployee(Employee employee, String purchaseId) {
-    
-    // Input validation
-    String error = "";
-    if(employee == null)
-      error += "Employee cannot be null! ";
-    if(purchaseId == null || purchaseId.trim().length() == 0)
-      error += "Purchase ID cannot be empty! ";
-    if(error.length() > 0)
-      throw new IllegalArgumentException(error);
-    
-    Purchase purchase = getPurchase(purchaseId);
-    purchase.setEmployee(employee);
-    purchaseRepository.save(purchase);
-    return purchase;
-  }
-  
-  // OTHER methods
-  
-  /**
-   * method to get order history of customer
-   * 
-   * @author Habib Jarweh
-   * @param customer The customer 
-   * @return list of his purchases
-   */
-  public List<Purchase> getOrderHistory(Customer customer) {
-    
-    // Input validation
-    if(customer == null)
-      throw new IllegalArgumentException("Customer cannot be null!");
-    
-    List<Purchase> list = new ArrayList<>(customer.getPurchases()) ;
-    return list;
-  }
 
 }

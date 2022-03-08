@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.GSSS.service;
 
 import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
+import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 /**
@@ -42,6 +45,9 @@ public class ShiftService {
             throw new IllegalArgumentException("Shift id cannot be empty!");
         }
         Shift shift = shiftRepository.findShiftById(id);
+        if (shift == null) {
+          throw new NoSuchElementException("No shift with id " + id + " exists!");
+        }
         return shift;
     }
 
@@ -58,7 +64,29 @@ public class ShiftService {
             throw new IllegalArgumentException("Shift date cannot be null! ");
         }
         List<Shift> shifts = shiftRepository.findShiftsByDate(date);
+        if (shifts == null) {
+          throw new NoSuchElementException("No shifts with the date " + date + " exist!");
+        }
         return shifts;
+    }
+    
+    /**
+     * Method to get all the shifts of an employee
+     * 
+     * @author Chris Hatoum and Enzo Benoit-Jeannin
+     * @param employee The employee to retrieve shifts from
+     * @return the list of the employee's shifts
+     */
+    @Transactional
+    public List<Shift> getShiftsByEmployee(Employee employee) {
+
+      // Input validation
+      if (employee == null)
+        throw new IllegalArgumentException("Employee cannot be null!");
+
+      List<Shift> shiftList = new ArrayList<>(employee.getShifts());
+      
+      return shiftList;
     }
 
 

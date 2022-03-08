@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.GSSS.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +52,11 @@ public class CustomerService {
       throw new IllegalArgumentException("Customer email cannot be empty!");
     
     Customer customer = customerRepository.findCustomerByEmail(email);
+    
+    if (customer == null) {
+		throw new NoSuchElementException("No customer with email "+ email + " exits!");
+	}
+	
     return customer;
   }
 
@@ -68,6 +75,9 @@ public class CustomerService {
       throw new IllegalArgumentException("Customer username cannot be empty!");
     
     List<Customer> customers = customerRepository.findCustomersByUsername(username);
+    if (customers.isEmpty()) {
+		throw new NoSuchElementException("No customer with username "+ username + " exits!");
+	}
     return customers;
   }
 
@@ -86,26 +96,12 @@ public class CustomerService {
       throw new IllegalArgumentException("Purchase cannot be null!");
     
     Customer customer = customerRepository.findCustomerByPurchases(purchase);
+    if (customer == null) {
+		throw new NoSuchElementException("No customer with such purchase exits!");
+	}
     return customer;
   }
 
-  /**
-   * Finds the customer with a given address
-   * 
-   * @author Wassim Jabbour
-   * @param address The address to search for
-   * @return The customer with that address
-   */
-  @Transactional
-  public Customer getCustomerByAddress(Address address) {
-    
-    // Input validation
-    if(address == null)
-      throw new IllegalArgumentException("Address cannot be null!");
-    
-    Customer customer = customerRepository.findCustomerByAddress(address);
-    return customer;
-  }
 
   /**
    * Finds all customers in the database
@@ -128,6 +124,7 @@ public class CustomerService {
   @Transactional
   public List<Customer> getCustomersByAccountState(boolean disabled) {
     List<Customer> customers = customerRepository.findCustomersByDisabled(disabled);
+    // We don't throw an error if no disabled customers is found because it is possible that no customer were banned.
     return customers;
   }
 

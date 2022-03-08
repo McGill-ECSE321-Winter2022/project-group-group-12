@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.GSSS.service;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import ca.mcgill.ecse321.GSSS.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,11 @@ public class BusinessHourService {
     if (weekday == null) {
       throw new IllegalArgumentException("weekday of business hour cannot be null! ");
     }
-    return businessHourRepository.findBusinessHourByWeekday(weekday);
+    BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(weekday);
+    if (businessHour == null) {
+		throw new NoSuchElementException("No businessHour with weekday "+ weekday.name() + " exits!");
+	}
+	return businessHour;
   }
 
   /**
@@ -97,7 +102,7 @@ public class BusinessHourService {
   @Transactional
   public BusinessHour deleteBusinessHour(Weekday weekday) {
     if (weekday == null) {
-      throw new IllegalArgumentException("weekday of business hour cannot be null! ");
+      throw new IllegalArgumentException("Weekday of business hour cannot be null! ");
     }
     BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(weekday);
     businessHourRepository.delete(businessHour);
