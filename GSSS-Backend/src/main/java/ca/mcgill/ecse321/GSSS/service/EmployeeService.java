@@ -54,7 +54,7 @@ public class EmployeeService {
     if (username == null || username.trim().length() == 0)
       error += "Employee username cannot be empty! ";
     if (password == null || password.trim().length() == 0)
-      error += "Employee username cannot be empty! ";
+      error += "Employee password cannot be empty! ";
     if (address == null)
       error += "Address cannot be null! ";
     if (error.length() > 0)
@@ -98,7 +98,7 @@ public class EmployeeService {
 
     Employee employee = employeeRepository.findEmployeeByEmail(email);
     if (employee == null)
-      throw new IllegalArgumentException("Employee does not exist");
+      throw new NoSuchElementException("Employee does not exist");
 
     employee.setUsername(username);
     employee.setAddress(address);
