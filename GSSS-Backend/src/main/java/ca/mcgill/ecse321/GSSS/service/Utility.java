@@ -102,6 +102,8 @@ public class Utility {
    * @return true if email is valid, and false if email is invalid
    */
   static boolean isEmailValid(String email) {
+    if(email == null) return false;
+    
     String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // OWASP validation regex 
 
     //initialize the Pattern object
