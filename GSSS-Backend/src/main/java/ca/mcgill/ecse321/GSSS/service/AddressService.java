@@ -38,6 +38,8 @@ public class AddressService {
 	    String error = "";
 	    if(fullName == null || fullName.trim().length() == 0)
 	      error += "Address full name cannot be empty! ";
+		if (!Utility.isPostalCodeValid(postalCode))
+			error += "Postal Code is not valid! ";
 	    if(streetName == null || streetName.trim().length() == 0)
 	      error += "Address street name cannot be empty! ";
 	    if(streetNumber == null)
