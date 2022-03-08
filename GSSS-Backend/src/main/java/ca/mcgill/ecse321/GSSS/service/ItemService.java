@@ -33,7 +33,7 @@ public class ItemService {
   @Transactional
   public Item getItemByName(String name) {
     if(name == null || name.trim().length() == 0)
-      throw new IllegalArgumentException("name cannot be empty!");
+      throw new IllegalArgumentException("Name cannot be empty!");
     if (itemRepository.findItemByName(name) == null) 
       throw new NoSuchElementException("The item with name" +name+ "does not exist!");
     return itemRepository.findItemByName(name);
@@ -112,7 +112,7 @@ public class ItemService {
    */
   @Transactional
   public void deleteItem(String name) {
-    if (name == null) 
+    if (name == null || name.trim().length() == 0) 
       throw new IllegalArgumentException("Name cannot be empty!");
     Item item = itemRepository.findItemByName(name);
     itemRepository.delete(item);
@@ -151,7 +151,7 @@ public class ItemService {
     if (price < 0)
       error += "Item's price cannot be less than 0! ";
     if (itemCategory == null)
-      error += "Item's category cannot be empty! ";
+      error += "Item's category cannot be empty!";
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
 
