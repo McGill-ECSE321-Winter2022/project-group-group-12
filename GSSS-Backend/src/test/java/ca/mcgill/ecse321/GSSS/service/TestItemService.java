@@ -55,7 +55,7 @@ public class TestItemService {
   // ========================================================================
 
   /**
-   * method that an item is fetched successfully 
+   * method that an item is fetched successfully
    * 
    * @author Habib Jarweh
    */
@@ -112,14 +112,15 @@ public class TestItemService {
   @Test
   public void testGetAllItems_Successful() {
     List<Item> items = itemService.getAllItems();
-    
+
     List<Item> expected = new ArrayList<Item>();
     expected.add(MockDatabase.item1);
     expected.add(MockDatabase.item2);
-    
+
     assertNotNull(items);
     assertEquals(expected.size(), items.size());
-    for(Item i : items) assertTrue(expected.contains(i));
+    for (Item i : items)
+      assertTrue(expected.contains(i));
   }
 
   // ========================================================================
@@ -435,8 +436,10 @@ public class TestItemService {
   public void testDeleteItem_Successful() {
     itemService.deleteItem(MockDatabase.item1.getName());
 
-    verify(itemDao, times(1)).delete(argThat((Item i) -> MockDatabase.item1.getName() == i.getName()));
-    verify(itemDao, times(0)).delete(argThat((Item i) -> MockDatabase.item1.getName() != i.getName()));
+    verify(itemDao, times(1))
+        .delete(argThat((Item i) -> MockDatabase.item1.getName() == i.getName()));
+    verify(itemDao, times(0))
+        .delete(argThat((Item i) -> MockDatabase.item1.getName() != i.getName()));
   }
 
   /**
@@ -511,8 +514,9 @@ public class TestItemService {
     String error = "";
     Item item = itemDao.findItemByName(MockDatabase.item1.getName());
     try {
-      item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(), item.getImageUrl(), -1,
-          item.getPrice(), item.isAvailableForOrder(), item.isStillAvailable(), item.getCategory());
+      item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(),
+          item.getImageUrl(), -1, item.getPrice(), item.isAvailableForOrder(),
+          item.isStillAvailable(), item.getCategory());
     } catch (IllegalArgumentException e) {
       // Check that no error occurred
       error = e.getMessage();
@@ -534,9 +538,9 @@ public class TestItemService {
     String error = "";
     Item item = itemDao.findItemByName(MockDatabase.item1.getName());
     try {
-      item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(), item.getImageUrl(),
-          item.getRemainingQuantity(), -1.0, item.isAvailableForOrder(), item.isStillAvailable(),
-          item.getCategory());
+      item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(),
+          item.getImageUrl(), item.getRemainingQuantity(), -1.0, item.isAvailableForOrder(),
+          item.isStillAvailable(), item.getCategory());
     } catch (IllegalArgumentException e) {
       // Check that no error occurred
       error = e.getMessage();
@@ -581,8 +585,9 @@ public class TestItemService {
     String error = "";
     Item item = itemDao.findItemByName(MockDatabase.item1.getName());
     try {
-      item = itemService.modifyItem(MockDatabase.item1.getName(), null, item.getImageUrl(), item.getRemainingQuantity(),
-          item.getPrice(), item.isAvailableForOrder(), item.isStillAvailable(), item.getCategory());
+      item = itemService.modifyItem(MockDatabase.item1.getName(), null, item.getImageUrl(),
+          item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
+          item.isStillAvailable(), item.getCategory());
     } catch (IllegalArgumentException e) {
       // Check that no error occurred
       error = e.getMessage();
@@ -649,8 +654,9 @@ public class TestItemService {
     String error = "";
     Item item = itemDao.findItemByName(MockDatabase.item1.getName());
     try {
-      item = itemService.modifyItem(MockDatabase.item1.getName(), " ", item.getImageUrl(), item.getRemainingQuantity(),
-          item.getPrice(), item.isAvailableForOrder(), item.isStillAvailable(), item.getCategory());
+      item = itemService.modifyItem(MockDatabase.item1.getName(), " ", item.getImageUrl(),
+          item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
+          item.isStillAvailable(), item.getCategory());
     } catch (IllegalArgumentException e) {
       // Check that no error occurred
       error = e.getMessage();
@@ -695,9 +701,9 @@ public class TestItemService {
     String error = "";
     Item item = itemDao.findItemByName(MockDatabase.item1.getName());
     try {
-      item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(), item.getImageUrl(),
-          item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
-          item.isStillAvailable(), null);
+      item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(),
+          item.getImageUrl(), item.getRemainingQuantity(), item.getPrice(),
+          item.isAvailableForOrder(), item.isStillAvailable(), null);
     } catch (IllegalArgumentException e) {
       // Check that no error occurred
       error = e.getMessage();
