@@ -41,7 +41,7 @@ public class AddressRestController {
     @GetMapping(value = {"/addresses", "/addresses/"})
     public List<AddressDto> getAllAddress() {
         List<AddressDto> addressDtos = new ArrayList<>();
-        for (Address address : addressService.getAllAddress()) {
+        for (Address address : addressService.getAllAddresses()) {
             addressDtos.add(ConversionUtility.convertToDto(address));
         }
         return addressDtos;

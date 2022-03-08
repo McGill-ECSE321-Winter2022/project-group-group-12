@@ -38,8 +38,6 @@ public class AddressService {
 	    String error = "";
 	    if(fullName == null || fullName.trim().length() == 0)
 	      error += "Address full name cannot be empty! ";
-		if (!Utility.isPostalCodeValid(postalCode))
-			error += "Postal Code is not valid! ";
 	    if(streetName == null || streetName.trim().length() == 0)
 	      error += "Address street name cannot be empty! ";
 	    if(streetNumber == null)
@@ -48,6 +46,8 @@ public class AddressService {
 	      error += "Address city cannot be empty! ";
 	    if(postalCode == null || postalCode.trim().length() == 0)
 		      error += "Address postal code cannot be empty! ";
+		if (!Utility.isPostalCodeValid(postalCode))
+			error += "Postal Code is not valid! ";
 	    if(error.length() > 0)
 	      throw new IllegalArgumentException(error);
 		
@@ -93,7 +93,7 @@ public class AddressService {
 	 * @return A list of all the address stored in the database
 	 */
 	@Transactional
-	public List<Address> getAllAddress(){
+	public List<Address> getAllAddresses(){
 		return Utility.toList(addressRepository.findAll());
 	}
 	
@@ -145,6 +145,8 @@ public class AddressService {
 		      error += "Address postal code cannot be empty! ";
 	    if(id == null || id.trim().length() == 0)
 		      error += "Address id cannot be empty! ";
+		if (!Utility.isPostalCodeValid(postalCode))
+			error += "Postal Code is not valid! ";
 	    if(error.length() > 0)
 	      throw new IllegalArgumentException(error);
 		
