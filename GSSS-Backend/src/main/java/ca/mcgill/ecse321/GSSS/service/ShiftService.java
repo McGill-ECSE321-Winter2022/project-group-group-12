@@ -64,9 +64,6 @@ public class ShiftService {
             throw new IllegalArgumentException("Shift date cannot be null! ");
         }
         List<Shift> shifts = shiftRepository.findShiftsByDate(date);
-        if (shifts == null) {
-          throw new NoSuchElementException("No shifts with the date " + date + " exist!");
-        }
         return shifts;
     }
     
@@ -185,6 +182,9 @@ public class ShiftService {
             throw new IllegalArgumentException(error);
         }
         Shift shift = shiftRepository.findShiftById(id);
+        if(shift == null){
+            throw new NoSuchElementException("Shift with given ID does not exist!");
+        }
         shift.setDate(date);
         shift.setStartTime(startTime);
         shift.setEndTime(endTime);
