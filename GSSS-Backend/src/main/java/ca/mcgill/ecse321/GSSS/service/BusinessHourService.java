@@ -35,7 +35,7 @@ public class BusinessHourService {
   @Transactional
   public BusinessHour getBusinessHourByWeekday(Weekday weekday) {
     if (weekday == null) {
-      throw new IllegalArgumentException("weekday of business hour cannot be null! ");
+      throw new IllegalArgumentException("Weekday of business hour cannot be null! ");
     }
     BusinessHour businessHour = businessHourRepository.findBusinessHourByWeekday(weekday);
     if (businessHour == null) {
@@ -69,16 +69,16 @@ public class BusinessHourService {
     // Input validation
     String error = "";
     if (weekday == null) {
-      error += "weekday of business hour cannot be null! ";
+      error += "Weekday of business hour cannot be null! ";
     }
     if (startTime == null) {
-      error += "business hour start time cannot be null! ";
+      error += "Business hour start time cannot be null! ";
     }
     if (endTime == null) {
-      error += "business hour end time cannot be null! ";
+      error += "Business hour end time cannot be null! ";
     }
     if (endTime != null && startTime != null && endTime.before(startTime)) {
-      error += "business hour end time cannot be before business hour start time!";
+      error += "Business hour end time cannot be before business hour start time!";
     }
     if (error.length() > 0) {
       throw new IllegalArgumentException(error);
