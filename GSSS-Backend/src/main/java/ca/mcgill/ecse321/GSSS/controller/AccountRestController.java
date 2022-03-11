@@ -16,22 +16,23 @@ import ca.mcgill.ecse321.GSSS.service.AccountService;
 @CrossOrigin(origins = "*")
 @RestController
 class AccountRestController {
-	
-	@Autowired
-	AccountService accountService;
 
-	@GetMapping(value = {"/account/login", "/account/login/"})
-	public String logIn(@RequestParam String email, @RequestParam String password) throws NoSuchElementException, IllegalArgumentException {
-		
-	    Account account = accountService.logIn(email, password);
-	    
-	    if (account instanceof Customer) {
-	    	return "Customer";
-	    }else if (account instanceof Employee) {
-	    	return "Employee";
-	    }else {
-	    	return "Owner";
-	    }
-	}
+  @Autowired
+  AccountService accountService;
+
+  @GetMapping(value = {"/account/login", "/account/login/"})
+  public String logIn(@RequestParam String email, @RequestParam String password)
+      throws NoSuchElementException, IllegalArgumentException {
+
+    Account account = accountService.logIn(email, password);
+
+    if (account instanceof Customer) {
+      return "Customer";
+    } else if (account instanceof Employee) {
+      return "Employee";
+    } else {
+      return "Owner";
+    }
+  }
 
 }
