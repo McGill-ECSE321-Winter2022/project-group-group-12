@@ -28,7 +28,7 @@ public class AccountService {
 	
 	
 	@Transactional
-	public Account logIn(String email, String password) {
+	public Account authenticate(String email, String password) {
 		
 		// Input validation
 	    if(email == null || email.trim().length() == 0)

@@ -24,7 +24,7 @@ class AccountRestController {
   public String logIn(@RequestParam String email, @RequestParam String password)
       throws NoSuchElementException, IllegalArgumentException {
 
-    Account account = accountService.logIn(email, password);
+    Account account = accountService.authenticate(email, password);
 
     if (account instanceof Customer) {
       return "Customer";
