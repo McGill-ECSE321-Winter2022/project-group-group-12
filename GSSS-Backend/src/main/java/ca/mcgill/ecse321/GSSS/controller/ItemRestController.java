@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemDto;
+import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
+import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.service.ItemCategoryService;
 import ca.mcgill.ecse321.GSSS.service.ItemService;
 
@@ -38,6 +40,24 @@ public class ItemRestController {
   public ItemDto getItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
     Item item = itemService.getItemByName(name);
     return ConversionUtility.convertToDto(item, item.getCategory());
+  }
+
+  /**
+   * method to get itemdtos by their category
+   * 
+   * @author Habib Jarweh
+   * @param categoryName category name of items we want
+   * @return List<ItemDto> itemDto's we want to get
+   */
+  @GetMapping(value = {"/item/{categoryName}", "/item/{categoryName}/"})
+  public List<ItemDto> getItemsByCategory(@PathVariable("categoryName") String categoryName) {
+    ItemCategory itemCategory = itemCategoryService.getCategoryByName(categoryName);
+    List<Item> items = itemService.getItemsByCategory(itemCategory);
+    List<ItemDto> itemDtos = new ArrayList<ItemDto>();
+    for (Item i : items) {
+      itemDtos.add(ConversionUtility.convertToDto(i));
+    }
+    return itemDtos;
   }
 
   /**

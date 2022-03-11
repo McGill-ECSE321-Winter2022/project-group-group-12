@@ -45,6 +45,7 @@ public class TestItemService {
   @BeforeEach
   public void setMockOutput() {
     lenient().when(itemDao.findItemByName(anyString())).thenAnswer(MockRepository::findItemByName);
+    lenient().when(itemDao.findItemsByCategory(any(ItemCategory.class))).thenAnswer(MockRepository::findItemsByCategory);
     lenient().when(itemDao.findAll()).thenAnswer(MockRepository::findAll);
     lenient().when(itemDao.save(any(Item.class))).thenAnswer(MockRepository::save);
   }
@@ -98,10 +99,28 @@ public class TestItemService {
    */
   @Test
   public void testGetItemByName_NotInDb() {
-    String wrongName = "Gun";
+    String wrongName = "Glock 29";
     Exception error =
         assertThrows(NoSuchElementException.class, () -> itemService.getItemByName(wrongName));
     assertEquals("The item with name" + wrongName + "does not exist!", error.getMessage());
+  }
+  
+  /**
+   * method to check that all items with same category are fetched successfully
+   * 
+   * @author Habib Jarweh
+   */
+  @Test 
+  public void testGetItemsByCategory_Successful() {
+    List<Item> items = itemService.getItemsByCategory(MockDatabase.itemCategory2);
+    List<Item> expected = new ArrayList<Item>();
+    expected.add(MockDatabase.item2);
+    expected.add(MockDatabase.item3);
+
+    assertNotNull(items);
+    assertEquals(expected.size(), items.size());
+    for (Item i : items)
+      assertTrue(expected.contains(i));
   }
 
   /**
@@ -116,6 +135,7 @@ public class TestItemService {
     List<Item> expected = new ArrayList<Item>();
     expected.add(MockDatabase.item1);
     expected.add(MockDatabase.item2);
+    expected.add(MockDatabase.item3);
 
     assertNotNull(items);
     assertEquals(expected.size(), items.size());
@@ -135,7 +155,7 @@ public class TestItemService {
    */
   @Test
   public void testCreateItem_Successful() {
-    assertEquals(2, itemService.getAllItems().size());
+    assertEquals(3, itemService.getAllItems().size());
 
     String name = "Spaghetti";
     String description = "extremely tasty";
@@ -512,7 +532,7 @@ public class TestItemService {
   public void testModifyItem_WrongRemainingQuantity() {
 
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(),
           item.getImageUrl(), -1, item.getPrice(), item.isAvailableForOrder(),
@@ -536,7 +556,7 @@ public class TestItemService {
   public void testModifyItem_WrongPrice() {
 
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(),
           item.getImageUrl(), item.getRemainingQuantity(), -1.0, item.isAvailableForOrder(),
@@ -560,7 +580,7 @@ public class TestItemService {
   public void testModifyItem_NullName() {
 
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(null, item.getDescription(), item.getImageUrl(),
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -583,7 +603,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_NullDescription() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), null, item.getImageUrl(),
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -606,7 +626,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_NullImageUrl() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(), null,
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -629,7 +649,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_EmptyName() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(" ", item.getDescription(), item.getImageUrl(),
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -652,7 +672,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_EmptyDescription() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), " ", item.getImageUrl(),
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -675,7 +695,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_EmptyImageUrl() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(), " ",
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -699,7 +719,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_NullCategory() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(),
           item.getImageUrl(), item.getRemainingQuantity(), item.getPrice(),
@@ -723,7 +743,7 @@ public class TestItemService {
   public void testModifyItem_AllNullOrWrong() {
 
     String error = null;
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
 
     try {
       item = itemService.modifyItem(null, null, null, -1, -1, false, false, null);
@@ -752,11 +772,19 @@ public class TestItemService {
     static Item save(InvocationOnMock invocation) {
       return (Item) invocation.getArgument(0);
     }
+    
+    static List<Item> findItemsByCategory(InvocationOnMock invocation) {
+      List<Item> items = new ArrayList<Item>();
+      items.add(MockDatabase.item2);
+      items.add(MockDatabase.item3);
+      return items;
+    }
 
     static List<Item> findAll(InvocationOnMock invocation) {
       List<Item> items = new ArrayList<Item>();
       items.add(MockDatabase.item1);
       items.add(MockDatabase.item2);
+      items.add(MockDatabase.item3);
       return items;
     }
   }
@@ -783,6 +811,14 @@ public class TestItemService {
     private static final boolean ITEM_AVAILABILITY2 = true;
 
     private static final String ITEMCATEGORY_KEY2 = "Hygiene";
+    
+    private static final String ITEM_KEY3 = "TestItem3";
+    private static final String ITEM_DESCRIPTION3 = "extremely tasty";
+    private static final String ITEM_IMAGEURL3 = "www.veryniceimage/product/hygiene.com";
+    private static final int ITEM_REMAININGQUANTITY3 = 76;
+    private static final double ITEM_PRICE3 = 8.99;
+    private static final boolean ITEM_AVAILABILITYFORORDER3= true;
+    private static final boolean ITEM_AVAILABILITY3 = true;
 
 
     static Item item1 = new Item();
@@ -790,6 +826,8 @@ public class TestItemService {
 
     static Item item2 = new Item();
     static ItemCategory itemCategory2 = new ItemCategory();
+    
+    static Item item3 = new Item();
 
     static {
 
@@ -814,6 +852,16 @@ public class TestItemService {
       item2.setAvailableForOrder(ITEM_AVAILABILITYFORORDER2);
       item2.setStillAvailable(ITEM_AVAILABILITY2);
       item2.setCategory(itemCategory2);
+      
+      item3.setName(ITEM_KEY3);
+      item3.setDescription(ITEM_DESCRIPTION3);
+      item3.setImageUrl(ITEM_IMAGEURL3);
+      item3.setRemainingQuantity(ITEM_REMAININGQUANTITY3);
+      item3.setPrice(ITEM_PRICE3);
+      item3.setAvailableForOrder(ITEM_AVAILABILITYFORORDER3);
+      item3.setStillAvailable(ITEM_AVAILABILITY3);
+      item3.setCategory(itemCategory2);
+      
     }
 
   }
