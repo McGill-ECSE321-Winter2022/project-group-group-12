@@ -317,14 +317,14 @@ public class TestCustomerService {
 
   @Test
   public void testGetCustomerByAccountState_Success() {
-    List<Customer> fetched = customerService.getCustomersByAccountState(false);
-    List<Customer> expected = new ArrayList<Customer>();
-    expected.add(MockDatabase.customer1);
-    expected.add(MockDatabase.customer2);
-    assertNotNull(fetched);
-    assertEquals(expected.size(), fetched.size());
-    for (Customer e : fetched)
-      assertTrue(expected.contains(e));
+    List<Customer> fetchedCustomers = customerService.getCustomersByAccountState(false);
+    List<Customer> expectedCustomers = new ArrayList<Customer>();
+    expectedCustomers.add(MockDatabase.customer1);
+    expectedCustomers.add(MockDatabase.customer2);
+    assertNotNull(fetchedCustomers);
+    assertEquals(expectedCustomers.size(), fetchedCustomers.size());
+    for (Customer e : fetchedCustomers)
+      assertTrue(expectedCustomers.contains(e));
   }
 
   @Test
@@ -362,13 +362,13 @@ public class TestCustomerService {
   @Test
   public void testModifyCustomer_Success() {
     Customer modified = customerService.modifyCustomer("new username", "new pw",
-        MockDatabase.customer1.getEmail(), MockDatabase.customerAddress3, true);
+        MockDatabase.customer3.getEmail(), MockDatabase.customerAddress3, true);
     assertNotNull(modified);
-    assertEquals(MockDatabase.customer1.getEmail(), modified.getEmail());
+    assertEquals(MockDatabase.customer3.getEmail(), modified.getEmail());
     assertEquals("new username", modified.getUsername());
     assertEquals(MockDatabase.customerAddress3, modified.getAddress());
     assertEquals(true, modified.isDisabled());
-    assertEquals(Utility.hashAndSaltPassword("new pw", MockDatabase.customer1.getSalt()),
+    assertEquals(Utility.hashAndSaltPassword("new pw", MockDatabase.customer3.getSalt()),
         modified.getPassword());
   }
 
@@ -740,7 +740,7 @@ public class TestCustomerService {
       customer2.setPurchases(purchases2);
 
 
-      // Customer & Employee set 3
+      // Customer & Employee set 3 (Modifiable customer, used in modify methods)
 
       customer3.setEmail("customer3@email.com");
       customer3.setUsername("John Smith");
