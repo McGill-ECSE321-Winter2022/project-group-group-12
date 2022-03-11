@@ -32,12 +32,25 @@ public class ItemService {
    */
   @Transactional
   public Item getItemByName(String name) {
-    if(name == null || name.trim().length() == 0)
+    if (name == null || name.trim().length() == 0)
       throw new IllegalArgumentException("Name cannot be empty!");
-    if (itemRepository.findItemByName(name) == null) 
-      throw new NoSuchElementException("The item with name" +name+ "does not exist!");
+    if (itemRepository.findItemByName(name) == null)
+      throw new NoSuchElementException("The item with name" + name + "does not exist!");
     return itemRepository.findItemByName(name);
-    
+
+  }
+
+  /**
+   * method to get all items with the inputted category
+   * 
+   * @author Habib Jarweh
+   * @param itemCategory of items we want to fetch
+   * @return list of items of the sam category
+   */
+  @Transactional
+  public List<Item> getItemsByCategory(ItemCategory itemCategory) {
+    List<Item> items = itemRepository.findItemsByCategory(itemCategory);
+    return items;
   }
 
   /**
@@ -112,7 +125,7 @@ public class ItemService {
    */
   @Transactional
   public void deleteItem(String name) {
-    if (name == null || name.trim().length() == 0) 
+    if (name == null || name.trim().length() == 0)
       throw new IllegalArgumentException("Name cannot be empty!");
     Item item = itemRepository.findItemByName(name);
     itemRepository.delete(item);
