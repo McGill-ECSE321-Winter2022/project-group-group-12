@@ -53,7 +53,7 @@ public class EmployeeService {
       error += "Email not valid! ";
     if (username == null || username.trim().length() == 0)
       error += "Employee username cannot be empty! ";
-    if(password == null || password.length() < 6)
+    if(password == null || password.length() < 6 || password.trim().length() == 0)
       error += "Password has to be at least 6 characters! ";
     if (address == null)
       error += "Address cannot be null! ";
@@ -91,8 +91,8 @@ public class EmployeeService {
       error += "Employee email cannot be empty! ";
     if (username == null || username.trim().length() == 0)
       error += "Employee username cannot be empty! ";
-    if (password == null || password.trim().length() == 0)
-      error += "Employee password cannot be empty! ";
+    if (password == null || password.length() < 6 || password.trim().length() == 0) 
+      error += "Password has to be at least 6 characters! ";    
     if (address == null)
       error += "Address cannot be null! ";
     if (error.length() > 0)
