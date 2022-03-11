@@ -105,6 +105,11 @@ public class TestItemService {
     assertEquals("The item with name" + wrongName + "does not exist!", error.getMessage());
   }
   
+  /**
+   * method to check that all items with same category are fetched successfully
+   * 
+   * @author Habib Jarweh
+   */
   @Test 
   public void testGetItemsByCategory_Successful() {
     List<Item> items = itemService.getItemsByCategory(MockDatabase.itemCategory2);
