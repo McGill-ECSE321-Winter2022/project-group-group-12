@@ -36,7 +36,7 @@ public class AccountService {
 	    
 	    Customer customer = customerRepository.findCustomerByEmail(email);
 	    if (customer != null) {
-	    	if (password.equals(Utility.hashAndSaltPassword(customer.getPassword(), customer.getSalt()))) {
+	    	if (customer.getPassword().equals(Utility.hashAndSaltPassword(password, customer.getSalt()))) {
 	    		return customer;
 	    	}else {
 	    		throw new IllegalArgumentException("Invalid password");
@@ -46,7 +46,7 @@ public class AccountService {
 	    
 	    Employee employee = employeeRepository.findEmployeeByEmail(email);
 	    if (employee != null) {
-	    	if (password.equals(Utility.hashAndSaltPassword(employee.getPassword(), employee.getSalt()))) {
+	    	if (employee.getPassword().equals(Utility.hashAndSaltPassword(password, employee.getSalt()))) {
 	    		return employee;
 	    	}else {
 	    		throw new IllegalArgumentException("Invalid password");
@@ -55,7 +55,7 @@ public class AccountService {
 
 	    Owner owner = ownerRepository.findOwnerByEmail(email);
 	    if(owner != null) {
-	    	if (password.equals(Utility.hashAndSaltPassword(owner.getPassword(), owner.getSalt()))) {
+	    	if (owner.getPassword().equals(Utility.hashAndSaltPassword(password, owner.getSalt()))) {
 	    		return owner;
 	    	}else {
 	    		throw new IllegalArgumentException("Invalid password");
@@ -64,6 +64,7 @@ public class AccountService {
 	    
 	    if(customer == null && employee == null && owner == null)
 	    	throw new NoSuchElementException("No account with email "+email+" exists!");
+	    
 	    return null;
 	    
 	    
