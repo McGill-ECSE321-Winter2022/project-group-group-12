@@ -4,10 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.ui.context.Theme;
-import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.model.OrderType;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 
 /**

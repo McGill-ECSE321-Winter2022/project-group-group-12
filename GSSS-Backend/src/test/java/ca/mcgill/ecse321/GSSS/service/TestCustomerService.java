@@ -72,7 +72,7 @@ public class TestCustomerService {
   }
 
   @Test
-  public void testCreateEmployee_Success() {
+  public void testCreateCustomer_Success() {
     Customer customer = new Customer();
     customer.setEmail("customer@email.com");
     customer.setUsername("Test Smither");

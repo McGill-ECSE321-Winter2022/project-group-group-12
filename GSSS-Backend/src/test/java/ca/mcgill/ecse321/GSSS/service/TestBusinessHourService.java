@@ -422,8 +422,6 @@ public class TestBusinessHourService {
 	        .delete(argThat((BusinessHour b) -> MockDatabase.businessHour1.getWeekday() != b.getWeekday()));
 	  }
 	  
-	  
-	  
 	  /**
 	   * Method to check that error is thrown when we input a null weekday to delete BusinessHour
 	   * 
@@ -436,10 +434,11 @@ public class TestBusinessHourService {
 	    verify(businessHourRepository, times(0)).delete(any(BusinessHour.class));
 	  }
 	    
+
 	  
-	  
-	  
-	  
+	  /**
+	   * This class holds all of the mock methods of the CRUD repository.
+	   */
 	  class MockRepository {
 		    static BusinessHour findBusinessHourByWeekday(InvocationOnMock invocation) {
 		      Weekday weekday = (Weekday) invocation.getArgument(0);

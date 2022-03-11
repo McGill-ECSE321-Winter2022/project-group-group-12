@@ -22,7 +22,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Answer;
 import ca.mcgill.ecse321.GSSS.dao.ItemCategoryRepository;
 import ca.mcgill.ecse321.GSSS.dao.ItemRepository;
 import ca.mcgill.ecse321.GSSS.model.Item;
