@@ -38,6 +38,13 @@ import ca.mcgill.ecse321.GSSS.model.OrderType;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 
+/**
+ * 
+ * Tests for the customer services
+ * 
+ * @author Wassim Jabbour
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class TestCustomerService {
 
