@@ -27,7 +27,7 @@ import ca.mcgill.ecse321.GSSS.service.ShiftService;
  */
 @CrossOrigin(origins = "*")
 @RestController
-public class EmployeeController {
+public class EmployeeRestController {
 
   @Autowired
   private EmployeeService employeeService;
