@@ -532,7 +532,7 @@ public class TestItemService {
   public void testModifyItem_WrongRemainingQuantity() {
 
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(),
           item.getImageUrl(), -1, item.getPrice(), item.isAvailableForOrder(),
@@ -556,7 +556,7 @@ public class TestItemService {
   public void testModifyItem_WrongPrice() {
 
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(),
           item.getImageUrl(), item.getRemainingQuantity(), -1.0, item.isAvailableForOrder(),
@@ -580,7 +580,7 @@ public class TestItemService {
   public void testModifyItem_NullName() {
 
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(null, item.getDescription(), item.getImageUrl(),
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -603,7 +603,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_NullDescription() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), null, item.getImageUrl(),
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -626,7 +626,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_NullImageUrl() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(), null,
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -649,7 +649,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_EmptyName() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(" ", item.getDescription(), item.getImageUrl(),
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -672,7 +672,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_EmptyDescription() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), " ", item.getImageUrl(),
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -695,7 +695,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_EmptyImageUrl() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(), " ",
           item.getRemainingQuantity(), item.getPrice(), item.isAvailableForOrder(),
@@ -719,7 +719,7 @@ public class TestItemService {
   @Test
   public void testModifyItem_NullCategory() {
     String error = "";
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
     try {
       item = itemService.modifyItem(MockDatabase.item1.getName(), item.getDescription(),
           item.getImageUrl(), item.getRemainingQuantity(), item.getPrice(),
@@ -743,7 +743,7 @@ public class TestItemService {
   public void testModifyItem_AllNullOrWrong() {
 
     String error = null;
-    Item item = itemDao.findItemByName(MockDatabase.item1.getName());
+    Item item = MockDatabase.item1;
 
     try {
       item = itemService.modifyItem(null, null, null, -1, -1, false, false, null);

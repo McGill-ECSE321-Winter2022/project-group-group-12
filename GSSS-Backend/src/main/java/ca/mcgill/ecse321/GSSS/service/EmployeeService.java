@@ -83,7 +83,7 @@ public class EmployeeService {
    * @return The updated employee
    */
   @Transactional
-  public Employee modifyEmployee(String username, String email, Address address, boolean disabled) {
+  public Employee modifyEmployee(String username, String password, String email, Address address, boolean disabled) {
 
     // Input validation
     String error = "";
@@ -91,8 +91,10 @@ public class EmployeeService {
       error += "Employee email cannot be empty! ";
     if (username == null || username.trim().length() == 0)
       error += "Employee username cannot be empty! ";
+    if (password == null || password.trim().length() == 0)
+      error += "Employee password cannot be empty! ";
     if (address == null)
-      error += "Address cannot be empty! ";
+      error += "Address cannot be null! ";
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
 
@@ -103,6 +105,7 @@ public class EmployeeService {
     employee.setUsername(username);
     employee.setAddress(address);
     employee.setDisabled(disabled);
+    employee.setPassword(Utility.hashAndSaltPassword(password, employee.getSalt()));
 
     employeeRepository.save(employee);
     return employee;

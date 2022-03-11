@@ -1,13 +1,10 @@
 package ca.mcgill.ecse321.GSSS.service;
 
-import java.util.ArrayList;
 import java.util.List;
-
+import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ca.mcgill.ecse321.GSSS.dao.ItemCategoryRepository;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 
@@ -71,7 +68,7 @@ public class ItemCategoryService {
         
         ItemCategory itemcategory = itemCategoryRepository.findItemCategoryByName(name);
         if (itemcategory == null) {
-    		throw new IllegalArgumentException("No item category with name "+name+" exits!");
+    		throw new NoSuchElementException("No item category with name " + name + " exists!");
     	}
         return itemcategory;
     }

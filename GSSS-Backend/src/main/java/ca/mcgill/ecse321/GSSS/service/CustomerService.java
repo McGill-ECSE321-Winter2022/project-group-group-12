@@ -34,7 +34,6 @@ public class CustomerService {
   AddressRepository addressRepository;
 
 
-
   // GET methods
 
   /**
@@ -45,18 +44,17 @@ public class CustomerService {
    * @return The customer with that email
    */
   @Transactional
-  public Customer getCustomer(String email) {
-    
+  public Customer getCustomerByEmail(String email) {
+
     // Input validation
-    if(email == null || email.trim().length() == 0)
+    if (email == null || email.trim().length() == 0)
       throw new IllegalArgumentException("Customer email cannot be empty!");
-    
+
     Customer customer = customerRepository.findCustomerByEmail(email);
-    
+
     if (customer == null) {
 		throw new NoSuchElementException("No customer with email "+ email + " exits!");
 	}
-	
     return customer; 
   }
 
@@ -69,15 +67,15 @@ public class CustomerService {
    */
   @Transactional
   public List<Customer> getCustomersByUsername(String username) {
-    
+
     // Input validation
-    if(username == null || username.trim().length() == 0)
+    if (username == null || username.trim().length() == 0)
       throw new IllegalArgumentException("Customer username cannot be empty!");
-    
+
     List<Customer> customers = customerRepository.findCustomersByUsername(username);
     if (customers.isEmpty()) {
-		throw new NoSuchElementException("No customer with username "+ username + " exits!");
-	}
+      throw new NoSuchElementException("No customer with username " + username + " exists!");
+    }
     return customers;
   }
 
@@ -90,15 +88,15 @@ public class CustomerService {
    */
   @Transactional
   public Customer getCustomerByPurchase(Purchase purchase) {
-    
+
     // Input validation
-    if(purchase == null)
+    if (purchase == null)
       throw new IllegalArgumentException("Purchase cannot be null!");
-    
+
     Customer customer = customerRepository.findCustomerByPurchases(purchase);
     if (customer == null) {
-		throw new NoSuchElementException("No customer with such purchase exits!");
-	}
+      throw new NoSuchElementException("No customer with such purchase exists!");
+    }
     return customer;
   }
 
@@ -124,7 +122,8 @@ public class CustomerService {
   @Transactional
   public List<Customer> getCustomersByAccountState(boolean disabled) {
     List<Customer> customers = customerRepository.findCustomersByDisabled(disabled);
-    // We don't throw an error if no disabled customers is found because it is possible that no customer were banned.
+    // We don't throw an error if no disabled customers is found because it is possible that no
+    // customer were banned.
     return customers;
   }
 
@@ -141,23 +140,23 @@ public class CustomerService {
    * @return The newly created customer
    */
   @Transactional
-  public Customer createCustomer(String email, String username, String password, Address address) {
-    
+  public Customer createCustomer(String username, String email, String password, Address address) {
+
     // Input validation
     String error = "";
-    if(email == null || email.trim().length() == 0)
+    if (email == null || email.trim().length() == 0)
       error += "Customer email cannot be empty! ";
     if (!Utility.isEmailValid(email))
       error += "Email not valid! ";
-    if(username == null || username.trim().length() == 0)
+    if (username == null || username.trim().length() == 0)
       error += "Customer username cannot be empty! ";
     if(password == null || password.length() < 6)
       error += "Password has to be at least 6 characters! ";
     if(address == null)
       error += "Address cannot be null! ";
-    if(error.length() > 0)
+    if (error.length() > 0)
       throw new IllegalArgumentException(error);
-    
+
     Customer customer = new Customer();
     customer.setEmail(email);
     customer.setUsername(username);
@@ -179,17 +178,17 @@ public class CustomerService {
    */
   @Transactional
   public void deleteCustomer(String email) {
-    
+
     // Input validation
-    if(email == null || email.trim().length() == 0)
+    if (email == null || email.trim().length() == 0)
       throw new IllegalArgumentException("Customer email cannot be empty!");
-    
+
     customerRepository.deleteById(email);
   }
 
 
   // OTHER methods
-  
+
   /**
    * This service updates a customer based on the inputs
    * 
@@ -203,30 +202,34 @@ public class CustomerService {
    * @return The updated customer
    */
   @Transactional
-  public Customer modifyCustomer(String username, String email, String password, Address address, boolean disabled) {
+  public Customer modifyCustomer(String username, String password, String email, Address address,
+      boolean disabled) {
 
-	// Input validation
-	    String error = "";
-	    if(username == null || username.trim().length() == 0)
-	      error += "Customer username cannot be empty! ";
-	    if(email == null || email.trim().length() == 0)
-	      error += "Customer email cannot be empty! ";
-	    if(password == null || password.trim().length() == 0)
-		  error += "Customer password cannot be empty! ";
-	    if(address == null)
-	      error += "Customer address cannot be null! ";
-	    if(error.length() > 0)
-	      throw new IllegalArgumentException(error);
-		
-		Customer customer = getCustomer(email);
-		customer.setAddress(address);
-		customer.setUsername(username);
-		customer.setDisabled(disabled);
-		customer.setPassword(password);
-		customerRepository.save(customer);
-		return customer;
+    // Input validation
+    String error = "";
+    if (username == null || username.trim().length() == 0)
+      error += "Customer username cannot be empty! ";
+    if (email == null || email.trim().length() == 0)
+      error += "Customer email cannot be empty! ";
+    if (password == null || password.trim().length() == 0)
+      error += "Customer password cannot be empty! ";
+    if (address == null)
+      error += "Customer address cannot be null! ";
+    if (error.length() > 0)
+      throw new IllegalArgumentException(error);
+
+    Customer customer = getCustomerByEmail(email);
+    if(customer == null)
+      throw new NoSuchElementException("Customer with email " + email + " does not exist");
+    
+    customer.setAddress(address);
+    customer.setUsername(username);
+    customer.setDisabled(disabled);
+    customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));
+    customerRepository.save(customer);
+    return customer;
   }
-  
+
   /**
    * Service to add a purchase to a customer
    * 
@@ -234,19 +237,19 @@ public class CustomerService {
    * 
    * @param customer Customer to add the purchase to
    * @param purchase Purchase to add
-   * @return The cutomer we added the purchase to
+   * @return The customer we added the purchase to
    */
   @Transactional
   public Customer addPurchase(Customer customer, Purchase purchase) {
-	  if (customer == null)
-	      throw new IllegalArgumentException("Customer cannot be null.");
+    if (customer == null)
+      throw new IllegalArgumentException("Customer cannot be null");
 
-	    if (purchase == null)
-	      throw new IllegalArgumentException("Purchase cannot be null.");
+    if (purchase == null)
+      throw new IllegalArgumentException("Purchase cannot be null");
 
-	    // Add purchase to customer and save in database
-	    customer.getPurchases().add(purchase);
-	    return customerRepository.save(customer);
+    // Add purchase to customer and save in database
+    customer.getPurchases().add(purchase);
+    return customerRepository.save(customer);
   }
 
 }

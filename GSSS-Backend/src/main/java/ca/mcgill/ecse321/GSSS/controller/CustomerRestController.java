@@ -66,7 +66,7 @@ public class CustomerRestController {
 	    if (email == null)
 	      throw new IllegalArgumentException("There is no such email!");
 
-	    CustomerDto customerDto = ConversionUtility.convertToDto(customerService.getCustomer(email));
+	    CustomerDto customerDto = ConversionUtility.convertToDto(customerService.getCustomerByEmail(email));
 	    return customerDto;
 
 	  }
@@ -115,7 +115,7 @@ public class CustomerRestController {
 	  @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
 	  public CustomerDto addPurchase(@PathVariable String email, @RequestBody PurchaseDto purchaseDto) throws IllegalArgumentException {
 		  Purchase purchase = purchaseService.createPurchase(purchaseDto.getOrderType(), ConversionUtility.convertToDomainObject(purchaseDto.getEmployee()), purchaseDto.getOrderStatus(), ConversionUtility.convertItemMapDto(purchaseDto.getItems()));
-		  return ConversionUtility.convertToDto(customerService.addPurchase(customerService.getCustomer(email), purchase));
+		  return ConversionUtility.convertToDto(customerService.addPurchase(customerService.getCustomerByEmail(email), purchase));
 	  }
 	 
 	  /**
