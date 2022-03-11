@@ -57,7 +57,7 @@ public class CustomerService {
 		throw new NoSuchElementException("No customer with email "+ email + " exits!");
 	}
 	
-    return customer;
+    return customer; 
   }
 
   /**
@@ -151,8 +151,8 @@ public class CustomerService {
       error += "Email not valid! ";
     if(username == null || username.trim().length() == 0)
       error += "Customer username cannot be empty! ";
-    if(password == null || password.trim().length() == 0)
-      error += "Customer username cannot be empty! ";
+    if(password == null || password.length() < 6)
+      error += "Password has to be at least 6 characters! ";
     if(address == null)
       error += "Address cannot be null! ";
     if(error.length() > 0)

@@ -31,7 +31,7 @@ public class OwnerService {
   public Owner getOwner() {
     return ownerRepository.findAll().iterator().next();
   }
-
+ 
   /**
    * This service updates the owner based on the inputs if they are not null.
    * 
@@ -51,8 +51,8 @@ public class OwnerService {
     String error = "";
     if (username == null || username.trim().length() == 0)
       error += "Owner username cannot be empty! ";
-    if (password == null || password.trim().length() == 0)
-      error += "Owner password cannot be empty! ";
+    if(password == null || password.length() < 6)
+      error += "Password has to be at least 6 characters!";
     if (address == null)
       error += "Owner address cannot be null! ";
     if (error.length() > 0)
