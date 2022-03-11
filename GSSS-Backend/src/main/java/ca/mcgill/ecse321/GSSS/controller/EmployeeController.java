@@ -59,9 +59,9 @@ public class EmployeeController {
   @PostMapping(value = {"/employee", "/employee/"})
   public EmployeeDto createEmployee(@RequestBody EmployeeDto employee)
       throws IllegalArgumentException {
-    return ConversionUtility
-        .convertToDto(employeeService.createEmployee(employee.getUsername(), employee.getEmail(),
-            employee.getPassword(), ConversionUtility.convertToDomainObject(employee.getAddress())));
+    return ConversionUtility.convertToDto(employeeService.createEmployee(employee.getUsername(),
+        employee.getEmail(), employee.getPassword(),
+        ConversionUtility.convertToDomainObject(employee.getAddress())));
   }
 
   /**
@@ -76,9 +76,9 @@ public class EmployeeController {
   @PutMapping(value = {"/employee", "/employee/"})
   public EmployeeDto modifyEmployee(@RequestBody EmployeeDto employee)
       throws IllegalArgumentException {
-    return ConversionUtility
-        .convertToDto(employeeService.modifyEmployee(employee.getUsername(), employee.getEmail(),
-            ConversionUtility.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
+    return ConversionUtility.convertToDto(employeeService.modifyEmployee(employee.getUsername(),
+        employee.getPassword(), employee.getEmail(),
+        ConversionUtility.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
   }
 
   /**

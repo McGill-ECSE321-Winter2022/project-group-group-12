@@ -131,7 +131,7 @@ public class PurchaseRestController {
       @PathVariable("customerEmail") String customerEmail)
       throws IllegalArgumentException, NoSuchElementException {
 
-    Customer customer = customerService.getCustomer(customerEmail);
+    Customer customer = customerService.getCustomerByEmail(customerEmail);
     List<Purchase> allPurchases = purchaseService.getOrderHistory(customer);
     List<PurchaseDto> purchaseDtos = new ArrayList<PurchaseDto>();
 
