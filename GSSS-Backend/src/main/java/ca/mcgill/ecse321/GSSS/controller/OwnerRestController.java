@@ -28,8 +28,6 @@ public class OwnerRestController {
    * Method to get the owner DTO
    * 
    * @author Enzo Benoit-Jeannin
-   * 
-   * @param email Email of the employee to fetch.
    * @return DTO of the employee corresponding to the email.
    */
   @GetMapping(value = {"/owner", "/owner/"})
@@ -41,11 +39,9 @@ public class OwnerRestController {
    * Method to modify/update the owner
    * 
    * @author Enzo Benoit-Jeannin
-   * @param email Email of the owner to update
    * @param username Username we want to update
    * @param password Password we want to update
    * @param addressDto Address we want to update
-   * @param disabled Change the disable state of the owner
    * @return The modified owner as a DTO object
    * @throws IllegalArgumentException
    */
