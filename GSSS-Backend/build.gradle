@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.6.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'java-library'
+    id 'org.springframework.boot' version "${springBootVersion}"
 }
 
 group = 'ca.mcgill.ecse321'
@@ -25,6 +27,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    compile('org.springframework.boot:spring-boot-starter-mail')
+	implementation('javax.mail:javax.mail-api:1.6.2')
 }
 
 tasks.named('test') {

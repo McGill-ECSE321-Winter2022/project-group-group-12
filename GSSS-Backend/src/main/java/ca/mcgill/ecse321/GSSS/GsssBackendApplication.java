@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GsssBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GsssBackendApplication.class, args);
+		SpringApplication.run(GsssBackendApplication.class, args); 
 	}
 
 	@RequestMapping("/")
