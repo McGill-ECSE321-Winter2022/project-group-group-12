@@ -43,7 +43,7 @@ public class EmployeeRestController {
    */
   @GetMapping(value = {"/employees", "/employees/"})
   public List<EmployeeDto> getAllEmployees() {
-    return employeeService.getAllEmployees().stream().map(e -> Utility.convertToDto(e))
+    return employeeService.getAllEmployees().stream().map(e -> DtoUtility.convertToDto(e))
         .collect(Collectors.toList());
   }
 
@@ -59,9 +59,9 @@ public class EmployeeRestController {
   @PostMapping(value = {"/employee", "/employee/"})
   public EmployeeDto createEmployee(@RequestBody EmployeeDto employee)
       throws IllegalArgumentException {
-    return Utility.convertToDto(employeeService.createEmployee(employee.getUsername(),
+    return DtoUtility.convertToDto(employeeService.createEmployee(employee.getUsername(),
         employee.getEmail(), employee.getPassword(),
-        Utility.convertToDomainObject(employee.getAddress())));
+        DtoUtility.convertToDomainObject(employee.getAddress())));
   }
 
   /**
@@ -76,9 +76,9 @@ public class EmployeeRestController {
   @PutMapping(value = {"/employee", "/employee/"})
   public EmployeeDto modifyEmployee(@RequestBody EmployeeDto employee)
       throws IllegalArgumentException {
-    return Utility.convertToDto(employeeService.modifyEmployee(employee.getUsername(),
+    return DtoUtility.convertToDto(employeeService.modifyEmployee(employee.getUsername(),
         employee.getPassword(), employee.getEmail(),
-        Utility.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
+        DtoUtility.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
   }
 
   /**
@@ -94,7 +94,7 @@ public class EmployeeRestController {
   @GetMapping(value = {"/employee/{email}", "/employee/{email}/"})
   public EmployeeDto getEmployee(@PathVariable("email") String email)
       throws IllegalArgumentException, NoSuchElementException {
-    return Utility.convertToDto(employeeService.getEmployeeByEmail(email));
+    return DtoUtility.convertToDto(employeeService.getEmployeeByEmail(email));
   }
 
   /**
@@ -128,7 +128,7 @@ public class EmployeeRestController {
       throws IllegalArgumentException, NoSuchElementException {
     Shift newShift =
         shiftService.createShift(shift.getDate(), shift.getStartTime(), shift.getEndTime());
-    return Utility.convertToDto(
+    return DtoUtility.convertToDto(
         employeeService.addShift(employeeService.getEmployeeByEmail(email), newShift));
   }
 

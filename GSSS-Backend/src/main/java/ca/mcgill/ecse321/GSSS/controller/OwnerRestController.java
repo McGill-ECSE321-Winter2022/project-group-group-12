@@ -34,7 +34,7 @@ public class OwnerRestController {
    */
   @GetMapping(value = {"/owner", "/owner/"})
   public OwnerDto getOwner() {
-    return Utility.convertToDto(ownerService.getOwner());
+    return DtoUtility.convertToDto(ownerService.getOwner());
   }
 
   /**
@@ -55,7 +55,7 @@ public class OwnerRestController {
       @RequestParam(name = "address") AddressDto addressDto) throws IllegalArgumentException {
     Address address = addressService.getAddress(addressDto.getId());
     Owner owner = ownerService.modifyOwner(username, password, address);
-    return Utility.convertToDto(owner);
+    return DtoUtility.convertToDto(owner);
   }
 
   /**
@@ -71,7 +71,7 @@ public class OwnerRestController {
       @RequestParam(name = "fee") double fee) throws IllegalArgumentException{
     
     Owner owner = ownerService.modifySystemInformation(city, fee);
-    return Utility.convertToDto(owner);
+    return DtoUtility.convertToDto(owner);
 
   }
 

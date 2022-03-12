@@ -28,7 +28,7 @@ public class AddressRestController {
     @GetMapping(value = {"/address/{id}", "/address/{id}/"})
     public AddressDto getAddress(@PathVariable("id") String id) throws NoSuchElementException, IllegalArgumentException {
         Address addressDto = addressService.getAddress(id);
-        return Utility.convertToDto(addressDto);
+        return DtoUtility.convertToDto(addressDto);
     }
 
     /**
@@ -42,7 +42,7 @@ public class AddressRestController {
     public List<AddressDto> getAllAddress() {
         List<AddressDto> addressDtos = new ArrayList<>();
         for (Address address : addressService.getAllAddresses()) {
-            addressDtos.add(Utility.convertToDto(address));
+            addressDtos.add(DtoUtility.convertToDto(address));
         }
         return addressDtos;
     }
@@ -67,7 +67,7 @@ public class AddressRestController {
                               @RequestParam(name = "postalCode") String postalCode)
                               throws IllegalArgumentException {
         Address address = addressService.createAddress(fullName,streetName,streetNumber,city,postalCode);
-        return Utility.convertToDto(address);
+        return DtoUtility.convertToDto(address);
     }
 
     /**
@@ -92,7 +92,7 @@ public class AddressRestController {
                                  @RequestParam(name = "postalCode") String postalCode)
             throws IllegalArgumentException {
         Address address = addressService.modifyAddress(fullName,streetName,streetNumber,city,postalCode, id);
-        return Utility.convertToDto(address);
+        return DtoUtility.convertToDto(address);
     }
 
     @DeleteMapping(value = {"/address/{id}", "/address/{id}/"})

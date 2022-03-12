@@ -29,7 +29,7 @@ class AccountRestController {
 
     Account account = accountService.authenticate(email, password);
 
-    Cookie cookie = new Cookie("token", accountService.generateJWT(account));
+    Cookie cookie = new Cookie("token", JwtUtility.generateJWT(account));
 
     cookie.setPath("/");
     cookie.setSecure(false);
