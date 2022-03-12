@@ -82,7 +82,7 @@ public class EmployeeRestController {
       throws IllegalArgumentException {
     return DtoUtility.convertToDto(employeeService.modifyEmployee(employee.getUsername(),
         employee.getPassword(), employee.getEmail(),
-        DtoUtility.convertToDomainObject(employee.getAddress()), employee.isDisabled()));
+        addressService.getAddress(employee.getAddress().getId()), employee.isDisabled()));
   }
 
   /**
