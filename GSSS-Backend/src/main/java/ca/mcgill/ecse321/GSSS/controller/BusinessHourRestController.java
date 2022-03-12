@@ -38,13 +38,13 @@ public class BusinessHourRestController {
   @GetMapping(value = {"/businesshour/{weekday}", "/businesshour/{weekday}/"})
   public BusinessHourDto getBusinessHourByWeekday(@PathVariable("weekday") String weekday) throws NoSuchElementException, IllegalArgumentException{
 
-    Weekday correspondingWeekday = ConversionUtility.findWeekdayByName(weekday); // Helper method
+    Weekday correspondingWeekday = Utility.findWeekdayByName(weekday); // Helper method
                                                                              // defined below
 
     if (correspondingWeekday == null)
       throw new IllegalArgumentException("There is no such weekday!");
 
-    BusinessHourDto businessHourDto = ConversionUtility
+    BusinessHourDto businessHourDto = Utility
         .convertToDto(businessHourService.getBusinessHourByWeekday(correspondingWeekday));
 
     return businessHourDto;
@@ -70,7 +70,7 @@ public class BusinessHourRestController {
           pattern = "HH:mm") LocalTime endTime)
       throws IllegalArgumentException {
 
-    Weekday correspondingWeekday = ConversionUtility.findWeekdayByName(weekday); // Helper method
+    Weekday correspondingWeekday = Utility.findWeekdayByName(weekday); // Helper method
                                                                              // defined below
 
     if (correspondingWeekday == null)
@@ -79,7 +79,7 @@ public class BusinessHourRestController {
     BusinessHour businessHour = businessHourService.createBusinessHour(correspondingWeekday,
         Time.valueOf(startTime), Time.valueOf(endTime));
 
-    return ConversionUtility.convertToDto(businessHour);
+    return Utility.convertToDto(businessHour);
 
   }
 
@@ -93,7 +93,7 @@ public class BusinessHourRestController {
   public List<BusinessHourDto> getAllBusinessHours(){
     List<BusinessHourDto> businessHourDtos = new ArrayList<>();
     for (BusinessHour businessHour : businessHourService.getAllBusinessHours()) {
-      businessHourDtos.add(ConversionUtility.convertToDto(businessHour));
+      businessHourDtos.add(Utility.convertToDto(businessHour));
     }
     return businessHourDtos;
   }

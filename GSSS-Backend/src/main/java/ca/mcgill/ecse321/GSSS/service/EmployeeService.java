@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
 
-import ca.mcgill.ecse321.GSSS.controller.ConversionUtility;
+import ca.mcgill.ecse321.GSSS.controller.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
-import ca.mcgill.ecse321.GSSS.dao.PurchaseRepository;
 import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
@@ -179,7 +178,7 @@ public class EmployeeService {
    * Finds an employee by its shift
    * 
    * @author Enzo Benoit-Jeannin
-   * @param shiftId The ID of the shift to search for
+   * @param shift The ID of the shift to search for
    * @return The found employee
    */
   @Transactional
@@ -318,7 +317,7 @@ public class EmployeeService {
       Shift shift = shifts.get(i);
 
       // If its date is today, check it ends after now
-      if (shift.getDate().equals(currentDate)) {
+      if (shift.getDate().toString().equals(currentDate.toString())) {
         if (shift.getEndTime().after(currentTime)) {
           bestShift = shift;
           break;

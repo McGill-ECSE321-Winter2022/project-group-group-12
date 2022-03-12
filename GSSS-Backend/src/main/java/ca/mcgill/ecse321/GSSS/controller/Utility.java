@@ -39,7 +39,7 @@ import ca.mcgill.ecse321.GSSS.service.PurchaseService;
  * @author Philippe Sarouphim Hochar
  *
  */
-public class ConversionUtility {
+public class Utility {
 
   @Autowired
   PurchaseService purchaseService;

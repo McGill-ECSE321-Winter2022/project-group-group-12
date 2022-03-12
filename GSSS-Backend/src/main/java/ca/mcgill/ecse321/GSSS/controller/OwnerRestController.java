@@ -3,16 +3,13 @@ package ca.mcgill.ecse321.GSSS.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GSSS.dto.AddressDto;
-import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 import ca.mcgill.ecse321.GSSS.dto.OwnerDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
-import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Owner;
 import ca.mcgill.ecse321.GSSS.service.AddressService;
 import ca.mcgill.ecse321.GSSS.service.OwnerService;
@@ -37,7 +34,7 @@ public class OwnerRestController {
    */
   @GetMapping(value = {"/owner", "/owner/"})
   public OwnerDto getOwner() {
-    return ConversionUtility.convertToDto(ownerService.getOwner());
+    return Utility.convertToDto(ownerService.getOwner());
   }
 
   /**
@@ -58,7 +55,7 @@ public class OwnerRestController {
       @RequestParam(name = "address") AddressDto addressDto) throws IllegalArgumentException {
     Address address = addressService.getAddress(addressDto.getId());
     Owner owner = ownerService.modifyOwner(username, password, address);
-    return ConversionUtility.convertToDto(owner);
+    return Utility.convertToDto(owner);
   }
 
   /**
@@ -74,7 +71,7 @@ public class OwnerRestController {
       @RequestParam(name = "fee") double fee) throws IllegalArgumentException{
     
     Owner owner = ownerService.modifySystemInformation(city, fee);
-    return ConversionUtility.convertToDto(owner);
+    return Utility.convertToDto(owner);
 
   }
 
