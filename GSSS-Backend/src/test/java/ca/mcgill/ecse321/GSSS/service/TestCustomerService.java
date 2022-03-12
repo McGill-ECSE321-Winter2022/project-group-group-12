@@ -497,6 +497,18 @@ public class TestCustomerService {
   }
 
   @Test
+  public void testModifyCustomer_DoesNotExist() {
+    try {
+      customerService.modifyCustomer("username", "123456", "not_registered@email.com", new Address(),
+              false);
+    } catch (NoSuchElementException e) {
+      assertEquals("No customer with email not_registered@email.com exists!", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+  @Test
   public void testAddPurchase_Success() {
     Customer modified = customerService.addPurchase(MockDatabase.customer1, MockDatabase.purchase4);
     assertTrue(modified.getPurchases().contains(MockDatabase.purchase4));

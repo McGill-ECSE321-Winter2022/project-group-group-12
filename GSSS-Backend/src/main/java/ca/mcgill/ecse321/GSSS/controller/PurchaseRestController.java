@@ -62,7 +62,7 @@ public class PurchaseRestController {
   public PurchaseDto getPurchaseById(@PathVariable("id") String id)
       throws IllegalArgumentException, NoSuchElementException {
     Purchase purchase = purchaseService.getPurchase(id);
-    return ConversionUtility.convertToDto(purchase);
+    return Utility.convertToDto(purchase);
   }
 
   /**
@@ -85,7 +85,7 @@ public class PurchaseRestController {
 
     for (Purchase purchase : allPurchases) {
 
-      purchaseDtos.add(ConversionUtility.convertToDto(purchase));
+      purchaseDtos.add(Utility.convertToDto(purchase));
 
     }
     return purchaseDtos;
@@ -110,7 +110,7 @@ public class PurchaseRestController {
 
     for (Purchase purchase : allPurchases) {
 
-      purchaseDtos.add(ConversionUtility.convertToDto(purchase));
+      purchaseDtos.add(Utility.convertToDto(purchase));
 
     }
     return purchaseDtos;
@@ -143,7 +143,7 @@ public class PurchaseRestController {
 
     for (Purchase purchase : allPurchases) {
 
-      purchaseDtos.add(ConversionUtility.convertToDto(purchase));
+      purchaseDtos.add(Utility.convertToDto(purchase));
 
     }
     return purchaseDtos;
@@ -165,7 +165,7 @@ public class PurchaseRestController {
 
     for (Purchase purchase : allPurchases) {
 
-      allPurchaseDtos.add(ConversionUtility.convertToDto(purchase));
+      allPurchaseDtos.add(Utility.convertToDto(purchase));
 
     }
 
@@ -188,12 +188,12 @@ public class PurchaseRestController {
       @RequestParam(name = "orderstatus") String orderStatus,
       @RequestBody HashMap<ItemDto, Integer> data) throws IllegalArgumentException {
 
-    OrderType actualOrderType = ConversionUtility.findOrderTypeByName(orderType);
+    OrderType actualOrderType = Utility.findOrderTypeByName(orderType);
     // Checking that it is not null
     if (actualOrderType == null)
       throw new IllegalArgumentException("Invalid order type!");
 
-    OrderStatus actualOrderStatus = ConversionUtility.findOrderStatusByName(orderStatus);
+    OrderStatus actualOrderStatus = Utility.findOrderStatusByName(orderStatus);
     // Checking that it is not null
     if (actualOrderStatus == null)
       throw new IllegalArgumentException("Invalid order status!");
@@ -202,13 +202,13 @@ public class PurchaseRestController {
     HashMap<Item, Integer> items = new HashMap<Item, Integer>();
 
     for (Map.Entry<ItemDto, Integer> entry : data.entrySet()) {
-      items.put(ConversionUtility.convertToDomainObject(entry.getKey()), entry.getValue());
+      items.put(Utility.convertToDomainObject(entry.getKey()), entry.getValue());
     }
 
     Purchase purchase =
         purchaseService.createPurchase(actualOrderType, employee, actualOrderStatus, items);
 
-    return ConversionUtility.convertToDto(purchase);
+    return Utility.convertToDto(purchase);
 
   }
 
@@ -231,26 +231,26 @@ public class PurchaseRestController {
       @RequestBody HashMap<ItemDto, Integer> data,
       @RequestParam(name = "employeeDto") EmployeeDto employeeDto) throws IllegalArgumentException {
 
-    OrderType actualOrderType = ConversionUtility.findOrderTypeByName(orderType);
+    OrderType actualOrderType = Utility.findOrderTypeByName(orderType);
     // Checking that it is not null
     if (actualOrderType == null)
       throw new IllegalArgumentException("Invalid order type!");
 
-    OrderStatus actualOrderStatus = ConversionUtility.findOrderStatusByName(orderStatus);
+    OrderStatus actualOrderStatus = Utility.findOrderStatusByName(orderStatus);
     // Checking that it is not null
     if (actualOrderStatus == null)
       throw new IllegalArgumentException("Invalid order status!");
 
     HashMap<Item, Integer> items = new HashMap<Item, Integer>();
     for (Map.Entry<ItemDto, Integer> entry : data.entrySet()) {
-      items.put(ConversionUtility.convertToDomainObject(entry.getKey()), entry.getValue());
+      items.put(Utility.convertToDomainObject(entry.getKey()), entry.getValue());
     }
 
     Employee employee = employeeService.getEmployeeByEmail(employeeDto.getEmail());
     Purchase purchase = purchaseService.modifyPurchase(actualOrderType, actualOrderStatus,
         purchaseId, items, employee);
 
-    return ConversionUtility.convertToDto(purchase);
+    return Utility.convertToDto(purchase);
 
   }
 

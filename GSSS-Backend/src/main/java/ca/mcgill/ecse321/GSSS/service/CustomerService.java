@@ -219,8 +219,6 @@ public class CustomerService {
       throw new IllegalArgumentException(error);
 
     Customer customer = getCustomerByEmail(email);
-    if(customer == null)
-      throw new NoSuchElementException("Customer with email " + email + " does not exist");
     
     customer.setAddress(address);
     customer.setUsername(username);
