@@ -84,8 +84,8 @@ public class PurchaseService {
       throw new IllegalArgumentException("Date cannot be null!");
     
     List<Purchase> purchases = purchaseRepository.findPurchasesByDate(date);
-    if (purchases == null) 
-      throw new NoSuchElementException("There are no purchases on " +date+  " !");
+    if (purchases.isEmpty()) 
+      throw new NoSuchElementException("There are no purchases on " +date.toString()+  " !");
     
     return purchases;
   }
@@ -110,8 +110,8 @@ public class PurchaseService {
       throw new IllegalArgumentException(error);
     
     List<Purchase> purchases = purchaseRepository.findPurchasesByDateAndTime(date, time);
-    if (purchases == null) 
-      throw new NoSuchElementException("There are no purchases on " +date+  " and time" +time+ " !");
+    if (purchases.isEmpty())
+      throw new NoSuchElementException("There are no purchases on " +date.toString()+  " and time" +time.toString()+ " !");
     
     return purchases;
   }
@@ -130,7 +130,7 @@ public class PurchaseService {
       throw new IllegalArgumentException("Employee cannot be null!");
     
     List<Purchase> purchases = purchaseRepository.findPurchasesByEmployee(employee);
-    if (purchases == null) 
+    if (purchases.isEmpty()) 
       throw new NoSuchElementException("There are no purchases assigned to given employee!");
     
     return purchases;
@@ -139,7 +139,7 @@ public class PurchaseService {
   // OTHER methods
   
   /**
-   * method to get order history of customer
+   * Method to get order history of customer
    * 
    * @author Habib Jarweh
    * @param customer The customer 

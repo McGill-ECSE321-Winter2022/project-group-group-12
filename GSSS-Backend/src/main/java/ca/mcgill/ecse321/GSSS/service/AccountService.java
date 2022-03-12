@@ -44,8 +44,13 @@ public class AccountService {
 	public Account authenticate(String email, String password) {
 		
 		// Input validation
+	    String error = "";
 	    if(email == null || email.trim().length() == 0)
-	      throw new IllegalArgumentException("Account email cannot be empty!");
+	      error += "Account email cannot be empty! ";
+	    if(password == null || password.trim().length() == 0)
+          error += "Account password cannot be empty! ";
+	    if(!(error.length() == 0))
+	      throw new IllegalArgumentException(error);
 	    
 	    Customer customer = customerRepository.findCustomerByEmail(email);
 	    if (customer != null) {

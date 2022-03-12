@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.GSSS.service;
 
 import ca.mcgill.ecse321.GSSS.dao.ItemCategoryRepository;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
-import ca.mcgill.ecse321.GSSS.service.TestCustomerService.MockDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,15 +9,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -38,6 +39,7 @@ public class TestItemCategoryService {
     // Set each CRUD method to its mock
     lenient().when(itemCategoryRepository.findItemCategoryByName(anyString())).thenAnswer(
         ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockRepository::findItemCategoryByName);
+    lenient().when(itemCategoryRepository.findAll()).thenAnswer(TestItemCategoryService.MockRepository::getAll);
     lenient().when(itemCategoryRepository.save(any(ItemCategory.class)))
         .thenAnswer(ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockRepository::save);
   }
@@ -158,6 +160,25 @@ public class TestItemCategoryService {
   }
 
   /**
+   * Test to make sure that the get all method works correctly
+   * 
+   * @author Theo Ghanem
+   */
+  @Test
+  public void testGetAllItemCategories_Successful() {
+    List<ItemCategory> fetched = itemCategoryService.getAll();
+    List<ItemCategory> expected = new ArrayList<ItemCategory>();
+    expected.add(MockDatabase.category1);
+    expected.add(MockDatabase.category2);
+    expected.add(MockDatabase.category3);
+    expected.add(MockDatabase.category4);
+    assertNotNull(fetched);
+    assertEquals(expected.size(), fetched.size());
+    for (ItemCategory i : fetched)
+      assertTrue(expected.contains(i));
+  }
+
+  /**
    * @author Chris Hatoum
    *
    *         This class holds all of the mock methods of the CRUD repository.
@@ -185,7 +206,25 @@ public class TestItemCategoryService {
       return (ItemCategory) invocation.getArgument(0);
     }
 
+    /**
+     * Method used in the  get all itemCatgeories test
+     *
+     * @author Theo Ghanem
+     * @param invocation
+     * @return
+     */
+    static List<ItemCategory> getAll(InvocationOnMock invocation) {
+      List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
+      itemCategories.add(MockDatabase.category1);
+      itemCategories.add(MockDatabase.category2);
+      itemCategories.add(MockDatabase.category3);
+      itemCategories.add(MockDatabase.category3);
+      return itemCategories;
+    }
+
   }
+
+
 
   /**
    * @author Chris Hatoum

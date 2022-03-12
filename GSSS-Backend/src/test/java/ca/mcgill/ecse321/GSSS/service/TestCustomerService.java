@@ -72,7 +72,7 @@ public class TestCustomerService {
   }
 
   @Test
-  public void testCreateEmployee_Success() {
+  public void testCreateCustomer_Success() {
     Customer customer = new Customer();
     customer.setEmail("customer@email.com");
     customer.setUsername("Test Smither");
@@ -146,7 +146,7 @@ public class TestCustomerService {
     try {
       customerService.createCustomer("username", "employee@email.com", null, new Address());
     } catch (IllegalArgumentException e) {
-      assertEquals("Customer password cannot be empty! ", e.getMessage());
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
     }
     fail();
@@ -157,7 +157,18 @@ public class TestCustomerService {
     try {
       customerService.createCustomer("username", "customer@email.com", "  ", new Address());
     } catch (IllegalArgumentException e) {
-      assertEquals("Customer password cannot be empty! ", e.getMessage());
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+  
+  @Test
+  public void testCreateCustomer_TooShortPassword() {
+    try {
+      customerService.createCustomer("username", "customer@email.com", "12345", new Address());
+    } catch (IllegalArgumentException e) {
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
     }
     fail();
@@ -180,7 +191,7 @@ public class TestCustomerService {
       customerService.createCustomer(null, null, null, null);
     } catch (IllegalArgumentException e) {
       assertEquals(
-          "Customer email cannot be empty! Email not valid! Customer username cannot be empty! Customer password cannot be empty! Address cannot be null! ",
+          "Customer email cannot be empty! Email not valid! Customer username cannot be empty! Password has to be at least 6 characters! Address cannot be null! ",
           e.getMessage());
       return;
     }
@@ -455,7 +466,7 @@ public class TestCustomerService {
       customerService.modifyCustomer("username", null, "not_registered@email.com", new Address(),
           false);
     } catch (IllegalArgumentException e) {
-      assertEquals("Customer password cannot be empty! ", e.getMessage());
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
     }
     fail();
@@ -467,7 +478,19 @@ public class TestCustomerService {
       customerService.modifyCustomer("username", "   ", "not_registered@email.com", new Address(),
           false);
     } catch (IllegalArgumentException e) {
-      assertEquals("Customer password cannot be empty! ", e.getMessage());
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+  
+  @Test
+  public void testModifyCustomer_TooShortPassword() {
+    try {
+      customerService.modifyCustomer("username", "12345", "not_registered@email.com", new Address(),
+          false);
+    } catch (IllegalArgumentException e) {
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
     }
     fail();

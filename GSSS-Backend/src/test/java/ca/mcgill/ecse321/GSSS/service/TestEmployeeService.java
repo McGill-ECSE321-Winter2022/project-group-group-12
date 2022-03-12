@@ -41,7 +41,7 @@ public class TestEmployeeService {
 
   @InjectMocks
   private EmployeeService employeeService;
-
+ 
   @BeforeEach
   public void setMockOutput() {
     // Set each CRUD method to its mock
@@ -134,7 +134,7 @@ public class TestEmployeeService {
     try {
       employeeService.createEmployee("username", "employee@email.com", null, new Address());
     } catch (IllegalArgumentException e) {
-      assertEquals("Employee password cannot be empty! ", e.getMessage());
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
     }
     fail();
@@ -145,7 +145,18 @@ public class TestEmployeeService {
     try {
       employeeService.createEmployee("username", "employee@email.com", "  ", new Address());
     } catch (IllegalArgumentException e) {
-      assertEquals("Employee password cannot be empty! ", e.getMessage());
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+  
+  @Test
+  public void testCreateEmployee_TooShortPassword() {
+    try {
+      employeeService.createEmployee("username", "employee@email.com", "12345", new Address());
+    } catch (IllegalArgumentException e) {
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
     }
     fail();
@@ -168,7 +179,7 @@ public class TestEmployeeService {
       employeeService.createEmployee(null, null, null, null);
     } catch (IllegalArgumentException e) {
       assertEquals(
-          "Employee email cannot be empty! Email not valid! Employee username cannot be empty! Employee password cannot be empty! Address cannot be null! ",
+          "Employee email cannot be empty! Email not valid! Employee username cannot be empty! Password has to be at least 6 characters! Address cannot be null! ",
           e.getMessage());
       return;
     }
@@ -264,7 +275,7 @@ public class TestEmployeeService {
       employeeService.modifyEmployee("username", null, "not_registered@email.com", new Address(),
           false);
     } catch (IllegalArgumentException e) {
-      assertEquals("Employee password cannot be empty! ", e.getMessage());
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
     }
     fail();
@@ -276,7 +287,19 @@ public class TestEmployeeService {
       employeeService.modifyEmployee("username", "   ", "not_registered@email.com", new Address(),
           false);
     } catch (IllegalArgumentException e) {
-      assertEquals("Employee password cannot be empty! ", e.getMessage());
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+  
+  @Test
+  public void testModifyEmployee_TooShortPassword() {
+    try {
+      employeeService.modifyEmployee("username", "12345", "not_registered@email.com", new Address(),
+          false);
+    } catch (IllegalArgumentException e) {
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
     }
     fail();

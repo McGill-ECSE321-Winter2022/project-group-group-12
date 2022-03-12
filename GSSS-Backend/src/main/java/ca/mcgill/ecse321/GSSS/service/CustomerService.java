@@ -20,7 +20,7 @@ import ca.mcgill.ecse321.GSSS.model.Purchase;
  *
  */
 @Service
-public class CustomerService {
+public class CustomerService { 
 
   // CRUD repositories
 
@@ -53,10 +53,9 @@ public class CustomerService {
     Customer customer = customerRepository.findCustomerByEmail(email);
 
     if (customer == null) {
-      throw new NoSuchElementException("No customer with email " + email + " exists!");
-    }
-
-    return customer;
+		throw new NoSuchElementException("No customer with email "+ email + " exists!");
+	}
+    return customer; 
   }
 
   /**
@@ -151,9 +150,9 @@ public class CustomerService {
       error += "Email not valid! ";
     if (username == null || username.trim().length() == 0)
       error += "Customer username cannot be empty! ";
-    if (password == null || password.trim().length() == 0)
-      error += "Customer password cannot be empty! ";
-    if (address == null)
+    if(password == null || password.length() < 6 || password.trim().length() == 0)
+      error += "Password has to be at least 6 characters! ";
+    if(address == null)
       error += "Address cannot be null! ";
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
@@ -212,8 +211,8 @@ public class CustomerService {
       error += "Customer username cannot be empty! ";
     if (email == null || email.trim().length() == 0)
       error += "Customer email cannot be empty! ";
-    if (password == null || password.trim().length() == 0)
-      error += "Customer password cannot be empty! ";
+    if (password == null || password.length() < 6 || password.trim().length() == 0)
+      error += "Password has to be at least 6 characters! ";
     if (address == null)
       error += "Customer address cannot be null! ";
     if (error.length() > 0)
@@ -246,7 +245,7 @@ public class CustomerService {
       throw new IllegalArgumentException("Customer cannot be null");
 
     if (purchase == null)
-      throw new IllegalArgumentException("Purchase cannot be null");
+      throw new IllegalArgumentException("Purchase cannot be null"); 
 
     // Add purchase to customer and save in database
     customer.getPurchases().add(purchase);
