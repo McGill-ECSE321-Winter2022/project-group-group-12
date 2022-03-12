@@ -37,6 +37,7 @@ import static org.mockito.Mockito.lenient;
         // Set each CRUD method to its mock
         lenient().when(ownerRepository.findOwnerByEmail(anyString())).thenAnswer(MockRepository::findOwnerByEmail);
         lenient().when(ownerRepository.findOwnerByAddress(any(Address.class))).thenAnswer(MockRepository::findOwnerByAddress);
+        lenient().when(ownerRepository.findAll()).thenAnswer(MockRepository::findAll);
         lenient().when(ownerRepository.save(any(Owner.class))).thenAnswer(MockRepository::save);
     }
 
@@ -49,13 +50,6 @@ import static org.mockito.Mockito.lenient;
     public void testGetOwner_Successful() {
         Owner fetched = ownerService.getOwner();
         Owner expected = MockDatabase.owner1;
-//        expected.add(TestCustomerService.MockDatabase.customer1);
-//        expected.add(TestCustomerService.MockDatabase.customer2);
-//        expected.add(TestCustomerService.MockDatabase.customer3);
-//        assertNotNull(fetched);
-//        assertEquals(expected.size(), fetched.size());
-//        for (Customer e : fetched)
-//            assertTrue(expected.contains(e));
        assertNotNull(fetched);
         assertEquals( expected, fetched);
     }
@@ -120,7 +114,7 @@ import static org.mockito.Mockito.lenient;
         try {
             ownerService.modifyOwner("username", null,  new Address());
         } catch (IllegalArgumentException e) {
-            assertEquals("Password has to be at least 6 characters!", e.getMessage());
+            assertEquals("Password has to be at least 6 characters! ", e.getMessage());
             return;
         }
         fail();
@@ -135,7 +129,7 @@ import static org.mockito.Mockito.lenient;
         try {
             ownerService.modifyOwner("username", "   ", new Address());
         } catch (IllegalArgumentException e) {
-            assertEquals("Password has to be at least 6 characters!", e.getMessage());
+            assertEquals("Password has to be at least 6 characters! ", e.getMessage());
             return;
         }
         fail();
@@ -151,7 +145,7 @@ import static org.mockito.Mockito.lenient;
         try {
             ownerService.modifyOwner("username", "12345", new Address());
         } catch (IllegalArgumentException e) {
-            assertEquals("Password has to be at least 6 characters!", e.getMessage());
+            assertEquals("Password has to be at least 6 characters! ", e.getMessage());
             return;
         }
         fail();
@@ -234,6 +228,11 @@ import static org.mockito.Mockito.lenient;
                 return MockDatabase.owner1;
             }
             return null;
+        }
+        static Owner findAll(InvocationOnMock invocation) {
+            List<Owner> owner = new ArrayList<Owner>();
+            owner.add(MockDatabase.owner1);
+            return owner.get(0);
         }
 
         static Owner save(InvocationOnMock invocation) {
