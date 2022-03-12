@@ -261,16 +261,16 @@ public class TestAddressService {
 
   @Test
   public void testModifyAddress_Success() {
-    Address modified = addressService.modifyAddress(MockDatabase.address_m.getFullName(),
-        MockDatabase.address_m.getStreetName(), MockDatabase.address_m.getStreetNumber(),
-        MockDatabase.address_m.getCity(), MockDatabase.address_m.getPostalCode(),
+    Address modified = addressService.modifyAddress(MockDatabase.address2.getFullName(),
+        MockDatabase.address2.getStreetName(), MockDatabase.address2.getStreetNumber(),
+        MockDatabase.address2.getCity(), MockDatabase.address2.getPostalCode(),
         MockDatabase.address_m.getId());
     assertNotNull(modified);
-    assertEquals(MockDatabase.address_m.getFullName(), modified.getFullName());
-    assertEquals(MockDatabase.address_m.getStreetName(), modified.getStreetName());
-    assertEquals(MockDatabase.address_m.getStreetNumber(), modified.getStreetNumber());
-    assertEquals(MockDatabase.address_m.getCity(), modified.getCity());
-    assertEquals(MockDatabase.address_m.getPostalCode(), modified.getPostalCode());
+    assertEquals(MockDatabase.address2.getFullName(), modified.getFullName());
+    assertEquals(MockDatabase.address2.getStreetName(), modified.getStreetName());
+    assertEquals(MockDatabase.address2.getStreetNumber(), modified.getStreetNumber());
+    assertEquals(MockDatabase.address2.getCity(), modified.getCity());
+    assertEquals(MockDatabase.address2.getPostalCode(), modified.getPostalCode());
   }
 
   @Test

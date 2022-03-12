@@ -47,7 +47,7 @@ public class CustomerRestController {
 	  public List<CustomerDto> getAllCustomers(){
 	    List<CustomerDto> customerDtos = new ArrayList<>();
 		for (Customer customer : customerService.getAllCustomers()) {
-			customerDtos.add(ConversionUtility.convertToDto(customer));
+			customerDtos.add(Utility.convertToDto(customer));
 		}
 	    return customerDtos;
 	  }
@@ -66,7 +66,7 @@ public class CustomerRestController {
 	    if (email == null)
 	      throw new IllegalArgumentException("There is no such email!");
 
-	    CustomerDto customerDto = ConversionUtility.convertToDto(customerService.getCustomerByEmail(email));
+	    CustomerDto customerDto = Utility.convertToDto(customerService.getCustomerByEmail(email));
 	    return customerDto;
 
 	  }
@@ -89,7 +89,7 @@ public class CustomerRestController {
 	      @RequestParam(name = "address") AddressDto addressDto)
 	      throws IllegalArgumentException {
 		  Address address = addressService.getAddress(addressDto.getId());
-		  return ConversionUtility.convertToDto(customerService.createCustomer(username, email, password, address));
+		  return Utility.convertToDto(customerService.createCustomer(username, email, password, address));
 	  }
 	  
 	  /**
@@ -114,8 +114,8 @@ public class CustomerRestController {
 	   */
 	  @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
 	  public CustomerDto addPurchase(@PathVariable String email, @RequestBody PurchaseDto purchaseDto) throws IllegalArgumentException {
-		  Purchase purchase = purchaseService.createPurchase(purchaseDto.getOrderType(), ConversionUtility.convertToDomainObject(purchaseDto.getEmployee()), purchaseDto.getOrderStatus(), ConversionUtility.convertItemMapDto(purchaseDto.getItems()));
-		  return ConversionUtility.convertToDto(customerService.addPurchase(customerService.getCustomerByEmail(email), purchase));
+		  Purchase purchase = purchaseService.createPurchase(purchaseDto.getOrderType(), Utility.convertToDomainObject(purchaseDto.getEmployee()), purchaseDto.getOrderStatus(), Utility.convertItemMapDto(purchaseDto.getItems()));
+		  return Utility.convertToDto(customerService.addPurchase(customerService.getCustomerByEmail(email), purchase));
 	  }
 	 
 	  /**
@@ -138,6 +138,6 @@ public class CustomerRestController {
 	      throws IllegalArgumentException {
 		  Address address = addressService.getAddress(addressDto.getId());
 		  Customer customer = customerService.modifyCustomer(username, email, password, address, disabled);
-	    return ConversionUtility.convertToDto(customer);
+	    return Utility.convertToDto(customer);
 	  }
 }

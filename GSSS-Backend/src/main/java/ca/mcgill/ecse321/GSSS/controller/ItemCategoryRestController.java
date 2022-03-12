@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
 import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
-import ca.mcgill.ecse321.GSSS.dto.ItemDto;
-import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.service.ItemCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class ItemCategoryRestController {
   public ItemCategoryDto createCategory(@RequestParam(name = "name") String name)
       throws IllegalArgumentException {
     ItemCategory itemCategory = itemCategoryService.createCategory(name);
-    return ConversionUtility.convertToDto(itemCategory);
+    return Utility.convertToDto(itemCategory);
   }
 
   /**
@@ -64,7 +62,7 @@ public class ItemCategoryRestController {
   public List<ItemCategoryDto> getAllItemCategories() throws IllegalArgumentException {
     List<ItemCategoryDto> itemCategoryDtos = new ArrayList<>();
     for (ItemCategory itemCategory : itemCategoryService.getAll()) {
-      itemCategoryDtos.add(ConversionUtility.convertToDto(itemCategory));
+      itemCategoryDtos.add(Utility.convertToDto(itemCategory));
     }
     return itemCategoryDtos;
   }
@@ -81,7 +79,7 @@ public class ItemCategoryRestController {
   public ItemCategoryDto getCategoryByName(@PathVariable("name") String name)
       throws IllegalArgumentException {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(name);
-    return ConversionUtility.convertToDto(itemCategory);
+    return Utility.convertToDto(itemCategory);
   }
 
 }

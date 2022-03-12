@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
 import ca.mcgill.ecse321.GSSS.dto.ItemDto;
-import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
-import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.service.ItemCategoryService;
 import ca.mcgill.ecse321.GSSS.service.ItemService;
 
@@ -39,7 +37,7 @@ public class ItemRestController {
   @GetMapping(value = {"/item/{name}", "/item/{name}/"})
   public ItemDto getItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
     Item item = itemService.getItemByName(name);
-    return ConversionUtility.convertToDto(item, item.getCategory());
+    return Utility.convertToDto(item, item.getCategory());
   }
 
   /**
@@ -55,7 +53,7 @@ public class ItemRestController {
     List<Item> items = itemService.getItemsByCategory(itemCategory);
     List<ItemDto> itemDtos = new ArrayList<ItemDto>();
     for (Item i : items) {
-      itemDtos.add(ConversionUtility.convertToDto(i));
+      itemDtos.add(Utility.convertToDto(i));
     }
     return itemDtos;
   }
@@ -70,7 +68,7 @@ public class ItemRestController {
   public List<ItemDto> getAllItems() throws IllegalArgumentException {
     List<ItemDto> itemDtos = new ArrayList<>();
     for (Item item : itemService.getAllItems()) {
-      itemDtos.add(ConversionUtility.convertToDto(item, item.getCategory()));
+      itemDtos.add(Utility.convertToDto(item, item.getCategory()));
     }
     return itemDtos;
   }
@@ -103,7 +101,7 @@ public class ItemRestController {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
     Item item = itemService.createItem(name, description, imageUrl, remainingQuantity, price,
         availableForOrder, stillAvailable, itemCategory);
-    return ConversionUtility.convertToDto(item, itemCategory);
+    return Utility.convertToDto(item, itemCategory);
   }
 
   /**
@@ -134,7 +132,7 @@ public class ItemRestController {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
     Item item = itemService.modifyItem(name, description, imageUrl, remainingQuantity, price,
         availableForOrder, stillAvailable, itemCategory);
-    return ConversionUtility.convertToDto(item, itemCategory);
+    return Utility.convertToDto(item, itemCategory);
   }
 
 
