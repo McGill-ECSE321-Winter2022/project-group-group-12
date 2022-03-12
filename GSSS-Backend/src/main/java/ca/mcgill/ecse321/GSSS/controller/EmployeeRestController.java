@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ca.mcgill.ecse321.GSSS.dto.EmployeeDto;
 import ca.mcgill.ecse321.GSSS.dto.ShiftDto;
 import ca.mcgill.ecse321.GSSS.model.Shift;
+import ca.mcgill.ecse321.GSSS.service.AddressService;
 import ca.mcgill.ecse321.GSSS.service.EmployeeService;
 import ca.mcgill.ecse321.GSSS.service.ShiftService;
 
@@ -34,6 +35,9 @@ public class EmployeeRestController {
 
   @Autowired
   private ShiftService shiftService;
+
+  @Autowired
+  private AddressService addressService;
 
   /**
    * This API endpoint fetches employees based on the query parameters.
@@ -61,7 +65,7 @@ public class EmployeeRestController {
       throws IllegalArgumentException {
     return DtoUtility.convertToDto(employeeService.createEmployee(employee.getUsername(),
         employee.getEmail(), employee.getPassword(),
-        DtoUtility.convertToDomainObject(employee.getAddress())));
+        addressService.getAddress(employee.getAddress().getId())));
   }
 
   /**
