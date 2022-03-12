@@ -22,8 +22,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 import ca.mcgill.ecse321.GSSS.dao.ItemCategoryRepository;
 import ca.mcgill.ecse321.GSSS.dao.ItemRepository;
+import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 
@@ -44,7 +46,8 @@ public class TestItemService {
   @BeforeEach
   public void setMockOutput() {
     lenient().when(itemDao.findItemByName(anyString())).thenAnswer(MockRepository::findItemByName);
-    lenient().when(itemDao.findItemsByCategory(any(ItemCategory.class))).thenAnswer(MockRepository::findItemsByCategory);
+    lenient().when(itemDao.findItemsByCategory(any(ItemCategory.class)))
+        .thenAnswer(MockRepository::findItemsByCategory);
     lenient().when(itemDao.findAll()).thenAnswer(MockRepository::findAll);
     lenient().when(itemDao.save(any(Item.class))).thenAnswer(MockRepository::save);
   }
@@ -103,13 +106,13 @@ public class TestItemService {
         assertThrows(NoSuchElementException.class, () -> itemService.getItemByName(wrongName));
     assertEquals("The item with name" + wrongName + "does not exist!", error.getMessage());
   }
-  
+
   /**
    * method to check that all items with same category are fetched successfully
    * 
    * @author Habib Jarweh
    */
-  @Test 
+  @Test
   public void testGetItemsByCategory_Successful() {
     List<Item> items = itemService.getItemsByCategory(MockDatabase.itemCategory2);
     List<Item> expected = new ArrayList<Item>();
@@ -135,6 +138,7 @@ public class TestItemService {
     expected.add(MockDatabase.item1);
     expected.add(MockDatabase.item2);
     expected.add(MockDatabase.item3);
+    expected.add(MockDatabase.itemm);
 
     assertNotNull(items);
     assertEquals(expected.size(), items.size());
@@ -154,7 +158,7 @@ public class TestItemService {
    */
   @Test
   public void testCreateItem_Successful() {
-    assertEquals(3, itemService.getAllItems().size());
+    assertEquals(4, itemService.getAllItems().size());
 
     String name = "Spaghetti";
     String description = "extremely tasty";
@@ -496,8 +500,8 @@ public class TestItemService {
    * 
    * @author Habib Jarweh
    */
+  @Test
   public void testModifyItem_Successful() {
-
     String description = "not so tasty";
     String imageUrl = "www.pasta/spaghetti.com";
     int remainingQuantity = 58;
@@ -765,17 +769,28 @@ public class TestItemService {
         return MockDatabase.item1;
       if (name.equals(MockDatabase.item2.getName()))
         return MockDatabase.item2;
+      if (name.equals(MockDatabase.item3.getName()))
+        return MockDatabase.item3;
+      if (name.equals(MockDatabase.itemm.getName()))
+        return MockDatabase.itemm;
       return null;
     }
 
     static Item save(InvocationOnMock invocation) {
       return (Item) invocation.getArgument(0);
     }
-    
+
     static List<Item> findItemsByCategory(InvocationOnMock invocation) {
+      ItemCategory itemCategory = (ItemCategory) invocation.getArgument(0);
       List<Item> items = new ArrayList<Item>();
-      items.add(MockDatabase.item2);
-      items.add(MockDatabase.item3);
+      if (itemCategory.equals(MockDatabase.item1.getCategory()))
+        items.add(MockDatabase.item1);
+      if (itemCategory.equals(MockDatabase.item2.getCategory()))
+        items.add(MockDatabase.item2);
+      if (itemCategory.equals(MockDatabase.item3.getCategory()))
+        items.add(MockDatabase.item3);
+      if (itemCategory.equals(MockDatabase.itemm.getCategory()))
+        items.add(MockDatabase.itemm);
       return items;
     }
 
@@ -784,6 +799,7 @@ public class TestItemService {
       items.add(MockDatabase.item1);
       items.add(MockDatabase.item2);
       items.add(MockDatabase.item3);
+      items.add(MockDatabase.itemm);
       return items;
     }
   }
@@ -810,14 +826,24 @@ public class TestItemService {
     private static final boolean ITEM_AVAILABILITY2 = true;
 
     private static final String ITEMCATEGORY_KEY2 = "Hygiene";
-    
+
     private static final String ITEM_KEY3 = "TestItem3";
     private static final String ITEM_DESCRIPTION3 = "extremely tasty";
     private static final String ITEM_IMAGEURL3 = "www.veryniceimage/product/hygiene.com";
     private static final int ITEM_REMAININGQUANTITY3 = 76;
     private static final double ITEM_PRICE3 = 8.99;
-    private static final boolean ITEM_AVAILABILITYFORORDER3= true;
+    private static final boolean ITEM_AVAILABILITYFORORDER3 = true;
     private static final boolean ITEM_AVAILABILITY3 = true;
+
+    private static final String ITEMCATEGORY_KEY3 = "Meat";
+
+    private static final String ITEM_KEYM = "TestItemM";
+    private static final String ITEM_DESCRIPTIONM = "not so tasty";
+    private static final String ITEM_IMAGEURLM = "www.veryniceimage/FOOD.com";
+    private static final int ITEM_REMAININGQUANTITYM = 32;
+    private static final double ITEM_PRICEM = 6.99;
+    private static final boolean ITEM_AVAILABILITYFORORDERM = true;
+    private static final boolean ITEM_AVAILABILITYM = true;
 
 
     static Item item1 = new Item();
@@ -825,14 +851,19 @@ public class TestItemService {
 
     static Item item2 = new Item();
     static ItemCategory itemCategory2 = new ItemCategory();
-    
+
     static Item item3 = new Item();
+    static ItemCategory itemCategory3 = new ItemCategory();
+
+    static Item itemm = new Item();
 
     static {
 
       itemCategory1.setName(ITEMCATEGORY_KEY1);
 
       itemCategory2.setName(ITEMCATEGORY_KEY2);
+
+      itemCategory3.setName(ITEMCATEGORY_KEY3);
 
       item1.setName(ITEM_KEY1);
       item1.setDescription(ITEM_DESCRIPTION1);
@@ -851,7 +882,7 @@ public class TestItemService {
       item2.setAvailableForOrder(ITEM_AVAILABILITYFORORDER2);
       item2.setStillAvailable(ITEM_AVAILABILITY2);
       item2.setCategory(itemCategory2);
-      
+
       item3.setName(ITEM_KEY3);
       item3.setDescription(ITEM_DESCRIPTION3);
       item3.setImageUrl(ITEM_IMAGEURL3);
@@ -860,7 +891,18 @@ public class TestItemService {
       item3.setAvailableForOrder(ITEM_AVAILABILITYFORORDER3);
       item3.setStillAvailable(ITEM_AVAILABILITY3);
       item3.setCategory(itemCategory2);
-      
+
+      itemm.setName(ITEM_KEYM);
+      itemm.setDescription(ITEM_DESCRIPTIONM);
+      itemm.setImageUrl(ITEM_IMAGEURLM);
+      itemm.setRemainingQuantity(ITEM_REMAININGQUANTITYM);
+      itemm.setPrice(ITEM_PRICEM);
+      itemm.setAvailableForOrder(ITEM_AVAILABILITYFORORDERM);
+      itemm.setStillAvailable(ITEM_AVAILABILITYM);
+      itemm.setCategory(itemCategory1);
+
+
+
     }
 
   }

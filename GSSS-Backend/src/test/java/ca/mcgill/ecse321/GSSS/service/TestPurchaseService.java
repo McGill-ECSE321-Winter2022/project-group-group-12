@@ -1099,7 +1099,7 @@ public class TestPurchaseService {
 		    } catch (IllegalArgumentException e) {
 		      error = e.getMessage();
 		    }
-	
+	 
 		    assertNull(purchase);
 		    // check error
 		    assertEquals("Purchase ID cannot be empty! ", error);
