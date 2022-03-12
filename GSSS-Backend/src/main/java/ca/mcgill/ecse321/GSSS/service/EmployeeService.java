@@ -48,7 +48,7 @@ public class EmployeeService {
     String error = "";
     if (email == null || email.trim().length() == 0)
       error += "Employee email cannot be empty! ";
-    if (!DtoUtility.isEmailValid(email))
+    if (!Utility.isEmailValid(email))
       error += "Email not valid! ";
     if (username == null || username.trim().length() == 0)
       error += "Employee username cannot be empty! ";
@@ -62,8 +62,8 @@ public class EmployeeService {
     Employee employee = new Employee();
     employee.setUsername(username);
     employee.setEmail(email);
-    employee.setSalt(DtoUtility.getSalt());
-    employee.setPassword(DtoUtility.hashAndSaltPassword(password, employee.getSalt()));
+    employee.setSalt(Utility.getSalt());
+    employee.setPassword(Utility.hashAndSaltPassword(password, employee.getSalt()));
     employee.setAddress(address);
     employee.setDisabled(false);
     employeeRepository.save(employee);
@@ -104,7 +104,7 @@ public class EmployeeService {
     employee.setUsername(username);
     employee.setAddress(address);
     employee.setDisabled(disabled);
-    employee.setPassword(DtoUtility.hashAndSaltPassword(password, employee.getSalt()));
+    employee.setPassword(Utility.hashAndSaltPassword(password, employee.getSalt()));
 
     employeeRepository.save(employee);
     return employee;
@@ -222,7 +222,7 @@ public class EmployeeService {
    */
   @Transactional
   public List<Employee> getAllEmployees() {
-    return DtoUtility.toList(employeeRepository.findAll());
+    return Utility.toList(employeeRepository.findAll());
   }
 
   // OTHER Methods
@@ -280,7 +280,7 @@ public class EmployeeService {
   public Employee getClosestEmployee() {
 
     // Getting all shifts
-    List<Shift> shifts = DtoUtility.toList(shiftRepository.findAll());
+    List<Shift> shifts = Utility.toList(shiftRepository.findAll());
 
     // Current date and time
     Date currentDate = new Date(System.currentTimeMillis());
