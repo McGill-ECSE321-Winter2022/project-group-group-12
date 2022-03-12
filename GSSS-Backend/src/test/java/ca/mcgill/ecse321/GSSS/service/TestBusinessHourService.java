@@ -255,7 +255,7 @@ public class TestBusinessHourService {
 	   * @author Enzo Benoit-Jeannin
 	   */
 	  @Test
-	  public void testCreateItem_AllNull() {
+	  public void testCreateBusinessHour_AllNull() {
 
 	    String error = null;
 	    BusinessHour businessHour = null;
@@ -281,10 +281,11 @@ public class TestBusinessHourService {
 	   * 
 	   * @author Enzo Benoit-Jeannin
 	   */
-	  public void testModifyItem_Successful() {
+	  @Test
+	  public void testModifyBusinessHour_Successful() {
 
-		Time newStartTime = Time.valueOf("8:30:00");
-		Time newEndTime = Time.valueOf("17:30:00");
+		Time newStartTime = Time.valueOf("9:30:00");
+		Time newEndTime = Time.valueOf("22:30:00");
 
 	    BusinessHour businessHour = businessHourService.modifyBusinessHour(MockDatabase.businessHour1.getWeekday(), newStartTime, newEndTime);
 	   
@@ -299,7 +300,8 @@ public class TestBusinessHourService {
 	   * 
 	   * @author Enzo Benoit-Jeannin
 	   */
-	  public void testModifyItem_NullWeekday() {
+	  @Test
+	  public void testModifyBusinessHour_NullWeekday() {
 		    String error = null;
 		    
 		    BusinessHour businessHour = MockDatabase.businessHour1;
@@ -320,7 +322,8 @@ public class TestBusinessHourService {
 	   * 
 	   * @author Enzo Benoit-Jeannin
 	   */
-	  public void testModifyItem_NullStartTime() {
+	  @Test
+	  public void testModifyBusinessHour_NullStartTime() {
 		    String error = null;
 		    BusinessHour businessHour = MockDatabase.businessHour1;
 		    try {
@@ -340,7 +343,8 @@ public class TestBusinessHourService {
 	   * 
 	   * @author Enzo Benoit-Jeannin
 	   */
-	  public void testModifyItem_NullEndTime() {
+	  @Test
+	  public void testModifyBusinessHour_NullEndTime() {
 		    String error = null;
 		    BusinessHour businessHour = MockDatabase.businessHour1;
 		    try {
@@ -350,7 +354,6 @@ public class TestBusinessHourService {
 		      error = e.getMessage();
 		    }
 
-		    assertNotNull(businessHour);
 		    // check error
 		    assertEquals("Business hour end time cannot be null! ", error);
 	  }
@@ -360,7 +363,8 @@ public class TestBusinessHourService {
 	   * 
 	   * @author Enzo Benoit-Jeannin
 	   */
-	  public void testModifyItem_StartTimeAfterEndTime() {
+	  @Test
+	  public void testModifyBusinessHour_StartTimeAfterEndTime() {
 		    String error = null;
 		    BusinessHour businessHour = MockDatabase.businessHour1;
 		    Time newStartTime = Time.valueOf("17:30:00");
@@ -384,7 +388,7 @@ public class TestBusinessHourService {
 	   * @author Enzo Benoit-Jeannin
 	   */
 	  @Test
-	  public void testModifyBsuinessHour_AllNull() {
+	  public void testModifyBusinessHour_AllNull() {
 	    String error = null;
 	    BusinessHour businessHour = MockDatabase.businessHour1;
 

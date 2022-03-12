@@ -743,20 +743,18 @@ public class TestPurchaseService {
         item1.setAvailableForOrder(false);
         item1.setStillAvailable(false);
         item1.setCategory(itemCategory);
-        OrderType orderType = OrderType.InPerson;
-        OrderStatus orderStatus = OrderStatus.OutForDelivery;
 
 	    Purchase purchase = null;
 	    try {
-	      purchase = purchaseService.modifyPurchase(orderType, orderStatus, MockDatabase.purchase1.getId(), items, employee);
+	      purchase = purchaseService.modifyPurchase(OrderType.InPerson, OrderStatus.OutForDelivery, MockDatabase.purchase1.getId(), items, employee);
 	    } catch (IllegalArgumentException e) {
 	      // Check that no error occurred
 	      fail();
 	    }
 	    assertNotNull(purchase);
 	    assertEquals(MockDatabase.purchase1.getId(), purchase.getId());
-	    assertEquals(orderType, purchase.getOrderType());
-	    assertEquals(orderStatus, purchase.getOrderStatus());
+	    assertEquals(OrderType.InPerson, purchase.getOrderType());
+	    assertEquals(OrderStatus.OutForDelivery, purchase.getOrderStatus());
 	    assertEquals(employee, purchase.getEmployee());
 	    assertEquals(items, purchase.getItems());
 	  }
@@ -916,7 +914,7 @@ public class TestPurchaseService {
 		    Purchase purchase = null;
 		    String error = null;
 		    try {
-		    	purchase = purchaseService.modifyPurchase(orderType, orderStatus, MockDatabase.purchase1.getId(), items, employee);
+		    	purchase = purchaseService.modifyPurchase(OrderType.InPerson, null, MockDatabase.purchase1.getId(), MockDatabase.items3, employee);
 		    } catch (IllegalArgumentException e) {
 		      error = e.getMessage();
 		    }
@@ -933,41 +931,11 @@ public class TestPurchaseService {
 	   */
 	  @Test
 	  public void testModifyPurchase_NullItems() {
-		  Employee employee = new Employee();
-		    employee.setEmail("wassim@gmail.com");
-		    employee.setUsername("Wassim Jabbour");
-		    employee.setPassword("y45675324u");
-		    employee.setSalt("jg34fd1h243214fg142");
-		    employee.setDisabled(false);
-
-			Address address = new Address();
-			address.setFullName("Enzo Benoit-Jeannin");
-			address.setId(UUID.randomUUID().toString());
-			address.setStreetName("Lorne Street st");
-			address.setStreetNumber(3660);
-			address.setCity("Montreal");
-			address.setPostalCode("B1A 2B2");
-	        employee.setAddress(address);
-
-	        Shift shift = new Shift();
-	        Set<Shift> shifts = new HashSet<Shift>();
-
-	        shift.setId(UUID.randomUUID().toString());
-	        shift.setDate(Date.valueOf("2022-03-08"));
-	        shift.setStartTime(Time.valueOf("09:30:00"));
-	        shift.setEndTime(Time.valueOf("17:00:00"));
-	        shifts.add(shift);
-	        employee.setShifts(shifts);
-	        
-	        HashMap<Item, Integer> items = null;
-
-	        OrderType orderType = OrderType.InPerson;
-	        OrderStatus orderStatus = OrderStatus.BeingPrepared;
 
 		    Purchase purchase = null;
 		    String error = null;
 		    try {
-		    	purchase = purchaseService.modifyPurchase(orderType, orderStatus, MockDatabase.purchase1.getId(), items, employee);
+		    	purchase = purchaseService.modifyPurchase(OrderType.InPerson, OrderStatus.BeingPrepared, MockDatabase.purchase1.getId(), null, MockDatabase.employee2);
 		    } catch (IllegalArgumentException e) {
 		      error = e.getMessage();
 		    }
@@ -984,54 +952,11 @@ public class TestPurchaseService {
 	   */
 	  @Test
 	  public void testModifyPurchase_NullId() {
-		  Employee employee = new Employee();
-		    employee.setEmail("wassim@gmail.com");
-		    employee.setUsername("Wassim Jabbour");
-		    employee.setPassword("y45675324u");
-		    employee.setSalt("jg34fd1h243214fg142");
-		    employee.setDisabled(false);
-
-			Address address = new Address();
-			address.setFullName("Enzo Benoit-Jeannin");
-			address.setId(UUID.randomUUID().toString());
-			address.setStreetName("Lorne Street st");
-			address.setStreetNumber(3660);
-			address.setCity("Montreal");
-			address.setPostalCode("B1A 2B2");
-	        employee.setAddress(address);
-
-	        Shift shift = new Shift();
-	        Set<Shift> shifts = new HashSet<Shift>();
-
-	        shift.setId(UUID.randomUUID().toString());
-	        shift.setDate(Date.valueOf("2022-03-08"));
-	        shift.setStartTime(Time.valueOf("09:30:00"));
-	        shift.setEndTime(Time.valueOf("17:00:00"));
-	        shifts.add(shift);
-	        employee.setShifts(shifts);
-	        
-	        HashMap<Item, Integer> items = new HashMap<Item, Integer>();
-
-	        ItemCategory itemCategory = new ItemCategory();
-	        itemCategory.setName("Dishes");
-	        
-	        Item item1 = new Item();
-	        item1.setName("Spaghetti");
-	        item1.setDescription("Italian dish");
-	        item1.setImageUrl("www.pasta/spaghetti.com");
-	        item1.setRemainingQuantity(45);
-	        item1.setPrice(23.00);
-	        item1.setAvailableForOrder(false);
-	        item1.setStillAvailable(false);
-	        item1.setCategory(itemCategory);
-
-	        OrderType orderType = OrderType.InPerson;
-	        OrderStatus orderStatus = OrderStatus.BeingPrepared;
 
 		    Purchase purchase = null;
 		    String error = null;
 		    try {
-		    	purchase = purchaseService.modifyPurchase(orderType, orderStatus, null, items, employee);
+		    	purchase = purchaseService.modifyPurchase(OrderType.InPerson, OrderStatus.BeingPrepared, null , MockDatabase.items1, MockDatabase.employee1);
 		    } catch (IllegalArgumentException e) {
 		      error = e.getMessage();
 		    }
@@ -1048,54 +973,10 @@ public class TestPurchaseService {
 	   */
 	  @Test
 	  public void testModifyPurchase_EmptyId() {
-		  Employee employee = new Employee();
-		    employee.setEmail("employee@gmail.com");
-		    employee.setUsername("Enzo Benoit-Jeannin");
-		    employee.setPassword("y45675324u");
-		    employee.setSalt("jg34fd1h243214fg142");
-		    employee.setDisabled(false);
-
-			Address address = new Address();
-			address.setFullName("Enzo Benoit-Jeannin");
-			address.setId(UUID.randomUUID().toString());
-			address.setStreetName("Lorne Street st");
-			address.setStreetNumber(3660);
-			address.setCity("Montreal");
-			address.setPostalCode("B1A 2B2");
-	        employee.setAddress(address);
-
-	        Shift shift = new Shift();
-	        Set<Shift> shifts = new HashSet<Shift>();
-
-	        shift.setId(UUID.randomUUID().toString());
-	        shift.setDate(Date.valueOf("2022-03-08"));
-	        shift.setStartTime(Time.valueOf("09:30:00"));
-	        shift.setEndTime(Time.valueOf("17:00:00"));
-	        shifts.add(shift);
-	        employee.setShifts(shifts);
-	        
-	        HashMap<Item, Integer> items = new HashMap<Item, Integer>();
-
-	        ItemCategory itemCategory = new ItemCategory();
-	        itemCategory.setName("Dishes");
-	        
-	        Item item1 = new Item();
-	        item1.setName("Spaghetti");
-	        item1.setDescription("Italian dish");
-	        item1.setImageUrl("www.pasta/spaghetti.com");
-	        item1.setRemainingQuantity(45);
-	        item1.setPrice(23.00);
-	        item1.setAvailableForOrder(false);
-	        item1.setStillAvailable(false);
-	        item1.setCategory(itemCategory);
-
-	        OrderType orderType = OrderType.InPerson;
-	        OrderStatus orderStatus = OrderStatus.BeingPrepared;
-
 		    Purchase purchase = null;
 		    String error = null;
 		    try {
-		    	purchase = purchaseService.modifyPurchase(orderType, orderStatus, " ", items, employee);
+		    	purchase = purchaseService.modifyPurchase(OrderType.InPerson, OrderStatus.BeingPrepared, " ", MockDatabase.items1, MockDatabase.employee1);
 		    } catch (IllegalArgumentException e) {
 		      error = e.getMessage();
 		    }

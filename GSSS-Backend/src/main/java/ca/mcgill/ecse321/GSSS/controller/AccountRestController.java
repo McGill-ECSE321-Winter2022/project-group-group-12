@@ -2,6 +2,9 @@ package ca.mcgill.ecse321.GSSS.controller;
 
 import java.util.NoSuchElementException;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,18 +24,30 @@ class AccountRestController {
   AccountService accountService;
 
   @GetMapping(value = {"/account/login", "/account/login/"})
-  public String logIn(@RequestParam String email, @RequestParam String password)
+  public void logIn(@RequestParam String email, @RequestParam String password, HttpServletResponse response)
       throws NoSuchElementException, IllegalArgumentException {
 
     Account account = accountService.authenticate(email, password);
 
-    if (account instanceof Customer) {
-      return "Customer";
-    } else if (account instanceof Employee) {
-      return "Employee";
-    } else {
-      return "Owner";
-    }
+    Cookie cookie = new Cookie("token", accountService.generateJWT(account));
+
+    cookie.setPath("/");
+    cookie.setSecure(false);
+    cookie.setHttpOnly(true);
+
+    response.addCookie(cookie);
+  }
+
+  @GetMapping(value = { "/account/logout", "/account/logout/" })
+  public void logOut(HttpServletResponse response){
+    Cookie cookie = new Cookie("token", "");
+
+    cookie.setMaxAge(-1);
+    cookie.setPath("/");
+    cookie.setSecure(false);
+    cookie.setHttpOnly(true);
+
+    response.addCookie(cookie);
   }
 
 }

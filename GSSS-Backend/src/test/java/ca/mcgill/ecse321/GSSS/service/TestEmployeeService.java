@@ -9,17 +9,19 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
+
 import java.sql.Date;
 import java.sql.Time;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
+
+import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,6 +41,9 @@ public class TestEmployeeService {
   @Mock
   private EmployeeRepository employeeRepository;
 
+  @Mock
+  private ShiftRepository shiftRepository;
+
   @InjectMocks
   private EmployeeService employeeService;
  
@@ -46,17 +51,19 @@ public class TestEmployeeService {
   public void setMockOutput() {
     // Set each CRUD method to its mock
     lenient().when(employeeRepository.findEmployeeByEmail(anyString()))
-        .thenAnswer(MockRepository::findEmployeeByEmail);
+        .thenAnswer(MockEmployeeRepository::findEmployeeByEmail);
     lenient().when(employeeRepository.findEmployeesByUsername(anyString()))
-        .thenAnswer(MockRepository::findEmployeeByUsername);
+        .thenAnswer(MockEmployeeRepository::findEmployeeByUsername);
     lenient().when(employeeRepository.findEmployeeByShifts(any(Shift.class)))
-        .thenAnswer(MockRepository::findEmployeeByShifts);
+        .thenAnswer(MockEmployeeRepository::findEmployeeByShifts);
     lenient().when(employeeRepository.findEmployeeByAddress(any(Address.class)))
-        .thenAnswer(MockRepository::findEmployeeByAddress);
+        .thenAnswer(MockEmployeeRepository::findEmployeeByAddress);
     lenient().when(employeeRepository.findEmployeesByDisabled(anyBoolean()))
-        .thenAnswer(MockRepository::findEmployeesByDisabled);
-    lenient().when(employeeRepository.findAll()).thenAnswer(MockRepository::findAll);
-    lenient().when(employeeRepository.save(any(Employee.class))).thenAnswer(MockRepository::save);
+        .thenAnswer(MockEmployeeRepository::findEmployeesByDisabled);
+    lenient().when(employeeRepository.findAll()).thenAnswer(MockEmployeeRepository::findAll);
+    lenient().when(employeeRepository.save(any(Employee.class))).thenAnswer(MockEmployeeRepository::save);
+
+    lenient().when(shiftRepository.findAll()).thenAnswer(MockShiftRepository::findAll);
   }
 
   @Test
@@ -554,12 +561,47 @@ public class TestEmployeeService {
     fail();
   }
 
+  @Test
+  public void testGetClosestEmployee_SuccessToday(){
+    MockDatabase.shift_m.setDate(new Date(System.currentTimeMillis()));
+    MockDatabase.shift_m.setEndTime(new Time(System.currentTimeMillis() + 1000 * 60 * 60 * 24));
+    MockDatabase.shifts_m.clear();
+    MockDatabase.shifts_m.add(MockDatabase.shift_m);
+    MockDatabase.employeem.setShifts(MockDatabase.shifts_m);
+    Employee closest = employeeService.getClosestEmployee();
+    assertNotNull(closest);
+    assertEquals(MockDatabase.employeem, closest);
+  }
+
+  @Test
+  public void testGetClosestEmployee_SuccessFuture(){
+    MockDatabase.shift_m.setDate(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24));
+    MockDatabase.shift_m.setEndTime(Time.valueOf("23:59:59"));
+    MockDatabase.shifts_m.clear();
+    MockDatabase.shifts_m.add(MockDatabase.shift_m);
+    MockDatabase.employeem.setShifts(MockDatabase.shifts_m);
+    Employee closest = employeeService.getClosestEmployee();
+    assertNotNull(closest);
+    assertEquals(MockDatabase.employeem, closest);
+  }
+
+  @Test
+  public void testGetClosestEmployee_Failure(){
+    MockDatabase.shift_m.setDate(new Date(0));
+    MockDatabase.shifts_m.clear();
+    MockDatabase.shifts_m.add(MockDatabase.shift_m);
+    MockDatabase.employeem.setShifts(MockDatabase.shifts_m);
+    Employee closest = employeeService.getClosestEmployee();
+    assertNotNull(closest);
+    assertEquals(MockDatabase.employeem, closest);
+  }
+
 
 
   /**
    * This class holds all of the mock methods of the CRUD repository.
    */
-  class MockRepository {
+  class MockEmployeeRepository {
 
     static Employee findEmployeeByEmail(InvocationOnMock invocation) {
       String email = (String) invocation.getArgument(0);
@@ -641,6 +683,18 @@ public class TestEmployeeService {
       return employees;
     }
 
+  }
+
+  class MockShiftRepository{
+
+    static List<Shift> findAll(InvocationOnMock invocation){
+      List<Shift> shifts = new ArrayList<Shift>();
+      shifts.add(MockDatabase.shift1);
+      shifts.add(MockDatabase.shift2);
+      shifts.add(MockDatabase.shift3);
+      shifts.add(MockDatabase.shift_m);
+      return shifts;
+    }
   }
 
 
