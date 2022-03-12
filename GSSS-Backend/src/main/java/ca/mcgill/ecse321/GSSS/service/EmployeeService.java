@@ -179,7 +179,7 @@ public class EmployeeService {
    * Finds an employee by its shift
    * 
    * @author Enzo Benoit-Jeannin
-   * @param shiftId The ID of the shift to search for
+   * @param shift The ID of the shift to search for
    * @return The found employee
    */
   @Transactional
@@ -318,7 +318,7 @@ public class EmployeeService {
       Shift shift = shifts.get(i);
 
       // If its date is today, check it ends after now
-      if (shift.getDate().equals(currentDate)) {
+      if (shift.getDate().toString().equals(currentDate.toString())) {
         if (shift.getEndTime().after(currentTime)) {
           bestShift = shift;
           break;
