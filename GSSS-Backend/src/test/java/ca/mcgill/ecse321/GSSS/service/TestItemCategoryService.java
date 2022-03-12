@@ -25,8 +25,8 @@ import java.util.NoSuchElementException;
 /**
  * @author Chris Hatoum
  */
-@ExtendWith(MockitoExtension.class)
-public class TestItemCategoryService {
+  @ExtendWith(MockitoExtension.class)
+  public class TestItemCategoryService {
 
   @Mock
   private ItemCategoryRepository itemCategoryRepository;
@@ -181,7 +181,7 @@ public class TestItemCategoryService {
   /**
    * @author Chris Hatoum
    *
-   *         This class holds all of the mock methods of the CRUD repository.
+   * his class holds all of the mock methods of the CRUD repository.
    */
   class MockRepository {
 

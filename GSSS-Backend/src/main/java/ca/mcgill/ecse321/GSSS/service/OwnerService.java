@@ -52,7 +52,7 @@ public class OwnerService {
     if (username == null || username.trim().length() == 0)
       error += "Owner username cannot be empty! ";
     if(password == null || password.length() < 6 || password.trim().length() == 0)
-      error += "Password has to be at least 6 characters!";
+      error += "Password has to be at least 6 characters! ";
     if (address == null)
       error += "Owner address cannot be null! ";
     if (error.length() > 0)
