@@ -72,7 +72,7 @@ public class TestShiftService {
     fail();
   }
 
-  @Test
+  @Test 
   public void testCreateShift_NullStartTime() {
     try {
       shiftService.createShift(Date.valueOf("2022-01-01"), null, Time.valueOf("03:00:00"));
@@ -124,6 +124,7 @@ public class TestShiftService {
     Shift modified = shiftService.modifyShift(MockDatabase.shiftm.getId(),
         Date.valueOf("2022-01-01"), Time.valueOf("04:00:00"), Time.valueOf("05:00:00"));
     assertNotNull(modified);
+    assertEquals(MockDatabase.shiftm.getId(), modified.getId());
     assertEquals(Date.valueOf("2022-01-01"), modified.getDate());
     assertEquals(Time.valueOf("04:00:00"), modified.getStartTime());
     assertEquals(Time.valueOf("05:00:00"), modified.getEndTime());

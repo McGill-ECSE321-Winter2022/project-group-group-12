@@ -48,7 +48,7 @@ public class TestBusinessHourService {
 	// ========================================================================
 	// Get methods
     // ========================================================================
-
+  
 	 /**
 	   * Method to check that all businesshours in the database are fetched successfully
 	   * 
