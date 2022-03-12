@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.GSSS.service;
 
-import ca.mcgill.ecse321.GSSS.dao.ItemCategoryRepository;
 import ca.mcgill.ecse321.GSSS.dao.OwnerRepository;
 import ca.mcgill.ecse321.GSSS.model.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +21,7 @@ import static org.mockito.Mockito.lenient;
 
 /**
  * @author Chris Hatoum
+ *
  */
     @ExtendWith(MockitoExtension.class)
     public class TestOwnerService {
@@ -177,7 +177,7 @@ import static org.mockito.Mockito.lenient;
 
         assertNotNull(modified);
 
-        assertEquals("Quebec City", modified.getUsername());
+        assertEquals("Quebec City", modified.getStoreCity());
         assertEquals(20, modified.getOutOfTownDeliveryFee());
 
     }
@@ -229,10 +229,10 @@ import static org.mockito.Mockito.lenient;
             }
             return null;
         }
-        static Owner findAll(InvocationOnMock invocation) {
+        static List<Owner> findAll(InvocationOnMock invocation) {
             List<Owner> owner = new ArrayList<Owner>();
             owner.add(MockDatabase.owner1);
-            return owner.get(0);
+            return owner;
         }
 
         static Owner save(InvocationOnMock invocation) {
