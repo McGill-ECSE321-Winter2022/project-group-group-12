@@ -200,4 +200,24 @@ public class AccountService {
 		return getPermission(token).equals(PERMISSIONS_CUSTOMER);
 	}
 
+	/**
+	 * This method verifies whether a JWT belongs to a specific account.
+	 * 
+	 * @author Philippe Sarouphim Hochar.
+	 * 
+	 * @param token JWT.
+	 * @param email Account email.
+	 * @return Whether JWT belongs to specified email.
+	 */
+	public boolean getAccountPermission(String token, String email){
+		if(!validateToken(token)) return false;
+		String sub = (String) Jwts.parser()
+			.setSigningKey(secret)
+			.parseClaimsJws(token)
+			.getBody()
+			.get("subject");
+
+		return email.equals(sub);
+	}
+
 }
