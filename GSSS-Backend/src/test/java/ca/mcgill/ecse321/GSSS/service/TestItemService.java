@@ -58,7 +58,7 @@ public class TestItemService {
   // ========================================================================
 
   /**
-   * method that an item is fetched successfully
+   * method test to check that an item is fetched successfully
    * 
    * @author Habib Jarweh
    */
@@ -70,7 +70,7 @@ public class TestItemService {
   }
 
   /**
-   * method to check error is thrown when we input a null name when we try to fetch an item
+   * method test to check error is thrown when we input a null name when we try to fetch an item
    * 
    * @author Habib Jarweh
    */
@@ -82,7 +82,7 @@ public class TestItemService {
   }
 
   /**
-   * method to check error is thrown when we input an empty name when we try to fetch an item
+   * method test to check error is thrown when we input an empty name when we try to fetch an item
    * 
    * @author Habib Jarweh
    */
@@ -95,7 +95,7 @@ public class TestItemService {
 
 
   /**
-   * method to check error is thrown when we try to fetch an item not in the database
+   * method test to check error is thrown when we try to fetch an item not in the database
    * 
    * @author Habib Jarweh
    */
@@ -108,7 +108,7 @@ public class TestItemService {
   }
 
   /**
-   * method to check that all items with same category are fetched successfully
+   * method test to check that all items with same category are fetched successfully
    * 
    * @author Habib Jarweh
    */
@@ -126,7 +126,7 @@ public class TestItemService {
   }
 
   /**
-   * method to check that all items in the databse are fetched successfully
+   * method test to check that all items in the database are fetched successfully
    * 
    * @author Habib Jarweh
    */
@@ -241,7 +241,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when name is empty
+   * method to test that an error is thrown when name is null
    * 
    * @author Habib Jarweh
    */
@@ -267,7 +267,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when description is empty
+   * method to test that an error is thrown when description is null
    * 
    * @author Habib Jarweh
    */
@@ -293,7 +293,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when image URL is empty
+   * method to test that an error is thrown when image URL is null
    * 
    * @author Habib Jarweh
    */
@@ -319,7 +319,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when name is just space
+   * method to test that an error is thrown when name is just space or empty
    * 
    * @author Habib Jarweh
    */
@@ -345,7 +345,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when description is just space
+   * method to test that an error is thrown when description is just space or empty
    * 
    * @author Habib Jarweh
    */
@@ -371,7 +371,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when image URL is just space
+   * method to test that an error is thrown when image URL is just space or empty
    * 
    * @author Habib Jarweh
    */
@@ -423,7 +423,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when every parameter is either empty or wrong
+   * method to test that an error is thrown when every parameter is either empty,null or wrong
    * 
    * @author Habib Jarweh
    */
@@ -451,7 +451,7 @@ public class TestItemService {
   // ========================================================================
 
   /**
-   * method to check that an item was deleted successfully
+   * method test to check that an item was deleted successfully
    * 
    * @author Habib Jarweh
    */
@@ -466,7 +466,7 @@ public class TestItemService {
   }
 
   /**
-   * method to check that error is thrown when we input a null name
+   * method test to check that error is thrown when we input a null name
    * 
    * @author Habib Jarweh
    */
@@ -479,7 +479,7 @@ public class TestItemService {
   }
 
   /**
-   * method to check that error is thrown when we input an empty name
+   * method test to check that error is thrown when we input an empty name
    * 
    * @author Habib Jarweh
    */
@@ -496,7 +496,7 @@ public class TestItemService {
   // ========================================================================
 
   /**
-   * method to see if item gets modified successfully
+   * method test to see if item gets modified successfully
    * 
    * @author Habib Jarweh
    */
@@ -575,7 +575,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when name is empty
+   * method to test that an error is thrown when name is null
    * 
    * @author Habib Jarweh
    */
@@ -599,7 +599,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when description is empty
+   * method to test that an error is thrown when description is null
    * 
    * @author Habib Jarweh
    */
@@ -622,7 +622,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when image URL is empty
+   * method to test that an error is thrown when image URL is null
    * 
    * @author Habib Jarweh
    */
@@ -645,7 +645,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when name is just space
+   * method to test that an error is thrown when name is just space or empty
    * 
    * @author Habib Jarweh
    */
@@ -668,7 +668,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when description is just space
+   * method to test that an error is thrown when description is just space or empty
    * 
    * @author Habib Jarweh
    */
@@ -691,7 +691,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when image URL is just space
+   * method to test that an error is thrown when image URL is just space or empty
    * 
    * @author Habib Jarweh
    */
@@ -738,7 +738,7 @@ public class TestItemService {
   }
 
   /**
-   * method to test that an error is thrown when every parameter is either empty or wrong
+   * method to test that an error is thrown when every parameter is either null or wrong
    * 
    * @author Habib Jarweh
    */
@@ -761,6 +761,7 @@ public class TestItemService {
         error);
   }
 
+  /** This class holds all the mock methods of the CRUD repository. */
   class MockRepository {
 
     static Item findItemByName(InvocationOnMock invocation) {
@@ -804,8 +805,10 @@ public class TestItemService {
     }
   }
 
+  /** This class mock data for tests. */
   final static class MockDatabase {
 
+    // item 1 info
     private static final String ITEM_KEY1 = "TestItem1";
     private static final String ITEM_DESCRIPTION1 = "very tasty";
     private static final String ITEM_IMAGEURL1 = "www.niceimage.com";
@@ -814,6 +817,7 @@ public class TestItemService {
     private static final boolean ITEM_AVAILABILITYFORORDER1 = true;
     private static final boolean ITEM_AVAILABILITY1 = true;
 
+    // item category 1 info
     private static final String ITEMCATEGORY_KEY1 = "Food";
 
     // item 2 info
@@ -825,8 +829,10 @@ public class TestItemService {
     private static final boolean ITEM_AVAILABILITYFORORDER2 = false;
     private static final boolean ITEM_AVAILABILITY2 = true;
 
+    // item category 2 info
     private static final String ITEMCATEGORY_KEY2 = "Hygiene";
 
+    // item 3 info
     private static final String ITEM_KEY3 = "TestItem3";
     private static final String ITEM_DESCRIPTION3 = "extremely tasty";
     private static final String ITEM_IMAGEURL3 = "www.veryniceimage/product/hygiene.com";
@@ -835,8 +841,10 @@ public class TestItemService {
     private static final boolean ITEM_AVAILABILITYFORORDER3 = true;
     private static final boolean ITEM_AVAILABILITY3 = true;
 
+    // item category 3 info
     private static final String ITEMCATEGORY_KEY3 = "Meat";
 
+    // item m (m for modify) info
     private static final String ITEM_KEYM = "TestItemM";
     private static final String ITEM_DESCRIPTIONM = "not so tasty";
     private static final String ITEM_IMAGEURLM = "www.veryniceimage/FOOD.com";

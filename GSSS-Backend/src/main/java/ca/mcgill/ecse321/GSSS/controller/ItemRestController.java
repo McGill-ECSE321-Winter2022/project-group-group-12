@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.GSSS.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +17,7 @@ import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.service.ItemCategoryService;
 import ca.mcgill.ecse321.GSSS.service.ItemService;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -32,10 +34,11 @@ public class ItemRestController {
    * @author Habib Jarweh
    * @param name name we want to find item by
    * @return itemDto item we want to find
-   * @throws IllegalArgumentException
+   * @throws illegal argument exception when inputted name is either null or empty
+   * @throws no such element exception when there is no item with the inputed name
    */
   @GetMapping(value = {"/item/{name}", "/item/{name}/"})
-  public ItemDto getItemByName(@PathVariable("name") String name) throws IllegalArgumentException {
+  public ItemDto getItemByName(@PathVariable("name") String name) throws IllegalArgumentException, NoSuchElementException {
     Item item = itemService.getItemByName(name);
     return DtoUtility.convertToDto(item, item.getCategory());
   }
@@ -65,7 +68,7 @@ public class ItemRestController {
    * @return list of all itemDtos
    */
   @GetMapping(value = {"/items", "/items/"})
-  public List<ItemDto> getAllItems() throws IllegalArgumentException {
+  public List<ItemDto> getAllItems() {
     List<ItemDto> itemDtos = new ArrayList<>();
     for (Item item : itemService.getAllItems()) {
       itemDtos.add(DtoUtility.convertToDto(item, item.getCategory()));
@@ -86,7 +89,8 @@ public class ItemRestController {
    * @param stillAvailable if item is still available
    * @param itemCategory item category
    * @return itemDto we created
-   * @throws IllegalArgumentException
+   * @throws illegal argument exception when any or all inputed strings are null or wrong, or when
+   *         remaining quantity or price are negative, or when item category is null
    */
   @PostMapping(value = {"/item", "/item/"})
   public ItemDto createItem(@RequestParam(name = "name") String name,
@@ -117,7 +121,8 @@ public class ItemRestController {
    * @param stillAvailable availability of item we want to update
    * @param itemCategory item category
    * @return itemDto we want to update
-   * @throws IllegalArgumentException
+   * @throws illegal argument exception when any or all inputed strings are null or wrong, or when
+   *         remaining quantity or price are negative, or when item category is null
    */
   @PostMapping(value = {"/item/{name}", "/item/{name}/"})
   public ItemDto modifyItem(@PathVariable("name") String name,
@@ -141,7 +146,7 @@ public class ItemRestController {
    * 
    * @author Habib Jarweh
    * @param name
-   * @throws IllegalArgumentException
+   * @throws illegal argument exception when name is null or empty
    */
   @DeleteMapping(value = {"/item/{name}", "/item/{name}/"})
   public void deleteItem(@PathVariable("name") String name) throws IllegalArgumentException {

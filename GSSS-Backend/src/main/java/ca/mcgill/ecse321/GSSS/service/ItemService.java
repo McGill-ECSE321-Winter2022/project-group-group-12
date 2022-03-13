@@ -29,6 +29,8 @@ public class ItemService {
    * @author Chris Hatoum
    * @param name Name of the item
    * @return The item we want
+   * @throws illegal argument exception when inputted name is either null or empty
+   * @throws no such element exception when there is no item with the inputed name
    */
   @Transactional
   public Item getItemByName(String name) {
@@ -80,6 +82,8 @@ public class ItemService {
    * @param availableForOrder If the item id available for online order or not
    * @param stillAvailable Item's availability
    * @return The item that has been created
+   * @throws illegal argument exception when any or all inputed strings are null or wrong, or when
+   *         remaining quantity or price are negative, or when item category is null
    */
   @Transactional
   public Item createItem(String name, String description, String imageUrl, int remainingQuantity,
@@ -122,6 +126,7 @@ public class ItemService {
    * 
    * @author Chris Hatoum
    * @param name Delete the item with the name ("name")
+   * @throws illegal argument exception when name is null or empty
    */
   @Transactional
   public void deleteItem(String name) {
@@ -147,6 +152,8 @@ public class ItemService {
    * @param availableForOrder boolean if item is still available for order
    * @param stillAvailable boolean to see if item is still available
    * @return item we want to update
+   * @throws illegal argument exception when any or all inputed strings are null or wrong, or when
+   *         remaining quantity or price are negative, or when item category is null
    */
   @Transactional
   public Item modifyItem(String name, String description, String imageUrl, int remainingQuantity,
