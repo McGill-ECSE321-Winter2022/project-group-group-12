@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,21 +16,25 @@ import ca.mcgill.ecse321.GSSS.model.Account;
 import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.service.AccountService;
+import ca.mcgill.ecse321.GSSS.service.JwtService;
 
 @CrossOrigin(origins = "*")
 @RestController
 class AccountRestController {
 
   @Autowired
-  AccountService accountService;
+  private AccountService accountService;
 
-  @GetMapping(value = {"/account/login", "/account/login/"})
-  public void logIn(@RequestParam String email, @RequestParam String password, HttpServletResponse response)
+  @Autowired
+  private JwtService jwtService;
+
+  @PostMapping(value = {"/account/login", "/account/login/"})
+  public void logIn(@RequestParam() String email, @RequestParam String password, HttpServletResponse response)
       throws NoSuchElementException, IllegalArgumentException {
 
     Account account = accountService.authenticate(email, password);
 
-    Cookie cookie = new Cookie("token", JwtUtility.generateJWT(account));
+    Cookie cookie = new Cookie("token", jwtService.generateJWT(account));
 
     cookie.setPath("/");
     cookie.setSecure(false);
@@ -42,7 +47,7 @@ class AccountRestController {
   public void logOut(HttpServletResponse response){
     Cookie cookie = new Cookie("token", "");
 
-    cookie.setMaxAge(-1);
+    cookie.setMaxAge(0);
     cookie.setPath("/");
     cookie.setSecure(false);
     cookie.setHttpOnly(true);
