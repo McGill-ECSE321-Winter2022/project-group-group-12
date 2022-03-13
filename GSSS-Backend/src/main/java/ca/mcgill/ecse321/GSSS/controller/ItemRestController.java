@@ -47,7 +47,7 @@ public class ItemRestController {
    * @param categoryName category name of items we want
    * @return List<ItemDto> itemDto's we want to get
    */
-  @GetMapping(value = {"/item/{categoryName}", "/item/{categoryName}/"})
+  @GetMapping(value = {"/item/category/{categoryName}", "/item/category/{categoryName}/"})
   public List<ItemDto> getItemsByCategory(@PathVariable("categoryName") String categoryName) {
     ItemCategory itemCategory = itemCategoryService.getCategoryByName(categoryName);
     List<Item> items = itemService.getItemsByCategory(itemCategory);
