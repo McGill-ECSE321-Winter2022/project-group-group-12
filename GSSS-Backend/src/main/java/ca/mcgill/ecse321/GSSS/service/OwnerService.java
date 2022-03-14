@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.GSSS.dao.OwnerRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
+import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Owner;
 
 /**
@@ -31,7 +32,47 @@ public class OwnerService {
   public Owner getOwner() {
     return ownerRepository.findAll().iterator().next();
   }
- 
+  /**
+   * This service method creates an owner
+   * 
+   * @param username The username of the owner
+   * @param email The email of the owner
+   * @param password The password of the owner
+   * @param address	The address of the owner
+   * @return The created Owner
+   */
+  @Transactional
+  public Owner createOwner(String username, String email, String password, Address address) {
+	  // Input validation
+	    String error = "";
+	    if (username == null || username.trim().length() == 0)
+	      error += "Owner username cannot be empty! ";
+	    if (email == null || email.trim().length() == 0)
+		      error += "Owner email cannot be empty! ";
+	    if(password == null || password.length() < 6 || password.trim().length() == 0)
+	      error += "Password has to be at least 6 characters! ";
+	    if (address == null)
+	      error += "Owner address cannot be null! ";
+	    
+	    if (error.length() > 0)
+	      throw new IllegalArgumentException(error);
+	    
+	    Owner owner = getOwner();
+	    if (owner != null) {
+	    	error += "Owner already exists in the system! ";
+	    }
+	    
+	    owner = new Owner();
+	    owner.setEmail(email);
+	    owner.setUsername(username);
+	    owner.setSalt(Utility.getSalt());
+	    owner.setPassword(Utility.hashAndSaltPassword(password, owner.getSalt()));
+	    owner.setAddress(address);
+	    ownerRepository.save(owner);
+	    return owner;
+  }
+  
+  
   /**
    * This service updates the owner based on the inputs if they are not null.
    * 

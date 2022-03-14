@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.GSSS.dto.AddressDto;
+import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 import ca.mcgill.ecse321.GSSS.dto.OwnerDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Owner;
@@ -23,6 +24,24 @@ public class OwnerRestController {
 
   @Autowired
   private AddressService addressService;
+
+  @PostMapping(value = {"/createowner", "/createowner/"})
+  public OwnerDto createOwner(@RequestParam(name = "username") String username,
+	      @RequestParam(name = "email") String email,
+	      @RequestParam(name = "password") String password,
+	      @RequestParam(name = "address") String addressId)
+	      throws IllegalArgumentException {
+	  	 Owner owner = null;
+	  	 try {
+			 Address address = addressService.getAddress(addressId);
+			 owner = ownerService.createOwner(username, email, password, address);
+	  	 } catch(IllegalArgumentException e){
+	  		 if (e.getMessage().contains("Owner already exists in the system! ")) {
+	  			 owner = ownerService.getOwner();
+	  		 }
+	  	 }
+	  	return DtoUtility.convertToDto(owner);
+	  }
 
   /**
    * Method to get the owner DTO
