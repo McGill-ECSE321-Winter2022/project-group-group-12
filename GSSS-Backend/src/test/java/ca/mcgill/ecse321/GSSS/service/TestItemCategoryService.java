@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
+ * Tests for the item categories
+ *
  * @author Chris Hatoum
  */
   @ExtendWith(MockitoExtension.class)
@@ -35,6 +37,7 @@ import java.util.NoSuchElementException;
   private ItemCategoryService itemCategoryService;
 
   @BeforeEach
+
   public void setMockOutput() {
     // Set each CRUD method to its mock
     lenient().when(itemCategoryRepository.findItemCategoryByName(anyString())).thenAnswer(
@@ -44,7 +47,12 @@ import java.util.NoSuchElementException;
         .thenAnswer(ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockRepository::save);
   }
 
-  // Tests a success case of creating an item category
+  /**
+   * Tests a success case of creating an item category
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testCreateCategory_Success() {
     ItemCategory itemCategory = new ItemCategory();
@@ -53,8 +61,12 @@ import java.util.NoSuchElementException;
     assertNotNull(created);
     assertEquals(itemCategory.getName(), created.getName());
   }
-
-  // Tests if a category name is null
+  /**
+   *  Tests if a category name is null
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testCreateCategory_NullName() {
     try {
@@ -66,7 +78,12 @@ import java.util.NoSuchElementException;
     fail();
   }
 
-  // Tests if a category name is empty
+  /**
+   *  Tests if a category name is empty
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testCreateCategory_EmptyName() {
     try {
@@ -78,7 +95,12 @@ import java.util.NoSuchElementException;
     fail();
   }
 
-  // Tests a success case of creating an item category
+  /**
+   *  Tests a success case of creating an item category
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testGetCategoryByName_Success() {
     ItemCategory fetched = itemCategoryService.getCategoryByName(MockDatabase.category1.getName());
@@ -86,7 +108,13 @@ import java.util.NoSuchElementException;
     assertEquals(TestItemCategoryService.MockDatabase.category1, fetched);
   }
 
-  // Tests if we want to get a category with a null name
+
+  /**
+   *  Tests if we want to get a category with a null name
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testGetCategoryByName_NullName() {
     try {
@@ -98,7 +126,12 @@ import java.util.NoSuchElementException;
     fail();
   }
 
-  // Tests if we want to get a category with an empty name
+  /**
+   *  Tests if we want to get a category with an empty name
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testGetCategoryByName_EmptyName() {
     try {
@@ -110,7 +143,12 @@ import java.util.NoSuchElementException;
     fail();
   }
 
-
+  /**
+   *  Tests if the category with that name is in the database
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testGetCategoryByName_NotInDb() {
 
@@ -123,8 +161,12 @@ import java.util.NoSuchElementException;
     fail();
   }
 
-
-  // Delete an item category successfully
+  /**
+   *  Delete an item category successfully
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testDeleteCategory_Success() {
     itemCategoryService.deleteCategory("Vegetables");
@@ -135,7 +177,13 @@ import java.util.NoSuchElementException;
         .deleteById(argThat((String i) -> !MockDatabase.category1.getName().equals(i)));
   }
 
-  // Delete an item category with a null name
+
+  /**
+   *  Delete an item category with a null name
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testDeleteCategory_NullName() {
     try {
@@ -147,7 +195,13 @@ import java.util.NoSuchElementException;
     fail();
   }
 
-  // Delete an item category with an empty name
+
+  /**
+   *  Delete an item category with an empty name
+   *
+   * @author Chris Hatoum
+   *
+   */
   @Test
   public void testDeleteCategory_EmptyName() {
     try {
@@ -179,12 +233,18 @@ import java.util.NoSuchElementException;
   }
 
   /**
-   * @author Chris Hatoum
+   * This class holds all of the mock methods of the CRUD repository.
    *
-   * his class holds all of the mock methods of the CRUD repository.
+   * @author Chris Hatoum
    */
   class MockRepository {
-
+    /**
+     * Method used to find the item category by name
+     *
+     * @author Chris Hatoum
+     * @param invocation
+     * @return
+     */
     static ItemCategory findItemCategoryByName(InvocationOnMock invocation) {
       String name = (String) invocation.getArgument(0);
       if (name.equals(
@@ -202,6 +262,13 @@ import java.util.NoSuchElementException;
       return null;
     }
 
+    /**
+     * Method used to save sn item category
+     *
+     * @author Chris Hatoum
+     * @param invocation
+     * @return
+     */
     static ItemCategory save(InvocationOnMock invocation) {
       return (ItemCategory) invocation.getArgument(0);
     }
@@ -211,7 +278,7 @@ import java.util.NoSuchElementException;
      *
      * @author Theo Ghanem
      * @param invocation
-     * @return
+     * @return item categories
      */
     static List<ItemCategory> getAll(InvocationOnMock invocation) {
       List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
@@ -229,7 +296,7 @@ import java.util.NoSuchElementException;
   /**
    * @author Chris Hatoum
    *
-   *         This class mock data for tests.
+   * This class mock data for tests.
    */
   final static class MockDatabase {
 

@@ -20,6 +20,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 
 /**
+ * Tests for the owner
+ *
  * @author Chris Hatoum
  *
  */
@@ -211,9 +213,19 @@ import static org.mockito.Mockito.lenient;
         }
         fail();
     }
-
+    /**
+     * This class holds all of the mock methods of the CRUD repository.
+     *
+     * @author Chris Hatoum
+     */
     class MockRepository {
-
+        /**
+         * Method used to find the owner given an email
+         *
+         * @author Chris Hatoum
+         * @param invocation
+         * @return
+         */
         static Owner findOwnerByEmail(InvocationOnMock invocation) {
             String email = (String) invocation.getArgument(0);
             if (email.equals(TestAccountService.MockDatabase.owner1.getEmail()))
@@ -221,6 +233,13 @@ import static org.mockito.Mockito.lenient;
             return null;
         }
 
+        /**
+         * Method used to find the owner given an address
+         *
+         * @author Chris Hatoum
+         * @param invocation
+         * @return
+         */
         static Owner findOwnerByAddress(InvocationOnMock invocation) {
             Address address = (Address) invocation.getArgument(0);
 
@@ -229,12 +248,26 @@ import static org.mockito.Mockito.lenient;
             }
             return null;
         }
+
+        /**
+         * Method used to find all the owners
+         *
+         * @author Chris Hatoum
+         * @param invocation
+         * @return
+         */
         static List<Owner> findAll(InvocationOnMock invocation) {
             List<Owner> owner = new ArrayList<Owner>();
             owner.add(MockDatabase.owner1);
             return owner;
         }
-
+        /**
+         * Method used to save the owner
+         *
+         * @author Chris Hatoum
+         * @param invocation
+         * @return
+         */
         static Owner save(InvocationOnMock invocation) {
             return (Owner) invocation.getArgument(0);
         }
@@ -242,6 +275,8 @@ import static org.mockito.Mockito.lenient;
     }
         /**
          * This class mocks data for tests.
+         *
+         * @author Chris Hatoum
          */
         final static class MockDatabase {
 
