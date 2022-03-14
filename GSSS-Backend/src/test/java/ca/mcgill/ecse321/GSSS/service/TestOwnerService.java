@@ -55,6 +55,195 @@ import static org.mockito.Mockito.lenient;
        assertNotNull(fetched);
         assertEquals( expected, fetched);
     }
+    
+    
+    // CREATE METHOD
+    
+//    /**
+//     * Method to check that an owner is created successfully
+//     * 
+//     * @author Enzo Benoit-Jeannin
+//     */
+//    @Test
+//    public void testCreateOwner_Success() {
+//      Owner customer = new Customer();
+//      customer.setEmail("customer@email.com");
+//      customer.setUsername("Test Smither");
+//      customer.setPassword("w34yfr1uy45324u");
+//      customer.setAddress(new Address());
+//      Customer created = customerService.createCustomer(customer.getUsername(), customer.getEmail(),
+//          customer.getPassword(), customer.getAddress());
+//      assertNotNull(created);
+//      assertEquals(customer.getEmail(), created.getEmail());
+//      assertEquals(customer.getUsername(), created.getUsername());
+//      assertEquals(customer.getAddress(), created.getAddress());
+//    }
+
+    /**
+     * Method to check that an error is thrown when we try to create an owner with a null email
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_NullEmail() {
+      try {
+        ownerService.createOwner("username", null, "password", new Address());
+      } catch (IllegalArgumentException e) {
+        assertEquals("Owner email cannot be empty! ", e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    /**
+     * Method to check that an error is thrown when we try to create an owner with an empty email
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_EmptyEmail() {
+      try {
+        ownerService.createOwner("username", "    ", "password", new Address());
+      } catch (IllegalArgumentException e) {
+        assertEquals("Owner email cannot be empty! ", e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    /**
+     * Method to check that an error is thrown when we try to create an owner with an invalid email
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_InvalidEmail() {
+      try {
+        ownerService.createOwner("username", "invalidemail", "password", new Address());
+      } catch (IllegalArgumentException e) {
+        assertEquals("Email not valid! ", e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    /**
+     * Method to check that an error is thrown when we try to create an owner with a null username
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_NullUsername() {
+      try {
+        ownerService.createOwner(null, "customer@email.com", "password", new Address());
+      } catch (IllegalArgumentException e) {
+        assertEquals("Owner username cannot be empty! ", e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    /**
+     * Method to check that an error is thrown when we try to create an owner with an empty username
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_EmptyUsername() {
+      try {
+        ownerService.createOwner("   ", "employee@email.com", "password", new Address());
+      } catch (IllegalArgumentException e) {
+        assertEquals("Owner username cannot be empty! ", e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    /**
+     * Method to check that an error is thrown when we try to create an owner with a null password
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_NullPassword() {
+      try {
+        ownerService.createOwner("username", "employee@email.com", null, new Address());
+      } catch (IllegalArgumentException e) {
+        assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    /**
+     * Method to check that an error is thrown when we try to create an owner with an empty password
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_EmptyPassword() {
+      try {
+    	  ownerService.createOwner("username", "employee@email.com", "  ", new Address());
+      } catch (IllegalArgumentException e) {
+        assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    /**
+     * Method to check that an error is thrown when we try to create an owner with a password that
+     * is too short
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_TooShortPassword() {
+      try {
+        ownerService.createOwner("username", "customer@email.com", "12345", new Address());
+      } catch (IllegalArgumentException e) {
+        assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    /**
+     * Method to check that an error is thrown when we try to create an owner with a null address or
+     * no address
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_NullAddress() {
+      try {
+        ownerService.createOwner("username", "employee@email.com", "password", null);
+      } catch (IllegalArgumentException e) {
+        assertEquals("Owner address cannot be null! ", e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    /**
+     * method to check that an error is thrown when we try to create a customer with everything null
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_NullAll() {
+      try {
+        ownerService.createOwner(null, null, null, null);
+      } catch (IllegalArgumentException e) {
+        assertEquals(
+            "Owner username cannot be empty! Owner email cannot be empty! Email not valid! Password has to be at least 6 characters! Owner address cannot be null! ",
+            e.getMessage());
+        return;
+      }
+      fail();
+    }
+
+    
 
     /**
      * @author Chris Hatoum

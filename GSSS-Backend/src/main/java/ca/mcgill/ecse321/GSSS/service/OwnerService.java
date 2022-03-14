@@ -49,6 +49,8 @@ public class OwnerService {
 	      error += "Owner username cannot be empty! ";
 	    if (email == null || email.trim().length() == 0)
 		      error += "Owner email cannot be empty! ";
+	    if (!Utility.isEmailValid(email))
+	        error += "Email not valid! ";
 	    if(password == null || password.length() < 6 || password.trim().length() == 0)
 	      error += "Password has to be at least 6 characters! ";
 	    if (address == null)
