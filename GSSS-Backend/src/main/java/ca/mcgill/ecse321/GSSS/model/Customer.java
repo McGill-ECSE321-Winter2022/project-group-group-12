@@ -1,5 +1,8 @@
 package ca.mcgill.ecse321.GSSS.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +20,7 @@ public class Customer extends Account {
   private Set<Purchase> purchases;
 
   @OneToMany(fetch = FetchType.EAGER)
+  @OnDelete(action = OnDeleteAction.NO_ACTION)
   public Set<Purchase> getPurchases() {
     return purchases;
   }
