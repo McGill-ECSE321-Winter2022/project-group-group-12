@@ -10,6 +10,8 @@ import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Owner;
 
+import java.util.Iterator;
+
 /**
  * This is a service class for all owner-related services.
  * 
@@ -30,7 +32,11 @@ public class OwnerService {
    */
   @Transactional
   public Owner getOwner() {
-    return ownerRepository.findAll().iterator().next();
+      Iterator<Owner> iterator = ownerRepository.findAll().iterator();
+      if(iterator.hasNext()){
+          return iterator.next();
+      }
+      return null;
   }
   /**
    * This service method creates an owner
@@ -60,7 +66,7 @@ public class OwnerService {
 	      throw new IllegalArgumentException(error);
 	    
 	    Owner owner = getOwner();
-	    if (owner != null) {
+	    if (owner == null) {
 	    	error += "Owner already exists in the system! ";
 	    }
 	    
