@@ -59,7 +59,7 @@ public class PurchaseRestController {
    * @throws IllegalArgumentException if argument is not valid
    * @throws NoSuchElementException if element is null
    */
-  @GetMapping(value = {"/purchase/id", "/purchase/id/"})
+  @GetMapping(value = {"/purchase/{id}", "/purchase/{id}/"})
   public PurchaseDto getPurchaseById(@PathVariable("id") String id)
       throws IllegalArgumentException, NoSuchElementException {
     Purchase purchase = purchaseService.getPurchase(id);
