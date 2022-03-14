@@ -11,6 +11,7 @@ import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Owner;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * This is a service class for all owner-related services.
@@ -66,8 +67,8 @@ public class OwnerService {
 	      throw new IllegalArgumentException(error);
 	    
 	    Owner owner = getOwner();
-	    if (owner == null) {
-	    	error += "Owner already exists in the system! ";
+	    if (owner != null) {
+	    	throw new NoSuchElementException("Owner already exists in the system!");
 	    }
 	    
 	    owner = new Owner();
@@ -108,6 +109,10 @@ public class OwnerService {
       throw new IllegalArgumentException(error);
 
     Owner owner = getOwner();
+    if (owner == null) {
+        throw new NoSuchElementException("Owner doesn't exist!");
+    }
+
     owner.setAddress(address);
     owner.setUsername(username);
     owner.setPassword(password);
@@ -130,6 +135,10 @@ public class OwnerService {
       throw new IllegalArgumentException("City name cannot be empty!");
 
     Owner owner = getOwner();
+    if (owner == null) {
+        throw new NoSuchElementException("Owner doesn't exist!");
+    }
+
     owner.setStoreCity(city);
     owner.setOutOfTownDeliveryFee(outOfTownFee);
     ownerRepository.save(owner);

@@ -69,7 +69,7 @@ public class OwnerRestController {
   @PostMapping(value = {"/owner", "/owner/"})
   public OwnerDto modifyOwner(@RequestParam(name = "username") String username,
       @RequestParam(name = "password") String password,
-      @RequestParam(name = "address") String addressId) throws IllegalArgumentException {
+      @RequestParam(name = "address") String addressId) throws IllegalArgumentException, NoSuchElementException {
     Address address = addressService.getAddress(addressId);
     Owner owner = ownerService.modifyOwner(username, password, address);
     return DtoUtility.convertToDto(owner);
@@ -85,7 +85,7 @@ public class OwnerRestController {
    */
   @PostMapping(value = {"/info", "/info/"})
   public OwnerDto modifySystemInformation(@RequestParam(name = "city") String city,
-      @RequestParam(name = "fee") double fee) throws IllegalArgumentException{
+      @RequestParam(name = "fee") double fee) throws IllegalArgumentException, NoSuchElementException{
     
     Owner owner = ownerService.modifySystemInformation(city, fee);
     return DtoUtility.convertToDto(owner);
