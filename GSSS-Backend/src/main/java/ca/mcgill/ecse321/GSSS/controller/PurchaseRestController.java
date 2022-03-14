@@ -225,6 +225,17 @@ public class PurchaseRestController {
    * @return purchaseDto
    * @throws IllegalArgumentException
    */
+
+  /**\
+   *
+   * @param purchaseId
+   * @param orderType
+   * @param orderStatus
+   * @param data
+   * @param employeeDto
+   * @return
+   * @throws IllegalArgumentException
+   */
   @PostMapping(value = {"purchase/modify/{purchaseid}", "/purchase/modify/{purchaseId}/"})
   public PurchaseDto modifyPurchase(@PathVariable(name = "purchaseid") String purchaseId,
       @RequestParam(name = "orderType") String orderType,
