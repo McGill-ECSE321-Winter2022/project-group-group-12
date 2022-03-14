@@ -247,7 +247,7 @@ public class PurchaseRestController {
       items.put(DtoUtility.convertToDomainObject(entry.getKey()), entry.getValue());
     }
 
-    Employee employee = employeeService.getEmployeeByEmail(employeeDto.getEmail());
+    Employee employee = employeeService.getEmployeeByEmail(employeeEmail);
     Purchase purchase = purchaseService.modifyPurchase(actualOrderType, actualOrderStatus,
         purchaseId, items, employee);
 
