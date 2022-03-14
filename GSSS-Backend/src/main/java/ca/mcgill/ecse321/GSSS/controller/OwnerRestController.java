@@ -38,7 +38,7 @@ public class OwnerRestController {
 			 Address address = addressService.getAddress(addressId);
 			 owner = ownerService.createOwner(username, email, password, address);
 	  	 } catch(IllegalArgumentException e){
-	  		 if (e.getMessage().contains("Owner already exists in the system! ")) {
+	  		 if (e.getMessage().contains("Owner already exists in the system!")) {
 	  			 owner = ownerService.getOwner();
 	  		 }
 	  	 }

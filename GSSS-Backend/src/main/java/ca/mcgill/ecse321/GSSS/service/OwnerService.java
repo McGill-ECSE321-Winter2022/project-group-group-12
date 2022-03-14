@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import ca.mcgill.ecse321.GSSS.dao.OwnerRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
-import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Owner;
 
 import java.util.Iterator;
