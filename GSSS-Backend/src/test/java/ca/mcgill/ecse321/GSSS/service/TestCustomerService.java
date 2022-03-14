@@ -90,6 +90,29 @@ public class TestCustomerService {
     assertEquals(customer.getUsername(), created.getUsername());
     assertEquals(customer.getAddress(), created.getAddress());
   }
+  
+  /**
+   * Method to check that an error is thrown if we create a customer which already exists in the dataBase
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testCreateCustomer_InDb() {
+    Customer customer = new Customer();
+    customer.setEmail(MockDatabase.customer2.getEmail());
+    customer.setUsername("Test Smither");
+    customer.setPassword("w34yfr1uy45324u");
+    customer.setAddress(new Address());
+    
+    try {
+    	customerService.createCustomer(customer.getUsername(), customer.getEmail(),
+    			customer.getPassword(), customer.getAddress());
+    } catch (NoSuchElementException e) {
+    	assertEquals("The customer already exists in the system!", e.getMessage());
+    	return;
+    }
+    fail();
+  }
 
   /**
    * method to check that an error is thrown when we try to create a customer with a null email

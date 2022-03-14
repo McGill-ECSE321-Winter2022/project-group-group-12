@@ -156,14 +156,26 @@ public class CustomerService {
       error += "Address cannot be null! ";
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
-
-    Customer customer = new Customer();
-    customer.setEmail(email);
-    customer.setUsername(username);
-    customer.setSalt(Utility.getSalt());
-    customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));
-    customer.setAddress(address);
-    customerRepository.save(customer);
+    
+    Customer customer = null;
+    String error2 = "";
+    try {
+    	customer = getCustomerByEmail(email);
+    	error2 = "The customer already exists in the system!";
+    } catch (NoSuchElementException e) {
+    	if (e.getMessage().equals("No customer with email "+ email + " exists!")) {
+	    	customer = new Customer();
+	        customer.setEmail(email);
+	        customer.setUsername(username);
+	        customer.setSalt(Utility.getSalt());
+	        customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));
+	        customer.setAddress(address);
+	        customerRepository.save(customer);
+    	}
+    }
+    if (error2.length() > 0)
+        throw new NoSuchElementException(error2);
+    
     return customer;
   }
 
@@ -218,9 +230,8 @@ public class CustomerService {
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
 
-    Customer customer = getCustomerByEmail(email);
-    
-    customer.setAddress(address);
+	Customer customer = getCustomerByEmail(email);
+	customer.setAddress(address);
     customer.setUsername(username);
     customer.setDisabled(disabled);
     customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));
