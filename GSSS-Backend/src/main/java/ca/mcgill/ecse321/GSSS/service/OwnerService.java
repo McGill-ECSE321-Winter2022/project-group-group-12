@@ -58,7 +58,7 @@ public class OwnerService {
 	      throw new IllegalArgumentException(error);
 	    
 	    Owner owner = getOwner();
-	    if (owner != null) {
+	    if (owner == null) {
 	    	error += "Owner already exists in the system! ";
 	    }
 	    
