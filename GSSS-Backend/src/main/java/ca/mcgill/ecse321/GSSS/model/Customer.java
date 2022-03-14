@@ -20,7 +20,6 @@ public class Customer extends Account {
   private Set<Purchase> purchases;
 
   @OneToMany(fetch = FetchType.EAGER)
-  @OnDelete(action = OnDeleteAction.NO_ACTION)
   public Set<Purchase> getPurchases() {
     return purchases;
   }
