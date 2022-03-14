@@ -335,7 +335,7 @@ public class EmployeeService {
     // If we found a shift, we return its employee
     // Else we return any employee
     if (bestShift == null)
-      return employeeRepository.findEmployeeByShifts(shifts.get(0));
+      return employeeRepository.findAll().iterator().next();
     else
       return employeeRepository.findEmployeeByShifts(bestShift);
   }

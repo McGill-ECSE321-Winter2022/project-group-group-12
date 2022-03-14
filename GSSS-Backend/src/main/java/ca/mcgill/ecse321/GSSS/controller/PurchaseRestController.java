@@ -103,7 +103,7 @@ public class PurchaseRestController {
    * @throws NoSuchElementException if element is null
    */
   @GetMapping(value = {"/purchasesbydate", "/purchasesbydate/"})
-  public List<PurchaseDto> getPurchasesByDate(Date date)
+  public List<PurchaseDto> getPurchasesByDate(@RequestParam(name = "date") Date date)
       throws IllegalArgumentException, NoSuchElementException {
 
     List<Purchase> allPurchases = purchaseService.getPurchasesByDate(date);
