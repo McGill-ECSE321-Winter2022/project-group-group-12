@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,33 +53,43 @@ import static org.mockito.Mockito.lenient;
     public void testGetOwner_Successful() {
         Owner fetched = ownerService.getOwner();
         Owner expected = MockDatabase.owner1;
-       assertNotNull(fetched);
+        assertNotNull(fetched);
         assertEquals( expected, fetched);
     }
     
     
     // CREATE METHOD
     
-//    /**
-//     * Method to check that an owner is created successfully
-//     * 
-//     * @author Enzo Benoit-Jeannin
-//     */
-//    @Test
-//    public void testCreateOwner_Success() {
-//      Owner customer = new Customer();
-//      customer.setEmail("customer@email.com");
-//      customer.setUsername("Test Smither");
-//      customer.setPassword("w34yfr1uy45324u");
-//      customer.setAddress(new Address());
-//      Customer created = customerService.createCustomer(customer.getUsername(), customer.getEmail(),
-//          customer.getPassword(), customer.getAddress());
-//      assertNotNull(created);
-//      assertEquals(customer.getEmail(), created.getEmail());
-//      assertEquals(customer.getUsername(), created.getUsername());
-//      assertEquals(customer.getAddress(), created.getAddress());
-//    }
+    /*
+     * We do not test for successful creation of owner because our system can only 
+     * have one owner, and the MockDatabase already contains one.
+     *  
+     * 
+     */
 
+    /**
+     * Method to check that an error is thrown when we create an owner when an owner is already in the system
+     * 
+     * @author Enzo Benoit-Jeannin
+     */
+    @Test
+    public void testCreateOwner_OwnerExists() {
+      
+      Owner owner2 = new Owner();
+      owner2.setEmail("owner2@email.com");
+      owner2.setUsername("Wassim Smither");
+      owner2.setPassword("w34yf34uy45324u");
+      owner2.setAddress(new Address());
+            
+      try {
+	     ownerService.createOwner(owner2.getUsername(), owner2.getEmail(), owner2.getPassword(), owner2.getAddress());
+      } catch (NoSuchElementException e) {
+          assertEquals("Owner already exists in the system!", e.getMessage());
+          return;
+      }
+        fail();
+    }
+    
     /**
      * Method to check that an error is thrown when we try to create an owner with a null email
      * 
@@ -89,7 +100,7 @@ import static org.mockito.Mockito.lenient;
       try {
         ownerService.createOwner("username", null, "password", new Address());
       } catch (IllegalArgumentException e) {
-        assertEquals("Owner email cannot be empty! ", e.getMessage());
+        assertEquals("Owner email cannot be empty! Email not valid! ", e.getMessage());
         return;
       }
       fail();
@@ -105,7 +116,7 @@ import static org.mockito.Mockito.lenient;
       try {
         ownerService.createOwner("username", "    ", "password", new Address());
       } catch (IllegalArgumentException e) {
-        assertEquals("Owner email cannot be empty! ", e.getMessage());
+        assertEquals("Owner email cannot be empty! Email not valid! ", e.getMessage());
         return;
       }
       fail();
