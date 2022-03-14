@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.NoSuchElementException;
+
+import ca.mcgill.ecse321.GSSS.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,10 +30,6 @@ import ca.mcgill.ecse321.GSSS.model.OrderStatus;
 import ca.mcgill.ecse321.GSSS.model.OrderType;
 import ca.mcgill.ecse321.GSSS.model.Owner;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
-import ca.mcgill.ecse321.GSSS.service.CustomerService;
-import ca.mcgill.ecse321.GSSS.service.EmployeeService;
-import ca.mcgill.ecse321.GSSS.service.OwnerService;
-import ca.mcgill.ecse321.GSSS.service.PurchaseService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -45,6 +43,9 @@ public class PurchaseRestController {
 
   @Autowired
   CustomerService customerService;
+
+  @Autowired
+  ItemService itemService;
   
   @Autowired
   OwnerService ownerService;
@@ -186,7 +187,7 @@ public class PurchaseRestController {
   @PostMapping(value = {"/purchase", "/purchase/"})
   public PurchaseDto createPurchase(@RequestParam(name = "ordertype") String orderType,
       @RequestParam(name = "orderstatus") String orderStatus,
-      @RequestBody HashMap<ItemDto, Integer> data) throws IllegalArgumentException {
+      @RequestBody HashMap<String, Integer> data) throws IllegalArgumentException, NoSuchElementException {
 
     OrderType actualOrderType = DtoUtility.findOrderTypeByName(orderType);
     // Checking that it is not null
@@ -201,8 +202,8 @@ public class PurchaseRestController {
     Employee employee = employeeService.getClosestEmployee();
     HashMap<Item, Integer> items = new HashMap<Item, Integer>();
 
-    for (Map.Entry<ItemDto, Integer> entry : data.entrySet()) {
-      items.put(DtoUtility.convertToDomainObject(entry.getKey()), entry.getValue());
+    for (Map.Entry<String, Integer> entry : data.entrySet()) {
+      items.put(itemService.getItemByName(entry.getKey()), entry.getValue());
     }
 
     Purchase purchase =
@@ -229,7 +230,7 @@ public class PurchaseRestController {
       @RequestParam(name = "orderType") String orderType,
       @RequestParam(name = "orderStatus") String orderStatus,
       @RequestBody HashMap<ItemDto, Integer> data,
-      @RequestParam(name = "employeeDto") EmployeeDto employeeDto) throws IllegalArgumentException {
+      @RequestParam(name = "employeeEmail") String employeeEmail) throws IllegalArgumentException {
 
     OrderType actualOrderType = DtoUtility.findOrderTypeByName(orderType);
     // Checking that it is not null
