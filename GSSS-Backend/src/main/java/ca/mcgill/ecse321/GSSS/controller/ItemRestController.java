@@ -34,8 +34,8 @@ public class ItemRestController {
    * @author Habib Jarweh
    * @param name name we want to find item by
    * @return itemDto item we want to find
-   * @throws illegal argument exception when inputted name is either null or empty
-   * @throws no such element exception when there is no item with the inputed name
+   * @throws IllegalArgumentException argument exception when inputted name is either null or empty
+   * @throws NoSuchElementException such element exception when there is no item with the inputed name
    */
   @GetMapping(value = {"/item/{name}", "/item/{name}/"})
   public ItemDto getItemByName(@PathVariable("name") String name) throws IllegalArgumentException, NoSuchElementException {
@@ -87,9 +87,9 @@ public class ItemRestController {
    * @param price of item
    * @param availableForOrder if item is available for order
    * @param stillAvailable if item is still available
-   * @param itemCategory item category
+   * @param itemCategoryDto item category
    * @return itemDto we created
-   * @throws illegal argument exception when any or all inputed strings are null or wrong, or when
+   * @throws IllegalArgumentException argument exception when any or all inputed strings are null or wrong, or when
    *         remaining quantity or price are negative, or when item category is null
    */
   @PostMapping(value = {"/item", "/item/"})
@@ -119,9 +119,9 @@ public class ItemRestController {
    * @param price of item we want to update
    * @param availableForOrder availability for order of item we want to update
    * @param stillAvailable availability of item we want to update
-   * @param itemCategory item category
+   * @param itemCategoryDto item category
    * @return itemDto we want to update
-   * @throws illegal argument exception when any or all inputed strings are null or wrong, or when
+   * @throws IllegalArgumentException argument exception when any or all inputed strings are null or wrong, or when
    *         remaining quantity or price are negative, or when item category is null
    */
   @PostMapping(value = {"/item/{name}", "/item/{name}/"})
@@ -145,8 +145,8 @@ public class ItemRestController {
    * method to delete item
    * 
    * @author Habib Jarweh
-   * @param name
-   * @throws illegal argument exception when name is null or empty
+   * @param name name of the item we want to delete
+   * @throws IllegalArgumentException argument exception when name is null or empty
    */
   @DeleteMapping(value = {"/item/{name}", "/item/{name}/"})
   public void deleteItem(@PathVariable("name") String name) throws IllegalArgumentException {

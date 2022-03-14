@@ -77,7 +77,7 @@ public class CustomerRestController {
 	   * @param username Username of the Customer DTO to create
 	   * @param email Email of the Customer DTO to create
 	   * @param password Password of the Customer DTO to create
-	   * @param address	Address of the Customer DTO to create
+	   * @param addressId	Address of the Customer DTO to create
 	   * @return Created customer DTO
 	   * @throws IllegalArgumentException
 	   */
@@ -107,7 +107,7 @@ public class CustomerRestController {
 	   * 
 	   * @author Enzo Benoit-Jeannin
 	   * @param email Email of the cusotmer to add the purchase to 
-	   * @param purchaseDto Purchase Dto to use to create the Purchase object
+	   * @param purchaseId Purchase Dto to use to create the Purchase object
 	   * @return Customer DTO 
 	   * @thorws IllegalArgumentException
 	   */
@@ -122,7 +122,7 @@ public class CustomerRestController {
 	   * @param email Email of the customer to update
 	   * @param username Username we want to update
 	   * @param password Password we want to update
-	   * @param addressDto Address we want to update 
+	   * @param addressId Address we want to update
 	   * @param disabled Change the disable state of the customer
 	   * @return The modified customer as a DTO object
 	   * @throws IllegalArgumentException
