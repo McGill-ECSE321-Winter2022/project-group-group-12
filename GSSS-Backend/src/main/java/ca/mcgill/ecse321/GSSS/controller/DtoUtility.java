@@ -383,7 +383,7 @@ public class DtoUtility {
 
     // Checking the input is non null
     if (purchases == null)
-      throw new IllegalArgumentException("There is no such purchase history!");
+      purchases = new HashSet<Purchase>();
     
     // Initialize the list of purchase dto to return
     List<PurchaseDto> result = new ArrayList<PurchaseDto>();
