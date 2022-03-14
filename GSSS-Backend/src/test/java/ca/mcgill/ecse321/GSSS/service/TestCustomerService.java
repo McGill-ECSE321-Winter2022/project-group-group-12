@@ -71,6 +71,11 @@ public class TestCustomerService {
     lenient().when(customerRepository.save(any(Customer.class))).thenAnswer(MockRepository::save);
   }
 
+  /**
+   * method to check that a customer is created successfully
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_Success() {
     Customer customer = new Customer();
@@ -86,6 +91,11 @@ public class TestCustomerService {
     assertEquals(customer.getAddress(), created.getAddress());
   }
 
+  /**
+   * method to check that an error is thrown when we try to create a customer with a null email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_NullEmail() {
     try {
@@ -97,6 +107,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to create a customer with an empty email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_EmptyEmail() {
     try {
@@ -108,6 +123,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to create a customer with an invalid email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_InvalidEmail() {
     try {
@@ -119,6 +139,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /*
+   * method to check that an error is thrown when we try to create a customer with a null username
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_NullUsername() {
     try {
@@ -130,6 +155,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to create a customer with an empty username
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_EmptyUsername() {
     try {
@@ -141,6 +171,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to create a customer with a null password
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_NullPassword() {
     try {
@@ -152,6 +187,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to create a customer with an empty password
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_EmptyPassword() {
     try {
@@ -162,7 +202,13 @@ public class TestCustomerService {
     }
     fail();
   }
-  
+
+  /**
+   * method to check that an error is thrown when we try to create a customer with a password that
+   * is too short
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_TooShortPassword() {
     try {
@@ -174,6 +220,12 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to create a customer with a null address or
+   * no address
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_NullAddress() {
     try {
@@ -185,6 +237,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to create a customer with everything null
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testCreateCustomer_NullAll() {
     try {
@@ -198,6 +255,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that a customer is fetched successfully with their email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomerByEmail_Success() {
     Customer fetched = customerService.getCustomerByEmail(MockDatabase.customer2.getEmail());
@@ -205,6 +267,11 @@ public class TestCustomerService {
     assertEquals(MockDatabase.customer2, fetched);
   }
 
+  /**
+   * method to check that an error is thrown when we try to fetch a customer with a null email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomerByEmail_NullEmail() {
     try {
@@ -216,6 +283,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to fetch a customer with an empty email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomerByEmail_EmptyEmail() {
     try {
@@ -227,6 +299,12 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to fetch a customer with an email not in
+   * the database
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomerByEmail_NotInDb() {
     try {
@@ -239,6 +317,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that customers are successfully fetched with a username
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomersByUsername_Success() {
     List<Customer> fetched = customerService.getCustomersByUsername("John Smith");
@@ -251,6 +334,11 @@ public class TestCustomerService {
       assertTrue(expected.contains(e));
   }
 
+  /**
+   * method to check that an error is thrown when we try to fech customers with a null username
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomersByUsername_NullUsername() {
     try {
@@ -262,6 +350,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to fech customers with an empty username
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetEmployeesByUsername_EmptyUsername() {
     try {
@@ -273,6 +366,12 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to fech customers with a username not in
+   * the database
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetEmployeeByUsername_NotInDb() {
     try {
@@ -284,6 +383,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that a customer is fetched successfully with one of their purchases
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomerByPurchase_Success() {
     Customer fetched = customerService.getCustomerByPurchase(MockDatabase.purchase1);
@@ -291,6 +395,12 @@ public class TestCustomerService {
     assertEquals(MockDatabase.customer1, fetched);
   }
 
+  /**
+   * method to check that an error is thrown when we try to fech a customer with a null or no
+   * purchase
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomerByPurchase_NullPurchase() {
     try {
@@ -302,6 +412,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to fech customers with a null username
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomerByPurchase_NotInDb() {
     Purchase purchase = new Purchase();
@@ -320,6 +435,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that all customers in the database are successfully fetched
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetAllCustomers_Success() {
     List<Customer> fetched = customerService.getAllCustomers();
@@ -333,6 +453,12 @@ public class TestCustomerService {
       assertTrue(expected.contains(e));
   }
 
+  /**
+   * method to check that all customers with a specific account state are fetched successfully by
+   * that account state
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testGetCustomerByAccountState_Success() {
     List<Customer> fetchedCustomers = customerService.getCustomersByAccountState(false);
@@ -345,6 +471,11 @@ public class TestCustomerService {
       assertTrue(expectedCustomers.contains(e));
   }
 
+  /**
+   * method to check that a customer is successfully deleted with their email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testDeleteCustomer_Success() {
     customerService.deleteCustomer("customer1@email.com");
@@ -355,6 +486,11 @@ public class TestCustomerService {
         .deleteById(argThat((String i) -> !MockDatabase.customer1.getEmail().equals(i)));
   }
 
+  /**
+   * method to check that an error is thrown when we try to delete a customer with a null email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testDeleteCustomer_NullEmail() {
     try {
@@ -366,6 +502,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to delete a customer with an empty email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testDeleteCustomer_EmptyEmail() {
     try {
@@ -377,6 +518,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that a customer is modified successfully
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_Success() {
     Customer modified = customerService.modifyCustomer("new username", "new pw",
@@ -390,6 +536,11 @@ public class TestCustomerService {
         modified.getPassword());
   }
 
+  /**
+   * method to check that an error is thrown when we try to modify a customer with a null email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_NullEmail() {
     try {
@@ -401,6 +552,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to modify a customer with an empty email
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_EmptyEmail() {
     try {
@@ -412,6 +568,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to modify a customer with a null username
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_NullUsername() {
     try {
@@ -424,6 +585,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to modify a customer with an empty username
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_EmptyUsername() {
     try {
@@ -436,6 +602,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to modify a customer with a null address
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_NullAddress() {
     try {
@@ -448,6 +619,12 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to modify a customer that is not in the
+   * database
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_NotInDb() {
     try {
@@ -460,6 +637,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to modify a customer with a null password
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_NullPassword() {
     try {
@@ -472,6 +654,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to modify a customer with an empty password
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_EmptyPassword() {
     try {
@@ -483,7 +670,13 @@ public class TestCustomerService {
     }
     fail();
   }
-  
+
+  /**
+   * method to check that an error is thrown when we try to modify a customer with a password that
+   * is too short
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testModifyCustomer_TooShortPassword() {
     try {
@@ -496,24 +689,22 @@ public class TestCustomerService {
     fail();
   }
 
-  @Test
-  public void testModifyCustomer_DoesNotExist() {
-    try {
-      customerService.modifyCustomer("username", "123456", "not_registered@email.com", new Address(),
-              false);
-    } catch (NoSuchElementException e) {
-      assertEquals("No customer with email not_registered@email.com exists!", e.getMessage());
-      return;
-    }
-    fail();
-  }
-
+  /**
+   * method to check that a purchase is added successfully to a customer
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testAddPurchase_Success() {
     Customer modified = customerService.addPurchase(MockDatabase.customer1, MockDatabase.purchase4);
     assertTrue(modified.getPurchases().contains(MockDatabase.purchase4));
   }
 
+  /**
+   * method to check that an error is thrown when we try to add a purchase to a null customer
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testAddPurchase_CustomerNull() {
     try {
@@ -525,6 +716,11 @@ public class TestCustomerService {
     fail();
   }
 
+  /**
+   * method to check that an error is thrown when we try to add a null purchase to a customer
+   * 
+   * @author Wassim Jabbour
+   */
   @Test
   public void testAddPurchase_PurchaseNull() {
     try {

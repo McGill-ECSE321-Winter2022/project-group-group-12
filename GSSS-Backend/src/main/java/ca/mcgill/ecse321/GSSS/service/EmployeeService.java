@@ -291,7 +291,7 @@ public class EmployeeService {
 
       @Override
       public int compare(Shift o1, Shift o2) {
-        if (o1.getDate().before(o2.getDate())) {
+        if (o1.getDate().before(o2.getDate())) { 
           return -1;
         } else if (o1.getDate().after(o2.getDate())) {
           return 1;

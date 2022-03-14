@@ -46,7 +46,7 @@ public class TestEmployeeService {
 
   @InjectMocks
   private EmployeeService employeeService;
- 
+
   @BeforeEach
   public void setMockOutput() {
     // Set each CRUD method to its mock
@@ -61,11 +61,17 @@ public class TestEmployeeService {
     lenient().when(employeeRepository.findEmployeesByDisabled(anyBoolean()))
         .thenAnswer(MockEmployeeRepository::findEmployeesByDisabled);
     lenient().when(employeeRepository.findAll()).thenAnswer(MockEmployeeRepository::findAll);
-    lenient().when(employeeRepository.save(any(Employee.class))).thenAnswer(MockEmployeeRepository::save);
+    lenient().when(employeeRepository.save(any(Employee.class)))
+        .thenAnswer(MockEmployeeRepository::save);
 
     lenient().when(shiftRepository.findAll()).thenAnswer(MockShiftRepository::findAll);
   }
 
+  /**
+   * method test to check that an employee is created successfully
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_Success() {
     Employee employee = new Employee();
@@ -81,6 +87,12 @@ public class TestEmployeeService {
     assertEquals(employee.getAddress(), created.getAddress());
   }
 
+  /**
+   * method test to check that an error is thrown when we try to create an employee with a null
+   * email
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_NullEmail() {
     try {
@@ -92,6 +104,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to create an employee with an empty
+   * email or email that consists only of space
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_EmptyEmail() {
     try {
@@ -103,6 +121,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to create an employee with an email
+   * that is invalid (doesn't contain @)
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_InvalidEmail() {
     try {
@@ -114,6 +138,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to create an employee with a null
+   * username
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_NullUsername() {
     try {
@@ -125,6 +155,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to create an employee with an empty
+   * username or username that consists only of space
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_EmptyUsername() {
     try {
@@ -136,6 +172,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to create an employee with a null
+   * password
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_NullPassword() {
     try {
@@ -147,6 +189,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to create an employee with an empty
+   * password or password that consits only of space
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_EmptyPassword() {
     try {
@@ -157,7 +205,13 @@ public class TestEmployeeService {
     }
     fail();
   }
-  
+
+  /**
+   * method test to check that an error is thrown when we try to create an employee with a password
+   * that is less than 6 characters
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_TooShortPassword() {
     try {
@@ -169,6 +223,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to create an employee with no address
+   * or null address
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_NullAddress() {
     try {
@@ -180,6 +240,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to create an employee with everything
+   * null
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateEmployee_NullAll() {
     try {
@@ -193,6 +259,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an employee is modified successfully
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_Success() {
     Employee modified = employeeService.modifyEmployee("new username", "new pw",
@@ -206,6 +277,12 @@ public class TestEmployeeService {
         modified.getPassword());
   }
 
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with a null
+   * email
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_NullEmail() {
     try {
@@ -217,6 +294,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with an empty
+   * email
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_EmptyEmail() {
     try {
@@ -228,6 +311,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with a null
+   * username
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_NullUsername() {
     try {
@@ -240,6 +329,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with an empty
+   * username
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_EmptyUsername() {
     try {
@@ -252,6 +347,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with a null
+   * address or no address
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_NullAddress() {
     try {
@@ -264,6 +365,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to modify an employee that isn't in
+   * the database
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_NotInDb() {
     try {
@@ -276,6 +383,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with a null
+   * password
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_NullPassword() {
     try {
@@ -288,6 +401,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with an empty
+   * password
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_EmptyPassword() {
     try {
@@ -299,7 +418,13 @@ public class TestEmployeeService {
     }
     fail();
   }
-  
+
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with a password
+   * that is too short
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyEmployee_TooShortPassword() {
     try {
@@ -312,6 +437,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an employee is deleted successfully
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testDeleteEmployee_Success() {
     employeeService.deleteEmployee("employee1@email.com");
@@ -322,6 +452,11 @@ public class TestEmployeeService {
         .deleteById(argThat((String i) -> !MockDatabase.employee1.getEmail().equals(i)));
   }
 
+  /**
+   * method test to check that an error is thrown when we call deleteEmployee with a null email
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testDeleteEmployee_NullEmail() {
     try {
@@ -333,6 +468,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we call deleteEmployee with an empty email
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testDeleteEmployee_EmptyEmail() {
     try {
@@ -344,6 +484,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an employee is fetched by their email successfully
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeeByEmail_Success() {
     Employee fetched = employeeService.getEmployeeByEmail(MockDatabase.employee2.getEmail());
@@ -351,6 +496,11 @@ public class TestEmployeeService {
     assertEquals(MockDatabase.employee2, fetched);
   }
 
+  /**
+   * method test to check that an error is thrown when we call getEmployeeByEmail with a null email
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeeByEmail_NullEmail() {
     try {
@@ -362,6 +512,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we call getEmployeeByEmail with a empty email
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeeByEmail_EmptyEmail() {
     try {
@@ -373,6 +528,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to fetch an employee that isnt in the
+   * database
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeeByEmail_NotInDb() {
     try {
@@ -385,6 +546,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that employees with a same username are fetches successfully by username
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeesByUsername_Success() {
     List<Employee> fetched = employeeService.getEmployeesByUsername("John Smith");
@@ -397,6 +563,12 @@ public class TestEmployeeService {
       assertTrue(expected.contains(e));
   }
 
+  /**
+   * method test to check that an error is thrown when we call getEmployeesByUsername with a null
+   * username
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeesByUsername_NullUsername() {
     try {
@@ -408,6 +580,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we call getEmployeesByUsername with an empty
+   * username
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeesByUsername_EmptyUsername() {
     try {
@@ -419,6 +597,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to fetch employees with a username
+   * that does not exist
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeeByUsername_NotInDb() {
     try {
@@ -430,6 +614,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an employee is fetched successfully by their shift
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeeByShift_Success() {
     Employee fetched = employeeService.getEmployeeByShift(MockDatabase.shift3);
@@ -437,6 +626,11 @@ public class TestEmployeeService {
     assertEquals(MockDatabase.employee3, fetched);
   }
 
+  /**
+   * method test to check that an error is thrown when we try to fetch employee with a null shift
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeeByShift_NullShift() {
     try {
@@ -448,6 +642,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to fetch an employee with a shift not
+   * assigned to any employee
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeeByShift_NotInDb() {
     Shift shift = new Shift();
@@ -464,6 +664,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that employees are sucessfully fetched by a specific account state
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetEmployeeByAccountState_Success() {
     List<Employee> fetched = employeeService.getEmployeesByAccountState(false);
@@ -476,6 +681,11 @@ public class TestEmployeeService {
       assertTrue(expected.contains(e));
   }
 
+  /**
+   * method test to check that all employees are fetched successfully
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetAllEmployees_Success() {
     List<Employee> fetched = employeeService.getAllEmployees();
@@ -490,6 +700,11 @@ public class TestEmployeeService {
       assertTrue(expected.contains(e));
   }
 
+  /**
+   * method test to check that a shift is added successfully to an employee
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testAddShift_Success() {
     Shift shift = new Shift();
@@ -504,6 +719,11 @@ public class TestEmployeeService {
     assertTrue(employee.getShifts().contains(shift));
   }
 
+  /**
+   * method test to check that an error is thrown when we try to add a shift to a null employee
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testAddShift_NullEmployee() {
     Shift shift = new Shift();
@@ -520,6 +740,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to add a null shift to an employee
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testAddShift_NullShift() {
     try {
@@ -531,6 +756,11 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that a shift is removed successfully from an employee
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testRemoveShift_Success() {
     Employee employee = employeeService.removeShift(MockDatabase.employeem, MockDatabase.shift_m);
@@ -539,6 +769,11 @@ public class TestEmployeeService {
     assertFalse(employee.getShifts().contains(MockDatabase.shift_m));
   }
 
+  /**
+   * method test to check that an error is thrown when we try to remove a shift from a null employee
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testRemoveShift_NullEmployee() {
     try {
@@ -550,6 +785,12 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an error is thrown when we try to remove a null shift from an
+   * employee
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testRemoveShift_NullShift() {
     try {
@@ -561,8 +802,14 @@ public class TestEmployeeService {
     fail();
   }
 
+  /**
+   * method test to check that an employee with the closest shift (set in the present day) is
+   * fetched successfully successfully
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
-  public void testGetClosestEmployee_SuccessToday(){
+  public void testGetClosestEmployee_SuccessToday() {
     MockDatabase.shift_m.setDate(new Date(System.currentTimeMillis()));
     MockDatabase.shift_m.setEndTime(new Time(System.currentTimeMillis() + 1000 * 60 * 60 * 24));
     MockDatabase.shifts_m.clear();
@@ -573,8 +820,14 @@ public class TestEmployeeService {
     assertEquals(MockDatabase.employeem, closest);
   }
 
+  /**
+   * method test to check that an employee with the closest shift (set in the future) is fetched
+   * successfully successfully
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
-  public void testGetClosestEmployee_SuccessFuture(){
+  public void testGetClosestEmployee_SuccessFuture() {
     MockDatabase.shift_m.setDate(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24));
     MockDatabase.shift_m.setEndTime(Time.valueOf("23:59:59"));
     MockDatabase.shifts_m.clear();
@@ -585,8 +838,15 @@ public class TestEmployeeService {
     assertEquals(MockDatabase.employeem, closest);
   }
 
+
+  /**
+   * method to check that the employee with the latest shift is fetched although that shift is set
+   * in the past
+   * 
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
-  public void testGetClosestEmployee_Failure(){
+  public void testGetClosestEmployee_Failure() {
     MockDatabase.shift_m.setDate(new Date(0));
     MockDatabase.shifts_m.clear();
     MockDatabase.shifts_m.add(MockDatabase.shift_m);
@@ -599,7 +859,7 @@ public class TestEmployeeService {
 
 
   /**
-   * This class holds all of the mock methods of the CRUD repository.
+   * This class holds all of the mock methods of the employee CRUD repository.
    */
   class MockEmployeeRepository {
 
@@ -685,9 +945,12 @@ public class TestEmployeeService {
 
   }
 
-  class MockShiftRepository{
+  /**
+   * This class holds all of the mock methods of the shift CRUD repository.
+   */
+  class MockShiftRepository {
 
-    static List<Shift> findAll(InvocationOnMock invocation){
+    static List<Shift> findAll(InvocationOnMock invocation) {
       List<Shift> shifts = new ArrayList<Shift>();
       shifts.add(MockDatabase.shift1);
       shifts.add(MockDatabase.shift2);

@@ -220,20 +220,9 @@ public class PurchaseRestController {
    * @param purchaseId id of purchase
    * @param orderType type of the purchase
    * @param orderStatus status of order
-   * @param newItems items in the purchase
-   * @param employeeDto employee assigned to purchase
+   * @param data items in the purchase
+   * @param employeeEmail employee assigned to purchase
    * @return purchaseDto
-   * @throws IllegalArgumentException
-   */
-
-  /**\
-   *
-   * @param purchaseId
-   * @param orderType
-   * @param orderStatus
-   * @param data
-   * @param employeeDto
-   * @return
    * @throws IllegalArgumentException
    */
   @PostMapping(value = {"purchase/modify/{purchaseid}", "/purchase/modify/{purchaseId}/"})
