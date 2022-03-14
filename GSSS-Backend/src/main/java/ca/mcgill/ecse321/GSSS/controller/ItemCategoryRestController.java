@@ -67,20 +67,5 @@ public class ItemCategoryRestController {
     return itemCategoryDtos;
   }
 
-  /**
-   * Method that returns a category using its name
-   * 
-   * @author Chris Hatoum
-   * @param name the name of the category we want to retrieve
-   * @return the category
-   * @throws IllegalArgumentException
-   */
-  @GetMapping(value = {"/itemCategory/{name}", "/itemCategory/{name}/"})
-  public ItemCategoryDto getCategoryByName(@PathVariable("name") String name)
-      throws IllegalArgumentException {
-    ItemCategory itemCategory = itemCategoryService.getCategoryByName(name);
-    return DtoUtility.convertToDto(itemCategory);
-  }
-
 }
 

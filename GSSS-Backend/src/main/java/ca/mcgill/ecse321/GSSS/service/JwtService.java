@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.GSSS.controller;
+package ca.mcgill.ecse321.GSSS.service;
 
 import ca.mcgill.ecse321.GSSS.model.Account;
 import ca.mcgill.ecse321.GSSS.model.Customer;
@@ -7,12 +7,16 @@ import ca.mcgill.ecse321.GSSS.model.Owner;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JwtUtility {
+import javax.transaction.Transactional;
+
+@Service
+public class JwtService {
 
     private static final String PERMISSIONS_CLAIM_KEY = "permissions";
     private static final String PERMISSIONS_OWNER = "owner";
@@ -21,7 +25,7 @@ public class JwtUtility {
     private static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
     @Value("${jwt.secret}")
-    private static String secret;
+    private String secret;
 
     /**
      * This method generates a JWT associated to an account and gives it appropriate permission.
@@ -31,7 +35,8 @@ public class JwtUtility {
      * @param account Account to generate JWT for.
      * @return The generated JWT.
      */
-    public static String generateJWT(Account account){
+    @Transactional
+    public String generateJWT(Account account){
         Map<String, Object> claims = new HashMap<String, Object>();
         if(account instanceof Owner) claims.put(PERMISSIONS_CLAIM_KEY, PERMISSIONS_OWNER);
         else if(account instanceof Employee) claims.put(PERMISSIONS_CLAIM_KEY, PERMISSIONS_EMPLOYEE);
@@ -49,7 +54,8 @@ public class JwtUtility {
      * @param subject Email associated to the account.
      * @return The generated JWT.
      */
-    private static String doGenerateToken(Map<String, Object> claims, String subject) {
+    @Transactional
+    private String doGenerateToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
@@ -63,7 +69,8 @@ public class JwtUtility {
      * @param token JWT.
      * @return Whether the token is valid or not.
      */
-    public static boolean validateToken(String token) {
+    @Transactional
+    public boolean validateToken(String token) {
         try{
             Jwts.parser()
                     .setSigningKey(secret)
@@ -83,7 +90,8 @@ public class JwtUtility {
      * @param token JWT.
      * @return The permission associated to the JWT.
      */
-    public static String getPermission(String token){
+    @Transactional
+    public String getPermission(String token){
         if(!validateToken(token)) return "none";
         String permission = (String) Jwts.parser()
                 .setSigningKey(secret)
@@ -102,7 +110,8 @@ public class JwtUtility {
      * @param token JWT.
      * @return Whether the JWT has owner permissions.
      */
-    public static boolean getOwnerPermission(String token){
+    @Transactional
+    public boolean getOwnerPermission(String token){
         return getPermission(token).equals(PERMISSIONS_OWNER);
     }
 
@@ -114,7 +123,8 @@ public class JwtUtility {
      * @param token JWT.
      * @return Whether the JWT has employee permissions.
      */
-    public static boolean getEmployeePermission(String token){
+    @Transactional
+    public boolean getEmployeePermission(String token){
         return getPermission(token).equals(PERMISSIONS_EMPLOYEE);
     }
 
@@ -126,7 +136,8 @@ public class JwtUtility {
      * @param token JWT.
      * @return Whether the JWT has customer permissions.
      */
-    public static boolean getCustomerPermission(String token){
+    @Transactional
+    public boolean getCustomerPermission(String token){
         return getPermission(token).equals(PERMISSIONS_CUSTOMER);
     }
 
@@ -139,7 +150,8 @@ public class JwtUtility {
      * @param email Account email.
      * @return Whether JWT belongs to specified email.
      */
-    public static boolean getAccountPermission(String token, String email){
+    @Transactional
+    public boolean getAccountPermission(String token, String email){
         if(!validateToken(token)) return false;
         String sub = (String) Jwts.parser()
                 .setSigningKey(secret)

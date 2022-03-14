@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ca.mcgill.ecse321.GSSS.dto.AddressDto;
 import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 
 import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
@@ -78,7 +77,7 @@ public class CustomerRestController {
 	   * @param username Username of the Customer DTO to create
 	   * @param email Email of the Customer DTO to create
 	   * @param password Password of the Customer DTO to create
-	   * @param address	Address of the Customer DTO to create
+	   * @param addressId	Address of the Customer DTO to create
 	   * @return Created customer DTO
 	   * @throws IllegalArgumentException
 	   */
@@ -86,9 +85,9 @@ public class CustomerRestController {
 	  public CustomerDto createCustomer(@RequestParam(name = "username") String username,
 	      @RequestParam(name = "email") String email,
 	      @RequestParam(name = "password") String password,
-	      @RequestParam(name = "address") AddressDto addressDto)
+	      @RequestParam(name = "address") String addressId)
 	      throws IllegalArgumentException {
-		  Address address = addressService.getAddress(addressDto.getId());
+		  Address address = addressService.getAddress(addressId);
 		  return DtoUtility.convertToDto(customerService.createCustomer(username, email, password, address));
 	  }
 	  
@@ -108,14 +107,13 @@ public class CustomerRestController {
 	   * 
 	   * @author Enzo Benoit-Jeannin
 	   * @param email Email of the cusotmer to add the purchase to 
-	   * @param purchaseDto Purchase Dto to use to create the Purchase object
+	   * @param purchaseId Purchase Dto to use to create the Purchase object
 	   * @return Customer DTO 
 	   * @thorws IllegalArgumentException
 	   */
 	  @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
-	  public CustomerDto addPurchase(@PathVariable String email, @RequestBody PurchaseDto purchaseDto) throws IllegalArgumentException {
-		  Purchase purchase = purchaseService.createPurchase(purchaseDto.getOrderType(), DtoUtility.convertToDomainObject(purchaseDto.getEmployee()), purchaseDto.getOrderStatus(), DtoUtility.convertItemMapDto(purchaseDto.getItems()));
-		  return DtoUtility.convertToDto(customerService.addPurchase(customerService.getCustomerByEmail(email), purchase));
+	  public CustomerDto addPurchase(@PathVariable String email, @RequestParam(name = "purchase") String purchaseId) throws IllegalArgumentException {
+		  return DtoUtility.convertToDto(customerService.addPurchase(customerService.getCustomerByEmail(email), purchaseService.getPurchase(purchaseId)));
 	  }
 	 
 	  /**
@@ -124,7 +122,7 @@ public class CustomerRestController {
 	   * @param email Email of the customer to update
 	   * @param username Username we want to update
 	   * @param password Password we want to update
-	   * @param addressDto Address we want to update 
+	   * @param addressId Address we want to update
 	   * @param disabled Change the disable state of the customer
 	   * @return The modified customer as a DTO object
 	   * @throws IllegalArgumentException
@@ -133,11 +131,11 @@ public class CustomerRestController {
 	  public CustomerDto modifyCustomer(@PathVariable("email") String email,
 	      @RequestParam(name = "username") String username,
 	      @RequestParam(name = "password") String password,
-	      @RequestParam(name = "address") AddressDto addressDto,
+	      @RequestParam(name = "address") String addressId,
 	      @RequestParam(name = "disabled") boolean disabled)
 	      throws IllegalArgumentException {
-		  Address address = addressService.getAddress(addressDto.getId());
-		  Customer customer = customerService.modifyCustomer(username, email, password, address, disabled);
+		  Address address = addressService.getAddress(addressId);
+		  Customer customer = customerService.modifyCustomer(username, password, email, address, disabled);
 	    return DtoUtility.convertToDto(customer);
 	  }
 }
