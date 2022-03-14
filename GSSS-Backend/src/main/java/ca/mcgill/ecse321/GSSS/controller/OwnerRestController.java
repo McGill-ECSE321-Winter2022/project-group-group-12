@@ -15,6 +15,8 @@ import ca.mcgill.ecse321.GSSS.model.Owner;
 import ca.mcgill.ecse321.GSSS.service.AddressService;
 import ca.mcgill.ecse321.GSSS.service.OwnerService;
 
+import java.util.NoSuchElementException;
+
 @CrossOrigin(origins = "*")
 @RestController
 public class OwnerRestController {
@@ -30,7 +32,7 @@ public class OwnerRestController {
 	      @RequestParam(name = "email") String email,
 	      @RequestParam(name = "password") String password,
 	      @RequestParam(name = "address") String addressId)
-	      throws IllegalArgumentException {
+	      throws IllegalArgumentException, NoSuchElementException {
 	  	 Owner owner = null;
 	  	 try {
 			 Address address = addressService.getAddress(addressId);
