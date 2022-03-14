@@ -69,8 +69,8 @@ public class OwnerRestController {
   @PostMapping(value = {"/owner", "/owner/"})
   public OwnerDto modifyOwner(@RequestParam(name = "username") String username,
       @RequestParam(name = "password") String password,
-      @RequestParam(name = "address") AddressDto addressDto) throws IllegalArgumentException {
-    Address address = addressService.getAddress(addressDto.getId());
+      @RequestParam(name = "address") String addressId) throws IllegalArgumentException {
+    Address address = addressService.getAddress(addressId);
     Owner owner = ownerService.modifyOwner(username, password, address);
     return DtoUtility.convertToDto(owner);
   }
