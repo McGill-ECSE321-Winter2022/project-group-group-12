@@ -229,8 +229,8 @@ public class PurchaseRestController {
   public PurchaseDto modifyPurchase(@PathVariable(name = "purchaseid") String purchaseId,
       @RequestParam(name = "orderType") String orderType,
       @RequestParam(name = "orderStatus") String orderStatus,
-      @RequestBody HashMap<ItemDto, Integer> data,
-      @RequestParam(name = "employeeEmail") String employeeEmail) throws IllegalArgumentException {
+      @RequestBody HashMap<String, Integer> data,
+      @RequestParam(name = "employeeEmail") String employeeEmail) throws IllegalArgumentException, NoSuchElementException {
 
     OrderType actualOrderType = DtoUtility.findOrderTypeByName(orderType);
     // Checking that it is not null
@@ -243,8 +243,8 @@ public class PurchaseRestController {
       throw new IllegalArgumentException("Invalid order status!");
 
     HashMap<Item, Integer> items = new HashMap<Item, Integer>();
-    for (Map.Entry<ItemDto, Integer> entry : data.entrySet()) {
-      items.put(DtoUtility.convertToDomainObject(entry.getKey()), entry.getValue());
+    for (Map.Entry<String, Integer> entry : data.entrySet()) {
+      items.put(itemService.getItemByName(entry.getKey()), entry.getValue());
     }
 
     Employee employee = employeeService.getEmployeeByEmail(employeeEmail);
