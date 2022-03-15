@@ -9,20 +9,23 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
+import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
+import ca.mcgill.ecse321.GSSS.model.Address;
+import ca.mcgill.ecse321.GSSS.model.Employee;
+import ca.mcgill.ecse321.GSSS.model.Shift;
 import java.sql.Date;
 import java.sql.Time;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
-
-import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
-import ca.mcgill.ecse321.GSSS.model.Customer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,26 +33,23 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
-import ca.mcgill.ecse321.GSSS.model.Address;
-import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.model.Shift;
 
 /**
- *
  * Tests for the employee services
  *
  * @author Philippe Sarouphim Hochar
- *
  */
 @ExtendWith(MockitoExtension.class)
 public class TestEmployeeService {
 
-  @Mock private EmployeeRepository employeeRepository;
+  @Mock
+  private EmployeeRepository employeeRepository;
 
-  @Mock private ShiftRepository shiftRepository;
+  @Mock
+  private ShiftRepository shiftRepository;
 
-  @InjectMocks private EmployeeService employeeService;
+  @InjectMocks
+  private EmployeeService employeeService;
 
   @BeforeEach
   public void setMockOutput() {
@@ -560,7 +560,8 @@ public class TestEmployeeService {
   }
 
   /**
-   * method test to check that an error is thrown when we call getEmployeeByEmail with a empty email
+   * method test to check that an error is thrown when we call getEmployeeByEmail with a empty
+   * email
    *
    * @author Philippe Sarouphim Hochar
    */
@@ -606,7 +607,9 @@ public class TestEmployeeService {
     expected.add(MockDatabase.employee3);
     assertNotNull(fetched);
     assertEquals(expected.size(), fetched.size());
-    for (Employee e : fetched) assertTrue(expected.contains(e));
+    for (Employee e : fetched) {
+      assertTrue(expected.contains(e));
+    }
   }
 
   /**
@@ -723,7 +726,9 @@ public class TestEmployeeService {
     expected.add(MockDatabase.employee2);
     assertNotNull(fetched);
     assertEquals(expected.size(), fetched.size());
-    for (Employee e : fetched) assertTrue(expected.contains(e));
+    for (Employee e : fetched) {
+      assertTrue(expected.contains(e));
+    }
   }
 
   /**
@@ -741,7 +746,9 @@ public class TestEmployeeService {
     expected.add(MockDatabase.employeem);
     assertNotNull(fetched);
     assertEquals(expected.size(), fetched.size());
-    for (Employee e : fetched) assertTrue(expected.contains(e));
+    for (Employee e : fetched) {
+      assertTrue(expected.contains(e));
+    }
   }
 
   /**
@@ -814,7 +821,8 @@ public class TestEmployeeService {
   }
 
   /**
-   * method test to check that an error is thrown when we try to remove a shift from a null employee
+   * method test to check that an error is thrown when we try to remove a shift from a null
+   * employee
    *
    * @author Philippe Sarouphim Hochar
    */
@@ -899,57 +907,95 @@ public class TestEmployeeService {
     assertEquals(MockDatabase.employee1, closest);
   }
 
-  /** This class holds all of the mock methods of the employee CRUD repository. */
+  /**
+   * This class holds all of the mock methods of the employee CRUD repository.
+   */
   class MockEmployeeRepository {
 
     static Employee findEmployeeByEmail(InvocationOnMock invocation) {
       String email = (String) invocation.getArgument(0);
-      if (email.equals(MockDatabase.employee1.getEmail())) return MockDatabase.employee1;
-      if (email.equals(MockDatabase.employee2.getEmail())) return MockDatabase.employee2;
-      if (email.equals(MockDatabase.employee3.getEmail())) return MockDatabase.employee3;
-      if (email.equals(MockDatabase.employeem.getEmail())) return MockDatabase.employeem;
+      if (email.equals(MockDatabase.employee1.getEmail())) {
+        return MockDatabase.employee1;
+      }
+      if (email.equals(MockDatabase.employee2.getEmail())) {
+        return MockDatabase.employee2;
+      }
+      if (email.equals(MockDatabase.employee3.getEmail())) {
+        return MockDatabase.employee3;
+      }
+      if (email.equals(MockDatabase.employeem.getEmail())) {
+        return MockDatabase.employeem;
+      }
       return null;
     }
 
     static List<Employee> findEmployeeByUsername(InvocationOnMock invocation) {
       String username = (String) invocation.getArgument(0);
       List<Employee> employees = new ArrayList<Employee>();
-      if (username.equals(MockDatabase.employee1.getUsername()))
+      if (username.equals(MockDatabase.employee1.getUsername())) {
         employees.add(MockDatabase.employee1);
-      if (username.equals(MockDatabase.employee2.getUsername()))
+      }
+      if (username.equals(MockDatabase.employee2.getUsername())) {
         employees.add(MockDatabase.employee2);
-      if (username.equals(MockDatabase.employee3.getUsername()))
+      }
+      if (username.equals(MockDatabase.employee3.getUsername())) {
         employees.add(MockDatabase.employee3);
-      if (username.equals(MockDatabase.employeem.getUsername()))
+      }
+      if (username.equals(MockDatabase.employeem.getUsername())) {
         employees.add(MockDatabase.employeem);
+      }
       return employees;
     }
 
     static Employee findEmployeeByShifts(InvocationOnMock invocation) {
       Shift shift = (Shift) invocation.getArgument(0);
-      if (MockDatabase.employee1.getShifts().contains(shift)) return MockDatabase.employee1;
-      if (MockDatabase.employee2.getShifts().contains(shift)) return MockDatabase.employee2;
-      if (MockDatabase.employee3.getShifts().contains(shift)) return MockDatabase.employee3;
-      if (MockDatabase.employeem.getShifts().contains(shift)) return MockDatabase.employeem;
+      if (MockDatabase.employee1.getShifts().contains(shift)) {
+        return MockDatabase.employee1;
+      }
+      if (MockDatabase.employee2.getShifts().contains(shift)) {
+        return MockDatabase.employee2;
+      }
+      if (MockDatabase.employee3.getShifts().contains(shift)) {
+        return MockDatabase.employee3;
+      }
+      if (MockDatabase.employeem.getShifts().contains(shift)) {
+        return MockDatabase.employeem;
+      }
       return null;
     }
 
     static Employee findEmployeeByAddress(InvocationOnMock invocation) {
       Address address = (Address) invocation.getArgument(0);
-      if (address.equals(MockDatabase.employee1.getAddress())) return MockDatabase.employee1;
-      if (address.equals(MockDatabase.employee2.getAddress())) return MockDatabase.employee2;
-      if (address.equals(MockDatabase.employee3.getAddress())) return MockDatabase.employee3;
-      if (address.equals(MockDatabase.employeem.getAddress())) return MockDatabase.employeem;
+      if (address.equals(MockDatabase.employee1.getAddress())) {
+        return MockDatabase.employee1;
+      }
+      if (address.equals(MockDatabase.employee2.getAddress())) {
+        return MockDatabase.employee2;
+      }
+      if (address.equals(MockDatabase.employee3.getAddress())) {
+        return MockDatabase.employee3;
+      }
+      if (address.equals(MockDatabase.employeem.getAddress())) {
+        return MockDatabase.employeem;
+      }
       return null;
     }
 
     static List<Employee> findEmployeesByDisabled(InvocationOnMock invocation) {
       boolean disabled = (boolean) invocation.getArgument(0);
       List<Employee> employees = new ArrayList<Employee>();
-      if (disabled == MockDatabase.employee1.isDisabled()) employees.add(MockDatabase.employee1);
-      if (disabled == MockDatabase.employee2.isDisabled()) employees.add(MockDatabase.employee2);
-      if (disabled == MockDatabase.employee3.isDisabled()) employees.add(MockDatabase.employee3);
-      if (disabled == MockDatabase.employeem.isDisabled()) employees.add(MockDatabase.employeem);
+      if (disabled == MockDatabase.employee1.isDisabled()) {
+        employees.add(MockDatabase.employee1);
+      }
+      if (disabled == MockDatabase.employee2.isDisabled()) {
+        employees.add(MockDatabase.employee2);
+      }
+      if (disabled == MockDatabase.employee3.isDisabled()) {
+        employees.add(MockDatabase.employee3);
+      }
+      if (disabled == MockDatabase.employeem.isDisabled()) {
+        employees.add(MockDatabase.employeem);
+      }
       return employees;
     }
 
@@ -967,7 +1013,9 @@ public class TestEmployeeService {
     }
   }
 
-  /** This class holds all of the mock methods of the shift CRUD repository. */
+  /**
+   * This class holds all of the mock methods of the shift CRUD repository.
+   */
   class MockShiftRepository {
 
     static List<Shift> findAll(InvocationOnMock invocation) {
@@ -980,7 +1028,9 @@ public class TestEmployeeService {
     }
   }
 
-  /** This class mock data for tests. */
+  /**
+   * This class mock data for tests.
+   */
   static final class MockDatabase {
 
     static Employee employee1 = new Employee();

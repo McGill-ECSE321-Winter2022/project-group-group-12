@@ -1,8 +1,8 @@
 package ca.mcgill.ecse321.GSSS.model;
 
+import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Time;
 
 /**
  * This class represents the Grocery Store's Weekly Business Hours. Its primary key is a weekday.
@@ -44,17 +44,25 @@ public class BusinessHour {
   /**
    * Overrode the equals method to use it in tests
    *
-   * @author Philippe Sarouphim Hochar
    * @param obj The object to compare
    * @return True if it's the same object, false otherwise
+   * @author Philippe Sarouphim Hochar
    */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
     BusinessHour other = (BusinessHour) obj;
-    if (weekday != other.weekday) return false;
+    if (weekday != other.weekday) {
+      return false;
+    }
     return true;
   }
 }

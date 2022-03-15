@@ -91,32 +91,62 @@ public class Item {
   /**
    * Overrode the equals method to use it in tests
    *
-   * @author Philippe Sarouphim Hochar
    * @param obj The object to compare
    * @return True if it's the same object, false otherwise
+   * @author Philippe Sarouphim Hochar
    */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
     Item other = (Item) obj;
-    if (availableForOrder != other.availableForOrder) return false;
+    if (availableForOrder != other.availableForOrder) {
+      return false;
+    }
     if (category == null) {
-      if (other.category != null) return false;
-    } else if (!category.equals(other.category)) return false;
+      if (other.category != null) {
+        return false;
+      }
+    } else if (!category.equals(other.category)) {
+      return false;
+    }
     if (description == null) {
-      if (other.description != null) return false;
-    } else if (!description.equals(other.description)) return false;
+      if (other.description != null) {
+        return false;
+      }
+    } else if (!description.equals(other.description)) {
+      return false;
+    }
     if (imageUrl == null) {
-      if (other.imageUrl != null) return false;
-    } else if (!imageUrl.equals(other.imageUrl)) return false;
+      if (other.imageUrl != null) {
+        return false;
+      }
+    } else if (!imageUrl.equals(other.imageUrl)) {
+      return false;
+    }
     if (name == null) {
-      if (other.name != null) return false;
-    } else if (!name.equals(other.name)) return false;
-    if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price)) return false;
-    if (remainingQuantity != other.remainingQuantity) return false;
-    if (stillAvailable != other.stillAvailable) return false;
+      if (other.name != null) {
+        return false;
+      }
+    } else if (!name.equals(other.name)) {
+      return false;
+    }
+    if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price)) {
+      return false;
+    }
+    if (remainingQuantity != other.remainingQuantity) {
+      return false;
+    }
+    if (stillAvailable != other.stillAvailable) {
+      return false;
+    }
     return true;
   }
 }

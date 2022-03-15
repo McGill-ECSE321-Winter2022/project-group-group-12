@@ -19,18 +19,19 @@ public abstract class AccountDto {
    *
    * @author Wassim Jabbour
    */
-  public AccountDto() {}
+  public AccountDto() {
+  }
 
   /**
    * Full constructor
    *
-   * @author Wassim Jabbour
    * @param username The name of the account
-   * @param email The email of the account
+   * @param email    The email of the account
    * @param password The password of the account (hashed and salted)
-   * @param salt The salt used for the above password
+   * @param salt     The salt used for the above password
    * @param disabled Whether the account is disabled
-   * @param address The address of the account
+   * @param address  The address of the account
+   * @author Wassim Jabbour
    */
   public AccountDto(
       String username,
@@ -50,8 +51,8 @@ public abstract class AccountDto {
   /**
    * Username getter
    *
-   * @author Wassim Jabbour
    * @return The username
+   * @author Wassim Jabbour
    */
   public String getUsername() {
     return username;
@@ -60,8 +61,8 @@ public abstract class AccountDto {
   /**
    * Email getter
    *
-   * @author Wassim Jabbour
    * @return The email
+   * @author Wassim Jabbour
    */
   public String getEmail() {
     return email;
@@ -70,8 +71,8 @@ public abstract class AccountDto {
   /**
    * Password getter
    *
-   * @author Wassim Jabbour
    * @return The password
+   * @author Wassim Jabbour
    */
   public String getPassword() {
     return password;
@@ -80,8 +81,8 @@ public abstract class AccountDto {
   /**
    * Salt getter
    *
-   * @author Wassim Jabbour
    * @return The salt
+   * @author Wassim Jabbour
    */
   public String getSalt() {
     return salt;
@@ -90,8 +91,8 @@ public abstract class AccountDto {
   /**
    * Disabled getter
    *
-   * @author Wassim jabbour
    * @return The disabled boolean
+   * @author Wassim jabbour
    */
   public boolean isDisabled() {
     return disabled;
@@ -100,8 +101,8 @@ public abstract class AccountDto {
   /**
    * Address getter
    *
-   * @author Wassim jabbour
    * @return The address
+   * @author Wassim jabbour
    */
   public AddressDto getAddress() {
     return address;

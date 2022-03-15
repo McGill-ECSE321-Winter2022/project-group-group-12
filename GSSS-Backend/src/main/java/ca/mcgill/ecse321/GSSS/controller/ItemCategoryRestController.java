@@ -3,11 +3,16 @@ package ca.mcgill.ecse321.GSSS.controller;
 import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.service.ItemCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller methods for the item category class
@@ -23,15 +28,16 @@ import java.util.List;
  */
 public class ItemCategoryRestController {
 
-  @Autowired private ItemCategoryService itemCategoryService;
+  @Autowired
+  private ItemCategoryService itemCategoryService;
 
   /**
    * method to create itemCategoryDto with a name
    *
-   * @author Chris Hatoum
    * @param name of itemCategory
    * @return itemCategoryDto we created
    * @throws IllegalArgumentException
+   * @author Chris Hatoum
    */
   @PostMapping(value = {"/itemCategory", "/itemCategory/"})
   public ItemCategoryDto createCategory(@RequestParam(name = "name") String name)
@@ -43,9 +49,9 @@ public class ItemCategoryRestController {
   /**
    * This method deletes the category
    *
-   * @author Chris Hatoum
    * @param name the name of the category we want to retrieve Does not return anything
    * @throws IllegalArgumentException
+   * @author Chris Hatoum
    */
   @DeleteMapping(value = {"/itemCategory/{name}", "/itemCategory/{name}/"})
   public void deleteCategory(@PathVariable("name") String name) throws IllegalArgumentException {
@@ -55,8 +61,8 @@ public class ItemCategoryRestController {
   /**
    * Method to get list of all the itemCategoryDTO's
    *
-   * @author Chris Hatoum
    * @return list of all itemCategoryDTO's
+   * @author Chris Hatoum
    */
   @GetMapping(value = {"/itemCategories", "/itemCategories/"})
   public List<ItemCategoryDto> getAllItemCategories() throws IllegalArgumentException {

@@ -17,10 +17,10 @@ public class Utility {
   /**
    * Used to hash and salt a password
    *
-   * @author Wassim Jabbour, inspired by howtodoinjava.com
    * @param passwordToHash The password to hash
-   * @param salt The salt of the password to hash
+   * @param salt           The salt of the password to hash
    * @return The hashed and salted password (Or null in case of an exception)
+   * @author Wassim Jabbour, inspired by howtodoinjava.com
    */
   static String hashAndSaltPassword(String passwordToHash, String salt) {
 
@@ -59,8 +59,8 @@ public class Utility {
   /**
    * Method that generates a salt to improve a password's security
    *
-   * @author Wassim Jabbour, inspired by howtodoinjava.com
    * @return The generated salt (Or null in the case of an exception)
+   * @author Wassim Jabbour, inspired by howtodoinjava.com
    */
   static String getSalt() {
 
@@ -79,10 +79,10 @@ public class Utility {
   /**
    * Method that converts an iterable to a list. Useful when using findAll()
    *
-   * @author Wassim Jabbour, inspired from the tutorial notes
-   * @param <T> The type of the iterable we are converting
+   * @param <T>      The type of the iterable we are converting
    * @param iterable The iterable we are converting
    * @return The list after the conversion
+   * @author Wassim Jabbour, inspired from the tutorial notes
    */
   static <T> List<T> toList(Iterable<T> iterable) {
     List<T> resultList = new ArrayList<T>();
@@ -95,16 +95,18 @@ public class Utility {
   /**
    * Method to check if an email is valid or invalid
    *
-   * @author Theo Ghanem & inspired from https://mailtrap.io/blog/java-email-validation/
    * @param email email to check if valid or invalid
    * @return true if email is valid, and false if email is invalid
+   * @author Theo Ghanem & inspired from https://mailtrap.io/blog/java-email-validation/
    */
   static boolean isEmailValid(String email) {
-    if (email == null) return false;
+    if (email == null) {
+      return false;
+    }
 
     String regex =
         "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // OWASP
-                                                                                           // validation regex
+    // validation regex
 
     // initialize the Pattern object
     Pattern pattern = Pattern.compile(regex);
@@ -112,23 +114,27 @@ public class Utility {
     // searching for occurrences of regex
     Matcher matcher = pattern.matcher(email);
 
-    if (matcher.matches()) return true; // return true if email is valid
+    if (matcher.matches()) {
+      return true; // return true if email is valid
+    }
     return false; // return false if email is invalid
   }
 
   /**
    * Method to check if a postal code is valid or invalid
    *
-   * @author Theo Ghanem
    * @param postalCode postalCode to check if valid or invalid
    * @return true if postalCode is valid, and false if postalCode is invalid
+   * @author Theo Ghanem
    */
   static boolean isPostalCodeValid(String postalCode) {
-    if (postalCode == null) return false;
+    if (postalCode == null) {
+      return false;
+    }
 
     String regex =
         "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$"; // regex for canadian postal code
-                                                              // validation
+    // validation
 
     // initialize the Pattern object
     Pattern pattern = Pattern.compile(regex);
@@ -136,7 +142,9 @@ public class Utility {
     // searching for occurrences of regex
     Matcher matcher = pattern.matcher(postalCode);
 
-    if (matcher.matches()) return true; // return true if postalCode is valid
+    if (matcher.matches()) {
+      return true; // return true if postalCode is valid
+    }
     return false; // return false if postalCode is invalid
   }
 }

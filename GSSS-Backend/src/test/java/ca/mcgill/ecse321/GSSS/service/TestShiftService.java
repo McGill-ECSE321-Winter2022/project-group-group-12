@@ -10,6 +10,10 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
+import ca.mcgill.ecse321.GSSS.model.Employee;
+import ca.mcgill.ecse321.GSSS.model.Shift;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -18,7 +22,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,11 +29,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
-import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.model.Shift;
-import ca.mcgill.ecse321.GSSS.service.TestCustomerService.MockDatabase;
 
 /**
  * Class to test the Shift Service class
@@ -92,7 +90,7 @@ public class TestShiftService {
    *
    * @author Philippe Sarouphim Hochar
    */
-  @Test 
+  @Test
   public void testCreateShift_NullStartTime() {
     try {
       shiftService.createShift(Date.valueOf("2022-01-01"), null, Time.valueOf("03:00:00"));
@@ -380,8 +378,9 @@ public class TestShiftService {
     expected.add(MockDatabase.shift2);
     assertNotNull(shifts);
     assertEquals(expected.size(), shifts.size());
-    for (Shift s : shifts)
+    for (Shift s : shifts) {
       assertTrue(expected.contains(s));
+    }
   }
 
   /**
@@ -410,8 +409,9 @@ public class TestShiftService {
     List<Shift> fetched = shiftService.getShiftsByEmployee(MockDatabase.employee1);
     assertNotNull(fetched);
     assertEquals(MockDatabase.shifts1.size(), fetched.size());
-    for (Shift s : fetched)
+    for (Shift s : fetched) {
       assertTrue(MockDatabase.shifts1.contains(s));
+    }
   }
 
   /**
@@ -486,28 +486,36 @@ public class TestShiftService {
 
     static Shift findShiftById(InvocationOnMock invocation) {
       String id = (String) invocation.getArgument(0);
-      if (id.equals(MockDatabase.shift1.getId()))
+      if (id.equals(MockDatabase.shift1.getId())) {
         return MockDatabase.shift1;
-      if (id.equals(MockDatabase.shift2.getId()))
+      }
+      if (id.equals(MockDatabase.shift2.getId())) {
         return MockDatabase.shift2;
-      if (id.equals(MockDatabase.shift3.getId()))
+      }
+      if (id.equals(MockDatabase.shift3.getId())) {
         return MockDatabase.shift3;
-      if (id.equals(MockDatabase.shiftm.getId()))
+      }
+      if (id.equals(MockDatabase.shiftm.getId())) {
         return MockDatabase.shiftm;
+      }
       return null;
     }
 
     static List<Shift> findShiftsByDate(InvocationOnMock invocation) {
       Date date = (Date) invocation.getArgument(0);
       List<Shift> shifts = new ArrayList<Shift>();
-      if (date.equals(MockDatabase.shift1.getDate()))
+      if (date.equals(MockDatabase.shift1.getDate())) {
         shifts.add(MockDatabase.shift1);
-      if (date.equals(MockDatabase.shift2.getDate()))
+      }
+      if (date.equals(MockDatabase.shift2.getDate())) {
         shifts.add(MockDatabase.shift2);
-      if (date.equals(MockDatabase.shift3.getDate()))
+      }
+      if (date.equals(MockDatabase.shift3.getDate())) {
         shifts.add(MockDatabase.shift3);
-      if (date.equals(MockDatabase.shiftm.getDate()))
+      }
+      if (date.equals(MockDatabase.shiftm.getDate())) {
         shifts.add(MockDatabase.shiftm);
+      }
       return shifts;
     }
 

@@ -5,16 +5,15 @@ import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import javax.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * The services of the Employee class
@@ -27,9 +26,11 @@ public class EmployeeService {
 
   // CRUD Repositories
 
-  @Autowired private EmployeeRepository employeeRepository;
+  @Autowired
+  private EmployeeRepository employeeRepository;
 
-  @Autowired private ShiftRepository shiftRepository;
+  @Autowired
+  private ShiftRepository shiftRepository;
 
   // CREATE METHODS
 
@@ -37,26 +38,36 @@ public class EmployeeService {
    * Method that creates a new non disabled employee, hashing and salting its password before saving
    * it to the database
    *
-   * @author Enzo Benoit-Jeannin & Theo Ghanem
    * @param username The username of the employee
-   * @param email The email of the employee
+   * @param email    The email of the employee
    * @param password The password of the employee
-   * @param address Address of the employee
+   * @param address  Address of the employee
    * @return The new created employee
+   * @author Enzo Benoit-Jeannin & Theo Ghanem
    */
   @Transactional
   public Employee createEmployee(String username, String email, String password, Address address) {
 
     // Input validation
     String error = "";
-    if (email == null || email.trim().length() == 0) error += "Employee email cannot be empty! ";
-    if (!Utility.isEmailValid(email)) error += "Email not valid! ";
-    if (username == null || username.trim().length() == 0)
+    if (email == null || email.trim().length() == 0) {
+      error += "Employee email cannot be empty! ";
+    }
+    if (!Utility.isEmailValid(email)) {
+      error += "Email not valid! ";
+    }
+    if (username == null || username.trim().length() == 0) {
       error += "Employee username cannot be empty! ";
-    if (password == null || password.length() < 6 || password.trim().length() == 0)
+    }
+    if (password == null || password.length() < 6 || password.trim().length() == 0) {
       error += "Password has to be at least 6 characters! ";
-    if (address == null) error += "Address cannot be null! ";
-    if (error.length() > 0) throw new IllegalArgumentException(error);
+    }
+    if (address == null) {
+      error += "Address cannot be null! ";
+    }
+    if (error.length() > 0) {
+      throw new IllegalArgumentException(error);
+    }
 
     // Check if that employee already exists
     Employee employee = null;
@@ -76,7 +87,9 @@ public class EmployeeService {
         employeeRepository.save(employee);
       }
     }
-    if (error2.length() > 0) throw new NoSuchElementException(error2);
+    if (error2.length() > 0) {
+      throw new NoSuchElementException(error2);
+    }
 
     return employee;
   }
@@ -84,12 +97,12 @@ public class EmployeeService {
   /**
    * This service updates an employee based on the inputs.
    *
-   * @author Philippe Sarouphim Hochar
    * @param username Username
-   * @param email Email
-   * @param address Address
+   * @param email    Email
+   * @param address  Address
    * @param disabled Disabled.
    * @return The updated employee
+   * @author Philippe Sarouphim Hochar
    */
   @Transactional
   public Employee modifyEmployee(
@@ -97,16 +110,26 @@ public class EmployeeService {
 
     // Input validation
     String error = "";
-    if (email == null || email.trim().length() == 0) error += "Employee email cannot be empty! ";
-    if (username == null || username.trim().length() == 0)
+    if (email == null || email.trim().length() == 0) {
+      error += "Employee email cannot be empty! ";
+    }
+    if (username == null || username.trim().length() == 0) {
       error += "Employee username cannot be empty! ";
-    if (password == null || password.length() < 6 || password.trim().length() == 0)
+    }
+    if (password == null || password.length() < 6 || password.trim().length() == 0) {
       error += "Password has to be at least 6 characters! ";
-    if (address == null) error += "Address cannot be null! ";
-    if (error.length() > 0) throw new IllegalArgumentException(error);
+    }
+    if (address == null) {
+      error += "Address cannot be null! ";
+    }
+    if (error.length() > 0) {
+      throw new IllegalArgumentException(error);
+    }
 
     Employee employee = employeeRepository.findEmployeeByEmail(email);
-    if (employee == null) throw new NoSuchElementException("Employee does not exist");
+    if (employee == null) {
+      throw new NoSuchElementException("Employee does not exist");
+    }
 
     employee.setUsername(username);
     employee.setAddress(address);
@@ -122,14 +145,15 @@ public class EmployeeService {
   /**
    * Deletes an employee using their email
    *
-   * @author Enzo Benoit-Jeannin
    * @param email The email of the employee to delete
+   * @author Enzo Benoit-Jeannin
    */
   @Transactional
   public void deleteEmployee(String email) {
     // Input validation
-    if (email == null || email.trim().length() == 0)
+    if (email == null || email.trim().length() == 0) {
       throw new IllegalArgumentException("Employee email cannot be empty!");
+    }
 
     employeeRepository.deleteById(email);
   }
@@ -139,21 +163,23 @@ public class EmployeeService {
   /**
    * Finds an employee by its email
    *
-   * @author Enzo Benoit-Jeannin
    * @param email The email of the employee
    * @return The found employee
+   * @author Enzo Benoit-Jeannin
    */
   @Transactional
   public Employee getEmployeeByEmail(String email) {
 
     // Input validation
-    if (email == null || email.trim().length() == 0)
+    if (email == null || email.trim().length() == 0) {
       throw new IllegalArgumentException("Employee email cannot be empty!");
+    }
 
     // Finding the employee with that email
     Employee employee = employeeRepository.findEmployeeByEmail(email);
-    if (employee == null)
+    if (employee == null) {
       throw new NoSuchElementException("No employee with email " + email + " exists!");
+    }
 
     return employee;
   }
@@ -161,21 +187,23 @@ public class EmployeeService {
   /**
    * Finds a list of employees by their username
    *
-   * @author Enzo Benoit-Jeannin
    * @param username The username of the employee
    * @return The found employee
+   * @author Enzo Benoit-Jeannin
    */
   @Transactional
   public List<Employee> getEmployeesByUsername(String username) {
 
     // Input validation
-    if (username == null || username.trim().length() == 0)
+    if (username == null || username.trim().length() == 0) {
       throw new IllegalArgumentException("Employee username cannot be empty!");
+    }
 
     // Finding the employees with that username
     List<Employee> employees = employeeRepository.findEmployeesByUsername(username);
-    if (employees.size() == 0)
+    if (employees.size() == 0) {
       throw new NoSuchElementException("No employee with username " + username + " exists!");
+    }
 
     return employees;
   }
@@ -183,20 +211,23 @@ public class EmployeeService {
   /**
    * Finds an employee by its shift
    *
-   * @author Enzo Benoit-Jeannin
    * @param shift The ID of the shift to search for
    * @return The found employee
+   * @author Enzo Benoit-Jeannin
    */
   @Transactional
   public Employee getEmployeeByShift(Shift shift) {
 
     // Input validation
-    if (shift == null) throw new IllegalArgumentException("Shift cannot be null!");
+    if (shift == null) {
+      throw new IllegalArgumentException("Shift cannot be null!");
+    }
 
     // Finding the employee with that email
     Employee employee = employeeRepository.findEmployeeByShifts(shift);
-    if (employee == null)
+    if (employee == null) {
       throw new NoSuchElementException("No employee with the given shift exists!");
+    }
 
     return employee;
   }
@@ -204,9 +235,9 @@ public class EmployeeService {
   /**
    * Finds the employees with a given state of account (Disabled or not)
    *
-   * @author Enzo Benoit-Jeannin
    * @param disabled The state of the employee (True if disabled, false if not)
    * @return The employees with the corresponding state
+   * @author Enzo Benoit-Jeannin
    */
   @Transactional
   public List<Employee> getEmployeesByAccountState(boolean disabled) {
@@ -222,8 +253,8 @@ public class EmployeeService {
   /**
    * Find all employees in the dataBase
    *
-   * @author Enzo Benoit-Jeannin
    * @return A list of all the employees
+   * @author Enzo Benoit-Jeannin
    */
   @Transactional
   public List<Employee> getAllEmployees() {
@@ -235,16 +266,20 @@ public class EmployeeService {
   /**
    * This service adds a shift to an employee.
    *
-   * @author Philippe Sarouphim Hochar.
    * @param employee Employee to add the shift to.
-   * @param shift Shift to add to the employee.
+   * @param shift    Shift to add to the employee.
    * @return The employee object with the newly added shift.
+   * @author Philippe Sarouphim Hochar.
    */
   @Transactional
   public Employee addShift(Employee employee, Shift shift) {
-    if (employee == null) throw new IllegalArgumentException("Employee cannot be null.");
+    if (employee == null) {
+      throw new IllegalArgumentException("Employee cannot be null.");
+    }
 
-    if (shift == null) throw new IllegalArgumentException("Shift cannot be null.");
+    if (shift == null) {
+      throw new IllegalArgumentException("Shift cannot be null.");
+    }
 
     // Add shift to employee and save in database
     employee.getShifts().add(shift);
@@ -254,16 +289,20 @@ public class EmployeeService {
   /**
    * This service removes a shift from an employee.
    *
-   * @author Philippe Sarouphim Hochar.
    * @param employee Employee to the remove the shift from.
-   * @param shift Shift to remove from the employee.
+   * @param shift    Shift to remove from the employee.
    * @return The employee without the shift to remove.
+   * @author Philippe Sarouphim Hochar.
    */
   @Transactional
   public Employee removeShift(Employee employee, Shift shift) {
-    if (employee == null) throw new IllegalArgumentException("Employee cannot be null.");
+    if (employee == null) {
+      throw new IllegalArgumentException("Employee cannot be null.");
+    }
 
-    if (shift == null) throw new IllegalArgumentException("Shift cannot be null.");
+    if (shift == null) {
+      throw new IllegalArgumentException("Shift cannot be null.");
+    }
 
     employee.getShifts().remove(shift);
     return employeeRepository.save(employee);
@@ -272,8 +311,8 @@ public class EmployeeService {
   /**
    * Method that returns the employee with the shift closest to the current time
    *
-   * @author Wassim Jabbour
    * @return The employee
+   * @author Wassim Jabbour
    */
   @Transactional
   public Employee getClosestEmployee() {
@@ -333,7 +372,10 @@ public class EmployeeService {
 
     // If we found a shift, we return its employee
     // Else we return any employee
-    if (bestShift == null) return employeeRepository.findAll().iterator().next();
-    else return employeeRepository.findEmployeeByShifts(bestShift);
+    if (bestShift == null) {
+      return employeeRepository.findAll().iterator().next();
+    } else {
+      return employeeRepository.findEmployeeByShifts(bestShift);
+    }
   }
 }
