@@ -5,8 +5,4 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*")
 @RestController
-public class EmailRestController {
-
-  
-  
-}
+public class EmailRestController {}

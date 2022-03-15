@@ -21,11 +21,17 @@ public class ItemDto {
    *
    * @author Theo Ghanem
    */
-
   public ItemDto() {}
 
-  public ItemDto(String name, String description, String imageUrl, int remainingQuantity,
-      double price, boolean availableForOrder, boolean stillAvailable, ItemCategoryDto category) {
+  public ItemDto(
+      String name,
+      String description,
+      String imageUrl,
+      int remainingQuantity,
+      double price,
+      boolean availableForOrder,
+      boolean stillAvailable,
+      ItemCategoryDto category) {
 
     this.name = name;
     this.description = description;
@@ -68,5 +74,4 @@ public class ItemDto {
   public ItemCategoryDto getCategory() {
     return category;
   }
-
 }

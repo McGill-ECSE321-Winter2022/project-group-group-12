@@ -1,16 +1,16 @@
 package ca.mcgill.ecse321.GSSS.dto;
 
+import ca.mcgill.ecse321.GSSS.model.OrderStatus;
+import ca.mcgill.ecse321.GSSS.model.OrderType;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 
-import ca.mcgill.ecse321.GSSS.model.OrderStatus;
-import ca.mcgill.ecse321.GSSS.model.OrderType;
-
 /**
  * This is the DTO-equivalent class of Purchase.
- * 
+ *
  * @author Philippe Sarouphim Hochar.
  */
 public class PurchaseDto {
@@ -23,11 +23,16 @@ public class PurchaseDto {
   private Map<ItemDto, Integer> items = new HashMap<ItemDto, Integer>();
   private EmployeeDto employee;
 
-  public PurchaseDto() {
-  }
+  public PurchaseDto() {}
 
-  public PurchaseDto(String id, OrderType orderType, OrderStatus orderStatus, Date date, Time time,
-      Map<ItemDto, Integer> items, EmployeeDto employee) {
+  public PurchaseDto(
+      String id,
+      OrderType orderType,
+      OrderStatus orderStatus,
+      Date date,
+      Time time,
+      Map<ItemDto, Integer> items,
+      EmployeeDto employee) {
     this.id = id;
     this.orderType = orderType;
     this.orderStatus = orderStatus;
@@ -64,5 +69,4 @@ public class PurchaseDto {
   public EmployeeDto getEmployee() {
     return employee;
   }
-
 }

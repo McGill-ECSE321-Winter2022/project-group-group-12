@@ -1,35 +1,26 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
-import java.util.NoSuchElementException;
+import ca.mcgill.ecse321.GSSS.model.Account;
+import ca.mcgill.ecse321.GSSS.service.AccountService;
+import ca.mcgill.ecse321.GSSS.service.JwtService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import ca.mcgill.ecse321.GSSS.model.Account;
-import ca.mcgill.ecse321.GSSS.model.Customer;
-import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.service.AccountService;
-import ca.mcgill.ecse321.GSSS.service.JwtService;
+import java.util.NoSuchElementException;
 
 @CrossOrigin(origins = "*")
 @RestController
 class AccountRestController {
 
-  @Autowired
-  private AccountService accountService;
+  @Autowired private AccountService accountService;
 
-  @Autowired
-  private JwtService jwtService;
+  @Autowired private JwtService jwtService;
 
   @PostMapping(value = {"/account/login", "/account/login/"})
-  public void logIn(@RequestParam() String email, @RequestParam String password, HttpServletResponse response)
+  public void logIn(
+      @RequestParam() String email, @RequestParam String password, HttpServletResponse response)
       throws NoSuchElementException, IllegalArgumentException {
 
     Account account = accountService.authenticate(email, password);
@@ -43,8 +34,8 @@ class AccountRestController {
     response.addCookie(cookie);
   }
 
-  @GetMapping(value = { "/account/logout", "/account/logout/" })
-  public void logOut(HttpServletResponse response){
+  @GetMapping(value = {"/account/logout", "/account/logout/"})
+  public void logOut(HttpServletResponse response) {
     Cookie cookie = new Cookie("token", "");
 
     cookie.setMaxAge(0);
@@ -54,5 +45,4 @@ class AccountRestController {
 
     response.addCookie(cookie);
   }
-
 }

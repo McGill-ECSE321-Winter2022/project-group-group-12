@@ -16,180 +16,172 @@ import java.util.UUID;
 
 /**
  * Services of the shift class
- * 
- * @author Theo Ghanem
  *
+ * @author Theo Ghanem
  */
-
 @Service
 public class ShiftService {
 
-    //Crud Repository
+  // Crud Repository
 
-    @Autowired
-    ShiftRepository shiftRepository;
+  @Autowired ShiftRepository shiftRepository;
 
+  // GET methods
 
-    // GET methods
-
-    /**
-     * Get the shift associated to an id
-     *
-     * @param id id of the shift we are looking for
-     * @return the shift associated to that id
-     * @author Theo Ghanem
-     */
-    @Transactional
-    public Shift getShift(String id) {
-        if (id == null || id.trim().length() == 0) {
-            throw new IllegalArgumentException("Shift id cannot be empty!");
-        }
-        Shift shift = shiftRepository.findShiftById(id);
-        if (shift == null) {
-          throw new NoSuchElementException("No shift with id " + id + " exists!");
-        }
-        return shift;
+  /**
+   * Get the shift associated to an id
+   *
+   * @param id id of the shift we are looking for
+   * @return the shift associated to that id
+   * @author Theo Ghanem
+   */
+  @Transactional
+  public Shift getShift(String id) {
+    if (id == null || id.trim().length() == 0) {
+      throw new IllegalArgumentException("Shift id cannot be empty!");
     }
-
-    /**
-     * Get the list of shifts associated to a date
-     *
-     * @param date The date we are looking for
-     * @return a list of the shifts on that date
-     * @author Theo Ghanem
-     */
-    @Transactional
-    public List<Shift> getShiftsByDate(Date date) {
-        if (date == null) {
-            throw new IllegalArgumentException("Shift date cannot be null! ");
-        }
-        List<Shift> shifts = shiftRepository.findShiftsByDate(date);
-        return shifts;
+    Shift shift = shiftRepository.findShiftById(id);
+    if (shift == null) {
+      throw new NoSuchElementException("No shift with id " + id + " exists!");
     }
-    
-    /**
-     * Method to get all the shifts of an employee
-     * 
-     * @author Chris Hatoum and Enzo Benoit-Jeannin
-     * @param employee The employee to retrieve shifts from
-     * @return the list of the employee's shifts
-     */
-    @Transactional
-    public List<Shift> getShiftsByEmployee(Employee employee) {
+    return shift;
+  }
 
-      // Input validation
-      if (employee == null)
-        throw new IllegalArgumentException("Employee cannot be null!");
-
-      List<Shift> shiftList = new ArrayList<>(employee.getShifts());
-      
-      return shiftList;
+  /**
+   * Get the list of shifts associated to a date
+   *
+   * @param date The date we are looking for
+   * @return a list of the shifts on that date
+   * @author Theo Ghanem
+   */
+  @Transactional
+  public List<Shift> getShiftsByDate(Date date) {
+    if (date == null) {
+      throw new IllegalArgumentException("Shift date cannot be null! ");
     }
+    List<Shift> shifts = shiftRepository.findShiftsByDate(date);
+    return shifts;
+  }
 
+  /**
+   * Method to get all the shifts of an employee
+   *
+   * @author Chris Hatoum and Enzo Benoit-Jeannin
+   * @param employee The employee to retrieve shifts from
+   * @return the list of the employee's shifts
+   */
+  @Transactional
+  public List<Shift> getShiftsByEmployee(Employee employee) {
 
-    // CREATE method
+    // Input validation
+    if (employee == null) throw new IllegalArgumentException("Employee cannot be null!");
 
-    /**
-     * Creates a new shift and saves it to the database
-     *
-     * @param id        The shift's id
-     * @param date      The shift's date
-     * @param startTime The shift's start time
-     * @param endTime   The shift's end time
-     * @return The newly created shift
-     * @author Theo Ghanem
-     */
-    @Transactional
-    public Shift createShift(Date date, Time startTime, Time endTime) {
+    List<Shift> shiftList = new ArrayList<>(employee.getShifts());
 
-        // Input validation
-        String error = "";
-        if (date == null) {
-            error = error + "Shift date cannot be null! ";
-        }
-        if (startTime == null) {
-            error = error + "Shift start time cannot be null! ";
-        }
-        if (endTime == null) {
-            error = error + "Shift end time cannot be null! ";
-        }
-        if (endTime != null && startTime != null && endTime.before(startTime)) {
-            error = error + "Shift end time cannot be before shift start time!";
-        }
-        error = error.trim();
-        if (error.length() > 0) {
-            throw new IllegalArgumentException(error);
-        }
-        Shift shift = new Shift();
-        shift.setId(UUID.randomUUID().toString());
-        shift.setDate(date);
-        shift.setStartTime(startTime);
-        shift.setEndTime(endTime);
-        shiftRepository.save(shift);
-        return shift;
+    return shiftList;
+  }
+
+  // CREATE method
+
+  /**
+   * Creates a new shift and saves it to the database
+   *
+   * @param id The shift's id
+   * @param date The shift's date
+   * @param startTime The shift's start time
+   * @param endTime The shift's end time
+   * @return The newly created shift
+   * @author Theo Ghanem
+   */
+  @Transactional
+  public Shift createShift(Date date, Time startTime, Time endTime) {
+
+    // Input validation
+    String error = "";
+    if (date == null) {
+      error = error + "Shift date cannot be null! ";
     }
-
-    // DELETE method
-
-    /**
-     * Deletes the shift associated to the particular id
-     *
-     * @param id id of the shift we want to delete
-     * @author Theo Ghanem
-     */
-    @Transactional
-    public void deleteShift(String id) {
-        if (id == null || id.trim().length() == 0) {
-            throw new IllegalArgumentException("Shift id cannot be empty!");
-        }
-        shiftRepository.deleteById(id);
+    if (startTime == null) {
+      error = error + "Shift start time cannot be null! ";
     }
-
-
-    // MODIFY method
-
-    /**
-     * Modifies an existing shift and saves it to the database
-     *
-     * @param id        The shift's id
-     * @param date      The shift's date
-     * @param startTime The shift's start time
-     * @param endTime   The shift's end time
-     * @return The newly created shift
-     * @author Theo Ghanem
-     */
-    @Transactional
-    public Shift modifyShift(String id, Date date, Time startTime, Time endTime) {
-        // Input validation
-        String error = "";
-        if (id == null || id.trim().length() == 0) {
-            error = error + "Shift id cannot be empty! ";
-        }
-        if (date == null) {
-            error = error + "Shift date cannot be null! ";
-        }
-        if (startTime == null) {
-            error = error + "Shift start time cannot be null! ";
-        }
-        if (endTime == null) {
-            error = error + "Shift end time cannot be null! ";
-        }
-        if (endTime != null && startTime != null && endTime.before(startTime)) {
-            error = error + "Shift end time cannot be before shift start time!";
-        }
-        error = error.trim();
-        if (error.length() > 0) {
-            throw new IllegalArgumentException(error);
-        }
-        Shift shift = shiftRepository.findShiftById(id);
-        if(shift == null){
-            throw new NoSuchElementException("Shift with given ID does not exist!");
-        }
-        shift.setDate(date);
-        shift.setStartTime(startTime);
-        shift.setEndTime(endTime);
-        shiftRepository.save(shift);
-        return shift;
+    if (endTime == null) {
+      error = error + "Shift end time cannot be null! ";
     }
+    if (endTime != null && startTime != null && endTime.before(startTime)) {
+      error = error + "Shift end time cannot be before shift start time!";
+    }
+    error = error.trim();
+    if (error.length() > 0) {
+      throw new IllegalArgumentException(error);
+    }
+    Shift shift = new Shift();
+    shift.setId(UUID.randomUUID().toString());
+    shift.setDate(date);
+    shift.setStartTime(startTime);
+    shift.setEndTime(endTime);
+    shiftRepository.save(shift);
+    return shift;
+  }
 
+  // DELETE method
+
+  /**
+   * Deletes the shift associated to the particular id
+   *
+   * @param id id of the shift we want to delete
+   * @author Theo Ghanem
+   */
+  @Transactional
+  public void deleteShift(String id) {
+    if (id == null || id.trim().length() == 0) {
+      throw new IllegalArgumentException("Shift id cannot be empty!");
+    }
+    shiftRepository.deleteById(id);
+  }
+
+  // MODIFY method
+
+  /**
+   * Modifies an existing shift and saves it to the database
+   *
+   * @param id The shift's id
+   * @param date The shift's date
+   * @param startTime The shift's start time
+   * @param endTime The shift's end time
+   * @return The newly created shift
+   * @author Theo Ghanem
+   */
+  @Transactional
+  public Shift modifyShift(String id, Date date, Time startTime, Time endTime) {
+    // Input validation
+    String error = "";
+    if (id == null || id.trim().length() == 0) {
+      error = error + "Shift id cannot be empty! ";
+    }
+    if (date == null) {
+      error = error + "Shift date cannot be null! ";
+    }
+    if (startTime == null) {
+      error = error + "Shift start time cannot be null! ";
+    }
+    if (endTime == null) {
+      error = error + "Shift end time cannot be null! ";
+    }
+    if (endTime != null && startTime != null && endTime.before(startTime)) {
+      error = error + "Shift end time cannot be before shift start time!";
+    }
+    error = error.trim();
+    if (error.length() > 0) {
+      throw new IllegalArgumentException(error);
+    }
+    Shift shift = shiftRepository.findShiftById(id);
+    if (shift == null) {
+      throw new NoSuchElementException("Shift with given ID does not exist!");
+    }
+    shift.setDate(date);
+    shift.setStartTime(startTime);
+    shift.setEndTime(endTime);
+    shiftRepository.save(shift);
+    return shift;
+  }
 }

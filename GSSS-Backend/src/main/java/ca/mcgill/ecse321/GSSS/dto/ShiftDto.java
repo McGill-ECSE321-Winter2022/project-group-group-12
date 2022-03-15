@@ -5,7 +5,7 @@ import java.sql.Time;
 
 /**
  * This is the DTO-equivalent class of Shift.
- * 
+ *
  * @author Philippe Sarouphim Hochar.
  */
 public class ShiftDto {
@@ -15,8 +15,7 @@ public class ShiftDto {
   private Time startTime;
   private Time endTime;
 
-  public ShiftDto() {
-  }
+  public ShiftDto() {}
 
   public ShiftDto(Date date, String id, Time startTime, Time endTime) {
     this.date = date;
@@ -40,5 +39,4 @@ public class ShiftDto {
   public Time getEndTime() {
     return endTime;
   }
-
 }

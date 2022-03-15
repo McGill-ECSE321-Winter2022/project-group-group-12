@@ -1,44 +1,39 @@
 package ca.mcgill.ecse321.GSSS.service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ca.mcgill.ecse321.GSSS.dao.AddressRepository;
 import ca.mcgill.ecse321.GSSS.dao.CustomerRepository;
 import ca.mcgill.ecse321.GSSS.dao.PurchaseRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Services of the customer class
- * 
- * @author Wassim Jabbour
  *
+ * @author Wassim Jabbour
  */
 @Service
-public class CustomerService { 
+public class CustomerService {
 
   // CRUD repositories
 
-  @Autowired
-  CustomerRepository customerRepository;
+  @Autowired CustomerRepository customerRepository;
 
-  @Autowired
-  PurchaseRepository purchaseRepository;
+  @Autowired PurchaseRepository purchaseRepository;
 
-  @Autowired
-  AddressRepository addressRepository;
-
+  @Autowired AddressRepository addressRepository;
 
   // GET methods
 
   /**
    * Finds a customer by their email
-   * 
+   *
    * @author Wassim Jabbour
    * @param email The email of the customer
    * @return The customer with that email
@@ -53,14 +48,14 @@ public class CustomerService {
     Customer customer = customerRepository.findCustomerByEmail(email);
 
     if (customer == null) {
-		throw new NoSuchElementException("No customer with email "+ email + " exists!");
-	}
-    return customer; 
+      throw new NoSuchElementException("No customer with email " + email + " exists!");
+    }
+    return customer;
   }
 
   /**
    * Finds a list of customers with the given username (Not unique)
-   * 
+   *
    * @author Wassim Jabbour
    * @param username The username to search for
    * @return The customers with that username
@@ -81,7 +76,7 @@ public class CustomerService {
 
   /**
    * Finds the customer with a given purchase
-   * 
+   *
    * @author Wassim Jabbour
    * @param purchase The purchase to search for
    * @return The customer with that purchase
@@ -90,8 +85,7 @@ public class CustomerService {
   public Customer getCustomerByPurchase(Purchase purchase) {
 
     // Input validation
-    if (purchase == null)
-      throw new IllegalArgumentException("Purchase cannot be null!");
+    if (purchase == null) throw new IllegalArgumentException("Purchase cannot be null!");
 
     Customer customer = customerRepository.findCustomerByPurchases(purchase);
     if (customer == null) {
@@ -100,10 +94,9 @@ public class CustomerService {
     return customer;
   }
 
-
   /**
    * Finds all customers in the database
-   * 
+   *
    * @author Wassim Jabbour
    * @return A list of all the customers
    */
@@ -114,7 +107,7 @@ public class CustomerService {
 
   /**
    * Finds the customers with a given state of account (Disabled or not)
-   * 
+   *
    * @author Wassim Jabbour
    * @param disabled The state of the account (True if disabled, false if not)
    * @return The customers with the corresponding state
@@ -127,12 +120,11 @@ public class CustomerService {
     return customers;
   }
 
-
   // CREATE method
 
   /**
    * Creates a new customer, hashing and salting his password before saving him in the database
-   * 
+   *
    * @author Wassim Jabbour
    * @param email The customer's email
    * @param username The customer's username
@@ -144,47 +136,41 @@ public class CustomerService {
 
     // Input validation
     String error = "";
-    if (email == null || email.trim().length() == 0)
-      error += "Customer email cannot be empty! ";
-    if (!Utility.isEmailValid(email))
-      error += "Email not valid! ";
+    if (email == null || email.trim().length() == 0) error += "Customer email cannot be empty! ";
+    if (!Utility.isEmailValid(email)) error += "Email not valid! ";
     if (username == null || username.trim().length() == 0)
       error += "Customer username cannot be empty! ";
-    if(password == null || password.length() < 6 || password.trim().length() == 0)
+    if (password == null || password.length() < 6 || password.trim().length() == 0)
       error += "Password has to be at least 6 characters! ";
-    if(address == null)
-      error += "Address cannot be null! ";
-    if (error.length() > 0)
-      throw new IllegalArgumentException(error);
-    
+    if (address == null) error += "Address cannot be null! ";
+    if (error.length() > 0) throw new IllegalArgumentException(error);
+
     Customer customer = null;
     String error2 = "";
     try {
-    	customer = getCustomerByEmail(email);
-    	error2 = "The customer already exists in the system!";
+      customer = getCustomerByEmail(email);
+      error2 = "The customer already exists in the system!";
     } catch (NoSuchElementException e) {
-    	if (e.getMessage().equals("No customer with email "+ email + " exists!")) {
-	    	customer = new Customer();
-	        customer.setEmail(email);
-	        customer.setUsername(username);
-	        customer.setSalt(Utility.getSalt());
-	        customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));
-	        customer.setAddress(address);
-	        customerRepository.save(customer);
-    	}
+      if (e.getMessage().equals("No customer with email " + email + " exists!")) {
+        customer = new Customer();
+        customer.setEmail(email);
+        customer.setUsername(username);
+        customer.setSalt(Utility.getSalt());
+        customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));
+        customer.setAddress(address);
+        customerRepository.save(customer);
+      }
     }
-    if (error2.length() > 0)
-        throw new NoSuchElementException(error2);
-    
+    if (error2.length() > 0) throw new NoSuchElementException(error2);
+
     return customer;
   }
-
 
   // DELETE method
 
   /**
    * Deletes a customer using their email
-   * 
+   *
    * @author Wassim Jabbour
    * @param email The email of the customer to delete
    */
@@ -198,14 +184,12 @@ public class CustomerService {
     customerRepository.deleteById(email);
   }
 
-
   // OTHER methods
 
   /**
    * This service updates a customer based on the inputs
-   * 
+   *
    * @author Enzo Benoit-Jeannin
-   * 
    * @param username Username.
    * @param email Email.
    * @param password Password.
@@ -214,24 +198,21 @@ public class CustomerService {
    * @return The updated customer
    */
   @Transactional
-  public Customer modifyCustomer(String username, String password, String email, Address address,
-      boolean disabled) {
+  public Customer modifyCustomer(
+      String username, String password, String email, Address address, boolean disabled) {
 
     // Input validation
     String error = "";
     if (username == null || username.trim().length() == 0)
       error += "Customer username cannot be empty! ";
-    if (email == null || email.trim().length() == 0)
-      error += "Customer email cannot be empty! ";
+    if (email == null || email.trim().length() == 0) error += "Customer email cannot be empty! ";
     if (password == null || password.length() < 6 || password.trim().length() == 0)
       error += "Password has to be at least 6 characters! ";
-    if (address == null)
-      error += "Customer address cannot be null! ";
-    if (error.length() > 0)
-      throw new IllegalArgumentException(error);
+    if (address == null) error += "Customer address cannot be null! ";
+    if (error.length() > 0) throw new IllegalArgumentException(error);
 
-	Customer customer = getCustomerByEmail(email);
-	customer.setAddress(address);
+    Customer customer = getCustomerByEmail(email);
+    customer.setAddress(address);
     customer.setUsername(username);
     customer.setDisabled(disabled);
     customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));
@@ -241,24 +222,20 @@ public class CustomerService {
 
   /**
    * Service to add a purchase to a customer
-   * 
+   *
    * @author Enzo Benoit-Jeannin
-   * 
    * @param customer Customer to add the purchase to
    * @param purchase Purchase to add
    * @return The customer we added the purchase to
    */
   @Transactional
   public Customer addPurchase(Customer customer, Purchase purchase) {
-    if (customer == null)
-      throw new IllegalArgumentException("Customer cannot be null");
+    if (customer == null) throw new IllegalArgumentException("Customer cannot be null");
 
-    if (purchase == null)
-      throw new IllegalArgumentException("Purchase cannot be null"); 
+    if (purchase == null) throw new IllegalArgumentException("Purchase cannot be null");
 
     // Add purchase to customer and save in database
     customer.getPurchases().add(purchase);
     return customerRepository.save(customer);
   }
-
 }

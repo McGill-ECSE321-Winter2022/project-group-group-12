@@ -1,8 +1,7 @@
 package ca.mcgill.ecse321.GSSS.dto;
 
-
 /**
- *Data Transfer Object Class for ItemCategory Class
+ * Data Transfer Object Class for ItemCategory Class
  *
  * @author Theo Ghanem
  */
@@ -15,8 +14,7 @@ public class ItemCategoryDto {
    *
    * @author Theo Ghanem
    */
-  public ItemCategoryDto() {
-  }
+  public ItemCategoryDto() {}
 
   public ItemCategoryDto(String name) {
 

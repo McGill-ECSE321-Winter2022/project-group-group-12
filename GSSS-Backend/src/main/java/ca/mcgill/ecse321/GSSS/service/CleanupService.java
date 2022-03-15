@@ -9,43 +9,34 @@ import javax.transaction.Transactional;
 @Service
 public class CleanupService {
 
-    @Autowired
-    private AddressRepository addressRepository;
+  @Autowired private AddressRepository addressRepository;
 
-    @Autowired
-    private BusinessHourRepository businessHourRepository;
+  @Autowired private BusinessHourRepository businessHourRepository;
 
-    @Autowired
-    private CustomerRepository customerRepository;
+  @Autowired private CustomerRepository customerRepository;
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+  @Autowired private EmployeeRepository employeeRepository;
 
-    @Autowired
-    private ItemCategoryRepository itemCategoryRepository;
+  @Autowired private ItemCategoryRepository itemCategoryRepository;
 
-    @Autowired
-    private ItemRepository itemRepository;
+  @Autowired private ItemRepository itemRepository;
 
-    @Autowired
-    private OwnerRepository ownerRepository;
+  @Autowired private OwnerRepository ownerRepository;
 
-    @Autowired
-    private PurchaseRepository purchaseRepository;
+  @Autowired private PurchaseRepository purchaseRepository;
 
-    @Autowired
-    private ShiftRepository shiftRepository;
+  @Autowired private ShiftRepository shiftRepository;
 
-    @Transactional
-    public void cleanupDatabase() {
-        customerRepository.deleteAll();
-        purchaseRepository.deleteAll();
-        employeeRepository.deleteAll();
-        shiftRepository.deleteAll();
-        ownerRepository.deleteAll();
-        addressRepository.deleteAll();
-        itemRepository.deleteAll();
-        itemCategoryRepository.deleteAll();
-        businessHourRepository.deleteAll();
-    }
+  @Transactional
+  public void cleanupDatabase() {
+    customerRepository.deleteAll();
+    purchaseRepository.deleteAll();
+    employeeRepository.deleteAll();
+    shiftRepository.deleteAll();
+    ownerRepository.deleteAll();
+    addressRepository.deleteAll();
+    itemRepository.deleteAll();
+    itemCategoryRepository.deleteAll();
+    businessHourRepository.deleteAll();
+  }
 }

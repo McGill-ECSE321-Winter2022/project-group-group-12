@@ -9,19 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @CrossOrigin(origins = "*")
 @RestController
 /**
  * ItemCategory controller methods
- * 
+ *
  * @author Chris Hatoum
  */
 public class ItemCategoryRestController {
 
-  @Autowired
-  private ItemCategoryService itemCategoryService;
-
+  @Autowired private ItemCategoryService itemCategoryService;
 
   /**
    * method to create itemCategoryDto with a name
@@ -42,7 +39,6 @@ public class ItemCategoryRestController {
    * This method deletes the category
    *
    * @author Chris Hatoum
-   *
    * @param name the name of the category we want to retrieve Does not return anything
    * @throws IllegalArgumentException
    */
@@ -55,7 +51,6 @@ public class ItemCategoryRestController {
    * Method to get list of all the itemCategoryDTO's
    *
    * @author Chris Hatoum
-   *
    * @return list of all itemCategoryDTO's
    */
   @GetMapping(value = {"/itemCategories", "/itemCategories/"})
@@ -66,6 +61,4 @@ public class ItemCategoryRestController {
     }
     return itemCategoryDtos;
   }
-
 }
-

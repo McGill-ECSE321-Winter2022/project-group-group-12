@@ -2,24 +2,21 @@ package ca.mcgill.ecse321.GSSS.dto;
 
 /**
  * DTO equivalent of the Owner class to pass to the frontend
- * 
- * @author Wassim Jabbour
  *
+ * @author Wassim Jabbour
  */
-public class OwnerDto extends AccountDto{
+public class OwnerDto extends AccountDto {
 
   /**
    * Default constructor
-   * 
+   *
    * @author Wassim Jabbour
    */
-  public OwnerDto() {
-    
-  }
-  
+  public OwnerDto() {}
+
   /**
    * Full constructor
-   * 
+   *
    * @author Wassim Jabbour
    * @param username The name of the owner
    * @param email The email of the owner
@@ -28,9 +25,13 @@ public class OwnerDto extends AccountDto{
    * @param disabled Whether the owner is disabled
    * @param address The address of the owner
    */
-  public OwnerDto(String username, String email, String password, String salt, boolean disabled,
+  public OwnerDto(
+      String username,
+      String email,
+      String password,
+      String salt,
+      boolean disabled,
       AddressDto address) {
     super(username, email, password, salt, disabled, address);
   }
-
 }

@@ -2,9 +2,8 @@ package ca.mcgill.ecse321.GSSS.dto;
 
 /**
  * DTO equivalent of the Account class to pass to the frontend
- * 
- * @author Wassim Jabbour
  *
+ * @author Wassim Jabbour
  */
 public abstract class AccountDto {
 
@@ -17,15 +16,14 @@ public abstract class AccountDto {
 
   /**
    * Default constructor
-   * 
-   * @author Wassim Jabbour
    *
+   * @author Wassim Jabbour
    */
   public AccountDto() {}
 
   /**
    * Full constructor
-   * 
+   *
    * @author Wassim Jabbour
    * @param username The name of the account
    * @param email The email of the account
@@ -34,7 +32,12 @@ public abstract class AccountDto {
    * @param disabled Whether the account is disabled
    * @param address The address of the account
    */
-  public AccountDto(String username, String email, String password, String salt, boolean disabled,
+  public AccountDto(
+      String username,
+      String email,
+      String password,
+      String salt,
+      boolean disabled,
       AddressDto address) {
     this.username = username;
     this.email = email;
@@ -46,7 +49,7 @@ public abstract class AccountDto {
 
   /**
    * Username getter
-   * 
+   *
    * @author Wassim Jabbour
    * @return The username
    */
@@ -56,7 +59,7 @@ public abstract class AccountDto {
 
   /**
    * Email getter
-   * 
+   *
    * @author Wassim Jabbour
    * @return The email
    */
@@ -66,7 +69,7 @@ public abstract class AccountDto {
 
   /**
    * Password getter
-   * 
+   *
    * @author Wassim Jabbour
    * @return The password
    */
@@ -76,7 +79,7 @@ public abstract class AccountDto {
 
   /**
    * Salt getter
-   * 
+   *
    * @author Wassim Jabbour
    * @return The salt
    */
@@ -86,7 +89,7 @@ public abstract class AccountDto {
 
   /**
    * Disabled getter
-   * 
+   *
    * @author Wassim jabbour
    * @return The disabled boolean
    */
@@ -96,14 +99,11 @@ public abstract class AccountDto {
 
   /**
    * Address getter
-   * 
+   *
    * @author Wassim jabbour
    * @return The address
    */
   public AddressDto getAddress() {
     return address;
   }
-
-
-
 }

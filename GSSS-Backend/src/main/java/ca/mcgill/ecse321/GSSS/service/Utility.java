@@ -9,15 +9,14 @@ import java.util.regex.Pattern;
 
 /**
  * Helper class containing the common methods to all services
- * 
- * @author Wassim Jabbour
  *
+ * @author Wassim Jabbour
  */
 public class Utility {
 
   /**
    * Used to hash and salt a password
-   * 
+   *
    * @author Wassim Jabbour, inspired by howtodoinjava.com
    * @param passwordToHash The password to hash
    * @param salt The salt of the password to hash
@@ -59,7 +58,7 @@ public class Utility {
 
   /**
    * Method that generates a salt to improve a password's security
-   * 
+   *
    * @author Wassim Jabbour, inspired by howtodoinjava.com
    * @return The generated salt (Or null in the case of an exception)
    */
@@ -75,12 +74,11 @@ public class Utility {
     byte[] salt = new byte[16];
     sr.nextBytes(salt);
     return salt.toString();
-
   }
 
   /**
    * Method that converts an iterable to a list. Useful when using findAll()
-   * 
+   *
    * @author Wassim Jabbour, inspired from the tutorial notes
    * @param <T> The type of the iterable we are converting
    * @param iterable The iterable we are converting
@@ -102,18 +100,20 @@ public class Utility {
    * @return true if email is valid, and false if email is invalid
    */
   static boolean isEmailValid(String email) {
-    if(email == null) return false;
-    
-    String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // OWASP validation regex 
+    if (email == null) return false;
 
-    //initialize the Pattern object
+    String regex =
+        "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // OWASP
+                                                                                           // validation regex
+
+    // initialize the Pattern object
     Pattern pattern = Pattern.compile(regex);
 
-    //searching for occurrences of regex
+    // searching for occurrences of regex
     Matcher matcher = pattern.matcher(email);
 
-    if(matcher.matches()) return true; //return true if email is valid
-    return false; //return false if email is invalid
+    if (matcher.matches()) return true; // return true if email is valid
+    return false; // return false if email is invalid
   }
 
   /**
@@ -124,18 +124,19 @@ public class Utility {
    * @return true if postalCode is valid, and false if postalCode is invalid
    */
   static boolean isPostalCodeValid(String postalCode) {
-    if(postalCode == null) return false;
+    if (postalCode == null) return false;
 
-    String regex = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$"; //regex for canadian postal code validation
+    String regex =
+        "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$"; // regex for canadian postal code
+                                                              // validation
 
-    //initialize the Pattern object
+    // initialize the Pattern object
     Pattern pattern = Pattern.compile(regex);
 
-    //searching for occurrences of regex
+    // searching for occurrences of regex
     Matcher matcher = pattern.matcher(postalCode);
 
-    if(matcher.matches()) return true; //return true if postalCode is valid
-    return false; //return false if postalCode is invalid
+    if (matcher.matches()) return true; // return true if postalCode is valid
+    return false; // return false if postalCode is invalid
   }
-
 }
