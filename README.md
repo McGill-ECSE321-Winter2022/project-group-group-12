@@ -21,12 +21,12 @@
 **Deliverable 2:**
 | Name                      |     Team Role                              | Individual efforts |
 |---------------------------|--------------------------------------------|--------------------|
-| Enzo Benoit-Jeannin       | Testing & Writing controllers & Recording  |                    |
-| Wassim Jabbour            | Managing & Testing & Writing controllers   |                    |
-| Philippe Sarouphim Hochar | Reviewing & Testing & Writing controllers  |                    |
-| Habib Jarweh              | Testing & Writing controllers & Recording  |                    |
-| Theo Ghanem               | Testing & Writing controllers & Documenting|                    |
-| Chris Hatoum              | Testing & Writing controllers & Documenting|                    |
+| Enzo Benoit-Jeannin       | Testing & Writing controllers & Recording  |      37 hours      |
+| Wassim Jabbour            | Managing & Testing & Writing controllers   |      45 hours      |
+| Philippe Sarouphim Hochar | Reviewing & Testing & Writing controllers  |      40 hours      |
+| Habib Jarweh              | Testing & Writing controllers & Recording  |      36 hours      |
+| Theo Ghanem               | Testing & Writing controllers & Documenting|      37 hours      |
+| Chris Hatoum              | Testing & Writing controllers & Documenting|      35 hours      |
   
   <ins>Figure 1: Overview Table for deliverable 2</ins>
   
