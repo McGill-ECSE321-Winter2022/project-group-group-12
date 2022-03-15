@@ -10,7 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
-
+/**
+ * Controller methods for the owner class
+ *
+ * @author Wassim Jabbour
+ * @author Enzo Benoit-Jeannin
+ */
 @CrossOrigin(origins = "*")
 @RestController
 public class OwnerRestController {

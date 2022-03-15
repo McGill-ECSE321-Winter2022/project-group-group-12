@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller methods for the item category class
+ *
+ * @author Chris Hatoum
+ */
 @CrossOrigin(origins = "*")
 @RestController
 /**

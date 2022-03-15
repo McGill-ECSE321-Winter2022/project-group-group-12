@@ -14,6 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Controller methods for the business hour class
+ *
+ * @author Wassim Jabbour
+ */
 @CrossOrigin(origins = "*")
 @RestController
 public class BusinessHourRestController {
