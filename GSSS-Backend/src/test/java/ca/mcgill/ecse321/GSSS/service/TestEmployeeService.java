@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
+import ca.mcgill.ecse321.GSSS.model.Customer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -85,6 +86,29 @@ public class TestEmployeeService {
     assertEquals(employee.getEmail(), created.getEmail());
     assertEquals(employee.getUsername(), created.getUsername());
     assertEquals(employee.getAddress(), created.getAddress());
+  }
+
+  /**
+   * Method test to check that an error is thrown if we create an employee which already exists in the dataBase
+   *
+   * @author Theo Ghanem
+   */
+  @Test
+  public void testCreateEmployee_AlreadyInDb() {
+    Employee employee = new Employee();
+    employee.setEmail(MockDatabase.employee2.getEmail());
+    employee.setUsername("John Smith");
+    employee.setPassword("w34yfr1uy45324u");
+    employee.setAddress(new Address());
+
+    try {
+      employeeService.createEmployee(employee.getUsername(), employee.getEmail(),
+              employee.getPassword(), employee.getAddress());
+    } catch (NoSuchElementException e) {
+      assertEquals("The employee already exists in the system!", e.getMessage());
+      return;
+    }
+    fail();
   }
 
   /**

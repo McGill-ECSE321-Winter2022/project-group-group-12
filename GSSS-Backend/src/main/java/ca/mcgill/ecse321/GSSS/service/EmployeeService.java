@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
 
 import ca.mcgill.ecse321.GSSS.controller.DtoUtility;
+import ca.mcgill.ecse321.GSSS.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ca.mcgill.ecse321.GSSS.dao.EmployeeRepository;
@@ -34,7 +35,7 @@ public class EmployeeService {
    * Method that creates a new non disabled employee, hashing and salting its password before saving
    * it to the database
    * 
-   * @author Enzo Benoit-Jeannin
+   * @author Enzo Benoit-Jeannin & Theo Ghanem
    * @param username The username of the employee
    * @param email The email of the employee
    * @param password The password of the employee
@@ -59,16 +60,29 @@ public class EmployeeService {
     if (error.length() > 0)
       throw new IllegalArgumentException(error);
 
-    Employee employee = new Employee();
-    employee.setUsername(username);
-    employee.setEmail(email);
-    employee.setSalt(Utility.getSalt());
-    employee.setPassword(Utility.hashAndSaltPassword(password, employee.getSalt()));
-    employee.setAddress(address);
-    employee.setDisabled(false);
-    employeeRepository.save(employee);
-    return employee;
+    //Check if that employee already exists
+    Employee employee = null;
+    String error2 = "";
+    try {
+      employee = getEmployeeByEmail(email);
+      error2 = "The employee already exists in the system!";
+    } catch (NoSuchElementException e) {
+      if (e.getMessage().equals("No employee with email " + email + " exists!")) {
+        employee = new Employee();
+        employee.setUsername(username);
+        employee.setEmail(email);
+        employee.setSalt(Utility.getSalt());
+        employee.setPassword(Utility.hashAndSaltPassword(password, employee.getSalt()));
+        employee.setAddress(address);
+        employee.setDisabled(false);
+        employeeRepository.save(employee);
+    }
   }
+      if (error2.length() > 0)
+        throw new NoSuchElementException(error2);
+
+      return employee;
+    }
 
   /**
    * This service updates an employee based on the inputs.
