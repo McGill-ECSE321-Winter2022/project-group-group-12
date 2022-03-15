@@ -38,3 +38,21 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       working-directory: GSSS-Backend
+      
+  integration-tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    # - uses: akhileshns/heroku-deploy@v3.12.12
+    #  with:
+    #    heroku_api_key: a260c785-d665-4273-a293-a30e402d187f
+    #    heroku_app_name: "onlinelibrary-backend-ci-05a"
+    #    heroku_email: "louis.t.hildebrand@gmail.com"
+    - name: Run Postman tests with Newman
+      id: run-newman
+      uses: anthonyvscode/newman-action@v1.1
+      with:
+        collection: GSSS-Backend/src/test/integration/postman-test-collection.json
+        environment: GSSS-Backend/src/test/integration/postman-environment.json
+        reporters: cli
