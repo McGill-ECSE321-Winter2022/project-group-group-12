@@ -75,7 +75,7 @@ public class PurchaseRestController {
    * @throws IllegalArgumentException if argument is not valid
    * @throws NoSuchElementException if element is null
    */
-  @GetMapping(value = {"/purchases/{employeeEmail}", "/purchases/{employeeEmail}/"})
+  @GetMapping(value = {"/purchasesbyemployee/{employeeEmail}", "/purchasesbyemployee/{employeeEmail}/"})
   public List<PurchaseDto> getPurchasesByEmployee(
       @PathVariable("employeeEmail") String employeeEmail)
       throws IllegalArgumentException, NoSuchElementException {
@@ -127,7 +127,7 @@ public class PurchaseRestController {
    * @throws IllegalArgumentException if argument is not valid
    * @throws NoSuchElementException if element is null
    */
-  @GetMapping(value = {"/purchases/{customerEmail}/", "/purchases/{customerEmail}"})
+  @GetMapping(value = {"/purchasesbycustomer/{customerEmail}/", "/purchasesbycustomer/{customerEmail}"})
   public List<PurchaseDto> getPurchasesByCustomer(
       @PathVariable("customerEmail") String customerEmail)
       throws IllegalArgumentException, NoSuchElementException {
