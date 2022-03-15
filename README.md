@@ -18,14 +18,14 @@
   Project Report: https://github.com/McGill-ECSE321-Winter2022/project-group-group-12/wiki/Deliverable-1:-Report
 
 **Deliverable 2:**
-| Name                      |     Team Role                            | Individual efforts |
-|---------------------------|------------------------------------------|--------------------|
-| Enzo Benoit-Jeannin       | Testing & Writing controllers            |                    |
-| Wassim Jabbour            | Managing & Testing & Writing controllers |                    |
-| Philippe Sarouphim Hochar | Reviewing & Testing & Writing controllers|                    |
-| Habib Jarweh              | Testing & Writing controllers            |                    |
-| Theo Ghanem               | Testing & Writing controllers            |                    |
-| Chris Hatoum              | Testing & Writing controllers                                 |
+| Name                      |     Team Role                              | Individual efforts |
+|---------------------------|--------------------------------------------|--------------------|
+| Enzo Benoit-Jeannin       | Testing & Writing controllers & Recording  |                    |
+| Wassim Jabbour            | Managing & Testing & Writing controllers   |                    |
+| Philippe Sarouphim Hochar | Reviewing & Testing & Writing controllers  |                    |
+| Habib Jarweh              | Testing & Writing controllers & Recording  |                    |
+| Theo Ghanem               | Testing & Writing controllers & Documenting|                    |
+| Chris Hatoum              | Testing & Writing controllers & Documenting|                    |
   
   <ins>Figure 1: Overview Table for deliverable 2</ins>
   
