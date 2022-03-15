@@ -27,8 +27,6 @@ public class BusinessHourService {
    * @author Habib Jarweh
    * @param weekday desired day of the week
    * @return business hour we want to find
-   * @throws illegal argument expection when inputted argument is null
-   * @throws no such element exception when there is no business hour with the inputted weekday
    */
   @Transactional
   public BusinessHour getBusinessHourByWeekday(Weekday weekday) {
@@ -62,8 +60,6 @@ public class BusinessHourService {
    * @param startTime desired start time of businesshour
    * @param endTime desired end time of businesshour
    * @return business hour we created
-   * @throws illegal argument expection when any or all parameters inputtted are null, or when start
-   *     time comes after end time
    */
   @Transactional
   public BusinessHour createBusinessHour(Weekday weekday, Time startTime, Time endTime) {
@@ -99,7 +95,6 @@ public class BusinessHourService {
    * @author Habib Jarweh
    * @param weekday day of the week of the business hour we want to remove
    * @return business hour we wanted to delete
-   * @throws no such element exception when there is no business hour with the inputted weekday
    */
   @Transactional
   public BusinessHour deleteBusinessHour(Weekday weekday) {
@@ -119,8 +114,6 @@ public class BusinessHourService {
    * @param startTime start time of the day we want
    * @param endTime end time of the day we want
    * @return Buisness hours ( opening and closing ) of the day we want to update
-   * @throws illegal argument expection when any or all parameters inputtted are null, or when start
-   *     time comes after end time
    */
   @Transactional
   public BusinessHour modifyBusinessHour(Weekday day, Time startTime, Time endTime) {

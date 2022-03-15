@@ -13,6 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 
+/**
+ * The services of the account class
+ *
+ * @author Enzo Benoit-Jeannin
+ */
 @Service
 public class AccountService {
 
@@ -22,6 +27,14 @@ public class AccountService {
 
   @Autowired OwnerRepository ownerRepository;
 
+  /**
+   * Method to authenticate an account
+   *
+   * @author Enzo Benoit-Jeannin
+   * @param email The email of the account
+   * @param password The password of the account
+   * @return Returns a string indicating the type of account that just was logged in
+   */
   @Transactional
   public Account authenticate(String email, String password) {
 

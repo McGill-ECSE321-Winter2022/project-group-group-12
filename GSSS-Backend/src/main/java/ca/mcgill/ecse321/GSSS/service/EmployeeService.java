@@ -16,6 +16,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * The services of the Employee class
+ *
+ * @author Enzo Benoit-Jeannin
+ * @author Wassim Jabbour
+ */
 @Service
 public class EmployeeService {
 

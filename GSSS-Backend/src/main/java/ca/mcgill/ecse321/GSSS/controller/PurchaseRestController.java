@@ -10,6 +10,12 @@ import java.sql.Date;
 import java.util.*;
 import java.util.Map.Entry;
 
+/**
+ * Controller methods for the purchase class
+ *
+ * @author Wassim Jabbour
+ * @author Habib Jarweh
+ */
 @CrossOrigin(origins = "*")
 @RestController
 public class PurchaseRestController {

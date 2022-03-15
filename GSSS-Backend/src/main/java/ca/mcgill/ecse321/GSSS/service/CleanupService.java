@@ -6,6 +6,12 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+/**
+ * Service that contains a method to clean up the database
+ * Note: Not tested in the integration tests cause it is use to cleanup after those
+ *
+ * @author Wassim Jabbour
+ */
 @Service
 public class CleanupService {
 

@@ -12,6 +12,14 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.util.NoSuchElementException;
 
+/**
+ * Controller methods of the shift class.
+ * Please note there are no create / delete methods because those are included in the employee controller.
+ * In other words, there is never a need to create a shift without adding it to an employee.
+ *
+ * @author Enzo Benoit-Jeannin
+ * @author Wassim Jabbour
+ */
 @CrossOrigin(origins = "*")
 @RestController
 public class ShiftRestController {
@@ -21,6 +29,8 @@ public class ShiftRestController {
   /**
    * Controller method to modify a shift
    *
+   * @author Enzo Benoit-Jeannin
+   * @author Wassim Jabbour
    * @param shiftId The id of the shift to modify
    * @param date The new date of the shift
    * @param startTime The new start time of the shift

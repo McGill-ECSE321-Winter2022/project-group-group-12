@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
+/**
+ * Services of the address class
+ *
+ * @author Enzo Benoit-Jeannin
+ */
 @Service
 public class AddressService {
 
