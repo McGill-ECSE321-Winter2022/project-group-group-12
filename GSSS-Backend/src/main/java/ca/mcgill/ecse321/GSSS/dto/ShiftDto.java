@@ -15,7 +15,8 @@ public class ShiftDto {
   private Time startTime;
   private Time endTime;
 
-  public ShiftDto() {}
+  public ShiftDto() {
+  }
 
   public ShiftDto(Date date, String id, Time startTime, Time endTime) {
     this.date = date;

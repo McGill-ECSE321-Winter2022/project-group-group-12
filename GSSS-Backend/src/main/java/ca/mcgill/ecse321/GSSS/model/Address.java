@@ -70,34 +70,64 @@ public class Address {
   /**
    * Overrode the equals method to use it in tests
    *
-   * @author Philippe Sarouphim Hochar
    * @param obj The object to compare
    * @return True if it's the same object, false otherwise
+   * @author Philippe Sarouphim Hochar
    */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
     Address other = (Address) obj;
     if (city == null) {
-      if (other.city != null) return false;
-    } else if (!city.equals(other.city)) return false;
+      if (other.city != null) {
+        return false;
+      }
+    } else if (!city.equals(other.city)) {
+      return false;
+    }
     if (fullName == null) {
-      if (other.fullName != null) return false;
-    } else if (!fullName.equals(other.fullName)) return false;
+      if (other.fullName != null) {
+        return false;
+      }
+    } else if (!fullName.equals(other.fullName)) {
+      return false;
+    }
     if (id == null) {
-      if (other.id != null) return false;
-    } else if (!id.equals(other.id)) return false;
+      if (other.id != null) {
+        return false;
+      }
+    } else if (!id.equals(other.id)) {
+      return false;
+    }
     if (postalCode == null) {
-      if (other.postalCode != null) return false;
-    } else if (!postalCode.equals(other.postalCode)) return false;
+      if (other.postalCode != null) {
+        return false;
+      }
+    } else if (!postalCode.equals(other.postalCode)) {
+      return false;
+    }
     if (streetName == null) {
-      if (other.streetName != null) return false;
-    } else if (!streetName.equals(other.streetName)) return false;
+      if (other.streetName != null) {
+        return false;
+      }
+    } else if (!streetName.equals(other.streetName)) {
+      return false;
+    }
     if (streetNumber == null) {
-      if (other.streetNumber != null) return false;
-    } else if (!streetNumber.equals(other.streetNumber)) return false;
+      if (other.streetNumber != null) {
+        return false;
+      }
+    } else if (!streetNumber.equals(other.streetNumber)) {
+      return false;
+    }
     return true;
   }
 }

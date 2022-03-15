@@ -3,9 +3,8 @@ package ca.mcgill.ecse321.GSSS.dao;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
-import org.springframework.data.repository.CrudRepository;
-
 import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * This interface defines the repository for the CRUD functionalities relating to the Employees.
@@ -52,9 +51,9 @@ public interface EmployeeRepository extends CrudRepository<Employee, String> {
   Employee findEmployeeByAddress(Address address);
 
   /**
-   * @author Wassim Jabbour
    * @param disabled boolean to see if employee is banned, or in other words his account disabled
    * @return list of employees we want to find
+   * @author Wassim Jabbour
    */
   List<Employee> findEmployeesByDisabled(boolean disabled);
 }

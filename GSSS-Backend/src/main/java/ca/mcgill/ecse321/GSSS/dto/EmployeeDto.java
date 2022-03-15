@@ -16,19 +16,20 @@ public class EmployeeDto extends AccountDto {
    *
    * @author Wassim Jabbour
    */
-  public EmployeeDto() {}
+  public EmployeeDto() {
+  }
 
   /**
    * Full constructor
    *
-   * @author Wassim Jabbour
    * @param username The name of the employee
-   * @param email The email of the employee
+   * @param email    The email of the employee
    * @param password The password of the employee (hashed and salted)
-   * @param salt The salt used for the above password
+   * @param salt     The salt used for the above password
    * @param disabled Whether the employee is disabled
-   * @param address The address of the employee
-   * @param shifts The shifts of the employee
+   * @param address  The address of the employee
+   * @param shifts   The shifts of the employee
+   * @author Wassim Jabbour
    */
   public EmployeeDto(
       String username,
@@ -45,8 +46,8 @@ public class EmployeeDto extends AccountDto {
   /**
    * Shifts getter
    *
-   * @author Wassim Jabbour
    * @return The shifts of the employe
+   * @author Wassim Jabbour
    */
   public List<ShiftDto> getShifts() {
     return shifts;
