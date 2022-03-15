@@ -19,7 +19,7 @@
 
 ***
 **Deliverable 2:**
-| Name                      |     Team Role                              | Individual efforts |
+| Name                      |               Team Role                    | Individual efforts |
 |---------------------------|--------------------------------------------|--------------------|
 | Enzo Benoit-Jeannin       | Testing & Writing controllers & Recording  |      37 hours      |
 | Wassim Jabbour            | Managing & Testing & Writing controllers   |      45 hours      |
