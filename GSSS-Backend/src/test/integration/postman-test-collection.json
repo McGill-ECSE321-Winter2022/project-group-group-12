@@ -1,0 +1,3341 @@
+{
+  "info": {
+    "_postman_id": "313a5a62-8f6b-4328-8713-a99c12ffb915",
+    "name": "Integration testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Address Testing",
+      "item": [
+        {
+          "name": "Cleanup database",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Cleanup successful\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "0dd2ccf9-0fe7-45a3-b8db-d81fb70e53f8",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/cleanupdatabase"
+          },
+          "response": []
+        },
+        {
+          "name": "Create address success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create address success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.environment.set(\"address_id\", jsonData.id);\r",
+                  "});\r",
+                  ""
+                ]
+              }
+            }
+          ],
+          "id": "4c7fc573-8596-4f2d-a68c-cda29d316530",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/address?fullName=Test person&streetName=Test street&streetNumber=23&city=Montreal&postalCode=H3A 1S3",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "address"
+              ],
+              "query": [
+                {
+                  "key": "fullName",
+                  "value": "Test person"
+                },
+                {
+                  "key": "streetName",
+                  "value": "Test street"
+                },
+                {
+                  "key": "streetNumber",
+                  "value": "23"
+                },
+                {
+                  "key": "city",
+                  "value": "Montreal"
+                },
+                {
+                  "key": "postalCode",
+                  "value": "H3A 1S3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create address fail (Postal code)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create address fail (Postal code)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "a60c03e1-843b-4223-b5f8-321ff76abe87",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/address?fullName=Test person&streetName=Test street&streetNumber=23&city=Montreal&postalCode=AAAAAAAAA",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "address"
+              ],
+              "query": [
+                {
+                  "key": "fullName",
+                  "value": "Test person"
+                },
+                {
+                  "key": "streetName",
+                  "value": "Test street"
+                },
+                {
+                  "key": "streetNumber",
+                  "value": "23"
+                },
+                {
+                  "key": "city",
+                  "value": "Montreal"
+                },
+                {
+                  "key": "postalCode",
+                  "value": "AAAAAAAAA"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all addresses success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get all addresses success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.length).to.eql(1);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "99de7a6f-8db4-4dea-a6a1-ebd904995a80",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/addresses"
+          },
+          "response": []
+        },
+        {
+          "name": "Get address by id fail (Not a valid id)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get address by id fail (Not a valid id)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "f96dce97-7dcc-4ad2-9516-161eb086e2e7",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/address/notAValidId"
+          },
+          "response": []
+        },
+        {
+          "name": "Get address by id success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get address by id success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "2bc235e3-1021-4d2d-9982-c45fb8724534",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/address/{{address_id}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modify address fail (Not a valid id)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify address fail (Not a valid id)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "a5c26eac-ad13-46bc-a59b-caa2acc1ec6f",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/address/NotAValidId?fullName=Test person&streetName=Test street&streetNumber=23&city=Montreal&postalCode=H3A 1S3",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "address",
+                "NotAValidId"
+              ],
+              "query": [
+                {
+                  "key": "fullName",
+                  "value": "Test person"
+                },
+                {
+                  "key": "streetName",
+                  "value": "Test street"
+                },
+                {
+                  "key": "streetNumber",
+                  "value": "23"
+                },
+                {
+                  "key": "city",
+                  "value": "Montreal"
+                },
+                {
+                  "key": "postalCode",
+                  "value": "H3A 1S3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify address success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify address success)\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.fullName).to.eql(\"New test person\");\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "31b9828a-542e-46fc-8490-6109d22da426",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/address/{{address_id}}?fullName=New test person&streetName=Test street&streetNumber=23&city=Montreal&postalCode=H3A 1S3",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "address",
+                "{{address_id}}"
+              ],
+              "query": [
+                {
+                  "key": "fullName",
+                  "value": "New test person"
+                },
+                {
+                  "key": "streetName",
+                  "value": "Test street"
+                },
+                {
+                  "key": "streetNumber",
+                  "value": "23"
+                },
+                {
+                  "key": "city",
+                  "value": "Montreal"
+                },
+                {
+                  "key": "postalCode",
+                  "value": "H3A 1S3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete address failure (not a valid id)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete address failure (not a valid id)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "ca09f268-f787-4aa3-9d91-76ddcf3cf8f0",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/address/432663565426524"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete address success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete an address successfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "0b236900-e2ce-44a7-8fea-19be20a0a4cc",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/address/{{address_id}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Create address for other tests",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create address success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.environment.set(\"address_id\", jsonData.id)\r",
+                  "});\r",
+                  ""
+                ]
+              }
+            }
+          ],
+          "id": "80d61db4-f5a1-4762-ac99-9577587a7c79",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/address?fullName=Test person&streetName=Test street&streetNumber=23&city=Montreal&postalCode=H3A 1S3",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "address"
+              ],
+              "query": [
+                {
+                  "key": "fullName",
+                  "value": "Test person"
+                },
+                {
+                  "key": "streetName",
+                  "value": "Test street"
+                },
+                {
+                  "key": "streetNumber",
+                  "value": "23"
+                },
+                {
+                  "key": "city",
+                  "value": "Montreal"
+                },
+                {
+                  "key": "postalCode",
+                  "value": "H3A 1S3"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "9b2412a0-0dc1-4435-b497-095e54f15931"
+    },
+    {
+      "name": "Employee and Shift Testing",
+      "item": [
+        {
+          "name": "Create employee success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Employee created successfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  ""
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"employee_email\", \"email@employee.com\");",
+                  "pm.environment.set(\"employee_password\", \"very secure password\");"
+                ]
+              }
+            }
+          ],
+          "id": "6c741458-ff85-45b3-9473-125ac0590179",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"{{employee_email}}\",\n    \"username\": \"i am an employee\",\n    \"password\": \"{{employee_password}}\",\n    \"disabled\": false,\n    \"address\": {\n        \"id\": \"{{address_id}}\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/employee"
+          },
+          "response": []
+        },
+        {
+          "name": "Create employee failure (address does not exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create employee failed (address id does not exist)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "00849cc4-4023-4375-a0da-950aadba136e",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"failure.employee@email.com\",\n    \"username\": \"i am an employee\",\n    \"password\": \"password\",\n    \"disabled\": false,\n    \"address\": {\n        \"id\": \"not a valid address id\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/employee"
+          },
+          "response": []
+        },
+        {
+          "name": "Get all employees success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Got employees succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Your test name\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.length).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "97e54ec3-b65e-4a70-9838-75a638aaf6ee",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/employees"
+          },
+          "response": []
+        },
+        {
+          "name": "Get employee success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get employee succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Returned employee is the right one\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.email).to.eql(pm.environment.get(\"employee_email\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "8631c86c-2feb-4c0e-aac6-5e7b3d23a9a3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/employee/{{employee_email}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get employee failure",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get employee failure (email does not exist)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "66ab3efc-e1a2-4b65-b52d-2e265b372000",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/employee/failure.employee@email.com"
+          },
+          "response": []
+        },
+        {
+          "name": "Modify employee failure (email does not exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify employee failure (email does not exist)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "09ccac8f-668b-4a30-a9e0-33caad8d3061",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"failure.employee@email.com\",\n    \"username\": \"i am an employee\",\n    \"password\": \"password\",\n    \"disabled\": false,\n    \"address\": {\n        \"id\": \"{{address_id}}\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/employee"
+          },
+          "response": []
+        },
+        {
+          "name": "Modify employee success (email does not exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify employee succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Username is succesfully changed\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.username).to.eql(\"i am a modified employee\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "d759da84-456a-45f0-8d2c-498c6f2bb5f9",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"{{employee_email}}\",\n    \"username\": \"i am a modified employee\",\n    \"password\": \"password\",\n    \"disabled\": false,\n    \"address\": {\n        \"id\": \"{{address_id}}\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/employee"
+          },
+          "response": []
+        },
+        {
+          "name": "Add shift success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Add shift succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Employee has 1 shift\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.environment.set(\"shift_id\", jsonData.shifts[0].id);",
+                  "    pm.expect(jsonData.shifts.length).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "4ba5322f-d425-408f-b2a1-641d9115f105",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"date\": \"2022-03-12\",\n    \"startTime\": \"09:00:00\",\n    \"endTime\": \"17:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/employee/shift/{{employee_email}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Add shift failure (date invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Add shift failure\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "12e05a20-2ffa-4045-b985-68e3e71483b1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"date\": \"hgkfgjhf\",\n    \"startTime\": \"09:00:00\",\n    \"endTime\": \"17:00:00\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/employee/shift/{{employee_email}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Modify shift success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify shift success\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.startTime).to.eql(\"08:30:00\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "5257a06f-b1d4-4109-8849-9db2225e7311",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/shift/modify/{{shift_id}}?date=2022-03-12&startTime=08:30&endTime=17:00",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "shift",
+                "modify",
+                "{{shift_id}}"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "2022-03-12"
+                },
+                {
+                  "key": "startTime",
+                  "value": "08:30"
+                },
+                {
+                  "key": "endTime",
+                  "value": "17:00"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify shift failure (Invalid date)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify shift failure (Wrong date format)\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "ce4b7a33-e439-40ca-9189-86dd6a4e9f8f",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/shift/modify/{{shift_id}}?date=03-07-90&startTime=8:00&endTime=17:30",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "shift",
+                "modify",
+                "{{shift_id}}"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "03-07-90"
+                },
+                {
+                  "key": "startTime",
+                  "value": "8:00"
+                },
+                {
+                  "key": "endTime",
+                  "value": "17:30"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove shift failure (shift does not exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Shift remove failure\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "98030ab9-6cc7-47a4-bba9-cc84a75c8c49",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/employee/shift/{{employee_email}}/notAValidShiftId"
+          },
+          "response": []
+        },
+        {
+          "name": "Remove shift success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Shift removed succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "aff6eb51-38a2-40aa-8901-bca9e154f331",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/employee/shift/{{employee_email}}/{{shift_id}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete employee failure (email does not exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete employee failure (email does not exist)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "a966769b-47d8-401e-a4ee-b140224db3ec",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/employee/failure.employee@email.com"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete employee success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete employee succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "eba43eb9-6bb7-4808-8124-d6ff7a747c1b",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/employee/{{employee_email}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Create employee for other tests",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Employee created successfully\", function (){",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"employee_email\", \"email@employee.com\")"
+                ]
+              }
+            }
+          ],
+          "id": "aa8a14f8-e3dd-4f7d-97ff-d3c02cdb8dc4",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"{{employee_email}}\",\n    \"username\": \"i am an employee\",\n    \"password\": \"{{employee_password}}\",\n    \"disabled\": false,\n    \"address\": {\n        \"id\": \"{{address_id}}\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/employee"
+          },
+          "response": []
+        }
+      ],
+      "id": "f5f7522e-a465-4c72-854a-c43f0f6601a5"
+    },
+    {
+      "name": "Customer Testing",
+      "item": [
+        {
+          "name": "Create customer success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Customer created succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"customer_email\", \"customer@email.com\");"
+                ]
+              }
+            }
+          ],
+          "id": "84ea79de-335f-41f7-a321-b10c0c2b67c3",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/customer?username=i am a customer&email={{customer_email}}&password=very secure password&address={{address_id}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "customer"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "i am a customer"
+                },
+                {
+                  "key": "email",
+                  "value": "{{customer_email}}"
+                },
+                {
+                  "key": "password",
+                  "value": "very secure password"
+                },
+                {
+                  "key": "address",
+                  "value": "{{address_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create customer failure (address does not exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Customer creation failed (address does not exist)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "aef83f02-cbbc-4226-9dd5-90a60d92037a",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/customer?username=i am a customer&email={{customer_email}}&password=very secure password&address=notAValidAddressId",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "customer"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "i am a customer"
+                },
+                {
+                  "key": "email",
+                  "value": "{{customer_email}}"
+                },
+                {
+                  "key": "password",
+                  "value": "very secure password"
+                },
+                {
+                  "key": "address",
+                  "value": "notAValidAddressId"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all customers success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get all customers succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"The DB contains only 1 customer\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.length).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "dfc69668-e183-4085-bd61-8240a8337e4f",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/customers"
+          },
+          "response": []
+        },
+        {
+          "name": "Get customer succesfully",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get customer succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Your test name\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.email).to.eql(pm.environment.get(\"customer_email\"));",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "c5fa9b02-4415-4c54-a0ae-719174c11f68",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/customer/{{customer_email}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get customer failure (email not in db)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Failed to get customer\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "5cb07b25-b8da-4151-9bc8-bee8f6962c5f",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/customer/customer.failure@email.com"
+          },
+          "response": []
+        },
+        {
+          "name": "Modify customer succesfully",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Your test name\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.username).to.eql(\"i am a modified customer\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "a0b108c5-5a8d-41c8-b6c6-ea6a9a25f804",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/customer/{{customer_email}}?username=i am a modified customer&password=very secure indeed&address={{address_id}}&disabled=false",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "customer",
+                "{{customer_email}}"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "i am a modified customer"
+                },
+                {
+                  "key": "password",
+                  "value": "very secure indeed"
+                },
+                {
+                  "key": "address",
+                  "value": "{{address_id}}"
+                },
+                {
+                  "key": "disabled",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify customer failure (email does not exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Cudtomer modification failed (wrong email)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "0952bbb5-6c6f-4b2d-97ea-9a047eb7f220",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/customer/customer.failure@email.com?username=i am a modified customer&password=very secure indeed&address={{address_id}}&disabled=false",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "customer",
+                "customer.failure@email.com"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "i am a modified customer"
+                },
+                {
+                  "key": "password",
+                  "value": "very secure indeed"
+                },
+                {
+                  "key": "address",
+                  "value": "{{address_id}}"
+                },
+                {
+                  "key": "disabled",
+                  "value": "false"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete customer failure (email does not exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete customer failure (wrong email)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "14ac228b-a379-4ae7-9bb7-ed360f1fb0e7",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/customer/customer.failure@email.com"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete customer success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete customer success\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "a1aa2876-b542-420f-9344-7738527ece90",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/customer/{{customer_email}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Create customer for other tests",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Customer created succesfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"customer_email\", \"customer@email.com\");"
+                ]
+              }
+            }
+          ],
+          "id": "07d05a6a-bdb1-4bf9-af9d-4eeb2d801655",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/customer?username=i am a customer&email={{customer_email}}&password=very secure password&address={{address_id}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "customer"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "i am a customer"
+                },
+                {
+                  "key": "email",
+                  "value": "{{customer_email}}"
+                },
+                {
+                  "key": "password",
+                  "value": "very secure password"
+                },
+                {
+                  "key": "address",
+                  "value": "{{address_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "9ff05ed9-7f8d-450e-8728-7d888de15e64"
+    },
+    {
+      "name": "Account Testing",
+      "item": [
+        {
+          "name": "Login failure (wrong password)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Login unsuccesful (wrong password)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});",
+                  "",
+                  "pm.test(\"No token is returned\", function (){",
+                  "    pm.expect(pm.response.cookies.has(\"token\")).to.eql(false);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "1342213d-bfe4-49d2-9049-bb2972ec691a",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/account/login?email={{employee_email}}&password=notTheRightPassword",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "account",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "{{employee_email}}"
+                },
+                {
+                  "key": "password",
+                  "value": "notTheRightPassword"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Log in success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Login is succesful\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Token is returned\", function(){",
+                  "    pm.expect(pm.cookies.has(\"token\")).to.eql(true);",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "id": "9c1ea946-5269-4f5a-b936-7bde2afdfcd7",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/account/login?email={{employee_email}}&password={{employee_password}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "account",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "{{employee_email}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{employee_password}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Logout success\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Token is removed\", function(){",
+                  "    pm.expect(pm.cookies.has(\"token\")).to.eql(false);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "cf1831ab-7664-4bd7-9754-1070f6175a31",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/account/logout"
+          },
+          "response": []
+        }
+      ],
+      "id": "5b5b821d-da08-42f0-84ec-7df0b5359f69"
+    },
+    {
+      "name": "Owner Testing",
+      "item": [
+        {
+          "name": "Create owner success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create owner success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.environment.set(\"owner_email\", jsonData.email);\r",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "id": "284a58b2-0d2b-4464-a2f7-3703d5d6b3c9",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/createowner?username=owner smith&password=verySecurePassword&address={{address_id}}&email=owner@email.com",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "createowner"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "owner smith"
+                },
+                {
+                  "key": "password",
+                  "value": "verySecurePassword"
+                },
+                {
+                  "key": "address",
+                  "value": "{{address_id}}"
+                },
+                {
+                  "key": "email",
+                  "value": "owner@email.com"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create owner fail (Invalid username)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify owner failure (empty username)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "id": "09a37a22-7506-47fd-81c3-817a51dec57d",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/createowner?username=&password=verySecurePassword&address={{address_id}}&email=owner@email.com",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "createowner"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": ""
+                },
+                {
+                  "key": "password",
+                  "value": "verySecurePassword"
+                },
+                {
+                  "key": "address",
+                  "value": "{{address_id}}"
+                },
+                {
+                  "key": "email",
+                  "value": "owner@email.com"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Owner Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get Owner success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.email).to.eql(pm.environment.get(\"owner_email\"));\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "f5a80d4d-92a7-46b1-b35f-e28ebea842da",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/owner"
+          },
+          "response": []
+        },
+        {
+          "name": "Modify Owner Fail (empty username)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify owner failure (empty username)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "id": "6d46fdda-ebe0-439a-8d62-bb32e2f5288e",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/owner?username=&password=verySecurePassword&address={{address_id}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "owner"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": ""
+                },
+                {
+                  "key": "password",
+                  "value": "verySecurePassword"
+                },
+                {
+                  "key": "address",
+                  "value": "{{address_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify Owner Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify owner failure (empty username)\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "id": "082d6ca4-772d-4c36-9ded-137d9b9127fb",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/owner?username=modified name&password=verySecurePassword&address={{address_id}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "owner"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "modified name"
+                },
+                {
+                  "key": "password",
+                  "value": "verySecurePassword"
+                },
+                {
+                  "key": "address",
+                  "value": "{{address_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify System Information Fail (empty city)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify system info failure (empty city)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "ff09dc8c-2299-4cca-aaf7-34e1f9da712e",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/info?city=&fee=3",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "info"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": ""
+                },
+                {
+                  "key": "fee",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify System Information Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify system info successful\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "c41cf1d6-50ef-4f0f-9779-88dfe59027ee",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/info?city=Toronto&fee=3",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "info"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "Toronto"
+                },
+                {
+                  "key": "fee",
+                  "value": "3"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "4092be84-e8ca-434d-a24b-fe069b8686f0"
+    },
+    {
+      "name": "Item Category Testing",
+      "item": [
+        {
+          "name": "Create itemCategory Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create item category succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"itemCategory_Fruits\", \"Fruits\")"
+                ]
+              }
+            }
+          ],
+          "id": "3378e07f-82ca-4a54-82b5-737018a20ed2",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/itemCategory?name=Fruits",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "itemCategory"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Fruits"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create itemCategory Fail",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create item category failed (name is empty)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"itemCategory_Fruits\", \"\")"
+                ]
+              }
+            }
+          ],
+          "id": "28aca1b9-c201-42e6-8676-a1a805310fa2",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"{{itemCategory_Fruits}}\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/itemCategory?name",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "itemCategory"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all item categories Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Got item categories succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Returned categories are the right one\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.length).to.eql(1);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "26f513f6-63a9-496c-ac14-83959f37f3ff",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/itemCategories"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Item Category removed succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "048c8bc5-522b-4209-aef6-a25fc9656d47",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "name",
+                "value": "Fruits",
+                "type": "text"
+              }
+            ],
+            "url": "{{BASE_URL}}/itemCategory/Fruits"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category Fail (not a valid category)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Item Category removed failed\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "78281ecb-f61c-4b25-8122-4209743c10dc",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/itemCategory/notValidCategory"
+          },
+          "response": []
+        },
+        {
+          "name": "Create itemCategory For future tests",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create item category succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"itemCategory_Fruits\", \"Fruits\")"
+                ]
+              }
+            }
+          ],
+          "id": "2ca9607f-74d7-4fd4-b846-f36e1d4aec91",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/itemCategory?name=Food",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "itemCategory"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Food"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "49286e14-d1af-447a-8908-3852b60fbdcc"
+    },
+    {
+      "name": "Item and Purchase testing",
+      "item": [
+        {
+          "name": "Create item Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create item succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.environment.set(\"item_name\", jsonData.name);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "c7bb96c9-7232-4b20-a335-40851d2b162c",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/item?name=Strawberry&description=Yummy strawberries&imageUrl=https://media.istockphoto.com/photos/red-berry-strawberry-isolated-picture-id1157946861?k=20%26m=1157946861%26s=612x612%26w=0%26h=TkcgPU1fblZISunSxNasdYUqUHz_Mrmo0eGWaxLQHEI=&remainingQuantity=10&price=2&availableForOrder=True&stillAvailable=True&itemCategory=Food",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "item"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Strawberry"
+                },
+                {
+                  "key": "description",
+                  "value": "Yummy strawberries"
+                },
+                {
+                  "key": "imageUrl",
+                  "value": "https://media.istockphoto.com/photos/red-berry-strawberry-isolated-picture-id1157946861?k=20%26m=1157946861%26s=612x612%26w=0%26h=TkcgPU1fblZISunSxNasdYUqUHz_Mrmo0eGWaxLQHEI="
+                },
+                {
+                  "key": "remainingQuantity",
+                  "value": "10"
+                },
+                {
+                  "key": "price",
+                  "value": "2"
+                },
+                {
+                  "key": "availableForOrder",
+                  "value": "True"
+                },
+                {
+                  "key": "stillAvailable",
+                  "value": "True"
+                },
+                {
+                  "key": "itemCategory",
+                  "value": "Food"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create item Fail",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create item  failed (item category does not exist)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "a1ce571a-f835-4ec2-879a-f9c32638e150",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/item?name=Banana&description=This is a bad banana&imageUrl=https://www.thehealthy.com/wp-content/uploads/2022/01/GettyImages-1046941212-MLedit.jpg?fit=680,454&remainingQuantity=12&price=100&availableForOrder=True&stillAvailable=True&itemCategory=NotAValidCategory",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "item"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Banana"
+                },
+                {
+                  "key": "description",
+                  "value": "This is a bad banana"
+                },
+                {
+                  "key": "imageUrl",
+                  "value": "https://www.thehealthy.com/wp-content/uploads/2022/01/GettyImages-1046941212-MLedit.jpg?fit=680,454"
+                },
+                {
+                  "key": "remainingQuantity",
+                  "value": "12"
+                },
+                {
+                  "key": "price",
+                  "value": "100"
+                },
+                {
+                  "key": "availableForOrder",
+                  "value": "True"
+                },
+                {
+                  "key": "stillAvailable",
+                  "value": "True"
+                },
+                {
+                  "key": "itemCategory",
+                  "value": "NotAValidCategory"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify item Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modifed item succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "8905e6c0-2653-4a21-aecf-b92509a17d3b",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/item/Strawberry?description=This is a modified description of the strawberry&imageUrl=https://www.thehealthy.com/wp-content/uploads/2022/01/GettyImages-1046941212-MLedit.jpg?fit=680,454&remainingQuantity=2&price=144&availableForOrder=True&stillAvailable=True&itemCategory=Food",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "item",
+                "Strawberry"
+              ],
+              "query": [
+                {
+                  "key": "description",
+                  "value": "This is a modified description of the strawberry"
+                },
+                {
+                  "key": "imageUrl",
+                  "value": "https://www.thehealthy.com/wp-content/uploads/2022/01/GettyImages-1046941212-MLedit.jpg?fit=680,454"
+                },
+                {
+                  "key": "remainingQuantity",
+                  "value": "2"
+                },
+                {
+                  "key": "price",
+                  "value": "144"
+                },
+                {
+                  "key": "availableForOrder",
+                  "value": "True"
+                },
+                {
+                  "key": "stillAvailable",
+                  "value": "True"
+                },
+                {
+                  "key": "itemCategory",
+                  "value": "Food"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify item Fail (not valid category)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create item failed (not valid category)\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "97127a4c-fb05-459e-b418-c8a877dac7ed",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/item?description=failed modified description&imageUrl=data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBEPEA8RDw8PDxIQEQ8VEhISERIPDwwPGBQZGhgUGCQpITwlKR44LRgWNEYmOD0/Q0NDGiQ7Tjs2Py41NTEBDAwMEA8QHxISHzQsIyE0MTQ/MTQ0NDQ0MTQxNDExNDE0NDE0NDQ0MTQ0NDE0NDE0NDQ0NDQxPzExPzQ0MTUxNP/AABEIAN0A3QMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABAUCAwYBB//EAEEQAAICAQEFBAgCBwcEAwAAAAECAAMRBAUSITFhQVFxgQYTIjJSkaGxQnIUIzNissHRJENTgpLw8Qdjc8KD4eL/xAAbAQEAAgMBAQAAAAAAAAAAAAAAAwQBAgYFB//EACwRAAICAQMEAQMCBwAAAAAAAAABAgMRBBIhBTFBUXETIjJhsQYUI0KBofD/2gAMAwEAAhEDEQA/APs0REAREQBERAEREAREQBERAEREA+Z+lG37tTfbp6bHp09DsjlGKWaq5eDAtzCA8MDmQcnGBOfq0/q236bL6XznfS6xWJ68SD5gybtjRvo9XqK7RurddbdQ/JbksYsyZ5bwJIxz5EcJo/34zyb5zUnnwTxSwdBsn0zu0+E1wOorH9/WgF6DvsQcCOq/Izph6X7NKb/6dp8Y93f/AFnhu+9npifPGrYDJVgO8qQJq3Fzvbq73fgb3z5xDXYWHyYdZ020vTa6wkaGpa0/xtQrFnHeiAg46t8pXUele0KDvvamqQcXrapKm3RxbcZcYPjmVmZr1FgRHY8lVvM44DHjw85n+ZnKSw/8DYkj7DpL1urrsQ5WxEdewlWAIz5ESRK/YdDVaTS1sMNXp6UYdzKigj6GWM9RdiERETIEREAREQBERAEREAREQBERAEREAREQBERAIet0NWoQ13VJajc1dQynr49ZzVvo3ToFs1GnaxN1P2bt66oDeBIXI3gTyznynXyp9IWzUlYOPW21r13Q2830Uypq1B1Scl2TN4N7kRefORdRs6mz36kJ7wN1vmJKM0X71llVCFlNu8Wce8lajLEHsJ5A9Zw1CnZaoQb5Zdk0llnL7R2Q3rFTRI+oZiQVGAtGO1390Dpz6GXWxfQwq9d2usS1kZXSmoEUI44gsTxYg8RyGewzrdNpkqUIihVXkB9/HrJE7fTaVVRW7lryUpT3PgyiIl00EREAREQBERAEREAREQBERAEREAREQBERAEREAxlBtV9/Voo5U1sx/M53QPkp+cv8zmKX9Y99vx2MF6onsD+EnznkdYu2adr2S0rMvgkRsZd/VXvnIrrrQd4ZiWb7LE3+jlf6p7MY9dbYw790HdH2+s8PodW+/d6J7niOPZdRETsymIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgFdtrV+o09jg+1u4Tq7cF+/0lTpavV1onwqB4nHE/ebtvNv3aakZwhNz92F9lQfMn5ROR69qN1irXgt0R4yR9dZuVWP8KP8APBxLzZlPq6KU5bqIPPdGf5yg2ggdET/EtqTyZxn6AzqRLf8AD9eIOXs0vfKRnEROjK4iIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIBjBmLEDmcD5ACVV220yVoVtQw+DArB6seEhsuhWszaRlRb7FvmRdZra6F3rGC9w5sx7lHMmUtuo1VvA2Jp0PZWN+zHcWPAHqBI4pSplbDWWMcBnJexj2nJ5Dwnk39aqjlV8sljS/JtoLO1lzruvaV3UPOutRhVPXiT5yRETkr7pWzc5d2W4rasGrgb9KDyNjHplUYidJObvpVxhsjBBUqSrqw5MpHHMy0+vu0/C3e1FfxqALq172HJh1H1nQ9H11VcPpS4bfcr3QbeUdHE0abUJaivWwdW5MDkGb500ZKSyisexETYCIiAIiIAiIgCIiAIiIAiIgCInkA8ldrdorUdwA2WEZWtcb2O9jyA6n6zRtHXNk1UEb/AON/eWgd3V+nmewGFTSqA7uSWOWZjvO7fEx55nidQ6rChbYcv9iaupy5Z5ar3cdQ28OypSVpX83ax6nh0m1VAGAAAOQAwAO4TKJyd2qsulmbyWoxUexhY4RSzHAUEnoJp01ZJNjjDNyXn6pOxR17/wD6mLj1lm7+GrBbuazmq+A4fMSXNX9kceWZ7iIiQGxquUkZU4ZeK591j8J6f8zzT3B1zxBBIZT7ysOambpE1ClG9agJ5esQc3QfiHUf1EnhiS2+fZqzYqvU5soIVjxdDwrv/N3N3EeeRLnQa9b1JXKspw6NwatvhP8AWVasGAZSCGAIPYQeRmqxHVhbScWIMY/DcnajfyM9jp3U5Uy2Wdv2IbKk1lHTT2Q9BrFvrDrkccFT7yOOanrJk66ElKO5dmVWj2IibmBERAEREAREQBERAEREAxlLtPXMzGihsEY9bYOPqlP4F/eP0HHnib9q6w1KErx62zITtCge856AfyErqKgihRk8ySeLO54szHvzPD6r1H6MdkO7/wBE1Ve7lmVdYRQqjAHmSe0nr1mcROOlJyeX3ZcXAmq+0IjMeO6OA725AfabZF1HtPWnYMu3gpwo+ZH+mbVrMvgwzZpadxFU8W4lz3uxyx+s3RMTNZy3SyZRlERNDIiIgERB6p9z8DklO5H5lfDnjzElzVfUHQqeGeR7VYcVYdZhpbi6+0MOpKsOxWHPHTl85O/uju8r/smqHrDp7PXqCVbAvUccqOTjqP6zpK3DAMCCCAQRxBB4giUJGZnsa71bHTMfZIL0n9z8SeWfkek6Louvz/Rm/gr3Q/uR0ERE6crCIiAIiIAiIgCIiAeTVZYEVmY4CgknsAAyTNspNu275TTg+/7dnSpSOHmcfIyDUXKqtzfhG0VueCHSTazXsMF+CA/3dQ91fHt8+k3xE+fai6Vtjk/JfjHCwInhOOfL5ASFbtSlTgOXPdWpc/Th9ZpGqc/xQbSJ0iaUbz3OeW/ur+VeBPzLTQdqjsptx13E/nI+k2kERUat8jJYhqzliSScZz2yzHS2qD45Zjci6iQE2pWeYdPFCR8xkSVTejj2HV/ykHHiJXlTOPdMzk2xESEzgREQZEiW/q7Vce7ZhX7g3Hcb7j5SXNWopDoyHhvDn2g8wfnj5SaqWHh9mas2yPqUYgMnB62D1/nH4fAjI840lpdFY+9xD9HU4b7SRMwm6rMrumGsr5LbR6lbq0deTgHHaD2g9efykqUWxrNy2yk+649anQk4dR54P+Yy8nf6S5XVRmvKKE1teDKIiWjUREQBERAEREAxM5mqz1tlt3Y7bqf+NCQPmd4+ctttag16dyvvMAid++53R9/pKyqsIiovJQoHkMTnOvajbFVryT0R5ybJD1evWslFG++PcHAIO9j2Ca9o60p7CEesIyWPFaU+I9e4TRs7Z2+N594Vtxx+PUE8d9jzA6c/CeNo9C7ful2LEp4I6pbqTxzbg9U0yH7sR/vEsadjgDD2Mf3a8VqOmeJPzEs1UKAFAUDkBwAHcBMp79enhBYSK8pNkNNm0LyqQnvbLn5mbP0Sr/Cr/wBC/wBJIiTbV6NMsivs6ludKeShSPAjBkS/YVTcUZ627GVi26fv9ZaxMSri+6RlSZTBdTp/fH6TX8SDFyjvI7fvJunvSxd5GDL8iD2gjmD0kyQNVoyGNtGFs/EvJbx3N3N3H5zy9X06Mluhw/RLG32SImrT3LYoZeXHIPBlYcCrDsI7ptnPTi4vD7osJ+hERNDJEpG5bYnY4V1/Nyb7KfOS5F1XsvS/wvunorDH33ZKk9nOJe0akfUNuNXaP7p1Lda24OPrnynTic7YgdWU8mBB8CMSz2LcbKKy3vKCrfmUlSfp9Z0vQL90XW/HJWvjzksYiJ0hXEREAREQBERAKHbdm9bp6s8t+1vBRurnzY/KR9RaK0d25ICep7gPPHzi5t7VahjxCrXWPJd4/wAUhbZswiKc4Z8t1RVLH7CcX1Gf19Zt8LguVrECNs/Sm92NnEAh7O57CMqngO0dAO2TdbtkJadPp6LtbqFClq6dwLpw3um1mO4uRyHEnnjEzqcabRvawyUqsvf95gjOR9APKcP6Ubcu2XoNBptK5r1GtqOp1WpUZtexwpYqT2lmPHsCgDHCdBpaYqPwQTlydg+0dfX7V2ybDWPeOn1VWpuUd+7hS3gD5GWOh1teprW2lt9G3hnBVkZThkYHBVhx4EcxPjPo96aa7Sait7NVfqKi6i2u52tVkY4JUtkq3tZBB7MHhPrNlf6PtV1TAr1ula515Aaml1RnA5ZZbEB79wGWJ1x25RomW0RErGwlK209RqHsr2dp0uWtmV9TfYatItinBRN0FnI45wMDGM5m/wBJdS1Gg1tqHDpprmQjmj7pAYdeOfKcV/1O1b6LTbP2dpmaqhqWNm5lDcqbqqpPdlmYjtyJPVBPl+DVnXkbWT2wmzdYq+9XS9umtyBxCs28uehx4iTtna9NShdA6FXZHrsG7bp7F95HGeDDIPgQckEGfA9hbWu2fqK79OxVlZN9ASFvQkAo45EHPkcHmJ9wcer2zaqjC6nQV22DPD1tVprDnrusoz+6O6bWQi45QTZuuT1V6sPcvyG7luVcq3mAQeqiSpp2uv6h2HNNxx3gqwb+RmwHM5LqtKhYpLyW6nlGURE8gmI2uXNT45hSw6MvEfab1YMAw5EA+RGZ4wyCD258wRNGzmzUmearunoVJGPpJu8Ph/uY8kqSdiMA2oTtDq+O5XQD7q0jT3QNualePCyt1PVkYFfozT0ujWbNSl7IrlmPwdBERO4KQiIgCIiAeRE06qzcrd/gVm+QJmsnhNg5vQtvCx+frLrnz3qWIX6ASFt4+ynX1g8MpJuzk3aah/20+ZGT95F25XmtWx7rY8Aysv3Kzg1POrcn5Zfx9hbvUr1tW43kdGRh3qylSPMEzgdsbEXX06bQ2316baOz09XS12Vq2jpeAVlPM5CrkDJVgRjBzO80tgeutx+JEP04/XM16/Z9GqTc1NFV6fC6K4U944ZB6jBnWUz2/DKclyfPNhf9NLaLl1G079PVp6GDsqWEi3dIIDMQoVcgZPPhjhnM7TR3fpusbWJvfo9dBo07Ebv6SzOGtuXPHc9lFB7cE8sE+Uei2z62DLpKyVYMu+XuVGHIqrEjh2YEuv8AfhJJ2prCMJCJH0eqW5XZM4S22ts8MOjlW8uGfOa9ra39Goe3dDldxVUndDO7qirnxYSHDNjdqtOl1dlVg3ksR0cciUZSrfQmcXt3TabU0U6LbFp0Wo0vs6bXFf1GrQAKGDH2ckKu8jEHIyCRO6IwTMXQMCrBWU81YBlPiOUkhPaas+b7I9Ftl6G6u/U7Vq1zIwaqilVZrLBxViiszMc9g4cBO12XVbbffrL6zU1y1100tg2UaZCzLvkcA7M7MRk44DOQZPo0tVZJrqqrJ5mutEJHiAJuiVu5YQSIu0+Gnv8A/FZ/CYqHsJ+VftNe1eNYrHO10T/KW3m+itNwE5vrE02kWqVwexETwycSLouAsX4bbPLJB/8AaSpF0/C28dn6tvmuD/DJofjIwSpqZty3TP3WhfJ1ZfuRNsibRYrUzAZKFH/0urfykuintvi/1RrNZizq4mCNkAjkcHyM2T6InlHniIiZAiIgHkrtuPu6XUHvrcebDA+8sZU+kR/s5X43pXyLrn6AyDUPbVJ+kzZdyGi7qgdwA+QmN9QdGRuTAjw7iOs2RPnbm1Pd+p6GOCu2FcQLNO/B6mJH7yMc5HTP0IlxKzWaUlltqIW2vln3XTtRunWStJqltBxlXXG/W3B0buI7u49s6fRauNsEm+V4Ks44ZJiIl8jOd2dsBXF9lz6tDbq9W4rTVXUIEa1t07qsAMgA565nm1/RtTSzadtU9lb02Ij6u+1LGrtV90q7leIU4yOBxOjibb2YBOeP/MRE1MiJ4xwMkgAcyeAA6mVtuobU+xUStXJ7RwLjtVP5t8pDdfCqOX4Noxcj1GF1u+OKVbyIex3PB3HThgHxkuYoiqqqqhVUYAHAAd0ynJ6m93TcmWox2oRESsbiReWo/NV9Vf8A/UlSJfwvoPetq+PAH/1k1Xdr2mYZLmrUpvI6/EjjzKkTbPDNa5bZJ+g+xZbHu9ZpqG7TWmfzAYP2Mnyn9GW/s4U/gsuXyDsR95cT6NRLdXGXtI8+Xc9iIkxqIiIB5Kb0hb2aF+PUVjxABY/wy4lDtq9Xu01YdSys7lQQWUBCAT8zKWvmo6eXwb1rMkeRET56+56B4Zov0quQ3FHX3bEO66+HTpykiJJCyUHmJhrJGS+9ODoL1+NMI+Oq5wT4HymxdpU5wz+rPdYrIfqMfWbZ4Rnnx+s9KrqtkViSyRSqTMk1KN7tiHwdTj6zx9VWvOyseLqP5yBq9LWXp9hONnH2FywCsccvCb00dS8qqx/kX+ktS6qlFPHc1+iettSgHC2b57q1aw/QETz9Lsf9nTuj4rTuY67o4/abwAOAAH0nsrWdWnL8Vg2VKIZ0Zcg3ubcckwEqB/KOfmTJQ4cBy+QA7plE86y+djzJ5JFFIRESA2EREASn1q2ur3o5VaXcIqgHKKN12J7854dwPfLcnGT4zRs0f2WvC7+8hJGQC28STx5dpnrdMpjY25eCKyWEY6HVetTJwGUlXA5BhxyOhyCPGSpR7N3tM7LaGrVkQZYYTfU44Hlyx8pdqwYZBBB7RxBlbVUOux4XBtGWUS9gn2LR8N9nlnDfzlrKjYRw2pX/ALqt/qRf6S3ncaF508X+iKU/yZlERLZoeTB3CgsxAA5nsAmcp9fYWs3T7qccfER2mRWz2RyZSyY3Xtd2tWnYBwZx3k9g6SstRRqqwoACUWHhw95wM/SWglYW/tjj4aFHj7R4zw+oTbpk2T1rEiZEROQLYiIgCIiARNR+10/5rD8lP9ZJmi/9rR/8n8Mkyax/bH4MIRESEyIiIAiIgCIiAYuMgjoZr2UwGmoyQP1aDiQMkDlN00bJrDUbjAMEe1OIByqu2Mz3OkPloguJpGRgjIPmDIj7PTO9WTS37nBSeq8j9JT6exxZYtdjVqPXEL7yAKRhcHsltszWm/1gZQpq7QThvLsnrt1ze1oi5XJu2Zd6h7PXkL6wpu2D9mxVcYPcen1nQSlIDKQQCDwIPEETHZ9xquFGSyMpK7xy1X7ue0dJf001FKHgiks8l9ERLxqf/9k=&remainingQuantity=43&price=2&availableForOrder=True&stillAvailable=True&itemCategory=InValidCategory",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "item"
+              ],
+              "query": [
+                {
+                  "key": "description",
+                  "value": "failed modified description"
+                },
+                {
+                  "key": "imageUrl",
+                  "value": "data:image/jpeg;base64,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"
+                },
+                {
+                  "key": "remainingQuantity",
+                  "value": "43"
+                },
+                {
+                  "key": "price",
+                  "value": "2"
+                },
+                {
+                  "key": "availableForOrder",
+                  "value": "True"
+                },
+                {
+                  "key": "stillAvailable",
+                  "value": "True"
+                },
+                {
+                  "key": "itemCategory",
+                  "value": "InValidCategory"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Item by name success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get item succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Returned item is the right one\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.name).to.eql(\"Strawberry\");\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "0cf82c59-ead0-4642-bc69-75739313a0b7",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/item/Strawberry"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Item by name Fail (not valid item name)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get item by name failure (item name does not exist)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "53e1f4dd-8d18-494f-9e31-ad5f3a4bc22c",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/item/{name}?name=NotValidName",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "item",
+                "{name}"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "NotValidName"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get items by category Fail (not valid category)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get item by category failure (item category does not exist)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "be4d5527-7b6f-4ccf-a298-ad5e21dc57b6",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/item/category/notAValidCatgegory"
+          },
+          "response": []
+        },
+        {
+          "name": "Get items by category Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get items by category succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"The returned items are the right ones\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.length).to.eql(1);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "ea87960b-77a5-4bd2-b963-ed2bacf28027",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/item/category/Food"
+          },
+          "response": []
+        },
+        {
+          "name": "Get all items Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Got all items succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"The returned items are the right ones\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.length).to.eql(1);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "9d341c8f-26a2-48fc-a787-6668bce0005d",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/items"
+          },
+          "response": []
+        },
+        {
+          "name": "Create purchase success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create purchase success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.environment.set(\"purchase_id\", jsonData.id);\r",
+                  "    pm.environment.set(\"purchase_date\", jsonData.date);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "cd30ce3a-3c26-4fff-b11f-d15943e70ed8",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"{{item_name}}\" : \"2\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/purchase?ordertype=InPerson&orderstatus=Completed",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "purchase"
+              ],
+              "query": [
+                {
+                  "key": "ordertype",
+                  "value": "InPerson"
+                },
+                {
+                  "key": "orderstatus",
+                  "value": "Completed"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create purchase failure (Invalid orderType)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Create purchase failure (Invalid order type)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "198463c2-cd61-41ae-a0c2-eaa954f9136c",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"{{item_name}}\" : \"2\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/purchase?ordertype=NotValid&orderstatus=Completed",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "purchase"
+              ],
+              "query": [
+                {
+                  "key": "ordertype",
+                  "value": "NotValid"
+                },
+                {
+                  "key": "orderstatus",
+                  "value": "Completed"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get purchase by id success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchase by id success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.id).to.eql(pm.environment.get(\"purchase_id\"));\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "e66fd3cb-5b24-4c36-a06e-279279881219",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/purchase/{{purchase_id}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get purchase by id failure (Not a valid ID)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchase by id failure (Not a valid id)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "121697a5-3f2d-42c6-9fcb-6736d632a31b",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/purchase/NotAValidId"
+          },
+          "response": []
+        },
+        {
+          "name": "Modify purchase success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify purchase success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.employee.email).to.eql(pm.environment.get(\"employee_email\"));\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "1c6d64c2-925a-4071-8e5c-6256ffb22df3",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"{{item_name}}\" : \"2\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/purchase/modify/{{purchase_id}}?orderType=InPerson&orderStatus=Completed&employeeEmail={{employee_email}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "purchase",
+                "modify",
+                "{{purchase_id}}"
+              ],
+              "query": [
+                {
+                  "key": "orderType",
+                  "value": "InPerson"
+                },
+                {
+                  "key": "orderStatus",
+                  "value": "Completed"
+                },
+                {
+                  "key": "employeeEmail",
+                  "value": "{{employee_email}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Modify purchase failure (Invalid order type)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Modify purchase failure\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "f023a4aa-3193-487b-b180-4674734a9b32",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"{{item_name}}\" : \"2\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/purchase/modify/{{purchase_id}}?orderType=NotValid&orderStatus=Completed&employeeEmail={{employee_email}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "purchase",
+                "modify",
+                "{{purchase_id}}"
+              ],
+              "query": [
+                {
+                  "key": "orderType",
+                  "value": "NotValid"
+                },
+                {
+                  "key": "orderStatus",
+                  "value": "Completed"
+                },
+                {
+                  "key": "employeeEmail",
+                  "value": "{{employee_email}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all purchases success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get all customers success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.length).to.eql(1);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "4b896bf6-4fd3-4675-a367-8fe63cf52eab",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/purchases"
+          },
+          "response": []
+        },
+        {
+          "name": "Add purchase to customer failure (purchase does not exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Add purchase failure (purchase does not exist)\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "dff21c50-0a8c-4225-bea6-0e57c887088e",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/customer/purchase/{{customer_email}}?purchase=not a valid purchase id",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "customer",
+                "purchase",
+                "{{customer_email}}"
+              ],
+              "query": [
+                {
+                  "key": "purchase",
+                  "value": "not a valid purchase id"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add purchase to customer success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Added purchase successfully\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Customer has exactly one purchase\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.purchases.length).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "68c52601-2974-45f2-8ec0-a593bbb6d6c3",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/customer/purchase/{{customer_email}}?purchase={{purchase_id}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "customer",
+                "purchase",
+                "{{customer_email}}"
+              ],
+              "query": [
+                {
+                  "key": "purchase",
+                  "value": "{{purchase_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get purchases by customer success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchases by customer success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.length).to.eql(1);;\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "83fb3ca0-03a0-402e-942e-680d23b0542f",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/purchasesbycustomer/{{customer_email}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get purchases by customer failure (Invalid email)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchase by customer failure\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "033f859d-dd49-4347-9259-0603e13b6746",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/purchasesbycustomer/WhoDat@email.com"
+          },
+          "response": []
+        },
+        {
+          "name": "Get purchases by employee success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchases by employee success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.length).to.eql(1);;\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "a6035022-19e3-418f-b8ea-c10cbe4a7f28",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/purchasesbyemployee/{{employee_email}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get purchases by employee failure (Invalid Email)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchases by employee failure\", function () {\r",
+                  "    pm.response.to.have.status(500)\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "c9d6817f-e26f-4b95-b12a-823d558eda44",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/purchasesbyemployee/WhoDat@email.com"
+          },
+          "response": []
+        },
+        {
+          "name": "Get purchases by date success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchases by date success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.length).to.eql(1);;\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "55a7929b-7d78-4d88-bf60-b37528bcd068",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/purchasesbydate?date={{purchase_date}}",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "purchasesbydate"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "{{purchase_date}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get purchases by date failure",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchases by date failure\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "17d700ee-c02b-4fd6-a3fc-0127af229b42",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/purchasesbydate?=InvalidDate",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "purchasesbydate"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "InvalidDate"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete customer (Tested before, to satifsfy foreign key constraints here)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete customer succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "ba4c1cd1-2ceb-42e6-864f-cd3ad782fece",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/customer/{{customer_email}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete purchase success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete purchase succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "1073638a-3c90-4e15-ade6-fbfd47e14f58",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/purchase/{{purchase_id}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete purchase failure (Invalid id)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete item failure (Invalid id)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "555e1992-e4f4-4897-a87b-c05c053f8a43",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/purchase/ "
+          },
+          "response": []
+        },
+        {
+          "name": "Delete item Success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete item succesfully\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "7d81f350-ba3b-4efe-bbd4-1f6989e9ed46",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/item/Strawberry"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete item Fail",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Delete item failure (item does not exist)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "92817f82-37f6-47b8-8c5b-a81151108570",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{BASE_URL}}/item/NotAValidItem"
+          },
+          "response": []
+        }
+      ],
+      "id": "8e194ad3-57d2-4fd0-9f7f-b1af2e416bc8"
+    },
+    {
+      "name": "BusinessHour Testing",
+      "item": [
+        {
+          "name": "Update business hour success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Update business hour success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.environment.set(\"businesshour_weekday\", jsonData.weekday);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "d0f0c83d-074c-400d-85d9-3d35df62cadb",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/businesshour?weekday=Monday&starttime=08:00&endtime=20:00",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "businesshour"
+              ],
+              "query": [
+                {
+                  "key": "weekday",
+                  "value": "Monday"
+                },
+                {
+                  "key": "starttime",
+                  "value": "08:00"
+                },
+                {
+                  "key": "endtime",
+                  "value": "20:00"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update business hour failure (Invalid weekday)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Update business hour failure (Invalid weekday)\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "4dfc75f3-467a-442e-ba34-96e61b2a868a",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/businesshour?weekday=Drunday&starttime=08:00&endtime=20:00",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "businesshour"
+              ],
+              "query": [
+                {
+                  "key": "weekday",
+                  "value": "Drunday"
+                },
+                {
+                  "key": "starttime",
+                  "value": "08:00"
+                },
+                {
+                  "key": "endtime",
+                  "value": "20:00"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all business hours success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get all business hours success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.length).to.eql(1);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "c22ad489-4d90-45f9-9d00-76c27dd3b965",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/businesshours"
+          },
+          "response": []
+        },
+        {
+          "name": "Get business hour by weekday success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get business hour by weekday success\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "    jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.weekday).to.eql(\"Monday\");\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "7d1efd48-29cd-4607-9d19-705a4d73b847",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/businesshour/Monday"
+          },
+          "response": []
+        },
+        {
+          "name": "Get business hour by weekday failure",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get business hour by weekday success\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "2a700647-2e27-44f1-9f56-c3d6afdcb339",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/businesshour/NotAValidWeekday"
+          },
+          "response": []
+        }
+      ],
+      "id": "e2aa76b5-017f-48d6-bf90-059ace08a8dc"
+    },
+    {
+      "name": "Cleanup database",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Cleanup successful\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ]
+          }
+        }
+      ],
+      "id": "74bf883c-6b5d-4636-bdae-ab3600c895c7",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{BASE_URL}}/cleanupdatabase"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "c7354909-790d-431d-9dce-2d91f2f3939c",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "f0be0902-5a69-4747-a7a1-97c6b9674a95",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
