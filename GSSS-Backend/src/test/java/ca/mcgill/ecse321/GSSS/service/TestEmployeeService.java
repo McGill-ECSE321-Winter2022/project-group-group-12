@@ -39,7 +39,7 @@ import ca.mcgill.ecse321.GSSS.model.Shift;
  *
  * Tests for the employee services
  *
- * @author Wassim Jabbour
+ * @author Philippe Sarouphim Hochar
  *
  */
 @ExtendWith(MockitoExtension.class)

@@ -33,7 +33,7 @@ import ca.mcgill.ecse321.GSSS.model.ItemCategory;
  *
  * Tests for the item services
  *
- * @author Wassim Jabbour
+ * @author Habib Jarweh
  *
  */
 @ExtendWith(MockitoExtension.class)
