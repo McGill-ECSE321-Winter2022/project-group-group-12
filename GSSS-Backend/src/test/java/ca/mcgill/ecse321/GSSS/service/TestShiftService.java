@@ -32,6 +32,11 @@ import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import ca.mcgill.ecse321.GSSS.service.TestCustomerService.MockDatabase;
 
+/**
+ * Class to test the Shift Service class
+ *
+ * @author Philippe Sarouphim Hochar
+ */
 @ExtendWith(MockitoExtension.class)
 public class TestShiftService {
 
@@ -51,6 +56,11 @@ public class TestShiftService {
     lenient().when(shiftRepository.save(any(Shift.class))).thenAnswer(MockRepository::save);
   }
 
+  /**
+   * Method to check that we can successfully create a shift
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateShift_Success() {
     Shift created = shiftService.createShift(MockDatabase.shift1.getDate(),
@@ -61,6 +71,11 @@ public class TestShiftService {
     assertEquals(MockDatabase.shift1.getEndTime(), created.getEndTime());
   }
 
+  /**
+   * Method to check that we can't create a shift if the date is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateShift_NullDate() {
     try {
@@ -72,6 +87,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create a shift if the start time is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test 
   public void testCreateShift_NullStartTime() {
     try {
@@ -83,6 +103,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create a shift  if the end time is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateShift_NullEndTime() {
     try {
@@ -94,6 +119,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create a shift if the end time is before the start time
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateShift_EndTimeBeforeStartTime() {
     try {
@@ -106,6 +136,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create a shift if all its attributes are null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testCreateShift_NullAll() {
     try {
@@ -119,6 +154,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can successfully modify a shift
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyShift_Success() {
     Shift modified = shiftService.modifyShift(MockDatabase.shiftm.getId(),
@@ -130,6 +170,11 @@ public class TestShiftService {
     assertEquals(Time.valueOf("05:00:00"), modified.getEndTime());
   }
 
+  /**
+   * Method to check that we can't modify a shift if the shift's id is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyShift_NullId() {
     try {
@@ -142,6 +187,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify a shift if the id is empty
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyShift_EmptyId() {
     try {
@@ -154,6 +204,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify a shift if the date is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyShift_NullDate() {
     try {
@@ -166,6 +221,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify a shift if the start time is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyShift_NullStartTime() {
     try {
@@ -178,6 +238,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify a shift if the end time is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyShift_NullEndTime() {
     try {
@@ -190,6 +255,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify a shift if we set the end time before the start time
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyShift_EndTimeBeforeStartTime() {
     try {
@@ -202,6 +272,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify a shift if we're setting its attributes to null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyShift_NullAll() {
     try {
@@ -215,6 +290,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify a shift that isn't in the database
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testModifyShift_NotInDb() {
     try {
@@ -227,6 +307,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can get a shift by its id successfully
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetShift_Success() {
     Shift fetched = shiftService.getShift(MockDatabase.shift2.getId());
@@ -234,6 +319,11 @@ public class TestShiftService {
     assertEquals(MockDatabase.shift2, fetched);
   }
 
+  /**
+   * Method to check that we can't get a shift if the shift is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetShift_NullId() {
     try {
@@ -245,6 +335,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't get a shift by its id if the id is empty
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetShift_EmptyId() {
     try {
@@ -256,6 +351,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't get a shift if it isn't in the database
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetShift_NotInDb() {
     try {
@@ -267,6 +367,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can successfully get shifts by a date
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetShiftsByDate_Success() {
     List<Shift> shifts = shiftService.getShiftsByDate(MockDatabase.shift1.getDate());
@@ -279,6 +384,11 @@ public class TestShiftService {
       assertTrue(expected.contains(s));
   }
 
+  /**
+   * Method to check that we can't get a shift by its date if the date is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetShiftByDate_NullDate() {
     try {
@@ -290,6 +400,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can successfully get shifts by employee
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetShiftsByEmployee_Success() {
     List<Shift> fetched = shiftService.getShiftsByEmployee(MockDatabase.employee1);
@@ -299,6 +414,11 @@ public class TestShiftService {
       assertTrue(MockDatabase.shifts1.contains(s));
   }
 
+  /**
+   * Method to check that we can't get shifts by employees if the employee is null
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testGetShiftsByEmployee_NullEmployee() {
     try {
@@ -310,6 +430,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can delete a shift succesfully
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testDeleteShift_Success() {
     shiftService.deleteShift(MockDatabase.shiftm.getId());
@@ -320,6 +445,11 @@ public class TestShiftService {
         .deleteById(argThat((String i) -> !MockDatabase.shiftm.getId().equals(i)));
   }
 
+  /**
+   * Method to check that we can't delete a shift with a null id
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testDeleteShift_NullId() {
     try {
@@ -331,6 +461,11 @@ public class TestShiftService {
     fail();
   }
 
+  /**
+   * Method to check that we can't delete a shift with an empty id
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   @Test
   public void testDeleteShift_EmptyId() {
     try {
@@ -342,7 +477,11 @@ public class TestShiftService {
     fail();
   }
 
-
+  /**
+   * This class holds all the mock methods of the CRUD repository.
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   private static class MockRepository {
 
     static Shift findShiftById(InvocationOnMock invocation) {
@@ -387,6 +526,11 @@ public class TestShiftService {
 
   }
 
+  /**
+   * This class mocks data for tests.
+   *
+   * @author Philippe Sarouphim Hochar
+   */
   final static class MockDatabase {
 
     static Shift shift1 = new Shift();

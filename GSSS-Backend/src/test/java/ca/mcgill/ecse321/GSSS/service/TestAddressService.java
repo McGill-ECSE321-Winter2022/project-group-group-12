@@ -727,7 +727,7 @@ public class TestAddressService {
   }
 
   /**
-   * This class mock's data for tests.
+   * This class mocks data for tests.
    *
    * @author Theo Ghanem
    */
