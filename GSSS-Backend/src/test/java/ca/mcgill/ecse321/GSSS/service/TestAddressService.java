@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.GSSS.service;
 
 import ca.mcgill.ecse321.GSSS.dao.AddressRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
-import ca.mcgill.ecse321.GSSS.service.TestCustomerService.MockDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,7 +43,10 @@ public class TestAddressService {
     lenient().when(addressRepository.save(any(Address.class))).thenAnswer(MockRepository::save);
   }
 
-  /** This class holds all the mock methods of the CRUD repository. */
+  /** This class holds all the mock methods of the CRUD repository.
+   *
+   * @author Theo Ghanem
+   */
   class MockRepository {
 
     static Address findAddressById(InvocationOnMock invocation) {
@@ -102,6 +104,11 @@ public class TestAddressService {
     }
   }
 
+  /**
+   * Method to check that we can create an address successfully
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_Success() {
     Address address = new Address();
@@ -121,6 +128,11 @@ public class TestAddressService {
     assertEquals(address.getPostalCode(), created.getPostalCode());
   }
 
+  /**
+   * Method to check that we can't create an address if its associated full name is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_NullFullName() {
     try {
@@ -132,6 +144,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if its associated full name is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_EmptyFullName() {
     try {
@@ -143,6 +160,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if its street name is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_NullStreetName() {
     try {
@@ -154,6 +176,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if its street name is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_EmptyStreetName() {
     try {
@@ -165,6 +192,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if its street number is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_NullStreetNumber() {
     try {
@@ -176,6 +208,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if its city is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_NullCity() {
     try {
@@ -187,6 +224,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if its city is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_EmptyCity() {
     try {
@@ -198,6 +240,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if its postal code is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_NullPostalCode() {
     try {
@@ -210,6 +257,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if its postal code is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_EmptyPostalCode() {
     try {
@@ -222,6 +274,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if its postal code is invalid
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_InvalidPostalCode() {
     try {
@@ -233,6 +290,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if all its attributes are null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_NullAll() {
     try {
@@ -246,6 +308,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't create an address if all its attributes are empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testCreateAddress_EmptyAll() {
     try {
@@ -259,6 +326,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can modify an address successfully
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_Success() {
     Address modified = addressService.modifyAddress(MockDatabase.address2.getFullName(),
@@ -273,6 +345,11 @@ public class TestAddressService {
     assertEquals(MockDatabase.address2.getPostalCode(), modified.getPostalCode());
   }
 
+  /**
+   * Method to check that we can't modify an address if its full name is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_NullFullName() {
     try {
@@ -285,6 +362,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its full name is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_EmptyFullName() {
     try {
@@ -297,6 +379,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its street number is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_NullStreetName() {
     try {
@@ -309,6 +396,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its street number is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_EmptyStreetName() {
     try {
@@ -321,8 +413,13 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its street number is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
-  public void testModifyAddress_NullStreetNumber() {
+  public void testModifyAddress_EmptyStreetNumber() {
     try {
       addressService.modifyAddress("Elon musk", "nice street", null, "Montreal", "H3A 1S2",
           MockDatabase.address_m.getId());
@@ -333,6 +430,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its city is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_NullCity() {
     try {
@@ -345,6 +447,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its city is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_EmptyCity() {
     try {
@@ -357,6 +464,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its postal code is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_NullPostalCode() {
     try {
@@ -370,6 +482,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its postal code is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_EmptyPostalCode() {
     try {
@@ -383,6 +500,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its postal code is invalid
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_InvalidPostalCode() {
     try {
@@ -395,6 +517,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its attributes are null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_NullAll() {
     try {
@@ -408,6 +535,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address if its attributes are empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_EmptyAll() {
     try {
@@ -422,6 +554,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address by its id if the id is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_NullId() {
     try {
@@ -435,6 +572,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't modify an address by its id if the id is not in the database.
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testModifyAddress_NotInDb() {
     try {
@@ -448,6 +590,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can delete an address by its id
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testDeleteAddress_Success() {
     addressService.deleteAddress(MockDatabase.address_m.getId());
@@ -458,6 +605,11 @@ public class TestAddressService {
         .deleteById(argThat((String i) -> !MockDatabase.address_m.getId().equals(i)));
   }
 
+  /**
+   * Method to check that we can't delete an address by its id if the id is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testDeleteAddress_NullId() {
     try {
@@ -469,6 +621,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't delete an address by its id if the id is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testDeleteAddress_EmptyId() {
     try {
@@ -480,6 +637,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can get an address by its id.
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testGetAddressById_Success() {
     Address fetched = addressService.getAddress(MockDatabase.address2.getId());
@@ -487,6 +649,11 @@ public class TestAddressService {
     assertEquals(MockDatabase.address2, fetched);
   }
 
+  /**
+   * Method to check that we can't get an address by its id if the id is null
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testGetAddressById_NullId() {
     try {
@@ -498,6 +665,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't get an address by its id if the id is empty
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testGetAddressById_EmptyId() {
     try {
@@ -509,6 +681,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that we can't get an address by its id if the id isn't in the database
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testGetAddressById_NotInDb() {
     try {
@@ -520,6 +697,11 @@ public class TestAddressService {
     fail();
   }
 
+  /**
+   * Method to check that the get all addresses method works properly
+   *
+   * @author Theo Ghanem
+   */
   @Test
   public void testGetAllAddresses_Success() {
     List<Address> fetched = addressService.getAllAddresses();
@@ -536,7 +718,10 @@ public class TestAddressService {
 
 
 
-  /** This class mock data for tests. */
+  /** This class mock's data for tests.
+   *
+   * @author Theo Ghanem
+   */
   static final class MockDatabase {
 
     static Address address1 = new Address();
