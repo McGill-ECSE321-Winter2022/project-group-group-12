@@ -387,7 +387,7 @@ public class TestShiftService {
 
   }
 
-  private static class MockDatabase {
+  final static class MockDatabase {
 
     static Shift shift1 = new Shift();
     static Shift shift2 = new Shift();

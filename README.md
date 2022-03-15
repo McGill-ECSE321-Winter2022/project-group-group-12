@@ -10,7 +10,7 @@
 | Wassim Jabbour            | Managing & Testing & Modeling |      40 hours      |
 | Philippe Sarouphim Hochar | Reviewing & Testing & Modeling|      35 hours      |
 | Habib Jarweh              | Testing & Modeling            |      33 hours      |
-| Theo Ghanem               | Testing & Recording           |      30 hours      |
+| Theo Ghanem               | Testing & Recording           |      33 hours      |
 | Chris Hatoum              | Testing & Documenting         |      28 hours      |
   
   <ins>Figure 1: Overview Table for deliverable 1</ins>

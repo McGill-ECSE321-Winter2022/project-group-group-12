@@ -86,7 +86,6 @@ public class ShiftService {
   /**
    * Creates a new shift and saves it to the database
    *
-   * @param id The shift's id
    * @param date The shift's date
    * @param startTime The shift's start time
    * @param endTime The shift's end time
