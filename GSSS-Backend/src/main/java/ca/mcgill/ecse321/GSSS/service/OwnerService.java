@@ -35,7 +35,7 @@ public class OwnerService {
     return null;
   }
   /**
-   * This service method creates an owner
+   * This service method creates an owner if they don't exist and throws an error if they already do since we can only have 1 owner at all times
    *
    * @param username The username of the owner
    * @param email The email of the owner
@@ -59,7 +59,7 @@ public class OwnerService {
 
     Owner owner = getOwner();
     if (owner != null) {
-      throw new NoSuchElementException("Owner already exists in the system!");
+      throw new IllegalArgumentException("Owner already exists in the system!");
     }
 
     owner = new Owner();
@@ -73,14 +73,12 @@ public class OwnerService {
   }
 
   /**
-   * This service updates the owner based on the inputs if they are not null.
+   * This service updates the owner based on the inputs if the owner exists
    *
    * @author Enzo Benoit-Jeannin
    * @param username Username.
-   * @param email Email.
    * @param password Password.
    * @param address Address.
-   * @param disabled Disabled.
    * @return The updated owner
    */
   @Transactional
@@ -132,8 +130,4 @@ public class OwnerService {
     return owner;
   }
 
-  /**
-   * There is no createOwner sevice method since the owner is hardcoded in the system, and we can
-   * only have one of him at any time.
-   */
 }

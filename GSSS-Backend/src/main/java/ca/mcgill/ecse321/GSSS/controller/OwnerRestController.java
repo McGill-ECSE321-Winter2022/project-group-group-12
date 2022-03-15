@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
+
 @CrossOrigin(origins = "*")
 @RestController
 public class OwnerRestController {
@@ -18,13 +19,24 @@ public class OwnerRestController {
 
   @Autowired private AddressService addressService;
 
+  /**
+   * Method to create an owner the first time (Returns the existing owner's DTO otherwise)
+   *
+   * @author Enzo Benoit-Jeannin
+   * @param username The owner's username
+   * @param email The owner's email
+   * @param password The owner's password
+   * @param addressId The address' ID
+   * @return The created/retrieved owner DTO
+   * @throws IllegalArgumentException If the inputs are invalid
+   */
   @PostMapping(value = {"/createowner", "/createowner/"})
   public OwnerDto createOwner(
       @RequestParam(name = "username") String username,
       @RequestParam(name = "email") String email,
       @RequestParam(name = "password") String password,
       @RequestParam(name = "address") String addressId)
-      throws IllegalArgumentException, NoSuchElementException {
+      throws IllegalArgumentException {
     Owner owner = null;
     try {
       Address address = addressService.getAddress(addressId);
@@ -49,14 +61,15 @@ public class OwnerRestController {
   }
 
   /**
-   * Method to modify/update the owner
+   * Method to modify/update the owner if they exist (Throws an error otherwise)
    *
    * @author Enzo Benoit-Jeannin
    * @param username Username we want to update
    * @param password Password we want to update
-   * @param addressDto Address we want to update
+   * @param addressId Address we want to update
    * @return The modified owner as a DTO object
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException If the inputs are invalid
+   * @throws NoSuchElementException If the owner doesn't exist
    */
   @PostMapping(value = {"/owner", "/owner/"})
   public OwnerDto modifyOwner(
