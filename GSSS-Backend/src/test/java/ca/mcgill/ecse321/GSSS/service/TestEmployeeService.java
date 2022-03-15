@@ -896,7 +896,7 @@ public class TestEmployeeService {
     MockDatabase.employeem.setShifts(MockDatabase.shifts_m);
     Employee closest = employeeService.getClosestEmployee();
     assertNotNull(closest);
-    assertEquals(MockDatabase.employeem, closest);
+    assertEquals(MockDatabase.employee1, closest);
   }
 
   /** This class holds all of the mock methods of the employee CRUD repository. */

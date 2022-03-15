@@ -83,7 +83,7 @@ import static org.mockito.Mockito.lenient;
             
       try {
 	     ownerService.createOwner(owner2.getUsername(), owner2.getEmail(), owner2.getPassword(), owner2.getAddress());
-      } catch (NoSuchElementException e) {
+      } catch (IllegalArgumentException e) {
           assertEquals("Owner already exists in the system!", e.getMessage());
           return;
       }
