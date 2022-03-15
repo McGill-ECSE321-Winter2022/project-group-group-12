@@ -2611,6 +2611,52 @@
           "response": []
         },
         {
+          "name": "Get purchase cost success",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchase cost success\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "c1ee49df-981a-4a65-b7dd-ebd2ea694b91",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/purchase/cost/{{purchase_id}}"
+          },
+          "response": []
+        },
+        {
+          "name": "Get purchase cost failure (not valid id)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Get purchase cost failure\", function () {",
+                  "    pm.response.to.have.status(500);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "id": "b5c6e951-0a5a-48dc-8264-f6e6e3957ed9",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{BASE_URL}}/purchase/cost/notAValidId"
+          },
+          "response": []
+        },
+        {
           "name": "Modify purchase success",
           "event": [
             {
