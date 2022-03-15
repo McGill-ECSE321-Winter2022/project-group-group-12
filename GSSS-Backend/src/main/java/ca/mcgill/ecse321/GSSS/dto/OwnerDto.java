@@ -12,19 +12,18 @@ public class OwnerDto extends AccountDto {
    *
    * @author Wassim Jabbour
    */
-  public OwnerDto() {
-  }
+  public OwnerDto() {}
 
   /**
    * Full constructor
    *
-   * @param username The name of the owner
-   * @param email    The email of the owner
-   * @param password The password of the owner (hashed and salted)
-   * @param salt     The salt used for the above password
-   * @param disabled Whether the owner is disabled
-   * @param address  The address of the owner
    * @author Wassim Jabbour
+   * @param username The name of the owner
+   * @param email The email of the owner
+   * @param password The password of the owner (hashed and salted)
+   * @param salt The salt used for the above password
+   * @param disabled Whether the owner is disabled
+   * @param address The address of the owner
    */
   public OwnerDto(
       String username,

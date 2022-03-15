@@ -3,15 +3,16 @@ package ca.mcgill.ecse321.GSSS.service;
 import ca.mcgill.ecse321.GSSS.dao.ShiftRepository;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
-import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * Services of the shift class
@@ -23,8 +24,7 @@ public class ShiftService {
 
   // Crud Repository
 
-  @Autowired
-  ShiftRepository shiftRepository;
+  @Autowired ShiftRepository shiftRepository;
 
   // GET methods
 
@@ -66,17 +66,15 @@ public class ShiftService {
   /**
    * Method to get all the shifts of an employee
    *
+   * @author Chris Hatoum and Enzo Benoit-Jeannin
    * @param employee The employee to retrieve shifts from
    * @return the list of the employee's shifts
-   * @author Chris Hatoum and Enzo Benoit-Jeannin
    */
   @Transactional
   public List<Shift> getShiftsByEmployee(Employee employee) {
 
     // Input validation
-    if (employee == null) {
-      throw new IllegalArgumentException("Employee cannot be null!");
-    }
+    if (employee == null) throw new IllegalArgumentException("Employee cannot be null!");
 
     List<Shift> shiftList = new ArrayList<>(employee.getShifts());
 
@@ -88,9 +86,9 @@ public class ShiftService {
   /**
    * Creates a new shift and saves it to the database
    *
-   * @param date      The shift's date
+   * @param date The shift's date
    * @param startTime The shift's start time
-   * @param endTime   The shift's end time
+   * @param endTime The shift's end time
    * @return The newly created shift
    * @author Theo Ghanem
    */
@@ -145,10 +143,10 @@ public class ShiftService {
   /**
    * Modifies an existing shift and saves it to the database
    *
-   * @param id        The shift's id
-   * @param date      The shift's date
+   * @param id The shift's id
+   * @param date The shift's date
    * @param startTime The shift's start time
-   * @param endTime   The shift's end time
+   * @param endTime The shift's end time
    * @return The newly created shift
    * @author Theo Ghanem
    */

@@ -16,20 +16,19 @@ public class CustomerDto extends AccountDto {
    *
    * @author Wassim Jabbour
    */
-  public CustomerDto() {
-  }
+  public CustomerDto() {}
 
   /**
    * Full constructor
    *
-   * @param username The name of the customer
-   * @param email    The email of the customer
-   * @param password The password of the customer (hashed and salted)
-   * @param salt     The salt used for the above password
-   * @param disabled Whether the customer is disabled
-   * @param address  The address of the customer
-   * @param The      purchases of the customer
    * @author Wassim Jabbour
+   * @param username The name of the customer
+   * @param email The email of the customer
+   * @param password The password of the customer (hashed and salted)
+   * @param salt The salt used for the above password
+   * @param disabled Whether the customer is disabled
+   * @param address The address of the customer
+   * @param The purchases of the customer
    */
   public CustomerDto(
       String username,
@@ -46,8 +45,8 @@ public class CustomerDto extends AccountDto {
   /**
    * Purchases getter
    *
-   * @return The purchases of the customer
    * @author Wassim Jabbour
+   * @return The purchases of the customer
    */
   public List<PurchaseDto> getPurchases() {
     return purchases;

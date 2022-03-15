@@ -4,19 +4,15 @@ import ca.mcgill.ecse321.GSSS.dto.BusinessHourDto;
 import ca.mcgill.ecse321.GSSS.model.BusinessHour;
 import ca.mcgill.ecse321.GSSS.model.Weekday;
 import ca.mcgill.ecse321.GSSS.service.BusinessHourService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller methods for the business hour class
@@ -27,16 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BusinessHourRestController {
 
-  @Autowired
-  BusinessHourService businessHourService;
+  @Autowired BusinessHourService businessHourService;
 
   /**
    * GET method that retrieves the business hour corresponding to a certain day of the week
    *
+   * @author Wassim Jabbour
    * @param weekday A string with the weekday we want to find
    * @return The corresponding business hour dto
    * @throws IllegalArgumentException, NoSuchElementException
-   * @author Wassim Jabbour
    */
   @GetMapping(value = {"/businesshour/{weekday}", "/businesshour/{weekday}/"})
   public BusinessHourDto getBusinessHourByWeekday(@PathVariable("weekday") String weekday)
@@ -45,9 +40,8 @@ public class BusinessHourRestController {
     Weekday correspondingWeekday = DtoUtility.findWeekdayByName(weekday); // Helper method
     // defined below
 
-    if (correspondingWeekday == null) {
+    if (correspondingWeekday == null)
       throw new IllegalArgumentException("There is no such weekday!");
-    }
 
     BusinessHourDto businessHourDto =
         DtoUtility.convertToDto(businessHourService.getBusinessHourByWeekday(correspondingWeekday));
@@ -59,30 +53,29 @@ public class BusinessHourRestController {
    * Method that overrides the business hour for a particular day If the business hour doesn't
    * exist, it creates it Otherwise, it just updates it
    *
-   * @param weekday   The day of the week the BusinessHour is happening on
+   * @author Wassim Jabbour
+   * @param weekday The day of the week the BusinessHour is happening on
    * @param startTime The start time of the opening hours for that day
-   * @param endTime   The end time of the opening hours for that day
+   * @param endTime The end time of the opening hours for that day
    * @return The Dto corresponding to the created business hour
    * @throws IllegalArgumentException
-   * @author Wassim Jabbour
    */
   @PostMapping(value = {"/businesshour", "/businesshour/"})
   public BusinessHourDto updateBusinessHour(
       @RequestParam(name = "weekday") String weekday,
       @RequestParam(name = "starttime")
-      @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm")
+          @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm")
           LocalTime startTime,
       @RequestParam(name = "endtime")
-      @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm")
+          @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm")
           LocalTime endTime)
       throws IllegalArgumentException {
 
     Weekday correspondingWeekday = DtoUtility.findWeekdayByName(weekday); // Helper method
     // defined below
 
-    if (correspondingWeekday == null) {
+    if (correspondingWeekday == null)
       throw new IllegalArgumentException("There is no such weekday!");
-    }
 
     BusinessHour businessHour =
         businessHourService.createBusinessHour(
@@ -94,8 +87,8 @@ public class BusinessHourRestController {
   /**
    * Method to get a list of all Business Hours in DTO form
    *
-   * @return list of all business hour DTOS
    * @author Wassim Jabbour
+   * @return list of all business hour DTOS
    */
   @GetMapping(value = {"/businesshours", "/businesshours/"})
   public List<BusinessHourDto> getAllBusinessHours() {

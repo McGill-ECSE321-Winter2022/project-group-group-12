@@ -12,11 +12,6 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-import ca.mcgill.ecse321.GSSS.dao.ItemCategoryRepository;
-import ca.mcgill.ecse321.GSSS.dao.ItemRepository;
-import ca.mcgill.ecse321.GSSS.model.Item;
-import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,11 +22,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
+import ca.mcgill.ecse321.GSSS.dao.ItemCategoryRepository;
+import ca.mcgill.ecse321.GSSS.dao.ItemRepository;
+import ca.mcgill.ecse321.GSSS.model.Employee;
+import ca.mcgill.ecse321.GSSS.model.Item;
+import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 
 /**
+ *
  * Tests for the item services
  *
  * @author Habib Jarweh
+ *
  */
 @ExtendWith(MockitoExtension.class)
 public class TestItemService {
@@ -55,13 +58,14 @@ public class TestItemService {
     lenient().when(itemDao.save(any(Item.class))).thenAnswer(MockRepository::save);
   }
 
+
   // ========================================================================
   // Get methods
   // ========================================================================
 
   /**
    * method test to check that an item is fetched successfully
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -73,7 +77,7 @@ public class TestItemService {
 
   /**
    * method test to check error is thrown when we input a null name when we try to fetch an item
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -85,7 +89,7 @@ public class TestItemService {
 
   /**
    * method test to check error is thrown when we input an empty name when we try to fetch an item
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -98,7 +102,7 @@ public class TestItemService {
 
   /**
    * method test to check error is thrown when we try to fetch an item not in the database
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -111,7 +115,7 @@ public class TestItemService {
 
   /**
    * method test to check that all items with same category are fetched successfully
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -123,14 +127,13 @@ public class TestItemService {
 
     assertNotNull(items);
     assertEquals(expected.size(), items.size());
-    for (Item i : items) {
+    for (Item i : items)
       assertTrue(expected.contains(i));
-    }
   }
 
   /**
    * method test to check that all items in the database are fetched successfully
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -145,9 +148,8 @@ public class TestItemService {
 
     assertNotNull(items);
     assertEquals(expected.size(), items.size());
-    for (Item i : items) {
+    for (Item i : items)
       assertTrue(expected.contains(i));
-    }
   }
 
   // ========================================================================
@@ -157,7 +159,7 @@ public class TestItemService {
 
   /**
    * method to test that an item is created successfully
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -196,7 +198,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when remaining quantity is negative
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -221,7 +223,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when price is negative
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -246,7 +248,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when name is null
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -272,7 +274,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when description is null
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -298,7 +300,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when image URL is null
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -324,7 +326,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when name is just space or empty
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -350,7 +352,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when description is just space or empty
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -376,7 +378,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when image URL is just space or empty
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -403,7 +405,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when item category is null
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -428,7 +430,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when every parameter is either empty,null or wrong
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -456,7 +458,7 @@ public class TestItemService {
 
   /**
    * method test to check that an item was deleted successfully
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -471,7 +473,7 @@ public class TestItemService {
 
   /**
    * method test to check that error is thrown when we input a null name
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -484,7 +486,7 @@ public class TestItemService {
 
   /**
    * method test to check that error is thrown when we input an empty name
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -501,7 +503,7 @@ public class TestItemService {
 
   /**
    * method test to see if item gets modified successfully
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -515,6 +517,7 @@ public class TestItemService {
     String categoryName = "Dishes";
     ItemCategory category = new ItemCategory();
     category.setName(categoryName);
+
 
     Item item = itemService.modifyItem(MockDatabase.item1.getName(), description, imageUrl,
         remainingQuantity, price, availableForOrder, stillAvailable, category);
@@ -531,7 +534,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when remaining quantity is negative
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -555,7 +558,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when price is negative
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -579,7 +582,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when name is null
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -603,7 +606,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when description is null
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -626,7 +629,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when image URL is null
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -649,7 +652,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when name is just space or empty
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -672,7 +675,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when description is just space or empty
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -695,7 +698,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when image URL is just space or empty
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -719,7 +722,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when item category is null
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -742,7 +745,7 @@ public class TestItemService {
 
   /**
    * method to test that an error is thrown when every parameter is either null or wrong
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -764,25 +767,19 @@ public class TestItemService {
         error);
   }
 
-  /**
-   * This class holds all the mock methods of the CRUD repository.
-   */
+  /** This class holds all the mock methods of the CRUD repository. */
   class MockRepository {
 
     static Item findItemByName(InvocationOnMock invocation) {
       String name = (String) invocation.getArgument(0);
-      if (name.equals(MockDatabase.item1.getName())) {
+      if (name.equals(MockDatabase.item1.getName()))
         return MockDatabase.item1;
-      }
-      if (name.equals(MockDatabase.item2.getName())) {
+      if (name.equals(MockDatabase.item2.getName()))
         return MockDatabase.item2;
-      }
-      if (name.equals(MockDatabase.item3.getName())) {
+      if (name.equals(MockDatabase.item3.getName()))
         return MockDatabase.item3;
-      }
-      if (name.equals(MockDatabase.itemm.getName())) {
+      if (name.equals(MockDatabase.itemm.getName()))
         return MockDatabase.itemm;
-      }
       return null;
     }
 
@@ -793,18 +790,14 @@ public class TestItemService {
     static List<Item> findItemsByCategory(InvocationOnMock invocation) {
       ItemCategory itemCategory = (ItemCategory) invocation.getArgument(0);
       List<Item> items = new ArrayList<Item>();
-      if (itemCategory.equals(MockDatabase.item1.getCategory())) {
+      if (itemCategory.equals(MockDatabase.item1.getCategory()))
         items.add(MockDatabase.item1);
-      }
-      if (itemCategory.equals(MockDatabase.item2.getCategory())) {
+      if (itemCategory.equals(MockDatabase.item2.getCategory()))
         items.add(MockDatabase.item2);
-      }
-      if (itemCategory.equals(MockDatabase.item3.getCategory())) {
+      if (itemCategory.equals(MockDatabase.item3.getCategory()))
         items.add(MockDatabase.item3);
-      }
-      if (itemCategory.equals(MockDatabase.itemm.getCategory())) {
+      if (itemCategory.equals(MockDatabase.itemm.getCategory()))
         items.add(MockDatabase.itemm);
-      }
       return items;
     }
 
@@ -818,9 +811,7 @@ public class TestItemService {
     }
   }
 
-  /**
-   * This class mock data for tests.
-   */
+  /** This class mock data for tests. */
   final static class MockDatabase {
 
     // item 1 info
@@ -923,6 +914,7 @@ public class TestItemService {
       itemm.setAvailableForOrder(ITEM_AVAILABILITYFORORDERM);
       itemm.setStillAvailable(ITEM_AVAILABILITYM);
       itemm.setCategory(itemCategory1);
+
 
 
     }

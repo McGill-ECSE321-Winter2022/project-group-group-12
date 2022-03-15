@@ -13,9 +13,9 @@ public interface ItemCategoryRepository extends CrudRepository<ItemCategory, Str
   /**
    * this method finds an item category based on its name
    *
+   * @author Chris Hatoum
    * @param name Name of the category
    * @return Category we are trying to find
-   * @author Chris Hatoum
    */
   ItemCategory findItemCategoryByName(String name);
 }

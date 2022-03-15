@@ -5,13 +5,10 @@ import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Owner;
 import ca.mcgill.ecse321.GSSS.service.AddressService;
 import ca.mcgill.ecse321.GSSS.service.OwnerService;
-import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.NoSuchElementException;
 
 /**
  * Controller methods for the owner class
@@ -23,22 +20,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OwnerRestController {
 
-  @Autowired
-  private OwnerService ownerService;
+  @Autowired private OwnerService ownerService;
 
-  @Autowired
-  private AddressService addressService;
+  @Autowired private AddressService addressService;
 
   /**
    * Method to create an owner the first time (Returns the existing owner's DTO otherwise)
    *
-   * @param username  The owner's username
-   * @param email     The owner's email
-   * @param password  The owner's password
+   * @author Enzo Benoit-Jeannin
+   * @param username The owner's username
+   * @param email The owner's email
+   * @param password The owner's password
    * @param addressId The address' ID
    * @return The created/retrieved owner DTO
    * @throws IllegalArgumentException If the inputs are invalid
-   * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/createowner", "/createowner/"})
   public OwnerDto createOwner(
@@ -62,8 +57,8 @@ public class OwnerRestController {
   /**
    * Method to get the owner DTO
    *
-   * @return DTO of the employee corresponding to the email.
    * @author Enzo Benoit-Jeannin
+   * @return DTO of the employee corresponding to the email.
    */
   @GetMapping(value = {"/owner", "/owner/"})
   public OwnerDto getOwner() {
@@ -73,13 +68,13 @@ public class OwnerRestController {
   /**
    * Method to modify/update the owner if they exist (Throws an error otherwise)
    *
-   * @param username  Username we want to update
-   * @param password  Password we want to update
+   * @author Enzo Benoit-Jeannin
+   * @param username Username we want to update
+   * @param password Password we want to update
    * @param addressId Address we want to update
    * @return The modified owner as a DTO object
    * @throws IllegalArgumentException If the inputs are invalid
-   * @throws NoSuchElementException   If the owner doesn't exist
-   * @author Enzo Benoit-Jeannin
+   * @throws NoSuchElementException If the owner doesn't exist
    */
   @PostMapping(value = {"/owner", "/owner/"})
   public OwnerDto modifyOwner(
@@ -95,10 +90,10 @@ public class OwnerRestController {
   /**
    * Method to modify the system information
    *
-   * @param city The new city
-   * @param fee  The new fee
-   * @return The new owner with modified info
    * @author Wassim Jabbour
+   * @param city The new city
+   * @param fee The new fee
+   * @return The new owner with modified info
    */
   @PostMapping(value = {"/info", "/info/"})
   public OwnerDto modifySystemInformation(

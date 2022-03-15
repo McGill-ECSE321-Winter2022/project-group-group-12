@@ -1,21 +1,7 @@
 package ca.mcgill.ecse321.GSSS.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import ca.mcgill.ecse321.GSSS.dao.ItemCategoryRepository;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,13 +10,25 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 /**
  * Tests for the item categories
  *
  * @author Chris Hatoum
  */
-@ExtendWith(MockitoExtension.class)
-public class TestItemCategoryService {
+  @ExtendWith(MockitoExtension.class)
+  public class TestItemCategoryService {
 
   @Mock
   private ItemCategoryRepository itemCategoryRepository;
@@ -44,8 +42,7 @@ public class TestItemCategoryService {
     // Set each CRUD method to its mock
     lenient().when(itemCategoryRepository.findItemCategoryByName(anyString())).thenAnswer(
         ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockRepository::findItemCategoryByName);
-    lenient().when(itemCategoryRepository.findAll())
-        .thenAnswer(TestItemCategoryService.MockRepository::getAll);
+    lenient().when(itemCategoryRepository.findAll()).thenAnswer(TestItemCategoryService.MockRepository::getAll);
     lenient().when(itemCategoryRepository.save(any(ItemCategory.class)))
         .thenAnswer(ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockRepository::save);
   }
@@ -54,6 +51,7 @@ public class TestItemCategoryService {
    * Tests a success case of creating an item category
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testCreateCategory_Success() {
@@ -63,11 +61,11 @@ public class TestItemCategoryService {
     assertNotNull(created);
     assertEquals(itemCategory.getName(), created.getName());
   }
-
   /**
-   * Tests if a category name is null
+   *  Tests if a category name is null
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testCreateCategory_NullName() {
@@ -81,9 +79,10 @@ public class TestItemCategoryService {
   }
 
   /**
-   * Tests if a category name is empty
+   *  Tests if a category name is empty
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testCreateCategory_EmptyName() {
@@ -97,9 +96,10 @@ public class TestItemCategoryService {
   }
 
   /**
-   * Tests a success case of creating an item category
+   *  Tests a success case of creating an item category
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testGetCategoryByName_Success() {
@@ -110,9 +110,10 @@ public class TestItemCategoryService {
 
 
   /**
-   * Tests if we want to get a category with a null name
+   *  Tests if we want to get a category with a null name
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testGetCategoryByName_NullName() {
@@ -126,9 +127,10 @@ public class TestItemCategoryService {
   }
 
   /**
-   * Tests if we want to get a category with an empty name
+   *  Tests if we want to get a category with an empty name
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testGetCategoryByName_EmptyName() {
@@ -142,9 +144,10 @@ public class TestItemCategoryService {
   }
 
   /**
-   * Tests if the category with that name is in the database
+   *  Tests if the category with that name is in the database
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testGetCategoryByName_NotInDb() {
@@ -159,9 +162,10 @@ public class TestItemCategoryService {
   }
 
   /**
-   * Delete an item category successfully
+   *  Delete an item category successfully
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testDeleteCategory_Success() {
@@ -175,9 +179,10 @@ public class TestItemCategoryService {
 
 
   /**
-   * Delete an item category with a null name
+   *  Delete an item category with a null name
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testDeleteCategory_NullName() {
@@ -192,9 +197,10 @@ public class TestItemCategoryService {
 
 
   /**
-   * Delete an item category with an empty name
+   *  Delete an item category with an empty name
    *
    * @author Chris Hatoum
+   *
    */
   @Test
   public void testDeleteCategory_EmptyName() {
@@ -209,7 +215,7 @@ public class TestItemCategoryService {
 
   /**
    * Test to make sure that the get all method works correctly
-   *
+   * 
    * @author Theo Ghanem
    */
   @Test
@@ -222,9 +228,8 @@ public class TestItemCategoryService {
     expected.add(MockDatabase.category4);
     assertNotNull(fetched);
     assertEquals(expected.size(), fetched.size());
-    for (ItemCategory i : fetched) {
+    for (ItemCategory i : fetched)
       assertTrue(expected.contains(i));
-    }
   }
 
   /**
@@ -233,41 +238,36 @@ public class TestItemCategoryService {
    * @author Chris Hatoum
    */
   class MockRepository {
-
     /**
      * Method used to find the item category by name
      *
+     * @author Chris Hatoum
      * @param invocation
      * @return
-     * @author Chris Hatoum
      */
     static ItemCategory findItemCategoryByName(InvocationOnMock invocation) {
       String name = (String) invocation.getArgument(0);
       if (name.equals(
-          ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category1.getName())) {
+          ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category1.getName()))
         return ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category1;
-      }
       if (name.equals(
-          ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category2.getName())) {
+          ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category2.getName()))
         return ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category2;
-      }
       if (name.equals(
-          ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category3.getName())) {
+          ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category3.getName()))
         return ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category3;
-      }
       if (name.equals(
-          ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category4.getName())) {
+          ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category4.getName()))
         return ca.mcgill.ecse321.GSSS.service.TestItemCategoryService.MockDatabase.category4;
-      }
       return null;
     }
 
     /**
      * Method used to save sn item category
      *
+     * @author Chris Hatoum
      * @param invocation
      * @return
-     * @author Chris Hatoum
      */
     static ItemCategory save(InvocationOnMock invocation) {
       return (ItemCategory) invocation.getArgument(0);
@@ -276,9 +276,9 @@ public class TestItemCategoryService {
     /**
      * Method used in the  get all itemCatgeories test
      *
+     * @author Theo Ghanem
      * @param invocation
      * @return item categories
-     * @author Theo Ghanem
      */
     static List<ItemCategory> getAll(InvocationOnMock invocation) {
       List<ItemCategory> itemCategories = new ArrayList<ItemCategory>();
@@ -292,9 +292,10 @@ public class TestItemCategoryService {
   }
 
 
+
   /**
    * @author Chris Hatoum
-   * <p>
+   *
    * This class mock data for tests.
    */
   final static class MockDatabase {

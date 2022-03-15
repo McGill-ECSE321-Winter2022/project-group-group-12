@@ -21,8 +21,7 @@ public class ItemDto {
    *
    * @author Theo Ghanem
    */
-  public ItemDto() {
-  }
+  public ItemDto() {}
 
   public ItemDto(
       String name,

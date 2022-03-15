@@ -1,22 +1,7 @@
 package ca.mcgill.ecse321.GSSS.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import ca.mcgill.ecse321.GSSS.dao.AddressRepository;
 import ca.mcgill.ecse321.GSSS.model.Address;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +9,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
  * Class to test the Address Service class
@@ -33,11 +24,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class TestAddressService {
 
-  @Mock
-  private AddressRepository addressRepository;
+  @Mock private AddressRepository addressRepository;
 
-  @InjectMocks
-  private AddressService addressService;
+  @InjectMocks private AddressService addressService;
 
   @BeforeEach
   public void setMockOutput() {
@@ -64,54 +53,34 @@ public class TestAddressService {
 
     static Address findAddressById(InvocationOnMock invocation) {
       String id = (String) invocation.getArgument(0);
-      if (id.equals(MockDatabase.address1.getId())) {
-        return MockDatabase.address1;
-      }
-      if (id.equals(MockDatabase.address2.getId())) {
-        return MockDatabase.address2;
-      }
-      if (id.equals(MockDatabase.address3.getId())) {
-        return MockDatabase.address3;
-      }
-      if (id.equals(MockDatabase.address_m.getId())) {
-        return MockDatabase.address_m;
-      }
+      if (id.equals(MockDatabase.address1.getId())) return MockDatabase.address1;
+      if (id.equals(MockDatabase.address2.getId())) return MockDatabase.address2;
+      if (id.equals(MockDatabase.address3.getId())) return MockDatabase.address3;
+      if (id.equals(MockDatabase.address_m.getId())) return MockDatabase.address_m;
       return null;
     }
 
     static List<Address> findAddressesByCity(InvocationOnMock invocation) {
       String city = (String) invocation.getArgument(0);
       List<Address> addresses = new ArrayList<Address>();
-      if (city.equals(MockDatabase.address1.getCity())) {
-        addresses.add(MockDatabase.address1);
-      }
-      if (city.equals(MockDatabase.address2.getCity())) {
-        addresses.add(MockDatabase.address2);
-      }
-      if (city.equals(MockDatabase.address3.getCity())) {
-        addresses.add(MockDatabase.address3);
-      }
-      if (city.equals(MockDatabase.address_m.getCity())) {
-        addresses.add(MockDatabase.address_m);
-      }
+      if (city.equals(MockDatabase.address1.getCity())) addresses.add(MockDatabase.address1);
+      if (city.equals(MockDatabase.address2.getCity())) addresses.add(MockDatabase.address2);
+      if (city.equals(MockDatabase.address3.getCity())) addresses.add(MockDatabase.address3);
+      if (city.equals(MockDatabase.address_m.getCity())) addresses.add(MockDatabase.address_m);
       return addresses;
     }
 
     static List<Address> findAddressesByStreetName(InvocationOnMock invocation) {
       String streetName = (String) invocation.getArgument(0);
       List<Address> addresses = new ArrayList<Address>();
-      if (streetName.equals(MockDatabase.address1.getStreetName())) {
+      if (streetName.equals(MockDatabase.address1.getStreetName()))
         addresses.add(MockDatabase.address1);
-      }
-      if (streetName.equals(MockDatabase.address2.getStreetName())) {
+      if (streetName.equals(MockDatabase.address2.getStreetName()))
         addresses.add(MockDatabase.address2);
-      }
-      if (streetName.equals(MockDatabase.address3.getStreetName())) {
+      if (streetName.equals(MockDatabase.address3.getStreetName()))
         addresses.add(MockDatabase.address3);
-      }
-      if (streetName.equals(MockDatabase.address_m.getStreetName())) {
+      if (streetName.equals(MockDatabase.address_m.getStreetName()))
         addresses.add(MockDatabase.address_m);
-      }
       return addresses;
     }
 
@@ -754,9 +723,7 @@ public class TestAddressService {
     expected.add(MockDatabase.address_m);
     assertNotNull(fetched);
     assertEquals(expected.size(), fetched.size());
-    for (Address e : fetched) {
-      assertTrue(expected.contains(e));
-    }
+    for (Address e : fetched) assertTrue(expected.contains(e));
   }
 
   /**

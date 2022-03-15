@@ -1,10 +1,6 @@
 package ca.mcgill.ecse321.GSSS.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * This class represents the accounts of users.
@@ -75,53 +71,29 @@ public abstract class Account {
   /**
    * Overrode the equals method to use it in tests
    *
+   * @author Philippe Sarouphim Hochar
    * @param obj The object to compare
    * @return True if it's the same object, false otherwise
-   * @author Philippe Sarouphim Hochar
    */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
+    if (this == obj) return true;
+    if (obj == null) return false;
+    if (getClass() != obj.getClass()) return false;
     Account other = (Account) obj;
     if (address == null) {
-      if (other.address != null) {
-        return false;
-      }
-    } else if (!address.equals(other.address)) {
-      return false;
-    }
-    if (disabled != other.disabled) {
-      return false;
-    }
+      if (other.address != null) return false;
+    } else if (!address.equals(other.address)) return false;
+    if (disabled != other.disabled) return false;
     if (email == null) {
-      if (other.email != null) {
-        return false;
-      }
-    } else if (!email.equals(other.email)) {
-      return false;
-    }
+      if (other.email != null) return false;
+    } else if (!email.equals(other.email)) return false;
     if (password == null) {
-      if (other.password != null) {
-        return false;
-      }
-    } else if (!password.equals(other.password)) {
-      return false;
-    }
+      if (other.password != null) return false;
+    } else if (!password.equals(other.password)) return false;
     if (username == null) {
-      if (other.username != null) {
-        return false;
-      }
-    } else if (!username.equals(other.username)) {
-      return false;
-    }
+      if (other.username != null) return false;
+    } else if (!username.equals(other.username)) return false;
     return true;
   }
 }

@@ -3,12 +3,13 @@ package ca.mcgill.ecse321.GSSS.service;
 import ca.mcgill.ecse321.GSSS.dao.BusinessHourRepository;
 import ca.mcgill.ecse321.GSSS.model.BusinessHour;
 import ca.mcgill.ecse321.GSSS.model.Weekday;
-import java.sql.Time;
-import java.util.List;
-import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Time;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Services of the item class
@@ -18,16 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class BusinessHourService {
-
-  @Autowired
-  BusinessHourRepository businessHourRepository;
+  @Autowired BusinessHourRepository businessHourRepository;
 
   /**
    * method that gets business hour by weekday
    *
+   * @author Habib Jarweh
    * @param weekday desired day of the week
    * @return business hour we want to find
-   * @author Habib Jarweh
    */
   @Transactional
   public BusinessHour getBusinessHourByWeekday(Weekday weekday) {
@@ -45,8 +44,8 @@ public class BusinessHourService {
   /**
    * method that gets all business hours
    *
-   * @return list<BusinessHour> list of all business hours
    * @author Habib Jarweh
+   * @return list<BusinessHour> list of all business hours
    */
   @Transactional
   public List<BusinessHour> getAllBusinessHours() {
@@ -56,11 +55,11 @@ public class BusinessHourService {
   /**
    * method that creates new business hour
    *
-   * @param weekday   desired day of the week
-   * @param startTime desired start time of businesshour
-   * @param endTime   desired end time of businesshour
-   * @return business hour we created
    * @author Habib Jarweh
+   * @param weekday desired day of the week
+   * @param startTime desired start time of businesshour
+   * @param endTime desired end time of businesshour
+   * @return business hour we created
    */
   @Transactional
   public BusinessHour createBusinessHour(Weekday weekday, Time startTime, Time endTime) {
@@ -93,9 +92,9 @@ public class BusinessHourService {
   /**
    * method that deletes business hour
    *
+   * @author Habib Jarweh
    * @param weekday day of the week of the business hour we want to remove
    * @return business hour we wanted to delete
-   * @author Habib Jarweh
    */
   @Transactional
   public BusinessHour deleteBusinessHour(Weekday weekday) {
@@ -110,11 +109,11 @@ public class BusinessHourService {
   /**
    * method to edit/modify a business hour of a certain day
    *
-   * @param day       specific weekday
-   * @param startTime start time of the day we want
-   * @param endTime   end time of the day we want
-   * @return Buisness hours ( opening and closing ) of the day we want to update
    * @author Chris Hatoum
+   * @param day specific weekday
+   * @param startTime start time of the day we want
+   * @param endTime end time of the day we want
+   * @return Buisness hours ( opening and closing ) of the day we want to update
    */
   @Transactional
   public BusinessHour modifyBusinessHour(Weekday day, Time startTime, Time endTime) {

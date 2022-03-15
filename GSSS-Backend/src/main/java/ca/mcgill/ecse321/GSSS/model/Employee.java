@@ -1,9 +1,9 @@
 package ca.mcgill.ecse321.GSSS.model;
 
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import java.util.Set;
 
 /**
  * This class represents the Employees.
@@ -27,29 +27,19 @@ public class Employee extends Account {
   /**
    * Overrode the equals method to use it in tests
    *
+   * @author Philippe Sarouphim Hochar
    * @param obj The object to compare
    * @return True if it's the same object, false otherwise
-   * @author Philippe Sarouphim Hochar
    */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (!super.equals(obj)) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
+    if (this == obj) return true;
+    if (!super.equals(obj)) return false;
+    if (getClass() != obj.getClass()) return false;
     Employee other = (Employee) obj;
     if (shifts == null) {
-      if (other.shifts != null) {
-        return false;
-      }
-    } else if (!shifts.equals(other.shifts)) {
-      return false;
-    }
+      if (other.shifts != null) return false;
+    } else if (!shifts.equals(other.shifts)) return false;
     return true;
   }
 }

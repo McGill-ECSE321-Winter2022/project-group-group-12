@@ -1,35 +1,12 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
-import ca.mcgill.ecse321.GSSS.dto.AddressDto;
-import ca.mcgill.ecse321.GSSS.dto.BusinessHourDto;
-import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
-import ca.mcgill.ecse321.GSSS.dto.EmployeeDto;
-import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
-import ca.mcgill.ecse321.GSSS.dto.ItemDto;
-import ca.mcgill.ecse321.GSSS.dto.OwnerDto;
-import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
-import ca.mcgill.ecse321.GSSS.dto.ShiftDto;
-import ca.mcgill.ecse321.GSSS.model.Address;
-import ca.mcgill.ecse321.GSSS.model.BusinessHour;
-import ca.mcgill.ecse321.GSSS.model.Customer;
-import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.model.Item;
-import ca.mcgill.ecse321.GSSS.model.ItemCategory;
-import ca.mcgill.ecse321.GSSS.model.OrderStatus;
-import ca.mcgill.ecse321.GSSS.model.OrderType;
-import ca.mcgill.ecse321.GSSS.model.Owner;
-import ca.mcgill.ecse321.GSSS.model.Purchase;
-import ca.mcgill.ecse321.GSSS.model.Shift;
-import ca.mcgill.ecse321.GSSS.model.Weekday;
+import ca.mcgill.ecse321.GSSS.dto.*;
+import ca.mcgill.ecse321.GSSS.model.*;
 import ca.mcgill.ecse321.GSSS.service.ItemService;
 import ca.mcgill.ecse321.GSSS.service.PurchaseService;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.*;
 
 /**
  * Helper class for methods used across all controller classes
@@ -40,92 +17,69 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class DtoUtility {
 
-  @Autowired
-  PurchaseService purchaseService;
+  @Autowired PurchaseService purchaseService;
 
-  @Autowired
-  static ItemService itemService;
+  @Autowired static ItemService itemService;
 
   /**
    * Helper method that converts a weekDayName string to its corresponding weekday
    *
+   * @author Wassim Jabbour
    * @param weekDayName The string representing the weekday name
    * @return The weekday
-   * @author Wassim Jabbour
    */
   static Weekday findWeekdayByName(String weekDayName) {
 
-    if (weekDayName.equals("Monday")) {
-      return Weekday.Monday;
-    } else if (weekDayName.equals("Tuesday")) {
-      return Weekday.Tuesday;
-    } else if (weekDayName.equals("Wednesday")) {
-      return Weekday.Wednesday;
-    } else if (weekDayName.equals("Thursday")) {
-      return Weekday.Thursday;
-    } else if (weekDayName.equals("Friday")) {
-      return Weekday.Friday;
-    } else if (weekDayName.equals("Saturday")) {
-      return Weekday.Saturday;
-    } else if (weekDayName.equals("Sunday")) {
-      return Weekday.Sunday;
-    } else {
-      return null;
-    }
+    if (weekDayName.equals("Monday")) return Weekday.Monday;
+    else if (weekDayName.equals("Tuesday")) return Weekday.Tuesday;
+    else if (weekDayName.equals("Wednesday")) return Weekday.Wednesday;
+    else if (weekDayName.equals("Thursday")) return Weekday.Thursday;
+    else if (weekDayName.equals("Friday")) return Weekday.Friday;
+    else if (weekDayName.equals("Saturday")) return Weekday.Saturday;
+    else if (weekDayName.equals("Sunday")) return Weekday.Sunday;
+    else return null;
   }
 
   /**
    * Helper method that converts an OrderType string to its enum equivalent
    *
+   * @author Wassim Jabbour
    * @param orderType The string representing the type
    * @return The type
-   * @author Wassim Jabbour
    */
   static OrderType findOrderTypeByName(String orderType) {
 
-    if (orderType.equals("Delivery")) {
-      return OrderType.Delivery;
-    } else if (orderType.equals("Pickup")) {
-      return OrderType.Pickup;
-    } else if (orderType.equals("InPerson")) {
-      return OrderType.InPerson;
-    } else {
-      return null;
-    }
+    if (orderType.equals("Delivery")) return OrderType.Delivery;
+    else if (orderType.equals("Pickup")) return OrderType.Pickup;
+    else if (orderType.equals("InPerson")) return OrderType.InPerson;
+    else return null;
   }
 
   /**
    * Helper method that converts an OrderStatus string to its enum equivalent
    *
+   * @author Wassim Jabbour
    * @param orderStatus The string representing the status
    * @return The status
-   * @author Wassim Jabbour
    */
   static OrderStatus findOrderStatusByName(String orderStatus) {
 
-    if (orderStatus.equals("BeingPrepared")) {
-      return OrderStatus.BeingPrepared;
-    } else if (orderStatus.equals("OutForDelivery")) {
-      return OrderStatus.OutForDelivery;
-    } else if (orderStatus.equals("Completed")) {
-      return OrderStatus.Completed;
-    } else {
-      return null;
-    }
+    if (orderStatus.equals("BeingPrepared")) return OrderStatus.BeingPrepared;
+    else if (orderStatus.equals("OutForDelivery")) return OrderStatus.OutForDelivery;
+    else if (orderStatus.equals("Completed")) return OrderStatus.Completed;
+    else return null;
   }
 
   /**
    * Helper method that converts a BusinessHour to its DTO equivalent
    *
+   * @author Wassim Jabbour
    * @param businessHour The BusinessHour to convert
    * @return The converted DTO
-   * @author Wassim Jabbour
    */
   static BusinessHourDto convertToDto(BusinessHour businessHour) throws IllegalArgumentException {
 
-    if (businessHour == null) {
-      throw new IllegalArgumentException("There is no such business hour!");
-    }
+    if (businessHour == null) throw new IllegalArgumentException("There is no such business hour!");
 
     BusinessHourDto businessHourDto =
         new BusinessHourDto(
@@ -137,10 +91,10 @@ public class DtoUtility {
   /**
    * method to convert from type item to type itemDto while also specifying the item category
    *
-   * @param i  item we want to convert
+   * @author Habib Jarweh
+   * @param i item we want to convert
    * @param ic its item category
    * @return item converted to type itemDto
-   * @author Habib Jarweh
    */
   static ItemDto convertToDto(Item i, ItemCategory ic) {
     if (i == null) {
@@ -165,9 +119,9 @@ public class DtoUtility {
   /**
    * method to convert from type item to type itemDto
    *
+   * @author Wassim Jabbour
    * @param i item we want to convert
    * @return item converted to type itemDto
-   * @author Wassim Jabbour
    */
   static ItemDto convertToDto(Item i) {
     if (i == null) {
@@ -191,9 +145,9 @@ public class DtoUtility {
   /**
    * method to convert from type itemCategory to type itemCategoryDto
    *
+   * @author Habib Jarweh
    * @param ic item category we want to convert
    * @return item converted to type itemDto
-   * @author Habib Jarweh
    */
   static ItemCategoryDto convertToDto(ItemCategory ic) {
     if (ic == null) {
@@ -206,17 +160,15 @@ public class DtoUtility {
   /**
    * Method that converts a purchase to its dto equivalent
    *
+   * @author Wassim Jabbour
    * @param purchase The purchase to convert
    * @return The dto equivalent
    * @throws IllegalArgumentException
-   * @author Wassim Jabbour
    */
   static PurchaseDto convertToDto(Purchase purchase) {
 
     // Checking the input is non null
-    if (purchase == null) {
-      throw new IllegalArgumentException("There is no such purchase!");
-    }
+    if (purchase == null) throw new IllegalArgumentException("There is no such purchase!");
 
     PurchaseDto purchaseDto =
         new PurchaseDto(
@@ -235,16 +187,14 @@ public class DtoUtility {
   /**
    * Helper method that converts an itemDto to its domain model equivalent
    *
+   * @author Wassim Jabbour
    * @param itemDto The DTO to convert
    * @return The domain model object
-   * @author Wassim Jabbour
    */
   static Item convertToDomainObject(ItemDto itemDto) throws IllegalArgumentException {
 
     // Checking the input is non null
-    if (itemDto == null) {
-      throw new IllegalArgumentException("There is no such item!");
-    }
+    if (itemDto == null) throw new IllegalArgumentException("There is no such item!");
 
     // Getting all the purchases in the system
     List<Item> allItems = itemService.getAllItems();
@@ -264,16 +214,14 @@ public class DtoUtility {
   /**
    * Helper method that converts a map of items and integers into a map of itemDtos and integers
    *
+   * @author Wassim Jabbour
    * @param itemMap The map of items and integers
    * @return The corresponding map of itemDtos and integers
-   * @author Wassim Jabbour
    */
   static Map<ItemDto, Integer> convertItemMap(Map<Item, Integer> itemMap) {
 
     // Checking the input is non null
-    if (itemMap == null) {
-      throw new IllegalArgumentException("There is no such item selection!");
-    }
+    if (itemMap == null) throw new IllegalArgumentException("There is no such item selection!");
 
     Map<ItemDto, Integer> itemDtoMap = new HashMap<ItemDto, Integer>();
 
@@ -287,9 +235,9 @@ public class DtoUtility {
   /**
    * Converts an employee to its DTO equivalent
    *
+   * @author Wassim Jabbour
    * @param employee The object to convert
    * @return The corresponding dto
-   * @author Wassim Jabbour
    */
   static EmployeeDto convertToDto(Employee employee) {
 
@@ -309,16 +257,14 @@ public class DtoUtility {
   /**
    * Converts an address to its DTO equivalent
    *
+   * @author Wassim Jabbour
    * @param address The object to convert
    * @return The corresponding dto
-   * @author Wassim Jabbour
    */
   static AddressDto convertToDto(Address address) {
 
     // Checking the input is non null
-    if (address == null) {
-      throw new IllegalArgumentException("There is no such address!");
-    }
+    if (address == null) throw new IllegalArgumentException("There is no such address!");
 
     AddressDto addressDto =
         new AddressDto(
@@ -335,16 +281,14 @@ public class DtoUtility {
   /**
    * Converts a shift to its DTO equivalent
    *
+   * @author Wassim Jabbour
    * @param shift The object to convert
    * @return The corresponding dto
-   * @author Wassim Jabbour
    */
   static ShiftDto convertToDto(Shift shift) {
 
     // Checking the input is non null
-    if (shift == null) {
-      throw new IllegalArgumentException("There is no such shift!");
-    }
+    if (shift == null) throw new IllegalArgumentException("There is no such shift!");
 
     ShiftDto shiftDto =
         new ShiftDto(shift.getDate(), shift.getId(), shift.getStartTime(), shift.getEndTime());
@@ -355,16 +299,14 @@ public class DtoUtility {
   /**
    * Converts a set of shifts to a list of shift dtos
    *
+   * @author Wassim Jabbour
    * @param shifts The object to convert
    * @return The corresponding dto
-   * @author Wassim Jabbour
    */
   static List<ShiftDto> convertShiftList(Set<Shift> shifts) {
 
     // Checking the input is non null
-    if (shifts == null) {
-      return new ArrayList<ShiftDto>();
-    }
+    if (shifts == null) return new ArrayList<ShiftDto>();
 
     List<ShiftDto> shiftDtos = new ArrayList<ShiftDto>();
 
@@ -378,9 +320,9 @@ public class DtoUtility {
   /**
    * Converts a customer to its DTO equivalent
    *
+   * @author Enzo Benoit-Jeannin
    * @param customer The customer object to convert
    * @return The corresponding dto
-   * @author Enzo Benoit-Jeannin
    */
   static CustomerDto convertToDto(Customer customer) {
 
@@ -400,17 +342,15 @@ public class DtoUtility {
   /**
    * Method that converts a set of purchase to a list of purchase dto equivalents
    *
+   * @author Enzo Benoit-Jeannin
    * @param purchases The set of purchase to convert
    * @return A list of dto equivalent to the purchase in the set
    * @throws IllegalArgumentException
-   * @author Enzo Benoit-Jeannin
    */
   static List<PurchaseDto> convertToDto(Set<Purchase> purchases) {
 
     // Checking the input is non null
-    if (purchases == null) {
-      purchases = new HashSet<Purchase>();
-    }
+    if (purchases == null) purchases = new HashSet<Purchase>();
 
     // Initialize the list of purchase dto to return
     List<PurchaseDto> result = new ArrayList<PurchaseDto>();
@@ -423,13 +363,12 @@ public class DtoUtility {
 
     return result;
   }
-
   /**
    * This method converts an address DTO to DAO.
    *
+   * @author Philippe Sarouphim Hochar.
    * @param addressDto Address DTO.
    * @return Address DAO.
-   * @author Philippe Sarouphim Hochar.
    */
   static Address convertToDomainObject(AddressDto addressDto) {
     Address address = new Address();
@@ -445,9 +384,9 @@ public class DtoUtility {
   /**
    * This method converts a shift DTO to DAO.
    *
+   * @author Philippe Sarouphim Hochar.
    * @param shiftDto Shift DTO.
    * @return Shift DAO.
-   * @author Philippe Sarouphim Hochar.
    */
   static Shift convertToDomainObject(ShiftDto shiftDto) {
     Shift shift = new Shift();
@@ -461,9 +400,9 @@ public class DtoUtility {
   /**
    * This method converts an employee DTO to DAO
    *
+   * @author Enzo Benoit-Jeannin
    * @param employeeDto Employee DTO
    * @return Employee DAO
-   * @author Enzo Benoit-Jeannin
    */
   static Employee convertToDomainObject(EmployeeDto employeeDto) {
     Employee employee = new Employee();
@@ -479,9 +418,7 @@ public class DtoUtility {
 
   static Set<Shift> convertToDomainObject(List<ShiftDto> shiftDtos) {
     // Checking the input is non null
-    if (shiftDtos == null) {
-      return new HashSet<Shift>();
-    }
+    if (shiftDtos == null) return new HashSet<Shift>();
 
     Set<Shift> shifts = new HashSet<Shift>();
 
@@ -495,16 +432,14 @@ public class DtoUtility {
   /**
    * Helper method that converts a map of itemDtos and integers into a map of items and integers
    *
+   * @author Enzo Benoit-Jeannin
    * @param itemMapDto The map of itemDtos and integers
    * @return The corresponding map of items and integers
-   * @author Enzo Benoit-Jeannin
    */
   static Map<Item, Integer> convertItemMapDto(Map<ItemDto, Integer> itemMapDto) {
 
     // Checking the input is non null
-    if (itemMapDto == null) {
-      throw new IllegalArgumentException("There is no such item selection!");
-    }
+    if (itemMapDto == null) throw new IllegalArgumentException("There is no such item selection!");
 
     Map<Item, Integer> itemMap = new HashMap<Item, Integer>();
 
@@ -518,9 +453,9 @@ public class DtoUtility {
   /**
    * Converts the owner to its DTO equivalent
    *
+   * @author Enzo Benoit-Jeannin
    * @param owner The owner object to convert
    * @return The corresponding dto
-   * @author Enzo Benoit-Jeannin
    */
   static OwnerDto convertToDto(Owner owner) {
 

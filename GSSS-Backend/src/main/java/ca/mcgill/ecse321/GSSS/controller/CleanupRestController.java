@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CleanupRestController {
 
-  @Autowired
-  CleanupService cleanupService;
+  @Autowired CleanupService cleanupService;
 
   /**
    * Wipes the database

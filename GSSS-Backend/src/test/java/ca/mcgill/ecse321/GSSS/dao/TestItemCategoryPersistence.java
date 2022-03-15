@@ -2,14 +2,13 @@ package ca.mcgill.ecse321.GSSS.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 
 
 /**
@@ -26,17 +25,18 @@ public class TestItemCategoryPersistence {
 
   /**
    * This method gets executed after each test, and clears the relevant tables.
-   *
+   * 
    * @author Philippe Sarouphim Hochar.
    */
   @AfterEach
-  public void clearTables() {
-    itemCategoryRepository.deleteAll();
+  public void clearTables(){
+      itemCategoryRepository.deleteAll();
   }
 
   /**
+   * 
    * this method is to test if item category found by name is the same as actual one
-   *
+   * 
    * @author Habib Jarweh
    */
   @Test
@@ -55,6 +55,6 @@ public class TestItemCategoryPersistence {
     assertNotNull(itemCategory);
     assertEquals(name, itemCategory.getName());
 
-  }
+}
 
 }

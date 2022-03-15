@@ -19,19 +19,18 @@ public abstract class AccountDto {
    *
    * @author Wassim Jabbour
    */
-  public AccountDto() {
-  }
+  public AccountDto() {}
 
   /**
    * Full constructor
    *
-   * @param username The name of the account
-   * @param email    The email of the account
-   * @param password The password of the account (hashed and salted)
-   * @param salt     The salt used for the above password
-   * @param disabled Whether the account is disabled
-   * @param address  The address of the account
    * @author Wassim Jabbour
+   * @param username The name of the account
+   * @param email The email of the account
+   * @param password The password of the account (hashed and salted)
+   * @param salt The salt used for the above password
+   * @param disabled Whether the account is disabled
+   * @param address The address of the account
    */
   public AccountDto(
       String username,
@@ -51,8 +50,8 @@ public abstract class AccountDto {
   /**
    * Username getter
    *
-   * @return The username
    * @author Wassim Jabbour
+   * @return The username
    */
   public String getUsername() {
     return username;
@@ -61,8 +60,8 @@ public abstract class AccountDto {
   /**
    * Email getter
    *
-   * @return The email
    * @author Wassim Jabbour
+   * @return The email
    */
   public String getEmail() {
     return email;
@@ -71,8 +70,8 @@ public abstract class AccountDto {
   /**
    * Password getter
    *
-   * @return The password
    * @author Wassim Jabbour
+   * @return The password
    */
   public String getPassword() {
     return password;
@@ -81,8 +80,8 @@ public abstract class AccountDto {
   /**
    * Salt getter
    *
-   * @return The salt
    * @author Wassim Jabbour
+   * @return The salt
    */
   public String getSalt() {
     return salt;
@@ -91,8 +90,8 @@ public abstract class AccountDto {
   /**
    * Disabled getter
    *
-   * @return The disabled boolean
    * @author Wassim jabbour
+   * @return The disabled boolean
    */
   public boolean isDisabled() {
     return disabled;
@@ -101,8 +100,8 @@ public abstract class AccountDto {
   /**
    * Address getter
    *
-   * @return The address
    * @author Wassim jabbour
+   * @return The address
    */
   public AddressDto getAddress() {
     return address;

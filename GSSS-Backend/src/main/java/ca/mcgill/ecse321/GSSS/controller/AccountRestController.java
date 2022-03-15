@@ -2,15 +2,12 @@ package ca.mcgill.ecse321.GSSS.controller;
 
 import ca.mcgill.ecse321.GSSS.model.Account;
 import ca.mcgill.ecse321.GSSS.service.AccountService;
-import java.util.NoSuchElementException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.NoSuchElementException;
 
 /**
  * Controller methods for the account class
@@ -21,18 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class AccountRestController {
 
-  @Autowired
-  private AccountService accountService;
+  @Autowired private AccountService accountService;
 
   /**
    * To log in with an account
    *
-   * @param email    The email of the account I'm logging in with
+   * @author Philippe Sarouphim Hochar
+   * @param email The email of the account I'm logging in with
    * @param password The input password
    * @param response HTTP servlet response for the cookies
-   * @throws NoSuchElementException   If no account exists with the given credentials
+   * @throws NoSuchElementException If no account exists with the given credentials
    * @throws IllegalArgumentException If the inputs are invalid
-   * @author Philippe Sarouphim Hochar
    */
   @PostMapping(value = {"/account/login", "/account/login/"})
   public void logIn(
@@ -53,8 +49,8 @@ class AccountRestController {
   /**
    * To log out of a session
    *
-   * @param response The HTTP servlet response to remove the cookies
    * @author Philippe Sarouphim Hochar
+   * @param response The HTTP servlet response to remove the cookies
    */
   @GetMapping(value = {"/account/logout", "/account/logout/"})
   public void logOut(HttpServletResponse response) {
