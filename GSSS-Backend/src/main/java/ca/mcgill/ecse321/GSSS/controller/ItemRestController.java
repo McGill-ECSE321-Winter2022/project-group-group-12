@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Controller methods for the item class
+ *
+ * @author Habib Jarweh
+ */
 @CrossOrigin(origins = "*")
 @RestController
 public class ItemRestController {

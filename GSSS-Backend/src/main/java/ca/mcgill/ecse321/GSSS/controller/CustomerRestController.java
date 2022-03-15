@@ -13,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Controller methods for the customer class
+ *
+ * @author Enzo Benoit-Jeannin
+ */
 @CrossOrigin(origins = "*")
 @RestController
 public class CustomerRestController {
@@ -111,6 +116,7 @@ public class CustomerRestController {
   /**
    * Method to modify/update a customer
    *
+   * @author Enzo Benoit-Jeannin
    * @param email Email of the customer to update
    * @param username Username we want to update
    * @param password Password we want to update

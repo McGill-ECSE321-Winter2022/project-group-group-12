@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * Controller methods for the address class
+ *
+ * @author Wassim Jabbour
+ */
 @CrossOrigin(origins = "*")
 @RestController
 public class AddressRestController {
