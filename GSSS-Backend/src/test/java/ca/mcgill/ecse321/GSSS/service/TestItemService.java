@@ -29,7 +29,13 @@ import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 
-
+/**
+ *
+ * Tests for the item services
+ *
+ * @author Wassim Jabbour
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class TestItemService {
 

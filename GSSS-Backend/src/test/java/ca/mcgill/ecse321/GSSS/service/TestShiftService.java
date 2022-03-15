@@ -32,6 +32,13 @@ import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import ca.mcgill.ecse321.GSSS.service.TestCustomerService.MockDatabase;
 
+/**
+ *
+ * Tests for the shift services
+ *
+ * @author Wassim Jabbour
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class TestShiftService {
 

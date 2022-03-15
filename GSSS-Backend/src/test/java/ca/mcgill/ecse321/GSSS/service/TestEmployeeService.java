@@ -35,6 +35,13 @@ import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 
+/**
+ *
+ * Tests for the employee services
+ *
+ * @author Wassim Jabbour
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class TestEmployeeService {
 

@@ -29,6 +29,11 @@ import ca.mcgill.ecse321.GSSS.dao.BusinessHourRepository;
 import ca.mcgill.ecse321.GSSS.model.BusinessHour;
 import ca.mcgill.ecse321.GSSS.model.Weekday;
 
+/**
+ * Class to test the Business Hour Service class
+ *
+ * @author Enzo Benoit-Jeannin
+ */
 @ExtendWith(MockitoExtension.class)
 public class TestBusinessHourService {
 	@Mock

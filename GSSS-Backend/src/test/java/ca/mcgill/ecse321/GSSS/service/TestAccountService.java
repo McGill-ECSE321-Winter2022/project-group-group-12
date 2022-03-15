@@ -257,6 +257,8 @@ public class TestAccountService {
 
   /**
    * This class holds all of the mock methods of the CRUD repository.
+   *
+   * @author Wassim Jabbour
    */
   class MockRepository {
 
@@ -287,6 +289,8 @@ public class TestAccountService {
 
   /**
    * This class mock data for tests.
+   *
+   * @author Wassim Jabbour
    */
   final static class MockDatabase {
 

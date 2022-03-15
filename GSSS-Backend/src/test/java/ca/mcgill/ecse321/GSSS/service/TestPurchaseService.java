@@ -43,7 +43,13 @@ import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import ca.mcgill.ecse321.GSSS.service.TestCustomerService.MockDatabase;
 
-
+/**
+ *
+ * Tests for the purchase services
+ *
+ * @author Wassim Jabbour
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class TestPurchaseService {
 
