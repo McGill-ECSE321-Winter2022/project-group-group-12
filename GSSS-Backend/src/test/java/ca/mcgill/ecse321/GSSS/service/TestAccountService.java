@@ -51,6 +51,12 @@ public class TestAccountService {
         .thenAnswer(MockRepository::findOwnerByEmail);
   }
 
+  /**
+   * Test to make sure the account can't have a null email
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_EmailNull() {
 
@@ -63,7 +69,12 @@ public class TestAccountService {
     fail();
 
   }
-
+  /**
+   * Test to make sure the account can't have an empty email
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_EmailEmpty() {
 
@@ -77,6 +88,12 @@ public class TestAccountService {
 
   }
 
+  /**
+   * Test to make sure the account can't have a null password
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_PasswordNull() {
 
@@ -90,6 +107,12 @@ public class TestAccountService {
 
   }
 
+  /**
+   * Test to make sure the account can't have an empty password
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_PasswordEmpty() {
 
@@ -102,7 +125,12 @@ public class TestAccountService {
     fail();
 
   }
-
+  /**
+   * Test to make sure the account can't have an empty email and password
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_AllEmpty() {
 
@@ -116,7 +144,12 @@ public class TestAccountService {
     fail();
 
   }
-
+  /**
+   * Tests that the account with the given email exists
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_NoAccountMatchesEmail() {
 
@@ -130,24 +163,46 @@ public class TestAccountService {
 
   }
 
+  /**
+   * Test to make sure the customer has a valid password
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_CustomerGoodPassword() {
     Account test = accountService.authenticate("customer1@email.com", "password");
     assertEquals(test, MockDatabase.customer1);
   }
-
+  /**
+   * Test to make sure the employee has a valid password
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_EmployeeGoodPassword() {
     Account test = accountService.authenticate("employee1@email.com", "password");
     assertEquals(test, MockDatabase.employee1);
   }
 
+  /**
+   * Test to make sure the owner has a valid password
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_OwnerGoodPassword() {
     Account test = accountService.authenticate("owner1@email.com", "password");
     assertEquals(test, MockDatabase.owner1);
   }
-  
+  /**
+   * Method to test the case where the customer has a bad password
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_CustomerBadPassword() {
 
@@ -160,7 +215,13 @@ public class TestAccountService {
     fail();
 
   }
-  
+
+  /**
+   * Method to test the case where the employee has a bad password
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_EmployeeBadPassword() {
 
@@ -173,7 +234,12 @@ public class TestAccountService {
     fail();
 
   }
-  
+  /**
+   * Method to test the case where the owner has a bad password
+   *
+   * @author Wassim Jabbour
+   *
+   */
   @Test
   public void testAuthenticate_OwnerBadPassword() {
 
