@@ -61,23 +61,21 @@ public class AddressRestController {
   /**
    * Method to create a new address
    *
-   * @param fullName     FullName associated to the address
-   * @param streetName   Name of the street of the address
+   * @param fullName FullName associated to the address
+   * @param streetName Name of the street of the address
    * @param streetNumber Street number of the address
-   * @param city         City of the address
-   * @param postalCode   PostalCode of the address
+   * @param city City of the address
+   * @param postalCode PostalCode of the address
    * @return The new created Address
    * @throws IllegalArgumentException
    * @author Theo Ghanem
    */
   @PostMapping(value = {"/address", "/address/"})
-  public AddressDto createAddress(
-      @RequestParam(name = "fullName") String fullName,
+  public AddressDto createAddress(@RequestParam(name = "fullName") String fullName,
       @RequestParam(name = "streetName") String streetName,
       @RequestParam(name = "streetNumber") Integer streetNumber,
       @RequestParam(name = "city") String city,
-      @RequestParam(name = "postalCode") String postalCode)
-      throws IllegalArgumentException {
+      @RequestParam(name = "postalCode") String postalCode) throws IllegalArgumentException {
     Address address =
         addressService.createAddress(fullName, streetName, streetNumber, city, postalCode);
     return DtoUtility.convertToDto(address);
@@ -86,25 +84,23 @@ public class AddressRestController {
   /**
    * Method to modify/update an address
    *
-   * @param fullName     New full name associated with the Address
-   * @param streetName   New street name of the address
+   * @param fullName New full name associated with the Address
+   * @param streetName New street name of the address
    * @param streetNumber New street number of the address
-   * @param city         New city of the address
-   * @param postalCode   New postal code of the address
-   * @param id           Id of the address to modify
+   * @param city New city of the address
+   * @param postalCode New postal code of the address
+   * @param id Id of the address to modify
    * @return New saved address
    * @throws IllegalArgumentException
    * @author Theo Ghanem
    */
   @PostMapping(value = {"/address/{id}", "/address/{id}/"})
-  public AddressDto modifyAddress(
-      @PathVariable("id") String id,
+  public AddressDto modifyAddress(@PathVariable("id") String id,
       @RequestParam(name = "fullName") String fullName,
       @RequestParam(name = "streetName") String streetName,
       @RequestParam(name = "streetNumber") Integer streetNumber,
       @RequestParam(name = "city") String city,
-      @RequestParam(name = "postalCode") String postalCode)
-      throws IllegalArgumentException {
+      @RequestParam(name = "postalCode") String postalCode) throws IllegalArgumentException {
     Address address =
         addressService.modifyAddress(fullName, streetName, streetNumber, city, postalCode, id);
     return DtoUtility.convertToDto(address);

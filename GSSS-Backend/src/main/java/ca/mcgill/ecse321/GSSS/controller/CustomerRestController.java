@@ -74,24 +74,21 @@ public class CustomerRestController {
   /**
    * Method to create a customer DTO with all parameters of customer
    *
-   * @param username  Username of the Customer DTO to create
-   * @param email     Email of the Customer DTO to create
-   * @param password  Password of the Customer DTO to create
+   * @param username Username of the Customer DTO to create
+   * @param email Email of the Customer DTO to create
+   * @param password Password of the Customer DTO to create
    * @param addressId Address of the Customer DTO to create
    * @return Created customer DTO
    * @throws IllegalArgumentException
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/customer", "/customer/"})
-  public CustomerDto createCustomer(
-      @RequestParam(name = "username") String username,
-      @RequestParam(name = "email") String email,
-      @RequestParam(name = "password") String password,
-      @RequestParam(name = "address") String addressId)
-      throws IllegalArgumentException {
+  public CustomerDto createCustomer(@RequestParam(name = "username") String username,
+      @RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
+      @RequestParam(name = "address") String addressId) throws IllegalArgumentException {
     Address address = addressService.getAddress(addressId);
-    return DtoUtility.convertToDto(
-        customerService.createCustomer(username, email, password, address));
+    return DtoUtility
+        .convertToDto(customerService.createCustomer(username, email, password, address));
   }
 
   /**
@@ -116,34 +113,30 @@ public class CustomerRestController {
    * @thorws IllegalArgumentException
    */
   @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
-  public CustomerDto addPurchase(
-      @PathVariable String email, @RequestParam(name = "purchase") String purchaseId)
-      throws IllegalArgumentException {
-    return DtoUtility.convertToDto(
-        customerService.addPurchase(
-            customerService.getCustomerByEmail(email), purchaseService.getPurchase(purchaseId)));
+  public CustomerDto addPurchase(@PathVariable String email,
+      @RequestParam(name = "purchase") String purchaseId) throws IllegalArgumentException {
+    return DtoUtility.convertToDto(customerService.addPurchase(
+        customerService.getCustomerByEmail(email), purchaseService.getPurchase(purchaseId)));
   }
 
   /**
    * Method to modify/update a customer
    *
-   * @param email     Email of the customer to update
-   * @param username  Username we want to update
-   * @param password  Password we want to update
+   * @param email Email of the customer to update
+   * @param username Username we want to update
+   * @param password Password we want to update
    * @param addressId Address we want to update
-   * @param disabled  Change the disable state of the customer
+   * @param disabled Change the disable state of the customer
    * @return The modified customer as a DTO object
    * @throws IllegalArgumentException
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/customer/{email}", "/cusotmer/{email}/"})
-  public CustomerDto modifyCustomer(
-      @PathVariable("email") String email,
+  public CustomerDto modifyCustomer(@PathVariable("email") String email,
       @RequestParam(name = "username") String username,
       @RequestParam(name = "password") String password,
       @RequestParam(name = "address") String addressId,
-      @RequestParam(name = "disabled") boolean disabled)
-      throws IllegalArgumentException {
+      @RequestParam(name = "disabled") boolean disabled) throws IllegalArgumentException {
     Address address = addressService.getAddress(addressId);
     Customer customer =
         customerService.modifyCustomer(username, password, email, address, disabled);

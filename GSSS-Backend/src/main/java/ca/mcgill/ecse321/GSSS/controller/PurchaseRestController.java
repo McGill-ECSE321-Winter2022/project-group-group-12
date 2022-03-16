@@ -63,7 +63,7 @@ public class PurchaseRestController {
    * @param id the purchase's id
    * @return purchaseDto converted purchase
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException   if element is null
+   * @throws NoSuchElementException if element is null
    * @author Habib Jarweh
    */
   @GetMapping(value = {"/purchase/{id}", "/purchase/{id}/"})
@@ -80,7 +80,7 @@ public class PurchaseRestController {
    * @param employeeEmail Email of the employee
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException   if element is null
+   * @throws NoSuchElementException if element is null
    * @author Habib Jarweh
    */
   @GetMapping(
@@ -106,7 +106,7 @@ public class PurchaseRestController {
    * @param date of purchases
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException   if element is null
+   * @throws NoSuchElementException if element is null
    * @author Habib Jarweh
    */
   @GetMapping(value = {"/purchasesbydate", "/purchasesbydate/"})
@@ -124,12 +124,14 @@ public class PurchaseRestController {
   }
 
   /**
-   * method to get sorted list of purchases by customer email
+   * method to get sorted list of purchases by customer email it creates a list where the purchases
+   * of a particular customer are sorted by date and time we override the comparator of
+   * collections.Sort()
    *
    * @param customerEmail
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException   if element is null
+   * @throws NoSuchElementException if element is null
    * @author Habib Jarweh
    */
   @GetMapping(
@@ -142,18 +144,18 @@ public class PurchaseRestController {
     List<Purchase> allPurchases = purchaseService.getOrderHistory(customer);
     List<PurchaseDto> purchaseDtos = new ArrayList<PurchaseDto>();
 
-    Collections.sort(
-        allPurchases,
-        new Comparator<Purchase>() {
-          public int compare(Purchase p1, Purchase p2) {
-            return Long.valueOf(p2.getDate().getTime()).compareTo(p1.getDate().getTime());
-          }
-        });
+    // sort by date and time
+    Collections.sort(allPurchases, new Comparator<Purchase>() {
+      public int compare(Purchase p1, Purchase p2) {
+        return Long.valueOf(p2.getDate().getTime()).compareTo(p1.getDate().getTime());
+      }
+    });
 
     for (Purchase purchase : allPurchases) {
 
       purchaseDtos.add(DtoUtility.convertToDto(purchase));
     }
+    // return purchaseDtos from most recent to least recent
     return purchaseDtos;
   }
 
@@ -181,16 +183,15 @@ public class PurchaseRestController {
   /**
    * Creates a purchase and returns its equivalent dto
    *
-   * @param orderType   The type of purchase
+   * @param orderType The type of purchase
    * @param orderStatus The status of purchase
-   * @param data        The map of itemDtos and their quantities
+   * @param data The map of itemDtos and their quantities
    * @return The Dto corresponding to the created object
    * @throws IllegalArgumentException In case the input is invalid
    * @author Wassim Jabbour
    */
   @PostMapping(value = {"/purchase", "/purchase/"})
-  public PurchaseDto createPurchase(
-      @RequestParam(name = "ordertype") String orderType,
+  public PurchaseDto createPurchase(@RequestParam(name = "ordertype") String orderType,
       @RequestParam(name = "orderstatus") String orderStatus,
       @RequestBody HashMap<String, Integer> data)
       throws IllegalArgumentException, NoSuchElementException {
@@ -223,18 +224,17 @@ public class PurchaseRestController {
   /**
    * method to update/modify a purchase
    *
-   * @param purchaseId    id of purchase
-   * @param orderType     type of the purchase
-   * @param orderStatus   status of order
-   * @param data          items in the purchase
+   * @param purchaseId id of purchase
+   * @param orderType type of the purchase
+   * @param orderStatus status of order
+   * @param data items in the purchase
    * @param employeeEmail employee assigned to purchase
    * @return purchaseDto
    * @throws IllegalArgumentException
    * @author Habib Jarweh
    */
   @PostMapping(value = {"purchase/modify/{purchaseid}", "/purchase/modify/{purchaseId}/"})
-  public PurchaseDto modifyPurchase(
-      @PathVariable(name = "purchaseid") String purchaseId,
+  public PurchaseDto modifyPurchase(@PathVariable(name = "purchaseid") String purchaseId,
       @RequestParam(name = "orderType") String orderType,
       @RequestParam(name = "orderStatus") String orderStatus,
       @RequestBody HashMap<String, Integer> data,
@@ -259,9 +259,8 @@ public class PurchaseRestController {
     }
 
     Employee employee = employeeService.getEmployeeByEmail(employeeEmail);
-    Purchase purchase =
-        purchaseService.modifyPurchase(
-            actualOrderType, actualOrderStatus, purchaseId, items, employee);
+    Purchase purchase = purchaseService.modifyPurchase(actualOrderType, actualOrderStatus,
+        purchaseId, items, employee);
 
     return DtoUtility.convertToDto(purchase);
   }
@@ -271,7 +270,7 @@ public class PurchaseRestController {
    *
    * @param id The id of the purchase
    * @throws IllegalArgumentException In case the id is null or empty
-   * @throws NoSuchElementException   In case the id doesn't correspond to any purchase
+   * @throws NoSuchElementException In case the id doesn't correspond to any purchase
    * @author Wassim Jabbour
    */
   @GetMapping(value = {"/purchase/cost/{id}", "/purchase/cost/{id}/"})
@@ -293,9 +292,8 @@ public class PurchaseRestController {
     Customer customer;
     try {
       customer = customerService.getCustomerByPurchase(purchase);
-    } catch (
-        NoSuchElementException
-            e) { // This exception is thrown if the purchase corresponds to no customer
+    } catch (NoSuchElementException e) { // This exception is thrown if the purchase corresponds to
+                                         // no customer
       customer = null;
     }
 

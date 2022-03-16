@@ -33,10 +33,10 @@ public class ShiftRestController {
   /**
    * Controller method to modify a shift
    *
-   * @param shiftId   The id of the shift to modify
-   * @param date      The new date of the shift
+   * @param shiftId The id of the shift to modify
+   * @param date The new date of the shift
    * @param startTime The new start time of the shift
-   * @param endTime   The new end time of the shift
+   * @param endTime The new end time of the shift
    * @return The Dto corresponding to the modified object
    * @throws IllegalArgumentException
    * @throws NoSuchElementException
@@ -44,15 +44,12 @@ public class ShiftRestController {
    * @author Wassim Jabbour
    */
   @PostMapping(value = {"/shift/modify/{shiftid}", "/shift/modify/{shiftid}/"})
-  public ShiftDto modifyShift(
-      @PathVariable(name = "shiftid") String shiftId,
+  public ShiftDto modifyShift(@PathVariable(name = "shiftid") String shiftId,
       @RequestParam(name = "date") Date date,
-      @RequestParam(name = "startTime")
-      @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm")
-          LocalTime startTime,
-      @RequestParam(name = "endTime")
-      @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm")
-          LocalTime endTime)
+      @RequestParam(name = "startTime") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME,
+          pattern = "HH:mm") LocalTime startTime,
+      @RequestParam(name = "endTime") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME,
+          pattern = "HH:mm") LocalTime endTime)
       throws IllegalArgumentException, NoSuchElementException {
 
     Shift shift =

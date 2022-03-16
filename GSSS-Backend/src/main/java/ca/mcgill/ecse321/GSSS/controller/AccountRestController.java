@@ -27,17 +27,16 @@ class AccountRestController {
   /**
    * To log in with an account
    *
-   * @param email    The email of the account I'm logging in with
+   * @param email The email of the account I'm logging in with
    * @param password The input password
    * @param response HTTP servlet response for the cookies
-   * @throws NoSuchElementException   If no account exists with the given credentials
+   * @throws NoSuchElementException If no account exists with the given credentials
    * @throws IllegalArgumentException If the inputs are invalid
    * @author Philippe Sarouphim Hochar
    */
   @PostMapping(value = {"/account/login", "/account/login/"})
-  public void logIn(
-      @RequestParam() String email, @RequestParam String password, HttpServletResponse response)
-      throws NoSuchElementException, IllegalArgumentException {
+  public void logIn(@RequestParam() String email, @RequestParam String password,
+      HttpServletResponse response) throws NoSuchElementException, IllegalArgumentException {
 
     Account account = accountService.authenticate(email, password);
 

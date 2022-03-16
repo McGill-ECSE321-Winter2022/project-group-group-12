@@ -77,9 +77,8 @@ public class BusinessHourRestController {
           LocalTime endTime)
       throws IllegalArgumentException {
 
-    Weekday correspondingWeekday = DtoUtility.findWeekdayByName(weekday); // Helper method
-    // defined below
-
+    Weekday correspondingWeekday = DtoUtility.findWeekdayByName(weekday); // Helper method in DtoUtility
+    
     if (correspondingWeekday == null) {
       throw new IllegalArgumentException("There is no such weekday!");
     }

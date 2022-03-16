@@ -189,7 +189,7 @@ public class DtoUtility {
   }
 
   /**
-   * method to convert from type itemCategory to type itemCategoryDto
+   * method to convert from type itemCategory to its Dto equivalent
    *
    * @param ic item category we want to convert
    * @return item converted to type itemDto
@@ -204,7 +204,7 @@ public class DtoUtility {
   }
 
   /**
-   * Method that converts a purchase to its dto equivalent
+   * Method that converts a purchase to its Dto equivalent
    *
    * @param purchase The purchase to convert
    * @return The dto equivalent
