@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'ca.mcgill.ecse321'
@@ -29,4 +30,36 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport // Report always generated after tests run
+}
+
+jacocoTestReport {
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude:  [
+					'ca/mcgill/ecse321/GSSS/controller/*',
+					'ca/mcgill/ecse321/GSSS/dto/*'
+			])
+		}))
+	}
+	dependsOn test
+}
+
+jacocoTestCoverageVerification {
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude:  [
+					'ca/mcgill/ecse321/GSSS/controller/*',
+					'ca/mcgill/ecse321/GSSS/dto/*'
+			])
+		}))
+	}
+
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.75 // 75 % Minimum coverage
+			}
+		}
+	}
 }

@@ -1,9 +1,9 @@
 package ca.mcgill.ecse321.GSSS.model;
 
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import java.util.Set;
 
 /**
  * This class represents the customer. Its primary key is its email in its superclass User.
@@ -27,19 +27,29 @@ public class Customer extends Account {
   /**
    * Overrode the equals method to use it in tests
    *
-   * @author Philippe Sarouphim Hochar
    * @param obj The object to compare
    * @return True if it's the same object, false otherwise
+   * @author Philippe Sarouphim Hochar
    */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null) return false;
-    if (getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
     Customer other = (Customer) obj;
     if (purchases == null) {
-      if (other.purchases != null) return false;
-    } else if (!purchases.equals(other.purchases)) return false;
+      if (other.purchases != null) {
+        return false;
+      }
+    } else if (!purchases.equals(other.purchases)) {
+      return false;
+    }
     return true;
   }
 }

@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.GSSS.dto;
 
 import ca.mcgill.ecse321.GSSS.model.OrderStatus;
 import ca.mcgill.ecse321.GSSS.model.OrderType;
-
 import java.sql.Date;
 import java.sql.Time;
 import java.util.HashMap;
@@ -23,7 +22,8 @@ public class PurchaseDto {
   private Map<ItemDto, Integer> items = new HashMap<ItemDto, Integer>();
   private EmployeeDto employee;
 
-  public PurchaseDto() {}
+  public PurchaseDto() {
+  }
 
   public PurchaseDto(
       String id,

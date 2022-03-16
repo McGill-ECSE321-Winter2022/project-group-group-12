@@ -3,12 +3,17 @@ package ca.mcgill.ecse321.GSSS.controller;
 import ca.mcgill.ecse321.GSSS.dto.AddressDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.service.AddressService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller methods for the address class
@@ -19,15 +24,16 @@ import java.util.NoSuchElementException;
 @RestController
 public class AddressRestController {
 
-  @Autowired private AddressService addressService;
+  @Autowired
+  private AddressService addressService;
 
   /**
    * Method to return the address associated to a certain id
    *
-   * @author Theo Ghanem
    * @param id id of the address we want to get
    * @return an address
    * @throws IllegalArgumentException, NoSuchElementException
+   * @author Theo Ghanem
    */
   @GetMapping(value = {"/address/{id}", "/address/{id}/"})
   public AddressDto getAddress(@PathVariable("id") String id)
@@ -39,9 +45,9 @@ public class AddressRestController {
   /**
    * Method to get all the addresses
    *
-   * @author Theo Ghanem
    * @return a list of all the addresses
    * @throws IllegalArgumentException
+   * @author Theo Ghanem
    */
   @GetMapping(value = {"/addresses", "/addresses/"})
   public List<AddressDto> getAllAddress() {
@@ -55,14 +61,14 @@ public class AddressRestController {
   /**
    * Method to create a new address
    *
-   * @author Theo Ghanem
-   * @param fullName FullName associated to the address
-   * @param streetName Name of the street of the address
+   * @param fullName     FullName associated to the address
+   * @param streetName   Name of the street of the address
    * @param streetNumber Street number of the address
-   * @param city City of the address
-   * @param postalCode PostalCode of the address
+   * @param city         City of the address
+   * @param postalCode   PostalCode of the address
    * @return The new created Address
    * @throws IllegalArgumentException
+   * @author Theo Ghanem
    */
   @PostMapping(value = {"/address", "/address/"})
   public AddressDto createAddress(
@@ -80,15 +86,15 @@ public class AddressRestController {
   /**
    * Method to modify/update an address
    *
-   * @author Theo Ghanem
-   * @param fullName New full name associated with the Address
-   * @param streetName New street name of the address
+   * @param fullName     New full name associated with the Address
+   * @param streetName   New street name of the address
    * @param streetNumber New street number of the address
-   * @param city New city of the address
-   * @param postalCode New postal code of the address
-   * @param id Id of the address to modify
+   * @param city         New city of the address
+   * @param postalCode   New postal code of the address
+   * @param id           Id of the address to modify
    * @return New saved address
    * @throws IllegalArgumentException
+   * @author Theo Ghanem
    */
   @PostMapping(value = {"/address/{id}", "/address/{id}/"})
   public AddressDto modifyAddress(

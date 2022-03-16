@@ -11,6 +11,17 @@ import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
+import ca.mcgill.ecse321.GSSS.dao.CustomerRepository;
+import ca.mcgill.ecse321.GSSS.model.Address;
+import ca.mcgill.ecse321.GSSS.model.Customer;
+import ca.mcgill.ecse321.GSSS.model.Employee;
+import ca.mcgill.ecse321.GSSS.model.Item;
+import ca.mcgill.ecse321.GSSS.model.ItemCategory;
+import ca.mcgill.ecse321.GSSS.model.OrderStatus;
+import ca.mcgill.ecse321.GSSS.model.OrderType;
+import ca.mcgill.ecse321.GSSS.model.Purchase;
+import ca.mcgill.ecse321.GSSS.model.Shift;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -27,22 +38,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ca.mcgill.ecse321.GSSS.dao.CustomerRepository;
-import ca.mcgill.ecse321.GSSS.model.Address;
-import ca.mcgill.ecse321.GSSS.model.Customer;
-import ca.mcgill.ecse321.GSSS.model.Employee;
-import ca.mcgill.ecse321.GSSS.model.Item;
-import ca.mcgill.ecse321.GSSS.model.ItemCategory;
-import ca.mcgill.ecse321.GSSS.model.OrderStatus;
-import ca.mcgill.ecse321.GSSS.model.OrderType;
-import ca.mcgill.ecse321.GSSS.model.Purchase;
-import ca.mcgill.ecse321.GSSS.model.Shift;
 
 /**
  * Tests for the customer services
- * 
- * @author Wassim Jabbour
  *
+ * @author Wassim Jabbour
  */
 @ExtendWith(MockitoExtension.class)
 public class TestCustomerService {
@@ -72,7 +72,7 @@ public class TestCustomerService {
 
   /**
    * method to check that a customer is created successfully
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -89,10 +89,11 @@ public class TestCustomerService {
     assertEquals(customer.getUsername(), created.getUsername());
     assertEquals(customer.getAddress(), created.getAddress());
   }
-  
+
   /**
-   * Method to check that an error is thrown if we create a customer which already exists in the dataBase
-   * 
+   * Method to check that an error is thrown if we create a customer which already exists in the
+   * dataBase
+   *
    * @author Enzo Benoit-Jeannin
    */
   @Test
@@ -102,20 +103,20 @@ public class TestCustomerService {
     customer.setUsername("Test Smither");
     customer.setPassword("w34yfr1uy45324u");
     customer.setAddress(new Address());
-    
+
     try {
-    	customerService.createCustomer(customer.getUsername(), customer.getEmail(),
-    			customer.getPassword(), customer.getAddress());
+      customerService.createCustomer(customer.getUsername(), customer.getEmail(),
+          customer.getPassword(), customer.getAddress());
     } catch (NoSuchElementException e) {
-    	assertEquals("The customer already exists in the system!", e.getMessage());
-    	return;
+      assertEquals("The customer already exists in the system!", e.getMessage());
+      return;
     }
     fail();
   }
 
   /**
    * method to check that an error is thrown when we try to create a customer with a null email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -131,7 +132,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to create a customer with an empty email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -147,7 +148,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to create a customer with an invalid email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -163,7 +164,7 @@ public class TestCustomerService {
 
   /*
    * method to check that an error is thrown when we try to create a customer with a null username
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -178,8 +179,9 @@ public class TestCustomerService {
   }
 
   /**
-   * method to check that an error is thrown when we try to create a customer with an empty username
-   * 
+   * method to check that an error is thrown when we try to create a customer with an empty
+   * username
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -195,7 +197,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to create a customer with a null password
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -210,8 +212,9 @@ public class TestCustomerService {
   }
 
   /**
-   * method to check that an error is thrown when we try to create a customer with an empty password
-   * 
+   * method to check that an error is thrown when we try to create a customer with an empty
+   * password
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -228,7 +231,7 @@ public class TestCustomerService {
   /**
    * method to check that an error is thrown when we try to create a customer with a password that
    * is too short
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -245,7 +248,7 @@ public class TestCustomerService {
   /**
    * method to check that an error is thrown when we try to create a customer with a null address or
    * no address
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -261,7 +264,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to create a customer with everything null
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -279,7 +282,7 @@ public class TestCustomerService {
 
   /**
    * method to check that a customer is fetched successfully with their email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -291,7 +294,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to fetch a customer with a null email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -307,7 +310,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to fetch a customer with an empty email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -324,7 +327,7 @@ public class TestCustomerService {
   /**
    * method to check that an error is thrown when we try to fetch a customer with an email not in
    * the database
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -341,7 +344,7 @@ public class TestCustomerService {
 
   /**
    * method to check that customers are successfully fetched with a username
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -352,13 +355,14 @@ public class TestCustomerService {
     expected.add(MockDatabase.customer3);
     assertNotNull(fetched);
     assertEquals(expected.size(), fetched.size());
-    for (Customer e : fetched)
+    for (Customer e : fetched) {
       assertTrue(expected.contains(e));
+    }
   }
 
   /**
    * method to check that an error is thrown when we try to fech customers with a null username
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -374,7 +378,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to fech customers with an empty username
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -391,7 +395,7 @@ public class TestCustomerService {
   /**
    * method to check that an error is thrown when we try to fech customers with a username not in
    * the database
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -407,7 +411,7 @@ public class TestCustomerService {
 
   /**
    * method to check that a customer is fetched successfully with one of their purchases
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -420,7 +424,7 @@ public class TestCustomerService {
   /**
    * method to check that an error is thrown when we try to fech a customer with a null or no
    * purchase
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -436,7 +440,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to fech customers with a null username
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -459,7 +463,7 @@ public class TestCustomerService {
 
   /**
    * method to check that all customers in the database are successfully fetched
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -471,14 +475,15 @@ public class TestCustomerService {
     expected.add(MockDatabase.customer3);
     assertNotNull(fetched);
     assertEquals(expected.size(), fetched.size());
-    for (Customer e : fetched)
+    for (Customer e : fetched) {
       assertTrue(expected.contains(e));
+    }
   }
 
   /**
    * method to check that all customers with a specific account state are fetched successfully by
    * that account state
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -489,13 +494,14 @@ public class TestCustomerService {
     expectedCustomers.add(MockDatabase.customer2);
     assertNotNull(fetchedCustomers);
     assertEquals(expectedCustomers.size(), fetchedCustomers.size());
-    for (Customer e : fetchedCustomers)
+    for (Customer e : fetchedCustomers) {
       assertTrue(expectedCustomers.contains(e));
+    }
   }
 
   /**
    * method to check that a customer is successfully deleted with their email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -510,7 +516,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to delete a customer with a null email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -526,7 +532,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to delete a customer with an empty email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -542,7 +548,7 @@ public class TestCustomerService {
 
   /**
    * method to check that a customer is modified successfully
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -560,7 +566,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to modify a customer with a null email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -576,7 +582,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to modify a customer with an empty email
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -592,7 +598,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to modify a customer with a null username
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -608,8 +614,9 @@ public class TestCustomerService {
   }
 
   /**
-   * method to check that an error is thrown when we try to modify a customer with an empty username
-   * 
+   * method to check that an error is thrown when we try to modify a customer with an empty
+   * username
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -626,7 +633,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to modify a customer with a null address
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -644,7 +651,7 @@ public class TestCustomerService {
   /**
    * method to check that an error is thrown when we try to modify a customer that is not in the
    * database
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -661,7 +668,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to modify a customer with a null password
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -677,8 +684,9 @@ public class TestCustomerService {
   }
 
   /**
-   * method to check that an error is thrown when we try to modify a customer with an empty password
-   * 
+   * method to check that an error is thrown when we try to modify a customer with an empty
+   * password
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -696,7 +704,7 @@ public class TestCustomerService {
   /**
    * method to check that an error is thrown when we try to modify a customer with a password that
    * is too short
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -713,7 +721,7 @@ public class TestCustomerService {
 
   /**
    * method to check that a purchase is added successfully to a customer
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -724,7 +732,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to add a purchase to a null customer
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -740,7 +748,7 @@ public class TestCustomerService {
 
   /**
    * method to check that an error is thrown when we try to add a null purchase to a customer
-   * 
+   *
    * @author Wassim Jabbour
    */
   @Test
@@ -755,7 +763,6 @@ public class TestCustomerService {
   }
 
 
-
   /**
    * This class holds all of the mock methods of the CRUD repository.
    */
@@ -763,58 +770,73 @@ public class TestCustomerService {
 
     static Customer findCustomerByEmail(InvocationOnMock invocation) {
       String email = (String) invocation.getArgument(0);
-      if (email.equals(MockDatabase.customer1.getEmail()))
+      if (email.equals(MockDatabase.customer1.getEmail())) {
         return MockDatabase.customer1;
-      if (email.equals(MockDatabase.customer2.getEmail()))
+      }
+      if (email.equals(MockDatabase.customer2.getEmail())) {
         return MockDatabase.customer2;
-      if (email.equals(MockDatabase.customer3.getEmail()))
+      }
+      if (email.equals(MockDatabase.customer3.getEmail())) {
         return MockDatabase.customer3;
+      }
       return null;
     }
 
     static List<Customer> findCustomersByUsername(InvocationOnMock invocation) {
       String username = (String) invocation.getArgument(0);
       List<Customer> customers = new ArrayList<Customer>();
-      if (username.equals(MockDatabase.customer1.getUsername()))
+      if (username.equals(MockDatabase.customer1.getUsername())) {
         customers.add(MockDatabase.customer1);
-      if (username.equals(MockDatabase.customer2.getUsername()))
+      }
+      if (username.equals(MockDatabase.customer2.getUsername())) {
         customers.add(MockDatabase.customer2);
-      if (username.equals(MockDatabase.customer3.getUsername()))
+      }
+      if (username.equals(MockDatabase.customer3.getUsername())) {
         customers.add(MockDatabase.customer3);
+      }
       return customers;
     }
 
     static Customer findCustomerByPurchases(InvocationOnMock invocation) {
       Purchase purchase = (Purchase) invocation.getArgument(0);
-      if (MockDatabase.customer1.getPurchases().contains(purchase))
+      if (MockDatabase.customer1.getPurchases().contains(purchase)) {
         return MockDatabase.customer1;
-      if (MockDatabase.customer2.getPurchases().contains(purchase))
+      }
+      if (MockDatabase.customer2.getPurchases().contains(purchase)) {
         return MockDatabase.customer2;
-      if (MockDatabase.customer3.getPurchases().contains(purchase))
+      }
+      if (MockDatabase.customer3.getPurchases().contains(purchase)) {
         return MockDatabase.customer3;
+      }
       return null;
     }
 
     static Customer findCustomerByAddress(InvocationOnMock invocation) {
       Address address = (Address) invocation.getArgument(0);
-      if (address.equals(MockDatabase.customer1.getAddress()))
+      if (address.equals(MockDatabase.customer1.getAddress())) {
         return MockDatabase.customer1;
-      if (address.equals(MockDatabase.customer2.getAddress()))
+      }
+      if (address.equals(MockDatabase.customer2.getAddress())) {
         return MockDatabase.customer2;
-      if (address.equals(MockDatabase.customer3.getAddress()))
+      }
+      if (address.equals(MockDatabase.customer3.getAddress())) {
         return MockDatabase.customer3;
+      }
       return null;
     }
 
     static List<Customer> findCustomersByDisabled(InvocationOnMock invocation) {
       boolean disabled = (boolean) invocation.getArgument(0);
       List<Customer> customers = new ArrayList<Customer>();
-      if (disabled == MockDatabase.customer1.isDisabled())
+      if (disabled == MockDatabase.customer1.isDisabled()) {
         customers.add(MockDatabase.customer1);
-      if (disabled == MockDatabase.customer2.isDisabled())
+      }
+      if (disabled == MockDatabase.customer2.isDisabled()) {
         customers.add(MockDatabase.customer2);
-      if (disabled == MockDatabase.customer3.isDisabled())
+      }
+      if (disabled == MockDatabase.customer3.isDisabled()) {
         customers.add(MockDatabase.customer3);
+      }
       return customers;
     }
 
@@ -832,7 +854,6 @@ public class TestCustomerService {
 
 
   }
-
 
 
   /**
@@ -941,7 +962,6 @@ public class TestCustomerService {
       purchases1.add(purchase1);
       customer1.setPurchases(purchases1);
 
-
       // Customer & Employee set 2
 
       customer2.setEmail("customer2@email.com");
@@ -999,7 +1019,6 @@ public class TestCustomerService {
       purchases2.add(purchase2);
       customer2.setPurchases(purchases2);
 
-
       // Customer & Employee set 3 (Modifiable customer, used in modify methods)
 
       customer3.setEmail("customer3@email.com");
@@ -1056,7 +1075,6 @@ public class TestCustomerService {
       purchase3.setOrderType(OrderType.Delivery);
       purchases3.add(purchase3);
       customer3.setPurchases(purchases3);
-
 
       // Purchase to use for testing the addPurchase method
 

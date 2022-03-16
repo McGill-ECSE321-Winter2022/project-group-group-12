@@ -1,14 +1,36 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
 import ca.mcgill.ecse321.GSSS.dto.PurchaseDto;
-import ca.mcgill.ecse321.GSSS.model.*;
-import ca.mcgill.ecse321.GSSS.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
+import ca.mcgill.ecse321.GSSS.model.Customer;
+import ca.mcgill.ecse321.GSSS.model.Employee;
+import ca.mcgill.ecse321.GSSS.model.Item;
+import ca.mcgill.ecse321.GSSS.model.OrderStatus;
+import ca.mcgill.ecse321.GSSS.model.OrderType;
+import ca.mcgill.ecse321.GSSS.model.Owner;
+import ca.mcgill.ecse321.GSSS.model.Purchase;
+import ca.mcgill.ecse321.GSSS.service.CustomerService;
+import ca.mcgill.ecse321.GSSS.service.EmployeeService;
+import ca.mcgill.ecse321.GSSS.service.ItemService;
+import ca.mcgill.ecse321.GSSS.service.OwnerService;
+import ca.mcgill.ecse321.GSSS.service.PurchaseService;
 import java.sql.Date;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller methods for the purchase class
@@ -20,24 +42,29 @@ import java.util.Map.Entry;
 @RestController
 public class PurchaseRestController {
 
-  @Autowired PurchaseService purchaseService;
+  @Autowired
+  PurchaseService purchaseService;
 
-  @Autowired EmployeeService employeeService;
+  @Autowired
+  EmployeeService employeeService;
 
-  @Autowired CustomerService customerService;
+  @Autowired
+  CustomerService customerService;
 
-  @Autowired ItemService itemService;
+  @Autowired
+  ItemService itemService;
 
-  @Autowired OwnerService ownerService;
+  @Autowired
+  OwnerService ownerService;
 
   /**
    * method to get purchase by id
    *
-   * @author Habib Jarweh
    * @param id the purchase's id
    * @return purchaseDto converted purchase
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException if element is null
+   * @throws NoSuchElementException   if element is null
+   * @author Habib Jarweh
    */
   @GetMapping(value = {"/purchase/{id}", "/purchase/{id}/"})
   public PurchaseDto getPurchaseById(@PathVariable("id") String id)
@@ -53,7 +80,8 @@ public class PurchaseRestController {
    * @param employeeEmail Email of the employee
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException if element is null
+   * @throws NoSuchElementException   if element is null
+   * @author Habib Jarweh
    */
   @GetMapping(
       value = {"/purchasesbyemployee/{employeeEmail}", "/purchasesbyemployee/{employeeEmail}/"})
@@ -75,11 +103,11 @@ public class PurchaseRestController {
   /**
    * method to get list of purchases by date
    *
-   * @author Habib Jarweh
    * @param date of purchases
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException if element is null
+   * @throws NoSuchElementException   if element is null
+   * @author Habib Jarweh
    */
   @GetMapping(value = {"/purchasesbydate", "/purchasesbydate/"})
   public List<PurchaseDto> getPurchasesByDate(@RequestParam(name = "date") Date date)
@@ -98,11 +126,11 @@ public class PurchaseRestController {
   /**
    * method to get sorted list of purchases by customer email
    *
-   * @author Habib Jarweh
    * @param customerEmail
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException if element is null
+   * @throws NoSuchElementException   if element is null
+   * @author Habib Jarweh
    */
   @GetMapping(
       value = {"/purchasesbycustomer/{customerEmail}/", "/purchasesbycustomer/{customerEmail}"})
@@ -132,8 +160,8 @@ public class PurchaseRestController {
   /**
    * Returns all purchases
    *
-   * @author Wassim Jabbour
    * @return All the purchases in the system
+   * @author Wassim Jabbour
    */
   @GetMapping(value = {"/purchases", "/purchases/"})
   public List<PurchaseDto> getAllPurchases() {
@@ -153,12 +181,12 @@ public class PurchaseRestController {
   /**
    * Creates a purchase and returns its equivalent dto
    *
-   * @author Wassim Jabbour
-   * @param orderType The type of purchase
+   * @param orderType   The type of purchase
    * @param orderStatus The status of purchase
-   * @param data The map of itemDtos and their quantities
+   * @param data        The map of itemDtos and their quantities
    * @return The Dto corresponding to the created object
    * @throws IllegalArgumentException In case the input is invalid
+   * @author Wassim Jabbour
    */
   @PostMapping(value = {"/purchase", "/purchase/"})
   public PurchaseDto createPurchase(
@@ -169,11 +197,15 @@ public class PurchaseRestController {
 
     OrderType actualOrderType = DtoUtility.findOrderTypeByName(orderType);
     // Checking that it is not null
-    if (actualOrderType == null) throw new IllegalArgumentException("Invalid order type!");
+    if (actualOrderType == null) {
+      throw new IllegalArgumentException("Invalid order type!");
+    }
 
     OrderStatus actualOrderStatus = DtoUtility.findOrderStatusByName(orderStatus);
     // Checking that it is not null
-    if (actualOrderStatus == null) throw new IllegalArgumentException("Invalid order status!");
+    if (actualOrderStatus == null) {
+      throw new IllegalArgumentException("Invalid order status!");
+    }
 
     Employee employee = employeeService.getClosestEmployee();
     HashMap<Item, Integer> items = new HashMap<Item, Integer>();
@@ -191,14 +223,14 @@ public class PurchaseRestController {
   /**
    * method to update/modify a purchase
    *
-   * @author Habib Jarweh
-   * @param purchaseId id of purchase
-   * @param orderType type of the purchase
-   * @param orderStatus status of order
-   * @param data items in the purchase
+   * @param purchaseId    id of purchase
+   * @param orderType     type of the purchase
+   * @param orderStatus   status of order
+   * @param data          items in the purchase
    * @param employeeEmail employee assigned to purchase
    * @return purchaseDto
    * @throws IllegalArgumentException
+   * @author Habib Jarweh
    */
   @PostMapping(value = {"purchase/modify/{purchaseid}", "/purchase/modify/{purchaseId}/"})
   public PurchaseDto modifyPurchase(
@@ -211,11 +243,15 @@ public class PurchaseRestController {
 
     OrderType actualOrderType = DtoUtility.findOrderTypeByName(orderType);
     // Checking that it is not null
-    if (actualOrderType == null) throw new IllegalArgumentException("Invalid order type!");
+    if (actualOrderType == null) {
+      throw new IllegalArgumentException("Invalid order type!");
+    }
 
     OrderStatus actualOrderStatus = DtoUtility.findOrderStatusByName(orderStatus);
     // Checking that it is not null
-    if (actualOrderStatus == null) throw new IllegalArgumentException("Invalid order status!");
+    if (actualOrderStatus == null) {
+      throw new IllegalArgumentException("Invalid order status!");
+    }
 
     HashMap<Item, Integer> items = new HashMap<Item, Integer>();
     for (Map.Entry<String, Integer> entry : data.entrySet()) {
@@ -233,10 +269,10 @@ public class PurchaseRestController {
   /**
    * Method that returns the total cost of a purchase
    *
-   * @author Wassim Jabbour
    * @param id The id of the purchase
    * @throws IllegalArgumentException In case the id is null or empty
-   * @throws NoSuchElementException In case the id doesn't correspond to any purchase
+   * @throws NoSuchElementException   In case the id doesn't correspond to any purchase
+   * @author Wassim Jabbour
    */
   @GetMapping(value = {"/purchase/cost/{id}", "/purchase/cost/{id}/"})
   public double computeTotalCost(@PathVariable("id") String id)
@@ -282,9 +318,9 @@ public class PurchaseRestController {
   /**
    * method to delete purchase
    *
-   * @author Habib Jarweh
    * @param id id of purchase we want to delete
    * @throws IllegalArgumentException
+   * @author Habib Jarweh
    */
   @DeleteMapping(value = {"/purchase/{id}", "/purchase/{id}/"})
   public void deletePurchase(@PathVariable("id") String id) throws IllegalArgumentException {
