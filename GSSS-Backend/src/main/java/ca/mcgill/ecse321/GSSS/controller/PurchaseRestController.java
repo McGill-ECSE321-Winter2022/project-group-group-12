@@ -50,7 +50,7 @@ public class PurchaseRestController {
    * method to get list of purchases by employee email
    *
    * @author Habib Jarweh
-   * @param employeeEmail
+   * @param employeeEmail Email of the employee
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
    * @throws NoSuchElementException if element is null

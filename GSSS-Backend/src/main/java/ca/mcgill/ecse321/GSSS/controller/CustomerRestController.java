@@ -96,11 +96,11 @@ public class CustomerRestController {
   }
 
   /**
-   * Method to create a purchase and add it to the purchase history of the customer.
+   * Method to add a purchase to the purchase history of the customer.
    *
    * @author Enzo Benoit-Jeannin
    * @param email Email of the cusotmer to add the purchase to
-   * @param purchaseId Purchase Dto to use to create the Purchase object
+   * @param purchaseId id of the purchase to add to the customer's purchase history
    * @return Customer DTO
    * @thorws IllegalArgumentException
    */
