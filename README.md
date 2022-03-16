@@ -24,9 +24,9 @@
 | Enzo Benoit-Jeannin       | Testing & Writing controllers & Recording  |      37 hours      |
 | Wassim Jabbour            | Managing & Testing & Writing controllers   |      45 hours      |
 | Philippe Sarouphim Hochar | Reviewing & Testing & Writing controllers  |      40 hours      |
-| Habib Jarweh              | Testing & Writing controllers & Recording  |      36 hours      |
+| Habib Jarweh              | Testing & Writing controllers & Recording  |      37 hours      |
 | Theo Ghanem               | Testing & Writing controllers & Documenting|      37 hours      |
-| Chris Hatoum              | Testing & Writing controllers & Documenting|      35 hours      |
+| Chris Hatoum              | Testing & Writing controllers & Documenting|      37 hours      |
   
   <ins>Figure 1: Overview Table for deliverable 2</ins>
   
