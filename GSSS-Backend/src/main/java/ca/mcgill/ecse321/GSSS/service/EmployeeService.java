@@ -126,6 +126,7 @@ public class EmployeeService {
       throw new IllegalArgumentException(error);
     }
 
+    //check if employee we are trying to modify does indeed exist
     Employee employee = employeeRepository.findEmployeeByEmail(email);
     if (employee == null) {
       throw new NoSuchElementException("Employee does not exist");

@@ -31,6 +31,7 @@ public class BusinessHourService {
    */
   @Transactional
   public BusinessHour getBusinessHourByWeekday(Weekday weekday) {
+    //input validation
     if (weekday == null) {
       throw new IllegalArgumentException("Weekday of business hour cannot be null! ");
     }
@@ -99,6 +100,7 @@ public class BusinessHourService {
    */
   @Transactional
   public BusinessHour deleteBusinessHour(Weekday weekday) {
+    //input validation
     if (weekday == null) {
       throw new IllegalArgumentException("Weekday of business hour cannot be null! ");
     }

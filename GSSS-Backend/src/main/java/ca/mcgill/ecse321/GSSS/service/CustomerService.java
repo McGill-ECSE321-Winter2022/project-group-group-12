@@ -72,6 +72,7 @@ public class CustomerService {
     }
 
     List<Customer> customers = customerRepository.findCustomersByUsername(username);
+    // throw exception if there does not exist customers with the passed username
     if (customers.isEmpty()) {
       throw new NoSuchElementException("No customer with username " + username + " exists!");
     }
@@ -94,6 +95,7 @@ public class CustomerService {
     }
 
     Customer customer = customerRepository.findCustomerByPurchases(purchase);
+    // throw exception if there does not exist customers with the passed username
     if (customer == null) {
       throw new NoSuchElementException("No customer with such purchase exists!");
     }
@@ -131,7 +133,7 @@ public class CustomerService {
   /**
    * Creates a new customer, hashing and salting his password before saving him in the database
    *
-   * @param email    The customer's email
+   * @param email The customer's email
    * @param username The customer's username
    * @param password The customer's password
    * @return The newly created customer
@@ -162,6 +164,7 @@ public class CustomerService {
     }
 
     Customer customer = null;
+    //throw exception if the customer already exists (check through passed email)
     String error2 = "";
     try {
       customer = getCustomerByEmail(email);
@@ -209,16 +212,16 @@ public class CustomerService {
    * This service updates a customer based on the inputs
    *
    * @param username Username.
-   * @param email    Email.
+   * @param email Email.
    * @param password Password.
-   * @param address  Address.
+   * @param address Address.
    * @param disabled Disabled.
    * @return The updated customer
    * @author Enzo Benoit-Jeannin
    */
   @Transactional
-  public Customer modifyCustomer(
-      String username, String password, String email, Address address, boolean disabled) {
+  public Customer modifyCustomer(String username, String password, String email, Address address,
+      boolean disabled) {
 
     // Input validation
     String error = "";
@@ -257,10 +260,12 @@ public class CustomerService {
    */
   @Transactional
   public Customer addPurchase(Customer customer, Purchase purchase) {
+    //throw exception if passed customer is null
     if (customer == null) {
       throw new IllegalArgumentException("Customer cannot be null");
     }
 
+    //throw exception if passed purchase is null
     if (purchase == null) {
       throw new IllegalArgumentException("Purchase cannot be null");
     }

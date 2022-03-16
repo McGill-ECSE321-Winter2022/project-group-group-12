@@ -49,6 +49,9 @@ public class CleanupService {
   @Autowired
   private ShiftRepository shiftRepository;
 
+  /*
+   * this method is to clear everything in the database
+   */
   @Transactional
   public void cleanupDatabase() {
     customerRepository.deleteAll();

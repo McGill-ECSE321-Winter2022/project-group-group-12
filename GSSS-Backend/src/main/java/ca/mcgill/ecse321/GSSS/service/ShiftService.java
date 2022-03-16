@@ -56,6 +56,7 @@ public class ShiftService {
    */
   @Transactional
   public List<Shift> getShiftsByDate(Date date) {
+    //throw exception if date passed is null
     if (date == null) {
       throw new IllegalArgumentException("Shift date cannot be null! ");
     }
@@ -134,6 +135,7 @@ public class ShiftService {
    */
   @Transactional
   public void deleteShift(String id) {
+   //throw exception if id passed is null or empty
     if (id == null || id.trim().length() == 0) {
       throw new IllegalArgumentException("Shift id cannot be empty!");
     }

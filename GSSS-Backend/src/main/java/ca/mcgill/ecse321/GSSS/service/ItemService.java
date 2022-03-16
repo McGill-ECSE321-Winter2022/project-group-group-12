@@ -31,9 +31,11 @@ public class ItemService {
    */
   @Transactional
   public Item getItemByName(String name) {
+    //throws exception if name is null or empty
     if (name == null || name.trim().length() == 0) {
       throw new IllegalArgumentException("Name cannot be empty!");
     }
+    //throws exception if there is no item with the passed name
     if (itemRepository.findItemByName(name) == null) {
       throw new NoSuchElementException("The item with name" + name + "does not exist!");
     }
@@ -49,6 +51,7 @@ public class ItemService {
    */
   @Transactional
   public List<Item> getItemsByCategory(ItemCategory itemCategory) {
+    //find all items with a same passed category
     List<Item> items = itemRepository.findItemsByCategory(itemCategory);
     return items;
   }
@@ -136,6 +139,7 @@ public class ItemService {
    */
   @Transactional
   public void deleteItem(String name) {
+    //throw exception if passed name is null or empty
     if (name == null || name.trim().length() == 0) {
       throw new IllegalArgumentException("Name cannot be empty!");
     }

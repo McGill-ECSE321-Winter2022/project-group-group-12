@@ -28,6 +28,7 @@ public class OwnerService {
    */
   @Transactional
   public Owner getOwner() {
+    // since we only have one owner, the we return the the first element of the list returned by findAll()
     Iterator<Owner> iterator = ownerRepository.findAll().iterator();
     if (iterator.hasNext()) {
       return iterator.next();
@@ -40,9 +41,9 @@ public class OwnerService {
    * since we can only have 1 owner at all times
    *
    * @param username The username of the owner
-   * @param email    The email of the owner
+   * @param email The email of the owner
    * @param password The password of the owner
-   * @param address  The address of the owner
+   * @param address The address of the owner
    * @return The created Owner
    */
   @Transactional
@@ -69,6 +70,7 @@ public class OwnerService {
       throw new IllegalArgumentException(error);
     }
 
+    // throw exception if owner already exists in the system
     Owner owner = getOwner();
     if (owner != null) {
       throw new IllegalArgumentException("Owner already exists in the system!");
@@ -89,7 +91,7 @@ public class OwnerService {
    *
    * @param username Username.
    * @param password Password.
-   * @param address  Address.
+   * @param address Address.
    * @return The updated owner
    * @author Enzo Benoit-Jeannin
    */
@@ -111,6 +113,7 @@ public class OwnerService {
       throw new IllegalArgumentException(error);
     }
 
+    // throw exception if owner we want to modify does not exist
     Owner owner = getOwner();
     if (owner == null) {
       throw new NoSuchElementException("Owner doesn't exist!");
@@ -126,7 +129,7 @@ public class OwnerService {
   /**
    * Modifies the system information held in the owner
    *
-   * @param city         The city the store is in
+   * @param city The city the store is in
    * @param outOfTownFee The fee for out of town deliveries
    * @return The modified owner
    * @author Wassim Jabbour
@@ -138,6 +141,7 @@ public class OwnerService {
       throw new IllegalArgumentException("City name cannot be empty!");
     }
 
+    // throw exception if owner does not exist
     Owner owner = getOwner();
     if (owner == null) {
       throw new NoSuchElementException("Owner doesn't exist!");

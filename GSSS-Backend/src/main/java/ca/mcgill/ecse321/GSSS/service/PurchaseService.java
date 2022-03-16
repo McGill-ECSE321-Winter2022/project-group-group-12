@@ -158,7 +158,8 @@ public class PurchaseService {
     if (customer == null) {
       throw new IllegalArgumentException("Customer cannot be null!");
     }
-
+    
+    // get the purchases of a customer
     List<Purchase> list = new ArrayList<>(customer.getPurchases());
 
     return list;
