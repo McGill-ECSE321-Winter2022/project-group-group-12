@@ -67,3 +67,5 @@ jobs:
         heroku_api_key: c0c99c62-e5ed-4197-8d60-0a1953750e42
         heroku_app_name: "grocerystore-backend"
         heroku_email: "wassim.jabbour@mail.mcgill.ca"
+      env:
+        HD_SPRING_PROFILES_ACTIVE: "production"
