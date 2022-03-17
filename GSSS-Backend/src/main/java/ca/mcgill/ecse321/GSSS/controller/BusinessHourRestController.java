@@ -45,6 +45,7 @@ public class BusinessHourRestController {
     Weekday correspondingWeekday = DtoUtility.findWeekdayByName(weekday); // Helper method
     // defined below
 
+    // If the passed weekday is not valid
     if (correspondingWeekday == null) {
       throw new IllegalArgumentException("There is no such weekday!");
     }

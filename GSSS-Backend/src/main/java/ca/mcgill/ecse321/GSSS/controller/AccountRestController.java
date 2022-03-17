@@ -42,6 +42,7 @@ class AccountRestController {
 
     Cookie cookie = new Cookie("token", account.getEmail());
 
+    // Creating the cookie and setting it
     cookie.setPath("/");
     cookie.setSecure(false);
     cookie.setHttpOnly(true);
@@ -59,6 +60,7 @@ class AccountRestController {
   public void logOut(HttpServletResponse response) {
     Cookie cookie = new Cookie("token", "");
 
+    // Removing the cookie
     cookie.setMaxAge(0);
     cookie.setPath("/");
     cookie.setSecure(false);
