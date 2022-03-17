@@ -168,9 +168,9 @@ public class PurchaseRestController {
   @GetMapping(value = {"/purchases", "/purchases/"})
   public List<PurchaseDto> getAllPurchases() {
 
-    List<Purchase> allPurchases = purchaseService.getAllPurchases();
+    List<Purchase> allPurchases = purchaseService.getAllPurchases();	// get all the purchases in the system
 
-    List<PurchaseDto> allPurchaseDtos = new ArrayList<PurchaseDto>();
+    List<PurchaseDto> allPurchaseDtos = new ArrayList<PurchaseDto>();	
 
     for (Purchase purchase : allPurchases) {
 

@@ -53,8 +53,8 @@ public class ShiftRestController {
       throws IllegalArgumentException, NoSuchElementException {
 
     Shift shift =
-        shiftService.modifyShift(shiftId, date, Time.valueOf(startTime), Time.valueOf(endTime));
+        shiftService.modifyShift(shiftId, date, Time.valueOf(startTime), Time.valueOf(endTime));	// Modifies the shift using the given parameters
 
-    return DtoUtility.convertToDto(shift);
+    return DtoUtility.convertToDto(shift);	// returns the modified shift in DTO form
   }
 }
