@@ -55,6 +55,7 @@ public class DtoUtility {
    */
   static Weekday findWeekdayByName(String weekDayName) {
 
+    // Check to which weekday the passed string corresponds
     if (weekDayName.equals("Monday")) {
       return Weekday.Monday;
     } else if (weekDayName.equals("Tuesday")) {
@@ -83,6 +84,7 @@ public class DtoUtility {
    */
   static OrderType findOrderTypeByName(String orderType) {
 
+    // Checking to which order type the String corresponds
     if (orderType.equals("Delivery")) {
       return OrderType.Delivery;
     } else if (orderType.equals("Pickup")) {
@@ -103,6 +105,7 @@ public class DtoUtility {
    */
   static OrderStatus findOrderStatusByName(String orderStatus) {
 
+    // Checking to which order status the String corresponds
     if (orderStatus.equals("BeingPrepared")) {
       return OrderStatus.BeingPrepared;
     } else if (orderStatus.equals("OutForDelivery")) {
@@ -368,6 +371,7 @@ public class DtoUtility {
 
     List<ShiftDto> shiftDtos = new ArrayList<ShiftDto>();
 
+    // Converting all the shifts to DTOs
     for (Shift s : shifts) {
       shiftDtos.add(convertToDto(s));
     }
