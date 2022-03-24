@@ -26,7 +26,7 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: 'Welcome to the best Grocery Store Website out there !',
       count: 0
     }
   }
