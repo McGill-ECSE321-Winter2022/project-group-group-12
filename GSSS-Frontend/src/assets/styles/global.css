@@ -1,0 +1,30 @@
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+html{
+    background-color: #303030;
+    color: white;
+}
+
+button{
+    padding: 0.5em 1em;
+    background-color: green;
+    border: none;
+    color: white;
+    border-radius: 1rem;
+    border: solid transparent 2px;
+}
+
+button:hover{
+    background-color: transparent;
+    border: solid green 2px;
+}
+
+body{
+    padding: 2rem;
+    background-color: transparent;
+    color: white;
+}
