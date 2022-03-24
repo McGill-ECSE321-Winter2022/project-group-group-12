@@ -28,6 +28,23 @@
 | Theo Ghanem               | Testing & Writing controllers & Documenting|      37 hours      |
 | Chris Hatoum              | Testing & Writing controllers & Documenting|      37 hours      |
   
-  <ins>Figure 1: Overview Table for deliverable 2</ins>
+  <ins>Figure 2: Overview Table for deliverable 2</ins>
   
    Project Report: https://github.com/McGill-ECSE321-Winter2022/project-group-group-12/wiki/Deliverable-2:-Report
+   
+   
+
+***
+**Deliverable 3:**
+| Name                      |               Team Role                    | Individual efforts |
+|---------------------------|--------------------------------------------|--------------------|
+| Enzo Benoit-Jeannin       |            |       hours      |
+| Wassim Jabbour            |            |       hours      |
+| Philippe Sarouphim Hochar |            |       hours      |
+| Habib Jarweh              |            |       hours      |
+| Theo Ghanem               |            |       hours      |
+| Chris Hatoum              |            |       hours      |
+  
+  <ins>Figure 3: Overview Table for deliverable 3</ins>
+  
+   Project Report: 
