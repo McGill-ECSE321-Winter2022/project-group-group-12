@@ -1,0 +1,14 @@
+input{
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.signup-container{
+    display: flex;
+    justify-content: center;
+}
+
+.signup-container > div,
+.signup-container > div > *{
+    width: fit-content;
+}
