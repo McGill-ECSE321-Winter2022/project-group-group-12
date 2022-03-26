@@ -5,18 +5,26 @@ import SystemInformation from '@/components/Owner/SystemInformation/SystemInform
 import LoginPage from '@/components/LoginPage/LoginPage'
 import SignupPage from '@/components/SignupPage/SignupPage'
 import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
+import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
+import Hello from "@/components/Hello";
+import Payment from '@/components/Customer/Payment'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/ownerPurchases',
+      path: '/',
+      name: 'Hello',
+      component: Hello
+    },
+    {
+      path: '/ownerpurchases',
       name: 'ViewPurchases',
       component: ViewPurchases
     },
     {
-      path: '/',
+      path: '/login',
       name: 'LoginPage',
       component: LoginPage
     },
@@ -31,9 +39,19 @@ export default new Router({
       component: CustomerList
     },
     {
-      path: '/systemInformation',
+      path: '/systeminformation',
       name: 'SystemInformation',
       component: SystemInformation
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
+    },
+    {
+      path: '/purchasestats',
+      name: 'PurchaseStatistics',
+      component: PurchaseStatistics
     }
   ]
 })
