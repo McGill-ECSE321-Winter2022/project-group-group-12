@@ -1,0 +1,27 @@
+input{
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.employeeviewpurchases{
+    display: flex;
+    justify-content: center;
+}
+
+.employeeviewpurchases > div,
+.employeeviewpurchases > div > *{
+    width: fit-content;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    width: 57%;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.space{
+    height:100px;
+}

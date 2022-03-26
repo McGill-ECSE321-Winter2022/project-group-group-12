@@ -1,15 +1,20 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
 import ca.mcgill.ecse321.GSSS.dto.ShiftDto;
+import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
+import ca.mcgill.ecse321.GSSS.service.EmployeeService;
 import ca.mcgill.ecse321.GSSS.service.ShiftService;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +34,9 @@ public class ShiftRestController {
 
   @Autowired
   private ShiftService shiftService;
+
+  @Autowired
+  private EmployeeService employeeService;
 
   /**
    * Controller method to modify a shift
@@ -57,4 +65,34 @@ public class ShiftRestController {
 
     return DtoUtility.convertToDto(shift);	// returns the modified shift in DTO form
   }
+
+  /**
+   * Controller method to retrieve all shifts from an employee
+   * 
+   * @param employeeEmail The email of the employee to get the shifts from
+   * @return The list of shift assigned to the passed employee in dto form
+   * @throws IllegalArgumentException
+   * @throws NoSuchElementException
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @GetMapping(
+      value = {"/shiftsbyemployee/{employeeEmail}", "/shiftsbyemployee/{employeeEmail}/"})
+  public List<ShiftDto> getShiftsByEmployee(
+      @PathVariable("employeeEmail") String employeeEmail)
+      throws IllegalArgumentException, NoSuchElementException {
+
+    Employee employee = employeeService.getEmployeeByEmail(employeeEmail);
+    List<Shift> shifts = shiftService.getShiftsByEmployee(employee);
+    List<ShiftDto> shiftDtos = new ArrayList<ShiftDto>();
+
+    for (Shift shift : shifts) {
+
+      shiftDtos.add(DtoUtility.convertToDto(shift));
+    }
+    return shiftDtos;
+  }
 }
+
+
+

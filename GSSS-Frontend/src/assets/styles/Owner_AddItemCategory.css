@@ -1,0 +1,25 @@
+input{
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.addModifyCategory{
+    display: flex;
+    justify-content: center;
+}
+
+.addModifyCategory> div,
+.addModifyCategory > div > *{
+    width: fit-content;
+}
+
+table{
+    width: 70%;
+}
+
+/* Center the title */
+td.space { 
+    font-size: 130%;
+    line-height: 100px; 
+    vertical-align:baseline;
+}

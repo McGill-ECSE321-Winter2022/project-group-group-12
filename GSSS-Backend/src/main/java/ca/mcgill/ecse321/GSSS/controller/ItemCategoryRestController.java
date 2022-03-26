@@ -1,10 +1,15 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
 import ca.mcgill.ecse321.GSSS.dto.ItemCategoryDto;
+import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.service.ItemCategoryService;
+import ca.mcgill.ecse321.GSSS.service.ItemService;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,6 +35,9 @@ public class ItemCategoryRestController {
 
   @Autowired
   private ItemCategoryService itemCategoryService;
+
+  @Autowired
+  private ItemService itemService;
 
   /**
    * method to create itemCategoryDto with a name
@@ -71,5 +79,31 @@ public class ItemCategoryRestController {
       itemCategoryDtos.add(DtoUtility.convertToDto(itemCategory));
     }
     return itemCategoryDtos;
+  }
+
+  /**
+   * Method to modify itemCategoryDto
+   *
+   * @param oldName name of the itemCategory to modify
+   * @param newName new name of the ItemCategory
+   * @return itemCategoryDto we modified
+   * @throws IllegalArgumentException
+   * @throws NoSuchElementException
+   * @author Enzo Benoit-Jeannin
+   */
+  @PostMapping(value = {"/itemCategory/modify", "/itemCategory/modify/"})
+  public ItemCategoryDto modifyCategory(@RequestParam(name = "oldName") String oldName, @RequestParam(name = "newName") String newName)
+      throws IllegalArgumentException, NoSuchElementException{
+    ItemCategory itemCategory = itemCategoryService.createCategory(newName);  // create a new category with the given new name
+
+    ItemCategory oldCategory = itemCategoryService.getCategoryByName(oldName);  // Get the old one using the old name
+   
+    List<Item> items = itemService.getItemsByCategory(oldCategory);     // For all items that were in the old category, set their new category with the newly created one
+    for (Item i : items){
+      i.setCategory(itemCategory);
+    }
+    itemCategoryService.deleteCategory(oldName);
+      
+    return DtoUtility.convertToDto(itemCategory);
   }
 }
