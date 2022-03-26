@@ -1,14 +1,14 @@
 input{
   margin-bottom: 1rem;
-  display: block;
+  display: inline-block;
 }
 
-.login-container{
+.systemInformation-container{
   display: flex;
   justify-content: center;
 }
 
-.login-container > div,
-.login-container > div > *{
+.systemInformation-container > div,
+.systemInformation-container > div > *{
   width: fit-content;
 }

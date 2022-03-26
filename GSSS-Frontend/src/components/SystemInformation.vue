@@ -7,7 +7,7 @@
       <div>City:</div>
       <input placeholder="Montreal" type="text" />
       <div>Out of city fee:</div>
-      <input placeholder="5$" type="number" />
+      <input placeholder="5$" type="number"  min="0"  max="10" />
     </div>
   </div>
 </template>
