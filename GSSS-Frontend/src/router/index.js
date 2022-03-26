@@ -7,12 +7,19 @@ import LoginPage from '@/components/LoginPage'
 import CustomerList from '@/components/CustomerList/CustomerList'
 import Payment from '@/components/Payment'
 import SignupPage from "@/components/SignupPage";
+import PurchaseStatistics from "@/components/PurchaseStatistics";
+import Hello from "@/components/Hello";
 
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'Hello',
+      component: Hello
+    },
     {
       path: '/ownerPurchases',
       name: 'Owner_ViewPurchases',
@@ -42,6 +49,11 @@ export default new Router({
       path: '/payment',
       name: 'Payment',
       component: Payment
+    },
+    {
+      path: '/purchaseStats',
+      name: 'PurchaseStatistics',
+      component: PurchaseStatistics
     }
   ]
 })

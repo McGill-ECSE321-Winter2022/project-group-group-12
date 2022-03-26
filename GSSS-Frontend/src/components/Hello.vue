@@ -1,17 +1,20 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <br>
+    <h2>Available Links</h2>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
+      <li><a href="http://127.0.0.1:8087/#/ownerPurchases" > Owner ViewPurchases </a></li>
+      <li><a href="http://127.0.0.1:8087/#/login"  > Login Page</a></li>
+      <li><a href="http://127.0.0.1:8087/#/signup"  > Signup Page</a></li>
+      <li><a href="http://127.0.0.1:8087/#/customers"  > Customer List</a></li>
+      <li><a href="http://127.0.0.1:8087/#/systemInformation"  > System Information</a></li>
+      <li><a href="http://127.0.0.1:8087/#/payment" >Payment page</a></li>
+      <li><a href="http://127.0.0.1:8087/#/purchaseStats"  > Purchase Statistics</a></li>
+
     </ul>
-    <h2>Ecosystem</h2>
-    <button>Main page</button>
+    <h2>Github</h2>
+    <li><a href="https://github.com/McGill-ECSE321-Winter2022/project-group-group-12" target="_blank">Our github page</a></li>
   </div>
 </template>
 

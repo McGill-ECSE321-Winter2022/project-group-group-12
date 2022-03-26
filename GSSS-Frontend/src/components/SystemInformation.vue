@@ -1,3 +1,8 @@
+<!--
+Vue class for the system information page.
+@author Theo Ghanem
+-->
+
 <template>
   <div class="systemInformation-container">
     <div>
