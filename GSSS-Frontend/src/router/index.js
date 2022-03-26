@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import Owner_ViewPurchases from '@/components/Owner_ViewPurchases'
+import SystemInformation from '@/components/SystemInformation'
 import LoginPage from '@/components/LoginPage'
 import CustomerList from '@/components/CustomerList/CustomerList'
 
@@ -9,9 +10,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: Hello
+      path: '/ownerPurchases',
+      name: 'Owner_ViewPurchases',
+      component: Owner_ViewPurchases
     },
     {
       path: '/login',
@@ -22,6 +23,11 @@ export default new Router({
       path: '/customers',
       name: 'CustomerList',
       component: CustomerList
+    },
+    {
+      path: '/systemInformation',
+      name: 'SystemInformation',
+      component: SystemInformation
     }
   ]
 })

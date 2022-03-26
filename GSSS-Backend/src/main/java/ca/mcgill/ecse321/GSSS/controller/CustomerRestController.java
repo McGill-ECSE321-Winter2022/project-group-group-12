@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.GSSS.controller;
 import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
+import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.service.AddressService;
 import ca.mcgill.ecse321.GSSS.service.CustomerService;
 import ca.mcgill.ecse321.GSSS.service.PurchaseService;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller methods for the customer class
  *
  * @author Enzo Benoit-Jeannin
+ * @author Wassim Jabbour
  */
 @CrossOrigin(origins = "*")
 @RestController
@@ -72,11 +74,32 @@ public class CustomerRestController {
   }
 
   /**
+   * GET method that retrieves the customer dto corresponding to a purchase
+   *
+   * @param purchaseId The ID of the purchase
+   * @return The customer with the passed purchase
+   * @throws IllegalArgumentException If the purchase ID is null or empty
+   * @throws NoSuchElementException If no purchase exists with the given purchase ID
+   */
+  @GetMapping(value = {"/customerByPurchase/{purchaseId}", "/customerByPurchase/{purchaseId}/"})
+  public CustomerDto getCustomerByPurchase(@PathVariable("purchaseId") String purchaseId)
+      throws IllegalArgumentException, NoSuchElementException {
+
+    Purchase purchase = purchaseService.getPurchase(purchaseId);
+
+    CustomerDto customerDto = DtoUtility.convertToDto(
+        customerService.getCustomerByPurchase(purchase));
+
+    return customerDto;
+  }
+
+
+  /**
    * Method to create a customer DTO with all parameters of customer
    *
-   * @param username Username of the Customer DTO to create
-   * @param email Email of the Customer DTO to create
-   * @param password Password of the Customer DTO to create
+   * @param username  Username of the Customer DTO to create
+   * @param email     Email of the Customer DTO to create
+   * @param password  Password of the Customer DTO to create
    * @param addressId Address of the Customer DTO to create
    * @return Created customer DTO
    * @throws IllegalArgumentException
@@ -105,10 +128,10 @@ public class CustomerRestController {
   /**
    * Method to add a purchase to the purchase history of the customer.
    *
-   * @author Enzo Benoit-Jeannin
-   * @param email Email of the cusotmer to add the purchase to
+   * @param email      Email of the cusotmer to add the purchase to
    * @param purchaseId id of the purchase to add to the customer's purchase history
    * @return Customer DTO
+   * @author Enzo Benoit-Jeannin
    * @author Enzo Benoit-Jeannin
    * @thorws IllegalArgumentException
    */
@@ -122,11 +145,11 @@ public class CustomerRestController {
   /**
    * Method to modify/update a customer
    *
-   * @param email Email of the customer to update
-   * @param username Username we want to update
-   * @param password Password we want to update
+   * @param email     Email of the customer to update
+   * @param username  Username we want to update
+   * @param password  Password we want to update
    * @param addressId Address we want to update
-   * @param disabled Change the disable state of the customer
+   * @param disabled  Change the disable state of the customer
    * @return The modified customer as a DTO object
    * @throws IllegalArgumentException
    * @author Enzo Benoit-Jeannin

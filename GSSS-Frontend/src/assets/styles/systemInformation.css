@@ -1,0 +1,14 @@
+input{
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.systemInformation-container{
+  display: flex;
+  justify-content: center;
+}
+
+.systemInformation-container > div,
+.systemInformation-container > div > *{
+  width: fit-content;
+}
