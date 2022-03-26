@@ -14,24 +14,17 @@
 
 <script>
 
-// import axios from 'axios'
-// var config = require('../../config')
+// Importing axios and setting up URLs
+import axios from 'axios'
+var config = require('../../config')
 
-// var backendConfigurer = function(){
-//   switch(process.env.NODE_ENV){
-//       case 'development':
-//           return 'http://' + config.dev.backendHost + ':' + config.dev.backendPort;
-//       case 'production':
-//           return 'https://' + config.build.backendHost + ':' + config.build.backendPort ;
-//   }
-// };
+var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
+var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
 
-// var backendUrl = backendConfigurer();
-
-// var AXIOS = axios.create({
-//   baseURL: backendUrl,
-//   headers: { 'Access-Control-Allow-Origin': frontendUrl }
-// })
+var AXIOS = axios.create({
+  baseURL: backendUrl,
+  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+})
 
 export default {
 
@@ -40,34 +33,45 @@ export default {
   data () {
     return {
       purchases: [
-
         // Mock elements
-        {
-          id: "Test",
-          date: "2022-02-02"
-        },
-        {
-          id: "Test2",
-          date: "2022-02-02"
-        }
+        // {
+        //   id: "Test",
+        //   date: "2022-02-02"
+        // },
+        // {
+        //   id: "Test2",
+        //   date: "2022-02-02"
+        // }
       ],
       selectedPurchase: 0, // The index of the selected customer
-      errorPurchase: '',
+      error: '',
       response: []
     }
   },
 
-  // created: function() {
-  //   // Getting the purchases from the backend
-  //   AXIOS.get('/purchases')
-  //   .then(response => {
-  //     // JSON responses are automatically parsed.
-  //     this.purchases = response.data
-  //   })
-  //   .catch(e => {
-  //     this.errorPurchase = e
-  //   })
-  // },
+  created: function() {
+    // Getting the purchases from the backend
+    AXIOS.get('/purchases')
+    .then(response => {
+
+      // JSON responses are automatically parsed.
+      this.purchases = response.data
+
+      // Iterating over all purchases and adding their customer's email as a field
+      for(purchase in this.purchases) {
+        AXIOS.get('/customerByPurchase' + purchase.id)
+        .then(response => {
+          purchase.customer = response.data.email
+        })
+        .catch(e => {
+          this.error = e
+        })
+      }
+    })
+    .catch(e => {
+      this.error = e
+    })
+  },
 
   methods: {
     
