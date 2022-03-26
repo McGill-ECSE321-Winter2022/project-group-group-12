@@ -1,24 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-<<<<<<< HEAD
 import Owner_ViewPurchases from '@/components/Owner_ViewPurchases'
-=======
-import Hello from '@/components/Hello'
 import SystemInformation from '@/components/SystemInformation'
 import LoginPage from '@/components/LoginPage'
->>>>>>> 30fcd07eb266ee8914127f462c1f4491c0cc7fc9
+import Employee_ViewShift from '@/components/Employee_ViewShift'
+import Owner_AddItemCategory from '@/components/Owner_AddItemCategory'
+import Employee_ViewPurchase from '@/components/Employee_ViewPurchase'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/owner/viewpurchases',
       name: 'Owner_ViewPurchases',
       component: Owner_ViewPurchases
     },
-<<<<<<< HEAD
-=======
     {
       path: '/login',
       name: 'LoginPage',
@@ -28,7 +25,21 @@ export default new Router({
       path: '/systemInformation',
       name: 'SystemInformation',
       component: SystemInformation
+    },
+    {
+      path: '/employee/view/shifts',
+      name: 'Employee_ViewShift',
+      component: Employee_ViewShift
+    },
+    {
+      path: '/addmodify/category',
+      name: 'Owner_AddItemCategory',
+      component: Owner_AddItemCategory
+    },
+    {
+      path: '/employee/view/purchases',
+      name: 'Employee_ViewPurchase',
+      component: Employee_ViewPurchase
     }
->>>>>>> 30fcd07eb266ee8914127f462c1f4491c0cc7fc9
   ]
 })
