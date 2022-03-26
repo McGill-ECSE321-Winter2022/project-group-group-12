@@ -1,15 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-import Owner_ViewPurchases from '@/components/Owner_ViewPurchases'
-import SystemInformation from '@/components/SystemInformation'
-import LoginPage from '@/components/LoginPage'
-import CustomerList from '@/components/CustomerList/CustomerList'
-import Payment from '@/components/Payment'
-import SignupPage from "@/components/SignupPage";
-import PurchaseStatistics from "@/components/PurchaseStatistics";
+import ViewPurchases from '@/components/Owner/ViewPurchases'
+import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation'
+import LoginPage from '@/components/LoginPage/LoginPage'
+import SignupPage from '@/components/SignupPage/SignupPage'
+import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
+import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
 import Hello from "@/components/Hello";
-
+import Payment from '@/components/Customer/Payment'
 
 Vue.use(Router)
 
@@ -21,9 +19,9 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/ownerPurchases',
-      name: 'Owner_ViewPurchases',
-      component: Owner_ViewPurchases
+      path: '/ownerpurchases',
+      name: 'ViewPurchases',
+      component: ViewPurchases
     },
     {
       path: '/login',
@@ -41,7 +39,7 @@ export default new Router({
       component: CustomerList
     },
     {
-      path: '/systemInformation',
+      path: '/systeminformation',
       name: 'SystemInformation',
       component: SystemInformation
     },
@@ -51,7 +49,7 @@ export default new Router({
       component: Payment
     },
     {
-      path: '/purchaseStats',
+      path: '/purchasestats',
       name: 'PurchaseStatistics',
       component: PurchaseStatistics
     }

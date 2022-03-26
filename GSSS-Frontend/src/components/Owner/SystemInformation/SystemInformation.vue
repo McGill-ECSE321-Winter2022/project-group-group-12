@@ -18,7 +18,7 @@ Vue class for the system information page.
 </template>
 
 <style scoped>
-@import '../assets/styles/systemInformation.css';
+@import './systemInformation.css';
 </style>
 
 <script>

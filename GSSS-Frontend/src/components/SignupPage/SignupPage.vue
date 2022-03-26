@@ -22,7 +22,7 @@
 </template>
 
 <style scoped>
-    @import '../assets/styles/signup.css';
+    @import './signup.css';
 </style>
 
 <script>
