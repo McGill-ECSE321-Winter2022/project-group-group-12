@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ViewPurchases from '@/components/Owner/ViewPurchases'
+import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases'
 import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation'
 import LoginPage from '@/components/LoginPage/LoginPage'
 import SignupPage from '@/components/SignupPage/SignupPage'

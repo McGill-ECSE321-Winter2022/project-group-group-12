@@ -2,9 +2,9 @@
 
 <template>
   <div>
-    <h1>Purchase dates</h1>
-    <ul class="selectable-list">
-      <li v-for="(purchase, i) in purchases" :key="purchase.id" v-on:click="selectedPurchase = i">
+    <h1>Purchases</h1>
+    <ul class="purchase-list">
+      <li v-for="(purchase, i) in purchases" :key="purchase.id" v-on:click="onPurchaseSelect(i)">
         {{ purchase.date }}
       </li>
     </ul>
@@ -16,7 +16,7 @@
 
 // Importing axios and setting up URLs
 import axios from 'axios'
-var config = require('../../../config')
+var config = require('../../../../config')
 
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
 var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
@@ -33,15 +33,14 @@ export default {
   data () {
     return {
       purchases: [
-        // Mock elements
-        // {
-        //   id: "Test",
-        //   date: "2022-02-02"
-        // },
-        // {
-        //   id: "Test2",
-        //   date: "2022-02-02"
-        // }
+        {
+          id: 'test',
+          date: "2022-03-01"
+        },
+        {
+          id: 'test2',
+          date: "2022-03-04"
+        }
       ],
       selectedPurchase: 0, // The index of the selected customer
       error: '',
@@ -74,7 +73,15 @@ export default {
   },
 
   methods: {
+    
+    onPurchaseSelect: function(i) {
+      
+      // Set the selected purchase to be the one at index i
+      this.selectedPurchase = i
 
+      // Refresh the current purchase information
+
+    }
   }
 
 }
@@ -82,4 +89,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  @import './ViewPurchases.css';
 </style>

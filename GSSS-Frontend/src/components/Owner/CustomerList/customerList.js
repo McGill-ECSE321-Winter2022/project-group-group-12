@@ -1,7 +1,7 @@
 import CustomerDetail from "./CustomerDetail"
 
 export default {
-    name: 'CustomerList',
+    name: 'customers',
     data(){
         return {
             customers: [],
