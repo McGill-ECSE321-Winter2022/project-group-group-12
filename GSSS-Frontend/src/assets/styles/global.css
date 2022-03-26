@@ -28,3 +28,18 @@ body{
     background-color: transparent;
     color: white;
 }
+
+.selectable-list{
+    list-style: none;
+    padding: 0;
+}
+
+.selectable-list > li{
+    padding: 0.25rem 0.25rem;
+    cursor: pointer;
+    border-radius: 0.2rem;
+}
+
+.selectable-list > li:hover{
+    background-color: rgba(168, 168, 168, 0.13);
+}

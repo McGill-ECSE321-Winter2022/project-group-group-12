@@ -1,0 +1,12 @@
+.ham{
+    display: flex;
+    gap: 1rem
+}
+
+.ham > .menu{
+    flex-basis: 33%;
+}
+
+.ham > .details{
+    flex-basis: 66%;
+}
