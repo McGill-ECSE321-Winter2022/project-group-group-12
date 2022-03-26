@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Owner_ViewPurchases from '@/components/Owner/ViewPurchases'
-import SystemInformation from '@/components/Owner/SystemInformation'
-import LoginPage from '@/components/LoginPage'
-import CustomerList from '@/components/Owner/CustomerList/CustomerList'
+import ViewPurchases from '@/components/Owner/ViewPurchases'
+import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation'
+import LoginPage from '@/components/LoginPage/LoginPage'
+import SignupPage from '@/components/SignupPage/SignupPage'
+import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
 
 Vue.use(Router)
 
@@ -11,13 +12,18 @@ export default new Router({
   routes: [
     {
       path: '/ownerPurchases',
-      name: 'Owner_ViewPurchases',
-      component: Owner_ViewPurchases
+      name: 'ViewPurchases',
+      component: ViewPurchases
     },
     {
-      path: '/login',
+      path: '/',
       name: 'LoginPage',
       component: LoginPage
+    },
+    {
+      path: '/signup',
+      name: 'SignupPage',
+      component: SignupPage
     },
     {
       path: '/customers',

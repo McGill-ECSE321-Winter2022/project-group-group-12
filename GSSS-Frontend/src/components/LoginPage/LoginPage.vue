@@ -12,7 +12,7 @@
 </template>
 
 <style scoped>
-    @import '../assets/styles/login.css';
+    @import './login.css';
 </style>
 
 <script>
