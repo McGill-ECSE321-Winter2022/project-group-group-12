@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Owner_ViewPurchases from '@/components/Owner_ViewPurchases'
 import SystemInformation from '@/components/SystemInformation'
 import LoginPage from '@/components/LoginPage'
 import CustomerList from '@/components/CustomerList/CustomerList'
+import Payment from '@/components/Payment'
+
 
 Vue.use(Router)
 
@@ -28,6 +31,11 @@ export default new Router({
       path: '/systemInformation',
       name: 'SystemInformation',
       component: SystemInformation
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
     }
   ]
 })
