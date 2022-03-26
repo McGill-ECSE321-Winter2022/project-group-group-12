@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Owner_ViewPurchases from '@/components/Owner_ViewPurchases'
-import SystemInformation from '@/components/SystemInformation'
+import Owner_ViewPurchases from '@/components/Owner/ViewPurchases'
+import SystemInformation from '@/components/Owner/SystemInformation'
 import LoginPage from '@/components/LoginPage'
-import CustomerList from '@/components/CustomerList/CustomerList'
+import CustomerList from '@/components/Owner/CustomerList/CustomerList'
 
 Vue.use(Router)
 
