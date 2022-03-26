@@ -1,0 +1,14 @@
+input{
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.login-container{
+  display: flex;
+  justify-content: center;
+}
+
+.login-container > div,
+.login-container > div > *{
+  width: fit-content;
+}

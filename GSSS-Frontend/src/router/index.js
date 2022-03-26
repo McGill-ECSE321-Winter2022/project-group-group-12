@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Hello2 from '@/components/Hello2'
+import SystemInformation from '@/components/SystemInformation'
 import LoginPage from '@/components/LoginPage'
 
 Vue.use(Router)
@@ -14,14 +14,14 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/image',
-      name: 'Hello2',
-      component: Hello2
-    },
-    {
       path: '/login',
       name: 'LoginPage',
       component: LoginPage
+    },
+    {
+      path: '/systemInformation',
+      name: 'SystemInformation',
+      component: SystemInformation
     }
   ]
 })
