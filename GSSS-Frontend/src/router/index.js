@@ -7,7 +7,7 @@ import SignupPage from '@/components/SignupPage/SignupPage'
 import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
 import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
 import Hello from "@/components/Hello";
-import Payment from '@/components/Customer/Payment'
+import Payment from '@/components/Customer/Payment/Payment'
 
 Vue.use(Router)
 

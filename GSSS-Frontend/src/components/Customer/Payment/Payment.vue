@@ -3,8 +3,6 @@ Vue class for the payment page.
 @author Theo Ghanem + inspired from https://www.w3schools.com/howto/howto_css_checkout_form.asp
 -->
 
-
-
 <template>
   <div class="row">
     <div class="col-75">
@@ -98,5 +96,5 @@ export default {
 </script>
 
 <style scoped>
-@import '../assets/styles/payment.css';
+@import './payment.css';
 </style>
