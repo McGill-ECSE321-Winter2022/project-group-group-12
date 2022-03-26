@@ -6,6 +6,7 @@ import SystemInformation from '@/components/SystemInformation'
 import LoginPage from '@/components/LoginPage'
 import CustomerList from '@/components/CustomerList/CustomerList'
 import Payment from '@/components/Payment'
+import SignupPage from "@/components/SignupPage";
 
 
 Vue.use(Router)
@@ -21,6 +22,11 @@ export default new Router({
       path: '/login',
       name: 'LoginPage',
       component: LoginPage
+    },
+    {
+      path: '/signup',
+      name: 'SignupPage',
+      component: SignupPage
     },
     {
       path: '/customers',
