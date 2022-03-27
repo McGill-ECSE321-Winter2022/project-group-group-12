@@ -1,10 +1,12 @@
 /* Author: Wassim Jabbour - Inspired from https://codepen.io/jetpacmonkey/pen/DRNbgZ */
 
+  .purchase-list {
+    color: black;
+  }
   .purchase-list ul {
     padding: 0;
     margin: 0;
     list-style: none;
-    color: black;
   }
   
   .purchase-list li {

@@ -8,11 +8,16 @@
         {{ purchase.date }}
       </li>
     </ul>
-    <p> {{ selectedPurchase }} </p>
+    <!-- <div class="details">
+        <purchase-details v-bind:purchase="purchases[selectedPurchase]"></purchase-details>
+    </div> -->
   </div>
 </template>
 
 <script>
+
+// Importing components
+import PurchaseDetails from './PurchaseDetails'
 
 // Importing axios and setting up URLs
 import axios from 'axios'
@@ -28,20 +33,11 @@ var AXIOS = axios.create({
 
 export default {
 
-  name: 'hello',
+  name: 'ViewPurchases',
 
   data () {
     return {
-      purchases: [
-        {
-          id: 'test',
-          date: "2022-03-01"
-        },
-        {
-          id: 'test2',
-          date: "2022-03-04"
-        }
-      ],
+      purchases: [],
       selectedPurchase: 0, // The index of the selected customer
       error: '',
       response: []
@@ -82,6 +78,10 @@ export default {
       // Refresh the current purchase information
 
     }
+  },
+
+  components:{
+      PurchaseDetails
   }
 
 }
