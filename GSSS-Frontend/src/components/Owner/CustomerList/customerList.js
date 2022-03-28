@@ -5,7 +5,8 @@ export default {
     data(){
         return {
             customers: [],
-            selectedCustomer: 0
+            selectedCustomer: 0,
+            addMode: false
         }
     },
     created: function(){
@@ -54,6 +55,10 @@ export default {
     methods:{
         selectCustomer: function(i){
             this.selectedCustomer = i;
+            this.addMode = false;
+        },
+        addCustomer: function(){
+            this.addMode = true;
         }
     },
     components:{
