@@ -1,4 +1,5 @@
-import CustomerDetail from "./CustomerDetail"
+import CustomerDetail from "../../CustomerDetail/CustomerDetail";
+import CustomerCreator from "../../CustomerCreator/CustomerCreator";
 
 export default {
     name: 'customers',
@@ -59,9 +60,14 @@ export default {
         },
         addCustomer: function(){
             this.addMode = true;
+        },
+        onAdd: function(){
+            // refresh list
+            this.addMode = false;
         }
     },
     components:{
-        CustomerDetail
+        CustomerDetail,
+        CustomerCreator
     }
 }

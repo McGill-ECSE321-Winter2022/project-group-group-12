@@ -11,6 +11,7 @@
             <div class="vertical-separator"/>
             <div class="details">
                 <customer-detail v-if="!addMode" v-bind:customer="customers[selectedCustomer]"></customer-detail>
+                <customer-creator v-if="addMode" v-bind:onAdd="onAdd" />
             </div>
         </div>
     </div>
