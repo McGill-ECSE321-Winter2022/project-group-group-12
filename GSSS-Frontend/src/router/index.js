@@ -1,13 +1,24 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
+// Owner imports
 import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases'
+import OwnerItemCategory from '@/components/Owner/ItemCategory/OwnerItemCategory'
+
+// Employee imports
+import EmployeeViewPurchase from '@/components/Employee/Purchase/EmployeeViewPurchase'
+import EmployeeViewShift from '@/components/Employee/Shift/EmployeeViewShift'
+
+// System imports
 import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation'
 import LoginPage from '@/components/LoginPage/LoginPage'
 import SignupPage from '@/components/SignupPage/SignupPage'
+import Payment from '@/components/Customer/Payment/Payment'
+
+// Customer imports
 import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
 import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
 import Hello from "@/components/Hello";
-import Payment from '@/components/Customer/Payment/Payment'
 
 Vue.use(Router)
 
@@ -44,21 +55,6 @@ export default new Router({
       component: SystemInformation
     },
     {
-      path: '/employee/view/shifts',
-      name: 'Employee_ViewShift',
-      component: Employee_ViewShift
-    },
-    {
-      path: '/addmodify/category',
-      name: 'Owner_AddItemCategory',
-      component: Owner_AddItemCategory
-    },
-    {
-      path: '/employee/view/purchases',
-      name: 'Employee_ViewPurchase',
-      component: Employee_ViewPurchase
-    },
-    {
       path: '/payment',
       name: 'Payment',
       component: Payment
@@ -67,6 +63,21 @@ export default new Router({
       path: '/purchasestats',
       name: 'PurchaseStatistics',
       component: PurchaseStatistics
+    },
+    {
+      path: '/employeepurchases',
+      name: 'EmployeeViewPurchase',
+      component: EmployeeViewPurchase
+    },
+    {
+      path: '/employee/view/shifts',
+      name: 'EmployeeViewShift',
+      component: EmployeeViewShift
+    },
+    {
+      path: '/owneritemcategory',
+      name: 'OwnerItemCategory',
+      component: OwnerItemCategory
     }
   ]
 })

@@ -25,5 +25,5 @@
 </script>
 
 <style scoped>
-    @import '../assets/styles/Employee_ViewShift.css';
+    @import './EmployeeViewShift.css';
 </style>

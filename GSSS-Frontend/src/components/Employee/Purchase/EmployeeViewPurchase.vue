@@ -27,5 +27,5 @@
 </script>
 
 <style scoped>
-    @import '../assets/styles/Employee_ViewPurchase.css';
+    @import './EmployeeViewPurchase.css';
 </style>

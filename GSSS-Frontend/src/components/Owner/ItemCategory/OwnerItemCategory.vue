@@ -44,13 +44,10 @@
 
     </div>
 
-    
-
-  
 </template>
 
 <style scoped>
-    @import '../assets/styles/Owner_AddItemCategory.css';
+    @import './OwnerItemCategory.css';
 </style>
 
 <script src="./itemcategory.js">
