@@ -1,3 +1,8 @@
+<!--
+Vue class for the system information page.
+@author Theo Ghanem
+-->
+
 <template>
   <div class="systemInformation-container">
     <div>
@@ -13,7 +18,7 @@
 </template>
 
 <style scoped>
-@import '../assets/styles/systemInformation.css';
+@import './systemInformation.css';
 </style>
 
 <script>

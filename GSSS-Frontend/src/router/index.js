@@ -1,20 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Owner_ViewPurchases from '@/components/Owner_ViewPurchases'
-import SystemInformation from '@/components/SystemInformation'
-import LoginPage from '@/components/LoginPage'
-import Employee_ViewShift from '@/components/Employee_ViewShift'
-import Owner_AddItemCategory from '@/components/Owner_AddItemCategory'
-import Employee_ViewPurchase from '@/components/Employee_ViewPurchase'
+import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases'
+import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation'
+import LoginPage from '@/components/LoginPage/LoginPage'
+import SignupPage from '@/components/SignupPage/SignupPage'
+import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
+import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
+import Hello from "@/components/Hello";
+import Payment from '@/components/Customer/Payment/Payment'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/owner/viewpurchases',
-      name: 'Owner_ViewPurchases',
-      component: Owner_ViewPurchases
+      path: '/',
+      name: 'Hello',
+      component: Hello
+    },
+    {
+      path: '/ownerpurchases',
+      name: 'ViewPurchases',
+      component: ViewPurchases
     },
     {
       path: '/login',
@@ -22,7 +29,17 @@ export default new Router({
       component: LoginPage
     },
     {
-      path: '/systemInformation',
+      path: '/signup',
+      name: 'SignupPage',
+      component: SignupPage
+    },
+    {
+      path: '/customers',
+      name: 'CustomerList',
+      component: CustomerList
+    },
+    {
+      path: '/systeminformation',
       name: 'SystemInformation',
       component: SystemInformation
     },
@@ -40,6 +57,16 @@ export default new Router({
       path: '/employee/view/purchases',
       name: 'Employee_ViewPurchase',
       component: Employee_ViewPurchase
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
+    },
+    {
+      path: '/purchasestats',
+      name: 'PurchaseStatistics',
+      component: PurchaseStatistics
     }
   ]
 })

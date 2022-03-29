@@ -81,7 +81,7 @@ public class CustomerRestController {
    * @throws IllegalArgumentException If the purchase ID is null or empty
    * @throws NoSuchElementException If no purchase exists with the given purchase ID
    */
-  @GetMapping(value = {"/customerById/{purchaseId}", "/customerById/{purchaseId}/"})
+  @GetMapping(value = {"/customerByPurchase/{purchaseId}", "/customerByPurchase/{purchaseId}/"})
   public CustomerDto getCustomerByPurchase(@PathVariable("purchaseId") String purchaseId)
       throws IllegalArgumentException, NoSuchElementException {
 
