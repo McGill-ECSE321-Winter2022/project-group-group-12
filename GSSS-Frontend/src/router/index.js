@@ -21,7 +21,6 @@ import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
 import Hello from "@/components/Hello";
 
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {

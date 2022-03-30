@@ -1,7 +1,3 @@
-
-// Importing components
-import PurchaseDetails from './PurchaseDetails'
-
 // Importing axios and setting up URLs
 import axios from 'axios'
 var config = require('../../../../config')
@@ -21,23 +17,22 @@ export default {
   data () {
     return {
       purchases: [],
-      selectedPurchase: 0, // The index of the selected customer
+      selectedPurchase: -1, // The index of the selected purchase
       error: '',
       response: []
     }
   },
 
-  created: function() {
+  created: function(employeeEmail) {
 
-    
     // Getting the purchases from the backend
-    AXIOS.get('purchasesbyemployee/{employeeEmail}')
+    AXIOS.get('purchasesbyemployee/' + employeeEmail)
     .then(response => {
 
       // JSON responses are automatically parsed.
       this.purchases = response.data
 
-      // Iterating over all purchases and adding their customer's email as a field
+      // Iterating over all purchases and adding their employee's email as a field
       for(purchase in this.purchases) {
         AXIOS.get('/customerByPurchase' + purchase.id)
         .then(response => {
@@ -55,15 +50,9 @@ export default {
 
   methods: {
     onPurchaseSelect: function(i) {
-      
       // Set the selected purchase to be the one at index i
       this.selectedPurchase = i
       // Refresh the current purchase information
-
     }
   },
-
-  components:{
-      PurchaseDetails
-  }
 }

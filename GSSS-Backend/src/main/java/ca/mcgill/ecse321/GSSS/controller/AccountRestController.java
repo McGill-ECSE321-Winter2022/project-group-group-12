@@ -4,7 +4,9 @@ import ca.mcgill.ecse321.GSSS.model.Account;
 import ca.mcgill.ecse321.GSSS.service.AccountService;
 import java.util.NoSuchElementException;
 import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -13,7 +13,7 @@
           <td> {{ shift.startTime }} </td>
           <td> {{ shift.endTime }} </td>
       </tr>
-     </table> 
+     </table>
      <p>
       <span v-if="errorItemCategory" style="color:red">Error: {{errorItemCategory}} </span>
     </p>
