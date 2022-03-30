@@ -11,7 +11,7 @@
         <div> Time: {{ purchase.time }}</div>
         <div> Employee: {{ purchase.employee.email }} </div>
         <div> Items:
-            <ul v-for="(item, quantity) in purchase.items" :key="item.name"> 
+            <ul v-for="(item, quantity) in Array.from(this.purchase.items)" :key="item.name"> 
                 <li> {{ item.name }} : {{ quantity }}</li>
             </ul>
         </div>
