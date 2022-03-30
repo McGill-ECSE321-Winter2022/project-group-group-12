@@ -1,57 +1,21 @@
 import CustomerDetail from "../../CustomerDetail/CustomerDetail";
 import CustomerCreator from "../../CustomerCreator/CustomerCreator";
 
+import { getAllCustomers } from "../../../services/customer";
+
 export default {
     name: 'customers',
     data(){
         return {
             customers: [],
-            selectedCustomer: 0,
+            selectedCustomer: -1,
             addMode: false
         }
     },
     created: function(){
-        this.customers = [
-            {
-                email: 'customer1@email.com',
-                username: 'Customer 1',
-                disabled: false,
-                address: {
-                    id: "43fdsag-4q35gsd-325dsassdf",
-                    fullName: "Christophe Hatoum",
-                    streetName: "Stanley street",
-                    streetNumber: 3455,
-                    city: "Montreal",
-                    postalCode: "H3A 1S3"
-                }
-            },
-            {
-                email: 'customer2@email.com',
-                username: 'Customer 2',
-                disabled: false,
-                address: {
-                    id: "43fdsag-4q35gsd-325dsassdf",
-                    fullName: "Wassim Jabbour",
-                    streetName: "Stanley street",
-                    streetNumber: 3455,
-                    city: "Montreal",
-                    postalCode: "H3A 1S3"
-                }
-            },
-            { 
-                email: 'customer3@email.com',
-                username: 'Customer 3',
-                disabled: true,
-                address: {
-                    id: "43fdsag-4q35gsd-325dsassdf",
-                    fullName: "Philippe SH",
-                    streetName: "Durocher street",
-                    streetNumber: 3460,
-                    city: "Montreal",
-                    postalCode: "H2X 2E3"
-                }
-            }
-        ]
+        getAllCustomers()
+        .then(res => this.customers = res)
+        .catch(err => console.log(err));
     },
     methods:{
         selectCustomer: function(i){
