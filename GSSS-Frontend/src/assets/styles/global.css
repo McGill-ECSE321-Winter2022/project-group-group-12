@@ -7,20 +7,35 @@
 html{
     background-color: #303030;
     color: white;
+    --color-accent: rgb(52, 75, 52);
+    --color-accent-transparent: rgba(52, 75, 52, 0.205);
+}
+
+input{
+    outline: none;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"]{
+    background-color: var(--color-accent-transparent);
+    border: solid var(--color-accent);
+    border-width: 0 0 1px 0;
+    color: white;
 }
 
 button{
-    padding: 0.5em 1em;
-    background-color: green;
+    padding: 0.25em 1em;
+    background-color: var(--color-accent);
     border: none;
     color: white;
-    border-radius: 1rem;
+    border-radius: 0.25rem;
     border: solid transparent 2px;
 }
 
 button:hover{
     background-color: transparent;
-    border: solid green 2px;
+    border: solid var(--color-accent) 2px;
 }
 
 body{
@@ -42,4 +57,10 @@ body{
 
 .selectable-list > li:hover{
     background-color: rgba(168, 168, 168, 0.13);
+}
+
+.vertical-separator{
+    align-self: stretch;
+    border: solid whitesmoke;
+    border-width: 0 0 0 1px;
 }

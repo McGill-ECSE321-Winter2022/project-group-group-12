@@ -19,7 +19,7 @@ public class PurchaseDto {
   private OrderStatus orderStatus;
   private Date date;
   private Time time;
-  private Map<ItemDto, Integer> items = new HashMap<ItemDto, Integer>();
+  private Map<String, Integer> items = new HashMap<String, Integer>();
   private EmployeeDto employee;
 
   public PurchaseDto() {
@@ -31,7 +31,7 @@ public class PurchaseDto {
       OrderStatus orderStatus,
       Date date,
       Time time,
-      Map<ItemDto, Integer> items,
+      Map<String, Integer> items,
       EmployeeDto employee) {
     this.id = id;
     this.orderType = orderType;
@@ -62,7 +62,7 @@ public class PurchaseDto {
     return time;
   }
 
-  public Map<ItemDto, Integer> getItems() {
+  public Map<String, Integer> getItems() {
     return items;
   }
 

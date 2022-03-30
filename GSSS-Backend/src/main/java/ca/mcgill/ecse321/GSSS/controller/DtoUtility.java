@@ -271,18 +271,17 @@ public class DtoUtility {
    * @return The corresponding map of itemDtos and integers
    * @author Wassim Jabbour
    */
-  static Map<ItemDto, Integer> convertItemMap(Map<Item, Integer> itemMap) {
+  static Map<String, Integer> convertItemMap(Map<Item, Integer> itemMap) {
 
     // Checking the input is non null
     if (itemMap == null) {
       throw new IllegalArgumentException("There is no such item selection!");
     }
 
-    Map<ItemDto, Integer> itemDtoMap = new HashMap<ItemDto, Integer>();
+    Map<String, Integer> itemDtoMap = new HashMap<String, Integer>();
 
     for (Map.Entry<Item, Integer> entry : itemMap.entrySet()) {
-      ItemDto convertedItem = convertToDto(entry.getKey());
-      itemDtoMap.put(convertedItem, entry.getValue());
+      itemDtoMap.put(entry.getKey().getName(), entry.getValue());
     }
     return itemDtoMap;
   }
