@@ -12,7 +12,7 @@ About: Page to handle selecting items and adding them to the customer's cart
           <img :src="product.imageUrl" class="card-img-top" />
           <div class="card-body">
             <h6 class="card-title">
-              {{ product.name }} - $ {{ product.price }}
+              {{ product.name }} - {{ product.price }}$
             </h6>
             <!-- Can't add an item to cart if it is not available at the moment / just for in person purcases / Isn't in stock -->
             <button
@@ -25,7 +25,8 @@ About: Page to handle selecting items and adding them to the customer's cart
                 'btn-success': product.cart,
               }"
             >
-              {{ !product.cart ? "Add" : "Added" }}
+              <!-- Under which conditions to describe an item as what -->
+              {{ (!product.stillAvailable || !product.availableForOrder || product.remainingQuantity <= 0) ? "Unavailable" : (!product.cart ? "Add" : "Added") }}
             </button>
           </div>
         </div>
@@ -44,6 +45,7 @@ About: Page to handle selecting items and adding them to the customer's cart
           </tr>
         </thead>
         <tbody>
+          <!-- Displaying the cart -->
           <tr v-for="(product, index) in this.cart" :key="index">
             <th scope="row">{{ index + 1 }}</th>
             <th scope="row">
@@ -76,7 +78,6 @@ About: Page to handle selecting items and adding them to the customer's cart
               </button>
             </td>
           </tr>
-          <br><br>
         </tbody>
       </table>
     </div>
@@ -84,6 +85,16 @@ About: Page to handle selecting items and adding them to the customer's cart
       <div class="col text-center">
         <h4>Total cost: {{ total }}$</h4>
       </div>
+    </div>
+    <div v-if="error" class="error">
+      <div>
+        {{ error }}
+      </div>
+    </div>
+    <div style="text-align:center">
+      <button class="checkout">
+        Proceed to checkout
+      </button>
     </div>
   </div>
 </template>
@@ -125,18 +136,21 @@ About: Page to handle selecting items and adding them to the customer's cart
       this.items = response.data
 
       for(let i = 0; i < this.items.length; i++) {
-          Vue.set(this.items[i], 'cart', false);
-          Vue.set(this.items[i], 'count', 0);
+          this.items[i].cart = false
+          this.items[i].count = 0
       }
       
       })
     .catch(e => {
       this.error = e
+      setTimeout(()=>this.error=null, 3000)
     })
   },
 
+  // User defined methods
   methods: {
     
+    // To add a product to the cart
     addProduct : function(product) {
         if(!product.cart){
             product.count = 1
@@ -146,6 +160,7 @@ About: Page to handle selecting items and adding them to the customer's cart
         }
     },
 
+    // To decrease the selected quantity of a product
     decreaseQ : function(i) {
         if(this.cart[i].count > 1) {
             this.cart[i].count = this.cart[i].count - 1
@@ -154,14 +169,20 @@ About: Page to handle selecting items and adding them to the customer's cart
         }
     },
 
+    // To increase the selected quantity of a product
     increaseQ : function(i) {
       if(this.cart[i].count < this.cart[i].remainingQuantity) {
         this.cart[i].count = this.cart[i].count + 1
         this.total = this.total + this.cart[i].price
         this.cart = [...this.cart] // Cloning the array to force it to update
       }
+      else {
+        this.error = "Error: There is not enough remaining stock to add more items"
+        setTimeout(()=>this.error=null, 3000)
+      }
     },
 
+    // To remove a product
     removeProduct : function(i) {
         this.cart[i].cart = false
         this.total = this.total - this.cart[i].price*this.cart[i].count
@@ -175,7 +196,10 @@ About: Page to handle selecting items and adding them to the customer's cart
 </script>
 
 
+
 <style scoped>
+
+  /* User written styling of the file */
    .card {
        color: black;
        margin-bottom: 1rem;
@@ -185,6 +209,27 @@ About: Page to handle selecting items and adding them to the customer's cart
 
    .table {
       color: white;
+   }
+
+   .error {
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     right: 0;
+     color: red;
+     margin-bottom: 2rem;
+     display: flex;
+     justify-content: center;
+   }
+
+   .error > div {
+     background-color: rgba(0, 0, 0, 0.822);
+     padding: 0.5em 1em;
+     border-radius: 0.5rem;
+   }
+
+   .checkout {
+     margin-top: 1.5em;
    }
 
 
