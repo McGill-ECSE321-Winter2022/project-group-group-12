@@ -3,7 +3,9 @@
     <h1>Get Purchase Statistics by date</h1>
     <br>
     <p> Choose a date:</p>
-    <date-picker v-model="time1" valueType="format"></date-picker>
+    <date-picker v-model="pickedDate" valueType="format"></date-picker>
+    <br>
+    <p> {{pickedDate}}</p>
   </div>
 </template>
 
@@ -16,7 +18,7 @@ export default {
   components: { DatePicker },
   data() {
     return {
-      time1: null
+      pickedDate: null
 
     };
   },

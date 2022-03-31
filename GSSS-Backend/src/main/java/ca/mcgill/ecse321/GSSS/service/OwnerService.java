@@ -28,7 +28,7 @@ public class OwnerService {
    */
   @Transactional
   public Owner getOwner() {
-    // since we only have one owner, the we return the the first element of the list returned by findAll()
+    // since we only have one owner, then we return the first element of the list returned by findAll()
     Iterator<Owner> iterator = ownerRepository.findAll().iterator();
     if (iterator.hasNext()) {
       return iterator.next();
@@ -134,6 +134,7 @@ public class OwnerService {
    * @return The modified owner
    * @author Wassim Jabbour
    */
+  @Transactional
   public Owner modifySystemInformation(String city, double outOfTownFee) {
 
     // Input validation

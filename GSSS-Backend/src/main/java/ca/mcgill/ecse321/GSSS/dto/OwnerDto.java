@@ -7,6 +7,8 @@ package ca.mcgill.ecse321.GSSS.dto;
  */
 public class OwnerDto extends AccountDto {
 
+  private String storeCity;
+  private double outOfTownDeliveryFee;
   /**
    * Default constructor
    *
@@ -32,7 +34,27 @@ public class OwnerDto extends AccountDto {
       String password,
       String salt,
       boolean disabled,
-      AddressDto address) {
+      AddressDto address,
+      String storeCity,
+      double outOfTownDeliveryFee) {
     super(username, email, password, salt, disabled, address);
+    this.storeCity = storeCity;
+    this.outOfTownDeliveryFee = outOfTownDeliveryFee;
+  }
+
+  public String getStoreCity() {
+    return storeCity;
+  }
+
+  public void setStoreCity(String storeCity) {
+    this.storeCity = storeCity;
+  }
+
+  public double getOutOfTownDeliveryFee() {
+    return outOfTownDeliveryFee;
+  }
+
+  public void setOutOfTownDeliveryFee(double outOfTownDeliveryFee) {
+    this.outOfTownDeliveryFee = outOfTownDeliveryFee;
   }
 }

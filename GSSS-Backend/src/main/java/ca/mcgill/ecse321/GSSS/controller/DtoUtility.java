@@ -534,7 +534,9 @@ public class DtoUtility {
             owner.getPassword(),
             owner.getSalt(),
             owner.isDisabled(),
-            convertToDto(owner.getAddress()));
+            convertToDto(owner.getAddress()),
+            owner.getStoreCity(),
+            owner.getOutOfTownDeliveryFee());
 
     return ownerDto;
   }
