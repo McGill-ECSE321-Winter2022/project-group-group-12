@@ -154,7 +154,7 @@ public class CustomerRestController {
    * @throws IllegalArgumentException
    * @author Enzo Benoit-Jeannin
    */
-  @PostMapping(value = {"/customer/{email}", "/cusotmer/{email}/"})
+  @PostMapping(value = {"/customer/{email}", "/customer/{email}/"})
   public CustomerDto modifyCustomer(@PathVariable("email") String email,
       @RequestParam(name = "username") String username,
       @RequestParam(name = "password") String password,
