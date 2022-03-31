@@ -8,50 +8,67 @@ import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
 import Hello from '@/components/Hello.vue'
 import Payment from '@/components/Customer/Payment/Payment.vue'
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
+import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
 
 Vue.use(Router)
 
+const otherRoutes = [
+  {
+    path: '/',
+    name: 'Hello',
+    component: Hello
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage
+  },
+  {
+    path: '/signup',
+    name: 'SignupPage',
+    component: SignupPage
+  },
+]
+
+const ownerRoutes = [
+  {
+    path: '/systeminformation',
+    name: 'SystemInformation',
+    component: SystemInformation
+  },
+];
+
+const employeeRoutes = [
+  {
+    path: '/employee/purchases',
+    name: 'ViewPurchases',
+    component: ViewPurchases
+  },
+  {
+    path: '/employee/customers',
+    name: 'CustomerList',
+    component: CustomerList
+  },
+];
+
+const customerRoutes = [
+  {
+    path: '/customer/shop',
+    name: 'ViewAndSelectItems',
+    component: ViewAndSelectItems
+  },
+  {
+    path: '/customer/payment',
+    name: 'Payment',
+    component: Payment
+  },
+  {
+    path: '/customer/account',
+    name: 'Customer Account',
+    component: ViewCustomerAccount
+  }
+];
+
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    },
-    {
-      path: '/ownerpurchases',
-      name: 'ViewPurchases',
-      component: ViewPurchases
-    },
-    {
-      path: '/customerselectitems',
-      name: 'ViewAndSelectItems',
-      component: ViewAndSelectItems
-    },
-    {
-      path: '/login',
-      name: 'LoginPage',
-      component: LoginPage
-    },
-    {
-      path: '/signup',
-      name: 'SignupPage',
-      component: SignupPage
-    },
-    {
-      path: '/customers',
-      name: 'CustomerList',
-      component: CustomerList
-    },
-    {
-      path: '/systeminformation',
-      name: 'SystemInformation',
-      component: SystemInformation
-    },
-    {
-      path: '/payment',
-      name: 'Payment',
-      component: Payment
-    }
-  ]
+  routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
 })

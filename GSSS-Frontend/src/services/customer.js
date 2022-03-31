@@ -7,6 +7,12 @@ export const getAllCustomers = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+export const getCustomer = (email) => new Promise((resolve, reject) => {
+    ax.get(`/customer/${email}`)
+    .then(res => resolve(res.data))
+    .catch(err => reject(err));
+})
+
 export const createCustomer = (customer) => new Promise((resolve, reject) => {
     createAddress(customer.address)
     .then(res => {
