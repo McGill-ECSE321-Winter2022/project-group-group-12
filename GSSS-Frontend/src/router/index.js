@@ -53,11 +53,6 @@ export default new Router({
       path: '/payment',
       name: 'Payment',
       component: Payment
-    },
-    {
-      path: '/purchasestats',
-      name: 'PurchaseStatistics',
-      component: PurchaseStatistics
     }
   ]
 })
