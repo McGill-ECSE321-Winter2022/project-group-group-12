@@ -5,7 +5,7 @@ import SystemInformation from '@/components/Owner/SystemInformation/SystemInform
 import LoginPage from '@/components/LoginPage/LoginPage.vue'
 import SignupPage from '@/components/SignupPage/SignupPage.vue'
 import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
-import Hello from "@/components/Hello.vue"
+import Hello from '@/components/Hello.vue'
 import Payment from '@/components/Customer/Payment/Payment.vue'
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
 

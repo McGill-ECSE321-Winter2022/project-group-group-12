@@ -17,7 +17,7 @@ Vue class for the system information page.
       <br/>
       <td>
       <div>
-          <div> Select weekday:
+          <div> <p>Select weekday: <p/>
             <select id="selectWeekday" placeholder="Select day">
               <option value="" disabled selected>Select your day</option>
               <option value="1">All days</option>
@@ -47,18 +47,61 @@ Vue class for the system information page.
         <td>
         <div class="storeInfo-container">
           <p>Store city: <input placeholder="ex: Montreal" type="text" id="cityinput"/></p>
+          <p>Current city: <span style="color:deepskyblue; font-style:italic;">{{currentCity}}</span></p>
           <br/>
           <p>Out of city fee: <input placeholder="ex: 5$" type="number"  min="0"  max="10" id="feeinput"/> </p>
-          <br/>
+          <p>Current fee:  <span style="color:deepskyblue;"> {{currentFee}}</span></p>
+
           <button v-on:click="saveCityAndFee()">  Save store information</button>
           <p v-if="errorStoreInfo" style="color:red; font-style:italic;">{{ errorStoreInfo }}</p>
           <p v-if="successStoreInfo" style="color:green; font-style:italic;">{{ successStoreInfo }}</p>
         </div>
         </td>
     </div>
+        <br/>
+        Current Business Hours
+        <br/>
+        <table class="currentBH">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><strong>Opening time</strong></td>
+            <td>{{MonStartTime}}</td>
+            <td>{{TueStartTime}}</td>
+            <td>{{WedStartTime}}</td>
+            <td>{{ThuStartTime}}</td>
+            <td>{{FriStartTime}}</td>
+            <td>{{SatStartTime}}</td>
+            <td>{{SunStartTime}}</td>
+          </tr>
+          <tr>
+            <td><strong>Closing time</strong></td>
+            <td>{{MonCloseTime}}</td>
+            <td>{{TueCloseTime}}</td>
+            <td>{{WedCloseTime}}</td>
+            <td>{{ThuCloseTime}}</td>
+            <td>{{FriCloseTime}}</td>
+            <td>{{SatCloseTime}}</td>
+            <td>{{SunCloseTime}}</td>
+          </tr>
+          </tbody>
+        </table>
       </tr>
     </table>
+
   </div>
+
 </template>
 
 <style scoped>

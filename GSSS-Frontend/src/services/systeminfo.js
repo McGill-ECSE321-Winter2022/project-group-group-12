@@ -16,9 +16,12 @@ export const updateBusinessHours = (weekday, starttime, endtime) => new Promise(
 export const getBusinessHours = () => new Promise((resolve, reject) => {
   ax.get('/businesshour/'+ this.selectedWeekday)
     .then(res => resolve(
-      this.currentStartTime =res.data.starttime,
-      this.currentEndTime =res.data.endtime
+  {
+    startTimeFromBackend: res.data.starttime,
+    endTimeFromBackend: res.data.endtime
+        }
       ))
     .catch(err => reject(err))
 });
+
 
