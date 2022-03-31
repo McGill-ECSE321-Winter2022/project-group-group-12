@@ -23,18 +23,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OwnerRestController {
 
-  @Autowired
-  private OwnerService ownerService;
+  @Autowired private OwnerService ownerService;
 
-  @Autowired
-  private AddressService addressService;
+  @Autowired private AddressService addressService;
 
   /**
    * Method to create an owner the first time (Returns the existing owner's DTO otherwise)
    *
-   * @param username  The owner's username
-   * @param email     The owner's email
-   * @param password  The owner's password
+   * @param username The owner's username
+   * @param email The owner's email
+   * @param password The owner's password
    * @param addressId The address' ID
    * @return The created/retrieved owner DTO
    * @throws IllegalArgumentException If the inputs are invalid
@@ -73,12 +71,12 @@ public class OwnerRestController {
   /**
    * Method to modify/update the owner if they exist (Throws an error otherwise)
    *
-   * @param username  Username we want to update
-   * @param password  Password we want to update
+   * @param username Username we want to update
+   * @param password Password we want to update
    * @param addressId Address we want to update
    * @return The modified owner as a DTO object
    * @throws IllegalArgumentException If the inputs are invalid
-   * @throws NoSuchElementException   If the owner doesn't exist
+   * @throws NoSuchElementException If the owner doesn't exist
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/owner", "/owner/"})
@@ -96,7 +94,7 @@ public class OwnerRestController {
    * Method to modify the system information
    *
    * @param city The new city
-   * @param fee  The new fee
+   * @param fee The new fee
    * @return The new owner with modified info
    * @author Wassim Jabbour
    */
@@ -108,4 +106,5 @@ public class OwnerRestController {
     Owner owner = ownerService.modifySystemInformation(city, fee);
     return DtoUtility.convertToDto(owner);
   }
+
 }
