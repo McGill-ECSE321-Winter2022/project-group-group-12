@@ -4,6 +4,7 @@
     <br>
     <h2>Available Links</h2>
     <ul>
+      <li><a href="http://127.0.0.1:8087/#/customerselectitems"> Main shopping page</a></li>
       <li><a href="http://127.0.0.1:8087/#/ownerPurchases" > Owner ViewPurchases </a></li>
       <li><a href="http://127.0.0.1:8087/#/login"  > Login Page</a></li>
       <li><a href="http://127.0.0.1:8087/#/signup"  > Signup Page</a></li>

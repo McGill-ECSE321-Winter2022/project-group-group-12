@@ -3,18 +3,20 @@ Author: Wassim Jabbour
 About: Page to handle selecting items and adding them to the customer's cart
 -->
 
+<!-- CSS uses bootstrap -->
 <template>
   <div class="container">
     <div class="row mt-2 justify-content-center">
-      <div class="col-2" v-for="product in this.items" :key="product.name">
-        <div class="card" style="width: 10rem;">
+      <div class="items" v-for="product in this.items" :key="product.name">
+        <div class="card" v-bind:title="product.description" style="width: 10rem;">
           <img :src="product.imageUrl" class="card-img-top" />
           <div class="card-body">
             <h6 class="card-title">
               {{ product.name }} - $ {{ product.price }}
             </h6>
+            <!-- Can't add an item to cart if it is not available at the moment / just for in person purcases / Isn't in stock -->
             <button
-              :disabled="!product.stillAvailable"
+              :disabled="!product.stillAvailable || !product.availableForOrder || product.remainingQuantity <= 0"
               v-on:click="addProduct(product)"
               href="#"
               class="btn  btn-block"
@@ -49,7 +51,7 @@ About: Page to handle selecting items and adding them to the customer's cart
             </th>
             <td>{{ product.name }}</td>
             <td>
-              {{ product.price }}
+              {{ product.price }}$/unit
             </td>
             <td>
               <button
@@ -74,12 +76,13 @@ About: Page to handle selecting items and adding them to the customer's cart
               </button>
             </td>
           </tr>
+          <br><br>
         </tbody>
       </table>
     </div>
     <div class="row">
       <div class="col text-center">
-        <h4>TOTAL: {{ total }}</h4>
+        <h4>Total cost: {{ total }}$</h4>
       </div>
     </div>
   </div>
@@ -108,7 +111,7 @@ About: Page to handle selecting items and adding them to the customer's cart
       items: [],
       cart: [],
       error: '',
-      total: 0
+      total: 0,
     }
   },
 
@@ -122,8 +125,8 @@ About: Page to handle selecting items and adding them to the customer's cart
       this.items = response.data
 
       for(let i = 0; i < this.items.length; i++) {
-          items[i].cart = false;
-          items[i].count = 0;
+          Vue.set(this.items[i], 'cart', false);
+          Vue.set(this.items[i], 'count', 0);
       }
       
       })
@@ -139,21 +142,29 @@ About: Page to handle selecting items and adding them to the customer's cart
             product.count = 1
             product.cart = true
             this.cart.push(product)
+            this.total = this.total + product.price
         }
     },
 
     decreaseQ : function(i) {
         if(this.cart[i].count > 1) {
             this.cart[i].count = this.cart[i].count - 1
+            this.total = this.total - this.cart[i].price
+            this.cart = [...this.cart] // Cloning the array to force it to update
         }
     },
 
     increaseQ : function(i) {
+      if(this.cart[i].count < this.cart[i].remainingQuantity) {
         this.cart[i].count = this.cart[i].count + 1
+        this.total = this.total + this.cart[i].price
+        this.cart = [...this.cart] // Cloning the array to force it to update
+      }
     },
 
     removeProduct : function(i) {
         this.cart[i].cart = false
+        this.total = this.total - this.cart[i].price*this.cart[i].count
         this.cart[i].count = 0
         this.cart.splice(i, 1)
     }
@@ -166,11 +177,14 @@ About: Page to handle selecting items and adding them to the customer's cart
 
 <style scoped>
    .card {
-       color: black
+       color: black;
+       margin-bottom: 1rem;
+       margin-left: 0.5rem;
+       margin-right: 0.5rem;
    }
 
    .table {
-       color: white
+      color: white;
    }
 
 
