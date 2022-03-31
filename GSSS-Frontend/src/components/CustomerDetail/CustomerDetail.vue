@@ -24,6 +24,7 @@
                 <input type="text" placeholder="Postal Code" v-model="mod.address.postalCode"/>
             </div>
         </div>
+        <div v-if="message" v-bind:style="isSuccess ? 'color: green; font-style: italic;' : 'color: red; font-style: italic;'">{{ message }}</div>
         <button>View purchases</button>
         <button v-on:click="changeMode()">{{ this.editMode ? "Save" : "Edit" }}</button>
     </div>
