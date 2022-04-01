@@ -22,8 +22,7 @@
     </div>
 </template>
 
-<style scoped>
-    @import './signup.css';
+<style scoped src='./signup.css'>
 </style>
 
 <script src="./signUp.js" />

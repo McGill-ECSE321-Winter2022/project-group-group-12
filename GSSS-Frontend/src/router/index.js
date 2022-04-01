@@ -22,6 +22,7 @@ import Hello from "@/components/Hello";
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
 import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
 import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
+import StoreInformation from '@/components/Customer/StoreInformation/StoreInformation.vue';
 
 Vue.use(Router)
 
@@ -99,7 +100,13 @@ const customerRoutes = [
     path: '/customer/account',
     name: 'Customer Account',
     component: ViewCustomerAccount
+  },
+  {
+    path: '/customer/storeinformation',
+    name: 'Store Information',
+    component: StoreInformation
   }
+
 ];
 
 export default new Router({

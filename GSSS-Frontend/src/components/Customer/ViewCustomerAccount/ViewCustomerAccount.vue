@@ -5,8 +5,7 @@
     </div>
 </template>
 
-<style scoped>
-    @import "./viewCustomerAccount.css";
+<style scoped src="./viewCustomerAccount.css">
 </style>
 
 <script src="./viewCustomerAccount.js"/>

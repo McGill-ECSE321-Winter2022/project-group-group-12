@@ -47,8 +47,8 @@ About: Page to handle selecting items and adding them to the customer's cart
     </div>
     <div style="text-align:center">
       <select  placeholder="Select delivery type" class="select-css" v-model="type">
-        <option value="delivery">Delivery</option>
-        <option value="pickup">Pickup</option>
+        <option value="Delivery">Delivery</option>
+        <option value="Pickup">Pickup</option>
       </select>
       <br>
       <button v-on:click="payment()" class="payment">
@@ -57,7 +57,7 @@ About: Page to handle selecting items and adding them to the customer's cart
     </div>
     <br>
     <div style="text-align:center">
-        <p v-if="this.type == 'delivery' && this.deliveryFee != 0">
+        <p v-if="this.type == 'Delivery' && this.deliveryFee != 0">
             Note: A delivery fee of {{ deliveryFee }}$ will apply (Out of city customer)
         </p>
     </div>
@@ -95,7 +95,7 @@ About: Page to handle selecting items and adding them to the customer's cart
   created: function() {
     
     // Initializing the delivery type
-    this.type = "delivery"
+    this.type = "Delivery"
 
     // Getting the cart from local storage
     this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -131,9 +131,56 @@ About: Page to handle selecting items and adding them to the customer's cart
     
     // To proceed to checkout
     payment : function() {
+
+        // Store the total cost with the fee in a variable
         this.total = this.total + this.deliveryFee
         localStorage.setItem('cost', this.total)
-        this.$router.push("/customer/payment")
+
+        // Add the purchase to the database
+        var itemMap = new Map()
+
+        for(var i = 0; i < this.cart.length; i++) {
+          itemMap.set(this.cart[i].name, this.cart[i].count)
+        }
+
+        // Convert map to JSON which can be passed in request
+        var convertedMap = Object.assign({}, ...Array.from(itemMap.entries()).map(([k, v]) =>({[k]: v}) ))
+
+        AXIOS.post('/purchase', convertedMap, 
+        { 
+          params: {
+            ordertype: this.type,
+            orderstatus: "BeingPrepared" 
+          } 
+        })
+        .then(response => {
+
+          // Add it to the customer in question
+           AXIOS.post('customer/purchase/' + localStorage.email, null,
+           {
+             params: {
+              ordertype: this.type,
+              orderstatus: "BeingPrepared" 
+            }
+           })
+          .then(response => {
+
+            // Add it to the customer in question
+            
+
+          })
+          .catch(e => {
+            this.error = e
+            setTimeout(()=>this.error=null, 3000)
+          })
+
+          // Route to new page
+          this.$router.push("/customer/payment")
+        })
+        .catch(e => {
+          this.error = e
+          setTimeout(()=>this.error=null, 3000)
+        })
     }
 
   },
@@ -176,15 +223,11 @@ About: Page to handle selecting items and adding them to the customer's cart
    }
 
    .payment {
-     margin-top: 1.5em;
-   }
-
-   .type-selector {
-       display: flexx
+     margin-top: 3em;
    }
 
    .select-css {
-	display: block;
+    margin-top: 1.5em;
 	font-size: 16px;
 	font-family: sans-serif;
 	font-weight: 700;
@@ -194,7 +237,6 @@ About: Page to handle selecting items and adding them to the customer's cart
 	width: fit-content;
 	max-width: 100%;
 	box-sizing: border-box;
-	margin: 0;
 	border: 1px solid #aaa;
 	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
 	border-radius: .5em;

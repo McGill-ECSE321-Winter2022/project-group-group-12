@@ -186,6 +186,14 @@ public class CustomerRestController {
       customerService.modifyPassword(email, password));
   }
 
+  /**
+   * Finds the delivery fee associated with a customer
+   *
+   * @param email The email of the customer
+   * @return The delivery fee
+   * @throws IllegalArgumentException If email is empty
+   * @throws NoSuchElementException If no customer with the email exists
+   */
   @GetMapping(value = {"/deliveryfee/{email}", "/deliveryfee/{email}/"})
   public double returnDeliveryFee(@PathVariable("email") String email)
       throws IllegalArgumentException, NoSuchElementException {

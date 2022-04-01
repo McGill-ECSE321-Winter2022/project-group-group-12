@@ -29,6 +29,5 @@
 
 <script src="./customerCreator.js" />
 
-<style scoped>
-    @import "./customerCreator.css";
+<style scoped src="./customerCreator.css">
 </style>

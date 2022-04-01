@@ -19,6 +19,5 @@
 
 <script src="./itemCreator.js" />
 
-<style scoped>
-    @import "./itemCreator.css";
+<style scoped src="./itemCreator.css">
 </style>
