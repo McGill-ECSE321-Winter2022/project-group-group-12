@@ -2,22 +2,22 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // Owner imports
-import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases'
-import OwnerItemCategory from '@/components/Owner/ItemCategory/OwnerItemCategory'
+import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases.vue'
+import OwnerItemCategory from '@/components/Owner/ItemCategory/OwnerItemCategory.vue'
+import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
 
 // Employee imports
 import EmployeeViewPurchase from '@/components/Employee/Purchase/EmployeeViewPurchase.vue'
-import EmployeeViewShift from '@/components/Employee/Shift/EmployeeViewShift'
+import EmployeeViewShift from '@/components/Employee/Shift/EmployeeViewShift.vue'
 
 // System imports
-import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation'
-import LoginPage from '@/components/LoginPage/LoginPage'
-import SignupPage from '@/components/SignupPage/SignupPage'
-import Payment from '@/components/Customer/Payment/Payment'
+import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation.vue'
+import LoginPage from '@/components/LoginPage/LoginPage.vue'
+import SignupPage from '@/components/SignupPage/SignupPage.vue'
+import Payment from '@/components/Customer/Payment/Payment.vue'
 
 // Customer imports
 import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
-import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
 import Hello from "@/components/Hello";
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
 import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
@@ -59,6 +59,11 @@ const ownerRoutes = [
     path: '/owner/itemcategory',
     name: 'OwnerItemCategory',
     component: OwnerItemCategory
+  },
+  {
+    path: '/owner/createitem',
+    name: 'ItemCreator',
+    component: ItemCreator
   }
 ];
 
