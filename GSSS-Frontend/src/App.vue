@@ -1,12 +1,17 @@
 <template>
   <div id="app">
+    <taskbar />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Taskbar from "@/components/Taskbar/Taskbar.vue";
 export default {
-  name: 'app'
+  name: 'app',
+  components:{
+    Taskbar
+  }
 }
 </script>
 
