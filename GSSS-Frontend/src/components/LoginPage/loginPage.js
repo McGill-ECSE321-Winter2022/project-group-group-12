@@ -11,10 +11,10 @@ export default{
         }
     },
     methods: {
-        logIn: function (email, password) {
-            login(email,password)
+        logIn: function () {
+            login(this.email, this.password)
             .then(response => {
-                localStorage.email = email;
+                localStorage.setItem('email', this.email);
                 if (response.equals("Customer")) {
                   self.$router.push({ name: "ViewAndSelectItems" });
                 } else if (response.equals("Employee")){
