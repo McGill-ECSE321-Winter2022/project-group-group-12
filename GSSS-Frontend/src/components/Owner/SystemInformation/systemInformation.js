@@ -1,5 +1,9 @@
 
-import {getBusinessHours, updateBusinessHours, updateCityAndFee} from "../../../services/systeminfo";
+//Javascript for the System information page.
+//author Theo Ghanem
+
+
+import {getBusinessHours, getCityAndFee, updateBusinessHours, updateCityAndFee} from "../../../services/systeminfo";
 
 export default {
   name: 'SystemInformation',
@@ -48,6 +52,8 @@ export default {
         this.MonCloseTime =res.endTimeFromBackend.slice(0, -3)
         })
         .catch(e => {
+          // this.MonStartTime='--:--'
+          // this.MonCloseTime='--:--'
         })
 
       getBusinessHours('Tuesday')
@@ -98,15 +104,26 @@ export default {
         .catch(e => {
         })
 
+
+    //Get current Store City and out of town delivery fee
+      getCityAndFee()
+        .then(res  => {
+          this.currentCity =res.currentCityFromBackend
+          this.currentFee =res.outOfCityFeeFromBackend
+        })
+        .catch(e => {
+        })
+
   },
 
   methods: {
 
     //Method that will be called when we press on the button to save the new city and out of city delivery fee
     saveCityAndFee: function () {
-      this.chosenCity = document.getElementById('cityinput').value
-      this.chosenFee = document.getElementById('feeinput').value
-      updateCityAndFee(this.chosenCity, this.chosenFee)
+      this.chosenCity = document.getElementById('cityinput').value //get the city inputted by the owner
+      this.chosenFee = document.getElementById('feeinput').value   //get the fee inputted by the owner
+
+      updateCityAndFee(this.chosenCity, this.chosenFee) //calls the backend to change the city and fee
         .then(response => {
           this.successStoreInfo = 'Successfully updated store information!'
           setTimeout(() => this.successStoreInfo = null, 5000);
@@ -125,10 +142,11 @@ export default {
       this.selectedWeekday = select.options[select.selectedIndex].value;
       this.newStartTime = document.getElementById('startTimeInput').value
       this.newEndTime = document.getElementById('endTimeInput').value
+
+      //If All days are selected
       if (this.selectedWeekday == 1) {
         for (let i = 2; i < 9; i++) {
           this.selectedWeekday = select.options[i].value;
-          console.log(this.selectedWeekday)
           updateBusinessHours(this.selectedWeekday, this.newStartTime, this.newEndTime)
             .then(response => {
               this.successBH = 'Successfully updated the Business Hours!'
@@ -156,6 +174,8 @@ export default {
               setTimeout(() => this.errorBH = null, 5000);
             })
         }
+
+        //Else, a single weekday is selected
       } else {
         updateBusinessHours(this.selectedWeekday, this.newStartTime, this.newEndTime)
           .then(response => {

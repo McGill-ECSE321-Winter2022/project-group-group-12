@@ -46,17 +46,21 @@ About: Page to handle selecting items and adding them to the customer's cart
       </div>
     </div>
     <div style="text-align:center">
+      <select  placeholder="Select delivery type" class="select-css" v-model="type">
+        <option value="delivery">Delivery</option>
+        <option value="pickup">Pickup</option>
+      </select>
+      <br>
       <button v-on:click="payment()" class="payment">
         Proceed to payment
       </button>
     </div>
-    <select id="selectDeliveryType" placeholder="Select delivery type">
-        <option v-on:click="selectDelivery(true)" value="delivery">Delivery</option>
-        <option v-on:click="selectDelivery(false)" value="pickup">Pickup</option>
-    </select>
-    <p v-if="this.delivery && this.outOfCity">
-         A delivery fee of {{ outOfCityFee }}$ will apply (Out of city ({{storeCity}}) customer)
-    </p>
+    <br>
+    <div style="text-align:center">
+        <p v-if="this.type == 'delivery' && this.deliveryFee != 0">
+            Note: A delivery fee of {{ deliveryFee }}$ will apply (Out of city customer)
+        </p>
+    </div>
   </div>
 </template>
 
@@ -76,53 +80,45 @@ About: Page to handle selecting items and adding them to the customer's cart
 
     export default {
 
-  name: 'ViewPurchases',
+  name: 'ConfirmOrderType',
 
   data () {
     return {
       cart: [],
-      storeCity: '',
-      outOfCityFee: 0,
+      deliveryFee: 0,
       error: '',
       total: 0,
-      delivery: undefined, // If true delivery, if false pickup
-      outOfCity: undefined // Only becomes true if the customer is out of city
+      type: '', // If true delivery, if false pickup
     }
   },
 
   created: function() {
     
-    // Getting the system information from the backend
-    AXIOS.get('/owner')
-    .then(response => {
-      this.storeCity = response.data.storeCity
-      this.outOfCityFee = response.data.outOfTownDeliveryFee
-      })
-    .catch(e => {
-      this.error = e
-      setTimeout(()=>this.error=null, 3000)
-    })
+    // Initializing the delivery type
+    this.type = "delivery"
 
     // Getting the cart from local storage
-    this.cart = localStorage.cart
+    this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
     if(!this.cart) {
-        router.push("/customer/shop")
+        this.$router.push("/customer/shop")
     }
 
-    // Computing the total cost without the fee
-    for(product in this.cart) {
-        this.total += product.price * product.count
-    }
+    // Getting the total cost without the fee
+    this.total = parseInt(localStorage.getItem("cartCost"))
 
     // Getting the email of the logged in customer
     var customerEmail = localStorage.email
+    if(!customerEmail) {
+        this.$router.push("/login")
+    }
 
-    // Checking if the customer is out of town
-    AXIOS.get('/checkCity/' + customerEmail)
+    // Getting the delivery fee from the backend
+    AXIOS.get('/deliveryfee/' + customerEmail)
     .then(response => {
-      this.outOfCity = response.data
+      this.deliveryFee = response.data
       })
     .catch(e => {
+      console.log(e)
       this.error = e
       setTimeout(()=>this.error=null, 3000)
     })
@@ -135,24 +131,9 @@ About: Page to handle selecting items and adding them to the customer's cart
     
     // To proceed to checkout
     payment : function() {
-        if(this.delivery) {
-            localStorage.setItem('cost', this.total)
-            router.push("/customer/payment")
-        }
-        else {
-            this.error = "Please choose delivery or pickup"
-            setTimeout(()=>this.error=null, 3000)
-        }
-    },
-
-    // To toggle between delivery and pickup
-    delivery : function(bool) {
-        if(bool) {
-            this.delivery = true
-        }
-        else {
-            this.delivery = false
-        }
+        this.total = this.total + this.deliveryFee
+        localStorage.setItem('cost', this.total)
+        this.$router.push("/customer/payment")
     }
 
   },
@@ -197,6 +178,52 @@ About: Page to handle selecting items and adding them to the customer's cart
    .payment {
      margin-top: 1.5em;
    }
+
+   .type-selector {
+       display: flexx
+   }
+
+   .select-css {
+	display: block;
+	font-size: 16px;
+	font-family: sans-serif;
+	font-weight: 700;
+	color: #444;
+	line-height: 1.3;
+	padding: .6em 1.4em .5em .8em;
+	width: fit-content;
+	max-width: 100%;
+	box-sizing: border-box;
+	margin: 0;
+	border: 1px solid #aaa;
+	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+	border-radius: .5em;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: #fff;
+	background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+	linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+	background-repeat: no-repeat, repeat;
+	background-position: right .7em top 50%, 0 0;
+	background-size: .65em auto, 100%;
+    }
+    .select-css::-ms-expand {
+	    display: none;
+    }
+    .select-css:hover {
+        border-color: #888;
+    }
+    .select-css:focus {
+        border-color: #aaa;
+        box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+        box-shadow: 0 0 0 3px -moz-mac-focusring;
+        color: #222;
+        outline: none;
+    }
+    .select-css option {
+        font-weight:normal;
+    }
 
 
 </style>

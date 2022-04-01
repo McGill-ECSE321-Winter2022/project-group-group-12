@@ -310,7 +310,6 @@ public class TestEmployeeService {
     Employee modified =
         employeeService.modifyEmployee(
             "new username",
-            "new pw",
             MockDatabase.employeem.getEmail(),
             MockDatabase.address3,
             true);
@@ -319,9 +318,7 @@ public class TestEmployeeService {
     assertEquals("new username", modified.getUsername());
     assertEquals(MockDatabase.address3, modified.getAddress());
     assertEquals(true, modified.isDisabled());
-    assertEquals(
-        Utility.hashAndSaltPassword("new pw", MockDatabase.employeem.getSalt()),
-        modified.getPassword());
+    assertEquals(MockDatabase.employeem.getPassword(), modified.getPassword());
   }
 
   /**
@@ -333,7 +330,7 @@ public class TestEmployeeService {
   @Test
   public void testModifyEmployee_NullEmail() {
     try {
-      employeeService.modifyEmployee("username", "new pw", null, new Address(), false);
+      employeeService.modifyEmployee("username", null, new Address(), false);
     } catch (IllegalArgumentException e) {
       assertEquals("Employee email cannot be empty! ", e.getMessage());
       return;
@@ -350,7 +347,7 @@ public class TestEmployeeService {
   @Test
   public void testModifyEmployee_EmptyEmail() {
     try {
-      employeeService.modifyEmployee("username", "new pw", "    ", new Address(), false);
+      employeeService.modifyEmployee("username", "    ", new Address(), false);
     } catch (IllegalArgumentException e) {
       assertEquals("Employee email cannot be empty! ", e.getMessage());
       return;
@@ -368,7 +365,7 @@ public class TestEmployeeService {
   public void testModifyEmployee_NullUsername() {
     try {
       employeeService.modifyEmployee(
-          null, "new pw", MockDatabase.employeem.getEmail(), new Address(), false);
+          null, MockDatabase.employeem.getEmail(), new Address(), false);
     } catch (IllegalArgumentException e) {
       assertEquals("Employee username cannot be empty! ", e.getMessage());
       return;
@@ -386,7 +383,7 @@ public class TestEmployeeService {
   public void testModifyEmployee_EmptyUsername() {
     try {
       employeeService.modifyEmployee(
-          "   ", "new pw", MockDatabase.employeem.getEmail(), new Address(), false);
+          "   ", MockDatabase.employeem.getEmail(), new Address(), false);
     } catch (IllegalArgumentException e) {
       assertEquals("Employee username cannot be empty! ", e.getMessage());
       return;
@@ -404,7 +401,7 @@ public class TestEmployeeService {
   public void testModifyEmployee_NullAddress() {
     try {
       employeeService.modifyEmployee(
-          "username", "new pw", MockDatabase.employeem.getEmail(), null, false);
+          "username", MockDatabase.employeem.getEmail(), null, false);
     } catch (IllegalArgumentException e) {
       assertEquals("Address cannot be null! ", e.getMessage());
       return;
@@ -422,7 +419,7 @@ public class TestEmployeeService {
   public void testModifyEmployee_NotInDb() {
     try {
       employeeService.modifyEmployee(
-          "username", "new pw", "not_registered@email.com", new Address(), false);
+          "username", "not_registered@email.com", new Address(), false);
     } catch (NoSuchElementException e) {
       assertEquals("Employee does not exist", e.getMessage());
       return;
@@ -431,16 +428,31 @@ public class TestEmployeeService {
   }
 
   /**
+   * Method to test that an employee's password is updated correctly
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_Success(){
+    Employee modified = employeeService.modifyPassword(MockDatabase.employeem.getEmail(), "new password" );
+    assertNotNull(modified);
+    assertEquals(MockDatabase.employeem.getEmail(), modified.getEmail());
+    assertEquals(MockDatabase.employeem.getUsername(), modified.getUsername());
+    assertEquals(MockDatabase.address_m, modified.getAddress());
+    assertEquals(MockDatabase.employeem.isDisabled(), modified.isDisabled());
+    assertEquals(MockDatabase.employeem.getPassword(), modified.getPassword());
+  }
+
+  /**
    * method test to check that an error is thrown when we try to modify an employee with a null
    * password
    *
-   * @author Philippe Sarouphim Hochar
+   * @author Enzo Benoit-Jeannin
    */
   @Test
-  public void testModifyEmployee_NullPassword() {
+  public void testModifyPassword_NullPassword() {
     try {
-      employeeService.modifyEmployee(
-          "username", null, "not_registered@email.com", new Address(), false);
+      employeeService.modifyPassword(MockDatabase.employeem.getEmail(), null);
     } catch (IllegalArgumentException e) {
       assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
@@ -452,13 +464,12 @@ public class TestEmployeeService {
    * method test to check that an error is thrown when we try to modify an employee with an empty
    * password
    *
-   * @author Philippe Sarouphim Hochar
+   * @author Enzo Benoit-Jeannin
    */
   @Test
-  public void testModifyEmployee_EmptyPassword() {
+  public void testModifyPassword_EmptyPassword() {
     try {
-      employeeService.modifyEmployee(
-          "username", "   ", "not_registered@email.com", new Address(), false);
+      employeeService.modifyPassword(MockDatabase.employeem.getEmail(), "   ");
     } catch (IllegalArgumentException e) {
       assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
@@ -470,15 +481,65 @@ public class TestEmployeeService {
    * method test to check that an error is thrown when we try to modify an employee with a password
    * that is too short
    *
-   * @author Philippe Sarouphim Hochar
+   * @author Enzo Benoit-Jeannin
    */
   @Test
-  public void testModifyEmployee_TooShortPassword() {
+  public void testModifyPassword_TooShortPassword() {
     try {
-      employeeService.modifyEmployee(
-          "username", "12345", "not_registered@email.com", new Address(), false);
+      employeeService.modifyPassword(MockDatabase.employeem.getEmail(), "short");
     } catch (IllegalArgumentException e) {
       assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+/**
+   * method test to check that an error is thrown when we try to modify an employee with a null
+   * password
+   *
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_NullEmail() {
+    try {
+      employeeService.modifyPassword(null, "new password");
+    } catch (IllegalArgumentException e) {
+      assertEquals("Employee email cannot be empty! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with an empty
+   * password
+   *
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_EmptyEmail() {
+    try {
+      employeeService.modifyPassword("  ", "new password");
+    } catch (IllegalArgumentException e) {
+      assertEquals("Employee email cannot be empty! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+  /**
+   * method test to check that an error is thrown when we try to modify an employee with a password
+   * that is too short
+   *
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_wrongEmail() {
+    try {
+      employeeService.modifyPassword("wrongemail@gmail.fr", "new passwoord");
+    } catch (NoSuchElementException e) {
+      assertEquals("No employee with email wrongemail@gmail.fr exists!", e.getMessage());
       return;
     }
     fail();

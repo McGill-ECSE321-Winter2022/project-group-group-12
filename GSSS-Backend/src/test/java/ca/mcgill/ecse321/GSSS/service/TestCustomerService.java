@@ -664,6 +664,120 @@ public class TestCustomerService {
     fail();
   }
 
+  /** 
+   * method to check that the password of a customer is updated successfuly
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_Success(){
+    Customer modified = customerService.modifyPassword(MockDatabase.customer3.getEmail(),"new password");
+    assertNotNull(modified);
+    assertEquals(MockDatabase.customer3.getEmail(), modified.getEmail());
+    assertEquals(MockDatabase.customer3.getUsername(), modified.getUsername());
+    assertEquals(MockDatabase.customer3.getPassword(), modified.getPassword());
+    assertEquals(MockDatabase.customerAddress3, modified.getAddress());
+    assertEquals(MockDatabase.customer3.isDisabled(), modified.isDisabled());
+  }
+
+  /**
+   * method to check that an error is thrown when we try to update a customer's password with null
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_NullPassword(){
+    try {
+      customerService.modifyPassword(MockDatabase.customer2.getEmail(), null);
+    } catch (IllegalArgumentException e) {
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+  /**
+   * method to check that an error is thrown when we try to update a customer's password with a short password 
+   * less than 6 characters.
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_ShortPassword(){
+    try {
+      customerService.modifyPassword(MockDatabase.customer3.getEmail(), "short");
+    } catch (IllegalArgumentException e) {
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+  /**
+   * method to check that an error is thrown when we try to update a customer's password with empty password
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_emptyPassword(){
+    try {
+      customerService.modifyPassword(MockDatabase.customer3.getEmail(), "");
+    } catch (IllegalArgumentException e) {
+      assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+  /**
+   * method to check that an error is thrown when we try to update a customer's password with null email
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_NullEmail(){
+    try {
+      customerService.modifyPassword(null, "new Password");
+    } catch (IllegalArgumentException e) {
+      assertEquals("Customer username cannot be empty! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+   /**
+   * method to check that an error is thrown when we try to update a customer's password with an empty email
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_emptyEmail(){
+    try {
+      customerService.modifyPassword("", "new Password");
+    } catch (IllegalArgumentException e) {
+      assertEquals("Customer username cannot be empty! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+  /**
+   * method to check that an error is thrown when we try to update a customer's password with an email that
+   * doesn't correpsond to any customers in the system
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_wrongEmail(){
+    try {
+      customerService.modifyPassword("email@gmail.fr", "new Password");
+    } catch (NoSuchElementException e) {
+      assertEquals("No customer with email email@gmail.fr exists!", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
   /**
    * method to check that a purchase is added successfully to a customer
    *

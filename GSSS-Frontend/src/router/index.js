@@ -13,6 +13,7 @@ import Hello from '@/components/Hello.vue'
 import Payment from '@/components/Customer/Payment/Payment.vue'
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
 import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
+import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
 
 
 Vue.use(Router)
@@ -61,6 +62,11 @@ const customerRoutes = [
     path: '/customer/shop',
     name: 'ViewAndSelectItems',
     component: ViewAndSelectItems
+  },
+  {
+    path: '/customer/confirmOrderType',
+    name: 'ConfirmOrderType',
+    component: ConfirmOrderType
   },
   {
     path: '/customer/payment',
