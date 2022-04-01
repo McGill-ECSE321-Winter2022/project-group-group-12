@@ -66,3 +66,7 @@ body{
     border: solid whitesmoke;
     border-width: 0 0 0 1px;
 }
+
+.selector {
+    width:200px;      
+}

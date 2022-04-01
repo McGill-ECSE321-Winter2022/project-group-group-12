@@ -80,11 +80,19 @@
   border-radius: 0.5rem;
 }
 
-.details {
-  float: right;
+.wrapper{
+  display: flex;
+  gap: 1rem
 }
 
-.wrapper {
-  width: 500px;
-  overflow: auto;
+.wrapper > .employeeviewpurchases{
+  flex-basis: 33%;
+}
+
+.wrapper > .details{
+  flex-basis: 66%;
+}
+
+.details {
+  font-size: 100%;
 }

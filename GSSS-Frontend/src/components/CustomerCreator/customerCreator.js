@@ -25,7 +25,7 @@ export default {
             .then(res => this.onAdd())
             .catch(err => {
                 this.error = err;
-                setTimeout(() => this.error = null, 5000);
+                setTimeout(() => this.error = null, 3000);
             });
         }
     },

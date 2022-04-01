@@ -4,7 +4,7 @@
         <div v-if="mode == 0">
             <div>Username: {{ customer.username }}</div>
             <div style="margin-bottom: 1rem">Disabled: {{ customer.disabled }}</div>
-            <div>Address: ({{ customer.address.id }})</div>
+            <div>Address:</div>
             <p>{{ customer.address.fullName }}<br/>{{customer.address.streetNumber}}, {{ customer.address.streetName }}<br/>{{ customer.address.city }}, {{ customer.address.postalCode }}</p>
         </div>
         <div v-if="mode == 1">
@@ -13,7 +13,7 @@
             <br/>
             <label>Disabled: </label>
             <input style="margin-bottom: 1rem" type="checkbox" v-model="mod.disabled" />
-            <div>Address: ({{ customer.address.id }})</div>
+            <div>Address:</div>
             <div class="address-input"><input type="text" placeholder="Full Name" v-model="mod.address.fullName"/></div>
             <div class="address-input">
                 <input type="number" placeholder="Street No" v-model="mod.address.streetNumber"/>, 
