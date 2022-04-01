@@ -75,50 +75,74 @@ function ItemCategoryDto(name){
 }
 
 export default {
-    name: 'addModifyCategory',
-    data () {
-      return {
-        itemCategories: [],
-        newItemCategory: '',
-        newItemCategory2: '',
-        oldItemCategory: '',
-        error: '',
-        response: [],
+  name: 'addModifyCategory',
+  data () {
+    return {
+      itemCategories: [],
+      newItemCategory: '',
+      newItemCategory2: '',
+      oldItemCategory: '',
+      error: '',
+      response: [],
+    }
+  },
+  created: function (itemCategoryName) { 
+    AXIOS.get('/itemCategories/')
+    .then(response => {
+      this.itemCategories = response.data
+    }).catch(e => {
+    this.error = e
+    setTimeout(() => this.error = null, 3000);
+    })
+  },
+
+  methods: {
+    onSelect: function(i) {
+      // Set the selected purchase to be the one at index i
+      this.oldItemCategory = itemCategories[i]
+    },
+
+    createItemCategory: function(name){
+      AXIOS.post('/itemCategory/',
+      {},
+      {
+        params: {
+          name: name
+        },
       }
-    },
-    created: function (itemCategoryName) { 
-      AXIOS.get('/itemCategories/')
-      .then(response => {
-        this.itemCategories = response.data
-      }).catch(e => {
-      this.error = e
-      setTimeout(() => this.error = null, 3000);
-      })
-    },
-
-    methods: {
-      onSelect: function(i) {
-        // Set the selected purchase to be the one at index i
-        this.oldItemCategory = i
-      },
-
-      createItemCategory: function(name){
-        AXIOS.post('/itemCategory/',
-        {},
-        {
-          params: {
-            name: name
-          },
-        }
       )
       .then((response) => {
         this.error = ""
-        const newCategory = response.data;
-        
+        this.newItemCategory = ""
+        this.itemCategories.push(response.data)        
 
       })
+      .catch(e => {
+        this.error = e
+        setTimeout(() => this.error = null, 3000);
+      })
+    },
 
+    modifyItemCategory: function(categoryOldName, categorynewName){
+      AXIOS.post('/itemCategory/modify',
+      {},
+      {
+        params: {
+          oldName: categoryOldName,
+          newName: categorynewName
+        }
+      })
+      .then(response => {
+        this.oldItemCategory = ''
+        this.newItemCategory2 = ''
+        location.reload(true);
+      })
+      .catch(e => {
+        this.error = e
+        setTimeout(() => this.error = null, 3000);
+      })
+    },
 
-};
-
+  }
+}
 </script>
