@@ -45,7 +45,7 @@ export default {
   //This will be the first thing to run on the page
   //It will get the current Business Hours and populate the table on the bottom of the page
   created: function(){
-
+    //get the business hours of the particular weekday
       getBusinessHours('Monday')
         .then(res  => {
         this.MonStartTime =res.startTimeFromBackend.slice(0, -3) //(the .slice(0. -3) is to remove the seconds from the time)

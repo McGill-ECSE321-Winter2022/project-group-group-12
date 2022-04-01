@@ -34,13 +34,12 @@
             </div>
             <br>
             <h2> Modify purchase order status: </h2>
-            <select class="selector" name="Order Status" id="orderStatus">
+            <select class="selector" name="Order Status" id="orderStatus" v-model="orderStatus">
               <option value="BeingPrepared">Being Prepared</option>
               <option value="OutForDelivery">Out for Delivery</option>
               <option value="Completed">Completed</option>
             </select>
             <button v-bind:disabled="!orderStatus" @click="modifySelectedPurchase(orderStatus)">Modify Order Status</button>
-
           </div>
         
       </div>
@@ -89,6 +88,7 @@ export default {
       selectedPurchase: -1, // The index of the selected purchase
       error: '',
       response: [],
+      orderStatus: [],
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
       selectedPurchaseItemsPrices: []
@@ -96,15 +96,15 @@ export default {
   },
 
   created: function() {
-
     // Getting the purchases from the backend using the email of the employye logged in
-    AXIOS.get('purchasesbyemployee/' + localStorage.email)
+    AXIOS.get('/purchasesbyemployee/'.concat(localStorage.email))
     .then(response => {
       // JSON responses are automatically parsed.
       this.purchases = response.data
 
       // Iterating over all purchases and adding their customer's email as a field
       for(let i = 0; i < this.purchases.length; i++) {
+        console.log(this.purchases[i].name)
         countClick.push('0')
          AXIOS.get('/customerByPurchase/' + this.purchases[i].id)
         .then(response => {
@@ -165,7 +165,9 @@ export default {
     },
 
     modifySelectedPurchase: function(orderStatus){
+      // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/' + this.selectedPurchase.id, 
+      {},
       {params: {
         purchaseId: selectedPurchase.id,
         orderType: selectedPurchase.orderType,
