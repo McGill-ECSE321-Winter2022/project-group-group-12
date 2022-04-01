@@ -553,16 +553,14 @@ public class TestCustomerService {
    */
   @Test
   public void testModifyCustomer_Success() {
-    Customer modified = customerService.modifyCustomer("new username", "new pw",
+    Customer modified = customerService.modifyCustomer("new username",
         MockDatabase.customer3.getEmail(), MockDatabase.customerAddress3, true);
     assertNotNull(modified);
     assertEquals(MockDatabase.customer3.getEmail(), modified.getEmail());
     assertEquals("new username", modified.getUsername());
     assertEquals(MockDatabase.customerAddress3, modified.getAddress());
     assertEquals(true, modified.isDisabled());
-    assertEquals(Utility.hashAndSaltPassword("new pw", MockDatabase.customer3.getSalt()),
-        modified.getPassword());
-  }
+    }
 
   /**
    * method to check that an error is thrown when we try to modify a customer with a null email
@@ -572,7 +570,7 @@ public class TestCustomerService {
   @Test
   public void testModifyCustomer_NullEmail() {
     try {
-      customerService.modifyCustomer("username", "new pw", null, new Address(), false);
+      customerService.modifyCustomer("username", null, new Address(), false);
     } catch (IllegalArgumentException e) {
       assertEquals("Customer email cannot be empty! ", e.getMessage());
       return;
@@ -588,7 +586,7 @@ public class TestCustomerService {
   @Test
   public void testModifyCustomer_EmptyEmail() {
     try {
-      customerService.modifyCustomer("username", "new pw", "    ", new Address(), false);
+      customerService.modifyCustomer("username", "    ", new Address(), false);
     } catch (IllegalArgumentException e) {
       assertEquals("Customer email cannot be empty! ", e.getMessage());
       return;
@@ -604,7 +602,7 @@ public class TestCustomerService {
   @Test
   public void testModifyCustomer_NullUsername() {
     try {
-      customerService.modifyCustomer(null, "new pw", MockDatabase.customer2.getEmail(),
+      customerService.modifyCustomer(null, MockDatabase.customer2.getEmail(),
           new Address(), false);
     } catch (IllegalArgumentException e) {
       assertEquals("Customer username cannot be empty! ", e.getMessage());
@@ -622,7 +620,7 @@ public class TestCustomerService {
   @Test
   public void testModifyCustomer_EmptyUsername() {
     try {
-      customerService.modifyCustomer("   ", "new pw", MockDatabase.customer2.getEmail(),
+      customerService.modifyCustomer("   ", MockDatabase.customer2.getEmail(),
           new Address(), false);
     } catch (IllegalArgumentException e) {
       assertEquals("Customer username cannot be empty! ", e.getMessage());
@@ -639,7 +637,7 @@ public class TestCustomerService {
   @Test
   public void testModifyCustomer_NullAddress() {
     try {
-      customerService.modifyCustomer("username", "new pw", MockDatabase.customer2.getEmail(), null,
+      customerService.modifyCustomer("username", MockDatabase.customer2.getEmail(), null,
           false);
     } catch (IllegalArgumentException e) {
       assertEquals("Customer address cannot be null! ", e.getMessage());
@@ -657,7 +655,7 @@ public class TestCustomerService {
   @Test
   public void testModifyCustomer_NotInDb() {
     try {
-      customerService.modifyCustomer("username", "new pw", "not_registered@email.com",
+      customerService.modifyCustomer("username", "not_registered@email.com",
           new Address(), false);
     } catch (NoSuchElementException e) {
       assertEquals("No customer with email not_registered@email.com exists!", e.getMessage());
@@ -666,16 +664,31 @@ public class TestCustomerService {
     fail();
   }
 
-  /**
-   * method to check that an error is thrown when we try to modify a customer with a null password
-   *
-   * @author Wassim Jabbour
+  /** 
+   * method to check that the password of a customer is updated successfuly
+   * 
+   * @author Enzo Benoit-Jeannin
    */
   @Test
-  public void testModifyCustomer_NullPassword() {
+  public void testModifyPassword_Success(){
+    Customer modified = customerService.modifyPassword(MockDatabase.customer3.getEmail(),"new password");
+    assertNotNull(modified);
+    assertEquals(MockDatabase.customer3.getEmail(), modified.getEmail());
+    assertEquals(MockDatabase.customer3.getUsername(), modified.getUsername());
+    assertEquals(MockDatabase.customer3.getPassword(), modified.getPassword());
+    assertEquals(MockDatabase.customerAddress3, modified.getAddress());
+    assertEquals(MockDatabase.customer3.isDisabled(), modified.isDisabled());
+  }
+
+  /**
+   * method to check that an error is thrown when we try to update a customer's password with null
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_NullPassword(){
     try {
-      customerService.modifyCustomer("username", null, "not_registered@email.com", new Address(),
-          false);
+      customerService.modifyPassword(MockDatabase.customer2.getEmail(), null);
     } catch (IllegalArgumentException e) {
       assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
@@ -684,16 +697,15 @@ public class TestCustomerService {
   }
 
   /**
-   * method to check that an error is thrown when we try to modify a customer with an empty
-   * password
-   *
-   * @author Wassim Jabbour
+   * method to check that an error is thrown when we try to update a customer's password with a short password 
+   * less than 6 characters.
+   * 
+   * @author Enzo Benoit-Jeannin
    */
   @Test
-  public void testModifyCustomer_EmptyPassword() {
+  public void testModifyPassword_ShortPassword(){
     try {
-      customerService.modifyCustomer("username", "   ", "not_registered@email.com", new Address(),
-          false);
+      customerService.modifyPassword(MockDatabase.customer3.getEmail(), "short");
     } catch (IllegalArgumentException e) {
       assertEquals("Password has to be at least 6 characters! ", e.getMessage());
       return;
@@ -702,18 +714,65 @@ public class TestCustomerService {
   }
 
   /**
-   * method to check that an error is thrown when we try to modify a customer with a password that
-   * is too short
-   *
-   * @author Wassim Jabbour
+   * method to check that an error is thrown when we try to update a customer's password with empty password
+   * 
+   * @author Enzo Benoit-Jeannin
    */
   @Test
-  public void testModifyCustomer_TooShortPassword() {
+  public void testModifyPassword_emptyPassword(){
     try {
-      customerService.modifyCustomer("username", "12345", "not_registered@email.com", new Address(),
-          false);
+      customerService.modifyPassword(MockDatabase.customer3.getEmail(), "");
     } catch (IllegalArgumentException e) {
       assertEquals("Password has to be at least 6 characters! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+  /**
+   * method to check that an error is thrown when we try to update a customer's password with null email
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_NullEmail(){
+    try {
+      customerService.modifyPassword(null, "new Password");
+    } catch (IllegalArgumentException e) {
+      assertEquals("Customer username cannot be empty! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+   /**
+   * method to check that an error is thrown when we try to update a customer's password with an empty email
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_emptyEmail(){
+    try {
+      customerService.modifyPassword("", "new Password");
+    } catch (IllegalArgumentException e) {
+      assertEquals("Customer username cannot be empty! ", e.getMessage());
+      return;
+    }
+    fail();
+  }
+
+  /**
+   * method to check that an error is thrown when we try to update a customer's password with an email that
+   * doesn't correpsond to any customers in the system
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Test
+  public void testModifyPassword_wrongEmail(){
+    try {
+      customerService.modifyPassword("email@gmail.fr", "new Password");
+    } catch (NoSuchElementException e) {
+      assertEquals("No customer with email email@gmail.fr exists!", e.getMessage());
       return;
     }
     fail();

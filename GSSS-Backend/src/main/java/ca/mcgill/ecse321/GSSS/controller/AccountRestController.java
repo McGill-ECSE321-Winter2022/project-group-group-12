@@ -1,6 +1,9 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
 import ca.mcgill.ecse321.GSSS.model.Account;
+import ca.mcgill.ecse321.GSSS.model.Customer;
+import ca.mcgill.ecse321.GSSS.model.Employee;
+import ca.mcgill.ecse321.GSSS.model.Owner;
 import ca.mcgill.ecse321.GSSS.service.AccountService;
 import java.util.NoSuchElementException;
 import javax.servlet.http.Cookie;
@@ -37,8 +40,7 @@ class AccountRestController {
    * @author Philippe Sarouphim Hochar
    */
   @PostMapping(value = {"/account/login", "/account/login/"})
-  public void logIn(@RequestParam() String email, @RequestParam String password,
-      HttpServletResponse response) throws NoSuchElementException, IllegalArgumentException {
+  public String logIn(@RequestParam() String email, @RequestParam String password) throws NoSuchElementException, IllegalArgumentException {
 
     Account account = accountService.authenticate(email, password);
 
@@ -48,8 +50,16 @@ class AccountRestController {
     cookie.setPath("/");
     cookie.setSecure(false);
     cookie.setHttpOnly(true);
+    
+    if (account instanceof Customer)
+      return "Customer";
+    else if (account instanceof Employee) 
+      return "Employee";
+    else if (account instanceof Owner) 
+      return "Owner";
+    
+    return null;
 
-    response.addCookie(cookie);
   }
 
   /**

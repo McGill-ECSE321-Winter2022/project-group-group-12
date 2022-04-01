@@ -83,11 +83,28 @@ public class EmployeeRestController {
     return DtoUtility.convertToDto(
         employeeService.modifyEmployee(
             employee.getUsername(),
-            employee.getPassword(),
             employee.getEmail(),
             addressService.getAddress(employee.getAddress().getId()),
             employee.isDisabled()));
   }
+
+  /**
+   * This API endpoint updates an employee's password
+   * 
+   * @param employee Employee DTO
+   * @return DTO of the newly updated employee.
+   * @throws IllegalArgumentException
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @PutMapping(value = {"/employee/password", "/employee/password/"})
+  public EmployeeDto modifyPurchase(@RequestBody EmployeeDto employee)
+      throws IllegalArgumentException {
+      return DtoUtility.convertToDto(
+          employeeService.modifyPassword(
+            employee.getEmail(), 
+            employee.getPassword()));
+      }
 
   /**
    * This API endpoint gets and employee based on his email.

@@ -26,7 +26,7 @@ About: Page to handle selecting items and adding them to the customer's cart
               }"
             >
               <!-- Under which conditions to describe an item as what -->
-              {{ (!product.stillAvailable || !product.availableForOrder || product.remainingQuantity <= 0) ? "Unavailable" : (!product.cart ? "Add" : "Added") }}
+              {{ (!product.stillAvailable || !product.availableForOrder || product.remainingQuantity == 0) ? "Unavailable" : (!product.cart ? "Add" : "Added") }}
             </button>
           </div>
         </div>
@@ -92,7 +92,7 @@ About: Page to handle selecting items and adding them to the customer's cart
       </div>
     </div>
     <div style="text-align:center">
-      <button class="checkout">
+      <button v-on:click="checkout()" class="checkout">
         Proceed to checkout
       </button>
     </div>
@@ -115,7 +115,7 @@ About: Page to handle selecting items and adding them to the customer's cart
 
     export default {
 
-  name: 'ViewPurchases',
+  name: 'ViewAndSelectItems',
 
   data () {
     return {
@@ -188,6 +188,19 @@ About: Page to handle selecting items and adding them to the customer's cart
         this.total = this.total - this.cart[i].price*this.cart[i].count
         this.cart[i].count = 0
         this.cart.splice(i, 1)
+    },
+
+    // To proceed to checkout
+    checkout : function() {
+        if(this.cart.length > 0) {
+          localStorage.setItem("cart", JSON.stringify(this.cart));
+          localStorage.setItem("cartCost", total)
+          this.$router.push("/customer/confirmOrderType")
+        }
+        else {
+          this.error = "Error: No items selected!"
+          setTimeout(()=>this.error=null, 3000)
+        }
     }
   },
 

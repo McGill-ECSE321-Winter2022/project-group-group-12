@@ -106,7 +106,7 @@ public class EmployeeService {
    */
   @Transactional
   public Employee modifyEmployee(
-      String username, String password, String email, Address address, boolean disabled) {
+      String username, String email, Address address, boolean disabled) {
 
     // Input validation
     String error = "";
@@ -115,9 +115,6 @@ public class EmployeeService {
     }
     if (username == null || username.trim().length() == 0) {
       error += "Employee username cannot be empty! ";
-    }
-    if (password == null || password.length() < 6 || password.trim().length() == 0) {
-      error += "Password has to be at least 6 characters! ";
     }
     if (address == null) {
       error += "Address cannot be null! ";
@@ -135,9 +132,35 @@ public class EmployeeService {
     employee.setUsername(username);
     employee.setAddress(address);
     employee.setDisabled(disabled);
-    employee.setPassword(Utility.hashAndSaltPassword(password, employee.getSalt()));
 
     employeeRepository.save(employee);
+    return employee;
+  }
+
+  /**
+   * Service to modify an employee's password based on the given parameters
+   * 
+   * @param email The email of the employee
+   * @param password The new password of the employee
+   * @return the modified employee
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @Transactional
+  public Employee modifyPassword(String email, String password){
+    String error = "";
+    if (email == null || email.trim().length() == 0) {
+      error += "Employee email cannot be empty! ";
+    }
+    if (password == null || password.length() < 6 || password.trim().length() == 0) {
+      error += "Password has to be at least 6 characters! ";
+    }
+    if (error.length() > 0) {
+      throw new IllegalArgumentException(error);
+    }
+
+    Employee employee = getEmployeeByEmail(email);
+    employee.setPassword(Utility.hashAndSaltPassword(password, employee.getSalt()));
     return employee;
   }
 

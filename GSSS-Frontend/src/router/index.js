@@ -20,69 +20,83 @@ import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
 import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
 import Hello from "@/components/Hello";
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
+import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
+import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
 
 Vue.use(Router)
+
+const otherRoutes = [
+  {
+    path: '/',
+    name: 'Hello',
+    component: Hello
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: LoginPage
+  },
+  {
+    path: '/signup',
+    name: 'SignupPage',
+    component: SignupPage
+  },
+]
+
+const ownerRoutes = [
+  {
+    path: '/owner/systeminformation',
+    name: 'SystemInformation',
+    component: SystemInformation
+  },
+  {
+    path: '/owner/itemcategory',
+    name: 'OwnerItemCategory',
+    component: OwnerItemCategory
+  }
+];
+
+const employeeRoutes = [
+  {
+    path: '/employee/purchases',
+    name: 'ViewPurchases',
+    component: ViewPurchases
+  },
+  {
+    path: '/employee/customers',
+    name: 'CustomerList',
+    component: CustomerList
+  },
+  {
+    path: '/employee/view/shifts',
+    name: 'EmployeeViewShift',
+    component: EmployeeViewShift
+  },
+];
+
+const customerRoutes = [
+  {
+    path: '/customer/shop',
+    name: 'ViewAndSelectItems',
+    component: ViewAndSelectItems
+  },
+  {
+    path: '/customer/confirmOrderType',
+    name: 'ConfirmOrderType',
+    component: ConfirmOrderType
+  },
+  {
+    path: '/customer/payment',
+    name: 'Payment',
+    component: Payment
+  },
+  {
+    path: '/customer/account',
+    name: 'Customer Account',
+    component: ViewCustomerAccount
+  }
+];
+
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    },
-    {
-      path: '/ownerpurchases',
-      name: 'ViewPurchases',
-      component: ViewPurchases
-    },
-    {
-      path: '/customerselectitems',
-      name: 'ViewAndSelectItems',
-      component: ViewAndSelectItems
-    },
-    {
-      path: '/login',
-      name: 'LoginPage',
-      component: LoginPage
-    },
-    {
-      path: '/signup',
-      name: 'SignupPage',
-      component: SignupPage
-    },
-    {
-      path: '/customers',
-      name: 'CustomerList',
-      component: CustomerList
-    },
-    {
-      path: '/systeminformation',
-      name: 'SystemInformation',
-      component: SystemInformation
-    },
-    {
-      path: '/payment',
-      name: 'Payment',
-      component: Payment
-    },
-    {
-      path: '/purchasestats',
-      name: 'PurchaseStatistics',
-      component: PurchaseStatistics
-    },
-    {
-      path: '/employeepurchases',
-      name: 'EmployeeViewPurchase',
-      component: EmployeeViewPurchase
-    },
-    {
-      path: '/employee/view/shifts',
-      name: 'EmployeeViewShift',
-      component: EmployeeViewShift
-    },
-    {
-      path: '/owneritemcategory',
-      name: 'OwnerItemCategory',
-      component: OwnerItemCategory
-    }
-  ]
+  routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
 })
