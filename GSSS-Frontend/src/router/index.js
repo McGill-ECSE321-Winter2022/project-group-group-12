@@ -17,7 +17,6 @@ import Payment from '@/components/Customer/Payment/Payment.vue'
 
 // Customer imports
 import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
-import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
 import Hello from "@/components/Hello";
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
 import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
