@@ -80,7 +80,7 @@ export default {
     },
     watch: {
         customer: function(){
-            this.editMode = false;
+            this.mode = 0;
         }
     }
 }
