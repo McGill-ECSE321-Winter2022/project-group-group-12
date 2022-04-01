@@ -115,7 +115,7 @@ About: Page to handle selecting items and adding them to the customer's cart
 
     export default {
 
-  name: 'ViewPurchases',
+  name: 'ViewAndSelectItems',
 
   data () {
     return {
@@ -192,9 +192,14 @@ About: Page to handle selecting items and adding them to the customer's cart
 
     // To proceed to checkout
     checkout : function() {
-        if(cart.length > 0) {
-          localStorage.setItem('cart', this.cart)
-          router.push("Payment")
+        if(this.cart.length > 0) {
+          localStorage.setItem("cart", JSON.stringify(this.cart));
+          localStorage.setItem("cartCost", total)
+          this.$router.push("/customer/confirmOrderType")
+        }
+        else {
+          this.error = "Error: No items selected!"
+          setTimeout(()=>this.error=null, 3000)
         }
     }
   },
