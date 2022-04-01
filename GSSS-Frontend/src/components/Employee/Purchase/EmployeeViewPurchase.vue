@@ -1,26 +1,29 @@
 <template>
-<div class="employeeviewpurchases">
-  <h5>Your assigned purchases:
-  </h5>
-
-    <table>
-      <th>Order type</th>
-      <th>Order status</th>
-      <th>Date</th>
-      <th>Time</th>
-
-      <tr v-for="purchase in purchases" :key=purchase.id>
-          <td> {{ purchase.orderType }} </td>
-          <td> {{ purchase.orderStatus }} </td>
-          <td> {{ purchase.date }} </td>
-          <td> {{ purchase.time }} </td>
-      </tr>
-     </table> 
-     <p>
-      <span v-if="errorPurchase" style="color:red">Error: {{errorPurchase}} </span>
-    </p>
+  <div>
+    <h1>Purchases</h1>
+    <ul class="employeeviewpurchases">
+      <li v-for="(purchase, i) in purchases" :key="purchase.id" v-on:click="onPurchaseSelect(i)">
+        {{ purchase.date }}
+      </li>
+    </ul>
+    <div class="details">
+        <div v-if="this.selectedPurchase!=-1">
+          <div> Id: {{ purchases[selectedPurchase].id }}</div>
+          <div> Customer email: {{ purchases[selectedPurchase].customer }}</div>
+          <div> Order Type: {{ purchases[selectedPurchase].orderType }}</div>
+          <div> Order status: {{ purchases[selectedPurchase].orderStatus }}</div>
+          <div> Date: {{ purchases[selectedPurchase].date }}</div>
+          <div> Time: {{ purchases[selectedPurchase].time }}</div>
+          <!-- <div> Employee: {{ purchases[selectedPurchase].employee.email }} </div> -->
+          <div> Cost: {{ purchases[selectedPurchase].cost }}$</div>
+          <!-- <div> Items:
+              <ul v-for="(n, index) in this.selectedPurchaseItems.length" :key="index"> 
+                  <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index] }}$ / unit )</li>
+              </ul>
+          </div> -->
+        </div>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -37,13 +40,22 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 })
 
+function PurchaseDto(orderType, orderStatus, date, time, id, items){
+  this.orderType = orderType
+  this.orderStatus = orderStatus
+  this.date = date
+  this.time = time
+  this.id = id
+  this.items = items
+}
+
 export default {
 
   name: 'EmployeeViewPurchases',
 
   data () {
     return {
-      purchases: [],
+      purchases: [new PurchaseDto('Delivery', 'Delivered', '2022-03-31', '9:00', 'nydswerew', 'try')],
       selectedPurchase: -1, // The index of the selected purchase
       error: '',
       response: [],
@@ -53,77 +65,90 @@ export default {
     }
   },
 
-  created: function() {
+//   created: function() {
 
-    // Getting the purchases from the backend
-    AXIOS.get('purchasesbyemployee/' + employeeEmail)
-    .then(response => {
-      // JSON responses are automatically parsed.
-      this.purchases = response.data
+//     // Getting the purchases from the backend using the email of the employye logged in
+//     AXIOS.get('purchasesbyemployee/' + localStorage.email)
+//     .then(response => {
+//       // JSON responses are automatically parsed.
+//       this.purchases = response.data
 
-      // Iterating over all purchases and adding their customer's email as a field
-      for(let i = 0; i < this.purchases.length; i++) {
-         AXIOS.get('purchasesbyemployee/' + employeeEmail)
-        .then(response => {
-          this.purchases[i] = response.data.email
-        })
-        .catch(e => {
-          this.error = e
-        })
-      }
+//       // Iterating over all purchases and adding their customer's email as a field
+//       for(let i = 0; i < this.purchases.length; i++) {
+//         AXIOS.get('/customerByPurchase/' + this.purchases[i].id)
+//         .then(response => {
+//           this.purchases[i].customer = response.data.email
+//         })
+//         .catch(e => {
+//           this.error = e
+//         })
+//       }
 
-      // Iterating over all purchases and adding their cost as a field
-      for(let i = 0; i < this.purchases.length; i++) {
-        AXIOS.get('/purchase/cost/' + this.purchases[i].id)
-        .then(response => {
-          this.purchases[i].cost = response.data
-        })
-        .catch(e => {
-          this.error = e
-        })
-      }
+//       // Iterating over all purchases and adding their cost as a field
+//       for(let i = 0; i < this.purchases.length; i++) {
+//         AXIOS.get('/purchase/cost/' + this.purchases[i].id)
+//         .then(response => {
+//           this.purchases[i].cost = response.data
+//         })
+//         .catch(e => {
+//           this.error = e
+//         })
+//       }
       
-      })
-    .catch(e => {
-      this.error = e
-    })
-  },
+//       })
+//     .catch(e => {
+//       this.error = e
+//     })
+//   },
 
   methods: {
     
     onPurchaseSelect: function(i) {
-      
       // Set the selected purchase to be the one at index i
       this.selectedPurchase = i
-
+      console.log(i)
 
       // Refresh the selectedPurchase item lists
       this.selectedPurchaseItems = []
       this.selectedPurchaseQuantities = []
       this.selectedPurchaseItemsPrices = []
       
-      for (const [item, quantity] of Object.entries(this.purchases[i].items)) {
-        this.selectedPurchaseItems.push(item)
-        this.selectedPurchaseQuantities.push(quantity)
-      }
+//       for (const [item, quantity] of Object.entries(this.purchases[i].items)) {
+//         this.selectedPurchaseItems.push(item)
+//         this.selectedPurchaseQuantities.push(quantity)
+//       }
 
-      for (let i = 0; i < this.selectedPurchaseItems.length; i++) {
-        AXIOS.get('/item/' + this.selectedPurchaseItems[i])
-        .then(response => {
-          this.selectedPurchaseItemsPrices.push(response.data.price)
-        })
-        .catch(e => {
-          this.error = e
-        })
-      }
+//       for (let i = 0; i < this.selectedPurchaseItems.length; i++) {
+//         AXIOS.get('/item/' + this.selectedPurchaseItems[i])
+//         .then(response => {
+//           this.selectedPurchaseItemsPrices.push(response.data.price)
+//         })
+//         .catch(e => {
+//           this.error = e
+//         })
+//       }
+    },
 
-
-    }
-
+//     modifySelectedPurchase: function(orderStatus){
+//       AXIOS.post('/purchase/modify/' + this.selectedPurchase.id, 
+//       {params: {
+//         purchaseId: selectedPurchase.id,
+//         orderType: selectedPurchase.orderType,
+//         orderStatus: orderStatus,
+//         data: selectedPurchaseItems,
+//         employeeEmail: selectedPurchase.employeeEmail,
+//         },
+//       })
+//       .then((response) => {
+//         //Update dto collections
+//         this.error = "";
+//       })
+//       .catch(e => {
+//         this.error = e
+//       });
+//     },
   },
-
-
-  }
+};
 </script>
 
 <style scoped>
