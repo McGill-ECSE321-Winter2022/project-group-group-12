@@ -63,7 +63,7 @@ public class PurchaseRestController {
    * @param id the purchase's id
    * @return purchaseDto converted purchase
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException if element is null
+   * @throws NoSuchElementException   if element is null
    * @author Habib Jarweh
    */
   @GetMapping(value = {"/purchase/{id}", "/purchase/{id}/"})
@@ -76,11 +76,11 @@ public class PurchaseRestController {
   /**
    * method to get list of purchases by employee email
    *
-   * @author Habib Jarweh
    * @param employeeEmail Email of the employee
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException if element is null
+   * @throws NoSuchElementException   if element is null
+   * @author Habib Jarweh
    * @author Habib Jarweh
    */
   @GetMapping(
@@ -106,7 +106,7 @@ public class PurchaseRestController {
    * @param date of purchases
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException if element is null
+   * @throws NoSuchElementException   if element is null
    * @author Habib Jarweh
    */
   @GetMapping(value = {"/purchasesbydate", "/purchasesbydate/"})
@@ -131,7 +131,7 @@ public class PurchaseRestController {
    * @param customerEmail
    * @return list of purchaseDto
    * @throws IllegalArgumentException if argument is not valid
-   * @throws NoSuchElementException if element is null
+   * @throws NoSuchElementException   if element is null
    * @author Habib Jarweh
    */
   @GetMapping(
@@ -168,9 +168,9 @@ public class PurchaseRestController {
   @GetMapping(value = {"/purchases", "/purchases/"})
   public List<PurchaseDto> getAllPurchases() {
 
-    List<Purchase> allPurchases = purchaseService.getAllPurchases();	// get all the purchases in the system
+    List<Purchase> allPurchases = purchaseService.getAllPurchases();  // get all the purchases in the system
 
-    List<PurchaseDto> allPurchaseDtos = new ArrayList<PurchaseDto>();	
+    List<PurchaseDto> allPurchaseDtos = new ArrayList<PurchaseDto>();
 
     for (Purchase purchase : allPurchases) {
 
@@ -183,9 +183,9 @@ public class PurchaseRestController {
   /**
    * Creates a purchase and returns its equivalent dto
    *
-   * @param orderType The type of purchase
+   * @param orderType   The type of purchase
    * @param orderStatus The status of purchase
-   * @param data The map of itemDtos and their quantities
+   * @param data        The map of itemDtos and their quantities
    * @return The Dto corresponding to the created object
    * @throws IllegalArgumentException In case the input is invalid
    * @author Wassim Jabbour
@@ -222,12 +222,61 @@ public class PurchaseRestController {
   }
 
   /**
+   * Creates a purchase (With a customer) and returns its equivalent dto
+   *
+   * @param customerEmail The email of the customer
+   * @param orderType   The type of purchase
+   * @param orderStatus The status of purchase
+   * @param data        The map of itemDtos and their quantities
+   * @return The Dto corresponding to the created object
+   * @throws IllegalArgumentException In case the input is invalid
+   * @author Wassim Jabbour
+   */
+  @PostMapping(value = {"/purchasewithcustomer", "/purchasewithcustomer/"})
+  public PurchaseDto createPurchaseWithCustomer(@RequestParam(name = "ordertype") String orderType,
+      @RequestParam(name = "orderstatus") String orderStatus,
+      @RequestParam(name = "email") String customerEmail,
+      @RequestBody HashMap<String, Integer> data)
+      throws IllegalArgumentException, NoSuchElementException {
+
+    OrderType actualOrderType = DtoUtility.findOrderTypeByName(orderType);
+    // Checking that it is not null
+    if (actualOrderType == null) {
+      throw new IllegalArgumentException("Invalid order type!");
+    }
+
+    OrderStatus actualOrderStatus = DtoUtility.findOrderStatusByName(orderStatus);
+    // Checking that it is not null
+    if (actualOrderStatus == null) {
+      throw new IllegalArgumentException("Invalid order status!");
+    }
+
+    Employee employee = employeeService.getClosestEmployee();
+    HashMap<Item, Integer> items = new HashMap<Item, Integer>();
+
+    for (Map.Entry<String, Integer> entry : data.entrySet()) {
+      items.put(itemService.getItemByName(entry.getKey()), entry.getValue());
+    }
+
+    Purchase purchase =
+        purchaseService.createPurchase(actualOrderType, employee, actualOrderStatus, items);
+
+    // Getting the customer (Throws the exceptions itself)
+    Customer customer = customerService.getCustomerByEmail(customerEmail);
+
+    // Adding the purchase to the customer
+    customerService.addPurchase(customer, purchase);
+
+    return DtoUtility.convertToDto(purchase);
+  }
+
+  /**
    * method to update/modify a purchase
    *
-   * @param purchaseId id of purchase
-   * @param orderType type of the purchase
-   * @param orderStatus status of order
-   * @param data items in the purchase
+   * @param purchaseId    id of purchase
+   * @param orderType     type of the purchase
+   * @param orderStatus   status of order
+   * @param data          items in the purchase
    * @param employeeEmail employee assigned to purchase
    * @return purchaseDto
    * @throws IllegalArgumentException
@@ -270,7 +319,7 @@ public class PurchaseRestController {
    *
    * @param id The id of the purchase
    * @throws IllegalArgumentException In case the id is null or empty
-   * @throws NoSuchElementException In case the id doesn't correspond to any purchase
+   * @throws NoSuchElementException   In case the id doesn't correspond to any purchase
    * @author Wassim Jabbour
    */
   @GetMapping(value = {"/purchase/cost/{id}", "/purchase/cost/{id}/"})
@@ -293,7 +342,7 @@ public class PurchaseRestController {
     try {
       customer = customerService.getCustomerByPurchase(purchase);
     } catch (NoSuchElementException e) { // This exception is thrown if the purchase corresponds to
-                                         // no customer
+      // no customer
       customer = null;
     }
 
