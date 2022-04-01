@@ -32,7 +32,7 @@ const otherRoutes = [
 
 const ownerRoutes = [
   {
-    path: '/systeminformation',
+    path: '/owner/systeminformation',
     name: 'SystemInformation',
     component: SystemInformation
   },
