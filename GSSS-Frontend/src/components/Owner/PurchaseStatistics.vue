@@ -1,3 +1,5 @@
+//to be deleted
+
 <template>
   <div>
     <h1>Get Purchase Statistics by date</h1>
