@@ -11,8 +11,7 @@
     </div>
 </template>
 
-<style scoped>
-    @import './login.css';
+<style scoped src='./login.css'>
 </style>
 
 <script src="./loginPage.js" />

@@ -19,6 +19,5 @@
 
 <script src='./customerList.js'></script>
 
-<style scoped>
-    @import './customerList.css';
+<style scoped src='./customerList.css'>
 </style>

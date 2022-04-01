@@ -176,15 +176,11 @@ About: Page to handle selecting items and adding them to the customer's cart
    }
 
    .payment {
-     margin-top: 1.5em;
-   }
-
-   .type-selector {
-       display: flexx
+     margin-top: 3em;
    }
 
    .select-css {
-	display: block;
+    margin-top: 1.5em;
 	font-size: 16px;
 	font-family: sans-serif;
 	font-weight: 700;
@@ -194,7 +190,6 @@ About: Page to handle selecting items and adding them to the customer's cart
 	width: fit-content;
 	max-width: 100%;
 	box-sizing: border-box;
-	margin: 0;
 	border: 1px solid #aaa;
 	box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
 	border-radius: .5em;
