@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <center><img src="../assets/Logo_GSSS.png" alt="centered image" height="300" width="300"> </center>
     <br>
     <h2>Available Links</h2>
     <ul>
@@ -14,6 +15,14 @@
       <li><a href="/#/customer/account" >Customer Account page</a></li>
 
     </ul>
+    <div style="margin: 4rem 0;">
+      <h2>!!! The following is intended for development purposes only !!!</h2>
+      <p>Choose a permission:</p>
+      <button v-on:click="changePermission('')" v-bind:style="!permission ? 'background: blue;' : ''">None</button>
+      <button v-on:click="changePermission('Customer')" v-bind:style="permission == 'Customer' ? 'background: blue;' : ''">Customer</button>
+      <button v-on:click="changePermission('Employee')" v-bind:style="permission == 'Employee' ? 'background: blue;' : ''">Employee</button>
+      <button v-on:click="changePermission('Owner')" v-bind:style="permission == 'Owner' ? 'background: blue;' : ''">Owner</button>
+    </div>
     <h2>Github</h2>
     <li><a href="https://github.com/McGill-ECSE321-Winter2022/project-group-group-12" target="_blank">Our github page</a></li>
   </div>
@@ -25,7 +34,14 @@ export default {
   data () {
     return {
       msg: 'Welcome to the best Grocery Store Website out there !',
-      count: 0
+      count: 0,
+      permission: localStorage.permission
+    }
+  },
+  methods: {
+    changePermission: function(p){
+      localStorage.setItem("permission", p);
+      this.$router.go();
     }
   }
 }
