@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Services of the item class
+ * Services of the BusinessHour class
  *
  * @author Chris Hatoum
  * @author Habib Jarweh

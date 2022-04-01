@@ -19,6 +19,7 @@ import Payment from '@/components/Customer/Payment/Payment'
 import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
 import PurchaseStatistics from "@/components/Owner/PurchaseStatistics";
 import Hello from "@/components/Hello";
+import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
 
 Vue.use(Router)
 export default new Router({
@@ -32,6 +33,11 @@ export default new Router({
       path: '/ownerpurchases',
       name: 'ViewPurchases',
       component: ViewPurchases
+    },
+    {
+      path: '/customerselectitems',
+      name: 'ViewAndSelectItems',
+      component: ViewAndSelectItems
     },
     {
       path: '/login',
