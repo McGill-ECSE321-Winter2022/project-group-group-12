@@ -17,7 +17,8 @@ Vue class for the system information page.
       <br/>
       <td>
       <div>
-          <div> <p>Select weekday: <p/>
+          <div> 
+            <p>Select weekday: </p>
             <select id="selectWeekday" placeholder="Select day">
               <option value="" disabled selected>Select your day</option>
               <option value="1">All days</option>
