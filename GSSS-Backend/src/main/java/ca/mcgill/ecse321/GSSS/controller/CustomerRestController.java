@@ -170,8 +170,8 @@ public class CustomerRestController {
     return DtoUtility.convertToDto(customer);
   }
 
-  @GetMapping(value = {"/checkCity/{email}", "/checkCity/{email}/"})
-  public boolean checkIfInCity(@PathVariable("email") String email)
+  @GetMapping(value = {"/deliveryfee/{email}", "/deliveryfee/{email}/"})
+  public double returnDeliveryFee(@PathVariable("email") String email)
       throws IllegalArgumentException, NoSuchElementException {
 
     // Finding the associated customer if it exists (Will be null for an in person purchase)
@@ -181,11 +181,11 @@ public class CustomerRestController {
     Owner owner = ownerService.getOwner();
     String city = owner.getStoreCity();
 
-    // Return true if the customer is in the city, false otherwise
+    // Return the out of town fee if the customer is out of town, 0 else
     if (!city.equals(customer.getAddress().getCity())) {
-      return false;
+      return owner.getOutOfTownDeliveryFee();
     }
-    return true;
+    return 0;
   }
 
 }
