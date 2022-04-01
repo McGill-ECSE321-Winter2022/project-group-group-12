@@ -76,11 +76,7 @@ const customerRoutes = [
 ];
 
 export default new Router({
-<<<<<<< HEAD
 
   routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
 
-=======
-  routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
->>>>>>> b51ef3e54a0529cab791ed0e304f3c691696f88f
 })
