@@ -4,7 +4,7 @@
 
 <template>
     <header>
-            <a href="/#/"><h1>GSSS</h1></a>
+            <h1><a href="/#/">GSSS</a></h1>
             <div>
                 <!-- Links if no user is logged in -->
                 <nav v-if="permission == -1">

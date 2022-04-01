@@ -20,13 +20,15 @@ h1{
     margin-right: 1rem;
 }
 
-a{
+h1 > a,
+nav > a{
     color: white;
     text-decoration: none;
     margin: 0 0.5rem;
 }
 
-a:hover{
+h1 > a:hover,
+nav > a:hover{
     color: white;
     text-decoration: none;
 }
