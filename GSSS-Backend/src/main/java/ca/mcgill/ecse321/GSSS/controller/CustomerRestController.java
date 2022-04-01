@@ -3,9 +3,11 @@ package ca.mcgill.ecse321.GSSS.controller;
 import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 import ca.mcgill.ecse321.GSSS.model.Address;
 import ca.mcgill.ecse321.GSSS.model.Customer;
+import ca.mcgill.ecse321.GSSS.model.Owner;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import ca.mcgill.ecse321.GSSS.service.AddressService;
 import ca.mcgill.ecse321.GSSS.service.CustomerService;
+import ca.mcgill.ecse321.GSSS.service.OwnerService;
 import ca.mcgill.ecse321.GSSS.service.PurchaseService;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,9 @@ public class CustomerRestController {
 
   @Autowired
   private PurchaseService purchaseService;
+
+  @Autowired
+  private OwnerService ownerService;
 
   /**
    * Method to get a list of all Customers in DTO form
@@ -79,7 +84,7 @@ public class CustomerRestController {
    * @param purchaseId The ID of the purchase
    * @return The customer with the passed purchase
    * @throws IllegalArgumentException If the purchase ID is null or empty
-   * @throws NoSuchElementException If no purchase exists with the given purchase ID
+   * @throws NoSuchElementException   If no purchase exists with the given purchase ID
    */
   @GetMapping(value = {"/customerByPurchase/{purchaseId}", "/customerByPurchase/{purchaseId}/"})
   public CustomerDto getCustomerByPurchase(@PathVariable("purchaseId") String purchaseId)
@@ -164,4 +169,23 @@ public class CustomerRestController {
         customerService.modifyCustomer(username, email, address, disabled);
     return DtoUtility.convertToDto(customer);
   }
+
+  @GetMapping(value = {"/checkCity/{email}", "/checkCity/{email}/"})
+  public boolean checkIfInCity(@PathVariable("email") String email)
+      throws IllegalArgumentException, NoSuchElementException {
+
+    // Finding the associated customer if it exists (Will be null for an in person purchase)
+    Customer customer = customerService.getCustomerByEmail(email);
+
+    // Getting the system information (city)
+    Owner owner = ownerService.getOwner();
+    String city = owner.getStoreCity();
+
+    // Return true if the customer is in the city, false otherwise
+    if (!city.equals(customer.getAddress().getCity())) {
+      return false;
+    }
+    return true;
+  }
+
 }
