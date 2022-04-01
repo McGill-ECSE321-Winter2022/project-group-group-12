@@ -4,14 +4,17 @@
     <br>
     <h2>Available Links</h2>
     <ul>
-      <li><a href="/#/customer/shop"> Main shopping page</a></li>
-      <li><a href="/#/employee/purchases" > Owner ViewPurchases </a></li>
-      <li><a href="/#/login"  > Login Page</a></li>
-      <li><a href="/#/signup"  > Signup Page</a></li>
-      <li><a href="/#/employee/customers"  > Customer List</a></li>
-      <li><a href="/#/owner/systeminformation"  > System Information</a></li>
-      <li><a href="/#/customer/payment" >Payment page</a></li>
-      <li><a href="/#/customer/account" >Customer Account page</a></li>
+
+      <li><a href="http://127.0.0.1:8087/#/customerselectitems"> Main shopping page</a></li>
+      <li><a href="http://127.0.0.1:8087/#/ownerPurchases" > Owner ViewPurchases </a></li>
+      <li><a href="http://127.0.0.1:8087/#/login"  > Login Page</a></li>
+      <li><a href="http://127.0.0.1:8087/#/signup"  > Signup Page</a></li>
+      <li><a href="http://127.0.0.1:8087/#/customers"  > Customer List</a></li>
+      <li><a href="http://127.0.0.1:8087/#/systemInformation"  > System Information</a></li>
+      <li><a href="http://127.0.0.1:8087/#/payment" >Payment page</a></li>
+      <li><a href="http://127.0.0.1:8087/#/purchaseStats"  > Purchase Statistics</a></li>
+      <li><a href="http://127.0.0.1:8087/#/StoreInformation"  > Store Information</a></li>
+
 
     </ul>
     <h2>Github</h2>
