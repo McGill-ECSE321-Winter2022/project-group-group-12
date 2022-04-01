@@ -96,22 +96,22 @@ export default {
   },
 
   created: function() {
-
     // Getting the purchases from the backend using the email of the employye logged in
-    AXIOS.get('purchasesbyemployee/' + localStorage.email)
+    AXIOS.get('/purchasesbyemployee/'.concat(localStorage.email))
     .then(response => {
       // JSON responses are automatically parsed.
       this.purchases = response.data
 
       // Iterating over all purchases and adding their customer's email as a field
       for(let i = 0; i < this.purchases.length; i++) {
+        console.log(this.purchases[i].name)
         countClick.push('0')
          AXIOS.get('/customerByPurchase/' + this.purchases[i].id)
         .then(response => {
           this.purchases[i].customer = response.data.email
         })
         .catch(e => {
-          this.error = e.response.data.message
+          this.error = e
           setTimeout(() => this.error = null, 3000);
         })
       }
@@ -123,14 +123,14 @@ export default {
           this.purchases[i].cost = response.data
         })
         .catch(e => {
-          this.error = e.response.data.message
+          this.error = e
           setTimeout(() => this.error = null, 3000);
         })
       }
       
       })
     .catch(e => {
-      this.error = e.response.data.message
+      this.error = e
       setTimeout(() => this.error = null, 3000);
     })
   },
@@ -158,13 +158,14 @@ export default {
           this.selectedPurchaseItemsPrices.push(response.data.price)
         })
         .catch(e => {
-          this.error = e.response.data.message
+          this.error = e
           setTimeout(() => this.error = null, 3000);
         })
       }
     },
 
     modifySelectedPurchase: function(orderStatus){
+      // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/' + this.selectedPurchase.id, 
       {},
       {params: {
@@ -179,7 +180,7 @@ export default {
         this.selectedPurchase.orderStatus = response.data.orderStatus
       })
       .catch(e => {
-        this.error = e.response.data.message
+        this.error = e
         setTimeout(() => this.error = null, 3000);
       });
     },

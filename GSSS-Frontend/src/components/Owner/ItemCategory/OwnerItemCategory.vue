@@ -99,7 +99,7 @@ export default {
   methods: {
     onSelect: function(i) {
       // Set the selected purchase to be the one at index i
-      this.oldItemCategory = itemCategories[i]
+      this.oldItemCategory = this.itemCategories[i].name
     },
 
     createItemCategory: function(name){
@@ -124,7 +124,7 @@ export default {
     },
 
     modifyItemCategory: function(categoryOldName, categorynewName){
-      AXIOS.post('/itemCategory/modify',
+      AXIOS.post('/itemCategory/modify/',
       {},
       {
         params: {
