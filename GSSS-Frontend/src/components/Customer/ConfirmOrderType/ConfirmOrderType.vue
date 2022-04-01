@@ -1,6 +1,6 @@
 <!--
 Author: Wassim Jabbour
-About: Page to handle selecting items and adding them to the customer's cart
+About: Page to confirm the purchase and select the type of order (Adds the fee)
 -->
 
 <!-- CSS uses bootstrap -->
@@ -146,34 +146,15 @@ About: Page to handle selecting items and adding them to the customer's cart
         // Convert map to JSON which can be passed in request
         var convertedMap = Object.assign({}, ...Array.from(itemMap.entries()).map(([k, v]) =>({[k]: v}) ))
 
-        AXIOS.post('/purchase', convertedMap, 
+        AXIOS.post('/purchasewithcustomer', convertedMap, 
         { 
           params: {
+            email: localStorage.getItem("email"),
             ordertype: this.type,
             orderstatus: "BeingPrepared" 
           } 
         })
         .then(response => {
-
-          // Add it to the customer in question
-           AXIOS.post('customer/purchase/' + localStorage.email, null,
-           {
-             params: {
-              ordertype: this.type,
-              orderstatus: "BeingPrepared" 
-            }
-           })
-          .then(response => {
-
-            // Add it to the customer in question
-            
-
-          })
-          .catch(e => {
-            this.error = e
-            setTimeout(()=>this.error=null, 3000)
-          })
-
           // Route to new page
           this.$router.push("/customer/payment")
         })

@@ -7,6 +7,7 @@
     <ul>
       <li><a href="/#/customer/shop"> Main shopping page</a></li>
       <li><a href="/#/employee/purchases" > Owner ViewPurchases </a></li>
+      <li><a href="/#/owner/viewandedititems" > Owner view and edit items </a></li>
       <li><a href="/#/login"  > Login Page</a></li>
       <li><a href="/#/signup"  > Signup Page</a></li>
       <li><a href="/#/employee/customers"  > Customer List</a></li>
@@ -42,7 +43,7 @@ export default {
   methods: {
     changePermission: function(p){
       localStorage.setItem("permission", p);
-      this.$router.go();
+        
     }
   }
 }
