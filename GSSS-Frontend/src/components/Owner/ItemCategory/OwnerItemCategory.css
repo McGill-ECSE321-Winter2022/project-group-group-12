@@ -1,16 +1,10 @@
 input{
-    margin-bottom: 1rem;
     display: block;
 }
 
 .addModifyCategory{
     display: flex;
     justify-content: center;
-}
-
-.addModifyCategory> div,
-.addModifyCategory > div > *{
-    width: fit-content;
 }
 
 table{
@@ -23,3 +17,24 @@ td.space {
     line-height: 100px; 
     vertical-align:baseline;
 }
+
+.categories {
+    font-size: 120%;
+}
+
+.error {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: red;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .error > div {
+    background-color: rgba(0, 0, 0, 0.822);
+    padding: 0.5em 1em;
+    border-radius: 0.5rem;
+  }

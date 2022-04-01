@@ -34,13 +34,12 @@
             </div>
             <br>
             <h2> Modify purchase order status: </h2>
-            <select class="selector" name="Order Status" id="orderStatus">
+            <select class="selector" name="Order Status" id="orderStatus" v-model="orderStatus">
               <option value="BeingPrepared">Being Prepared</option>
               <option value="OutForDelivery">Out for Delivery</option>
               <option value="Completed">Completed</option>
             </select>
             <button v-bind:disabled="!orderStatus" @click="modifySelectedPurchase(orderStatus)">Modify Order Status</button>
-
           </div>
         
       </div>
@@ -89,6 +88,7 @@ export default {
       selectedPurchase: -1, // The index of the selected purchase
       error: '',
       response: [],
+      orderStatus: [],
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
       selectedPurchaseItemsPrices: []
