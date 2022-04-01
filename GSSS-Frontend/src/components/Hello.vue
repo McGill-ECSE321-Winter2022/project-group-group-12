@@ -13,6 +13,7 @@
       <li><a href="/#/owner/systeminformation"  > System Information</a></li>
       <li><a href="/#/customer/payment" >Payment page</a></li>
       <li><a href="/#/customer/account" >Customer Account page</a></li>
+      <li><a href="/#/customer/storeinformation" >Store Information</a></li>
 
     </ul>
     <div style="margin: 4rem 0;">
