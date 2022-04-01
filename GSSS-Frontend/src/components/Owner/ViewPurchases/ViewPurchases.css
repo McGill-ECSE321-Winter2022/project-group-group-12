@@ -12,17 +12,6 @@
     border: 1px solid red;
   }
 
-  .details {
-    border: 1px solid green;
-    overflow: hidden;
-  }
-
-  .wrapper {
-    width: 500px;
-    border: 1px solid black;
-    overflow: hidden;
-  }
-
   .purchase-list li {
     position: relative;
     padding-left: 30px;
@@ -73,4 +62,38 @@
   .purchase-list li:active {
     background: #eee;
     box-shadow: inset 0 1px 1px #666;
+  }
+
+  .error {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: red;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .error > div {
+    background-color: rgba(0, 0, 0, 0.822);
+    padding: 0.5em 1em;
+    border-radius: 0.5rem;
+  }
+
+  .wrapper{
+    display: flex;
+    gap: 1rem
+  }
+  
+  .wrapper > .employeeviewpurchases{
+    flex-basis: 33%;
+  }
+  
+  .wrapper > .details{
+    flex-basis: 66%;
+  }
+  
+  .details {
+    font-size: 100%;
   }
