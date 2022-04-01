@@ -42,3 +42,7 @@ export const modifyCustomer = (modifiedCustomer) => new Promise((resolve, reject
     })
     .catch(err => reject(err));
 });
+
+export const modifyPassword = (newPassword) => new Promise((resolve, reject) => {
+    reject("To be implemented");
+});

@@ -1,13 +1,13 @@
 <template>
     <div>
         <h3>{{ customer.email }}</h3>
-        <div v-if="!editMode">
+        <div v-if="mode == 0">
             <div>Username: {{ customer.username }}</div>
             <div style="margin-bottom: 1rem">Disabled: {{ customer.disabled }}</div>
             <div>Address: ({{ customer.address.id }})</div>
             <p>{{ customer.address.fullName }}<br/>{{customer.address.streetNumber}}, {{ customer.address.streetName }}<br/>{{ customer.address.city }}, {{ customer.address.postalCode }}</p>
         </div>
-        <div v-if="editMode">
+        <div v-if="mode == 1">
             <label>Username: </label>
             <input type="text" placeholder="Enter username" v-model="mod.username"/>
             <br/>
@@ -24,9 +24,15 @@
                 <input type="text" placeholder="Postal Code" v-model="mod.address.postalCode"/>
             </div>
         </div>
+        <div v-if="mode == 2">
+            <input type="password" placeholder="Enter new password" v-model="mod.password" />
+        </div>
         <div v-if="message" v-bind:style="isSuccess ? 'color: green; font-style: italic;' : 'color: red; font-style: italic;'">{{ message }}</div>
-        <button>View purchases</button>
-        <button v-on:click="changeMode()">{{ this.editMode ? "Save" : "Edit" }}</button>
+        <button v-if="mode == 0">View purchases</button>
+        <button v-if="mode == 0" v-on:click="changeMode(1)">Edit info</button>
+        <button v-if="mode == 0" v-on:click="changeMode(2)">Edit password</button>
+        <button class="save-button" v-if="mode != 0" v-on:click="changeMode(0, false)">Cancel</button>
+        <button class="save-button" v-if="mode != 0" v-on:click="changeMode(0, true)">Save</button>
     </div>
 </template>
 

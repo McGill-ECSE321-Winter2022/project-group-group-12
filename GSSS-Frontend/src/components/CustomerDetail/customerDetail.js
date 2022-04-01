@@ -1,10 +1,10 @@
-import { modifyCustomer } from "../../services/customer";
+import { modifyCustomer, modifyPassword } from "../../services/customer";
 
 export default {
     name: 'customer-detail',
     data: function(){
         return{
-            editMode: false,
+            mode: 0,
             mod: {
                 username: '',
                 disabled: '',
@@ -18,8 +18,8 @@ export default {
         this.editMode = false;
     },
     methods:{
-        changeMode: function(){
-            if(!this.editMode){
+        changeMode: function(i, save){
+            if(this.mode == 0 && i == 1){
                 this.mod.email = this.customer.email;
                 this.mod.username = this.customer.username;
                 this.mod.disabled = this.customer.disabled;
@@ -32,25 +32,46 @@ export default {
                     postalCode: this.customer.address.postalCode
                 };
             }
-            else{
-                this.editCustomer();
+            else if(this.mode == 1 && i == 0){
+                if(save) this.editCustomer();
+            } else if(this.mode == 0 & i == 2){
+                this.mod.password = '';
+            } else if(this.mode == 2 && i == 0){
+                if(save) this.editPassword();
+            } else {
+                this.changeMode(0);
+                this.changeMode(i);
+                return;
             }
-            this.editMode = !this.editMode;
+            this.mode = i;
         },
         editCustomer: function(){
-            if(this.editMode)
-                modifyCustomer(this.mod)
-                .then(res => {
-                    this.message = "Data succesfully saved!";
-                    this.isSuccess = true;
-                    setTimeout(() => this.message = null, 5000);
-                    this.onChange();
-                })
-                .catch(err => {
-                    this.message = err;
-                    this.isSuccess = false;
-                    setTimeout(() => this.message = null, 5000);
-                });
+            modifyCustomer(this.mod)
+            .then(res => {
+                this.message = "Data succesfully saved!";
+                this.isSuccess = true;
+                setTimeout(() => this.message = null, 5000);
+                this.onChange();
+            })
+            .catch(err => {
+                this.message = err;
+                this.isSuccess = false;
+                setTimeout(() => this.message = null, 5000);
+            });
+        },
+        editPassword: function(){
+            modifyPassword(this.mod.password)
+            .then(res => {
+                this.message = "Password succesfully changed!";
+                this.isSuccess = true;
+                setTimeout(() => this.message = null, 5000);
+                this.onChange();
+            })
+            .catch(err => {
+                this.message = err;
+                this.isSuccess = false;
+                setTimeout(() => this.message = null, 5000);
+            })
         }
     },
     props: {
