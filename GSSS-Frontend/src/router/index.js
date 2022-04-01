@@ -1,20 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases'
+import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases.vue'
 import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation.vue'
-import LoginPage from '@/components/LoginPage/LoginPage'
-import SignupPage from '@/components/SignupPage/SignupPage'
+import LoginPage from '@/components/LoginPage/LoginPage.vue'
+import SignupPage from '@/components/SignupPage/SignupPage.vue'
 import CustomerList from '@/components/Owner/CustomerList/CustomerList.vue'
-
-import StoreInformation from "../components/Customer/StoreInformation/StoreInformation.vue";
-
 import Hello from '@/components/Hello.vue'
 import Payment from '@/components/Customer/Payment/Payment.vue'
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
 import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
 import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
-
 
 Vue.use(Router)
 
@@ -81,7 +76,11 @@ const customerRoutes = [
 ];
 
 export default new Router({
+<<<<<<< HEAD
 
   routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
 
+=======
+  routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
+>>>>>>> b51ef3e54a0529cab791ed0e304f3c691696f88f
 })
