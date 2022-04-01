@@ -22,11 +22,19 @@ export default {
             this.selectedCustomer = i;
             this.addMode = false;
         },
+        selectLastCustomer: function(){
+            this.selectedCustomer = this.customers.length - 1;
+        },
         addCustomer: function(){
             this.addMode = true;
         },
-        onAdd: function(){
-            // refresh list
+        onChange: function(){
+            getAllCustomers()
+            .then(res => {
+                this.customers = res;
+                this.selectLastCustomer();
+            })
+            .catch(err => console.log(err));
             this.addMode = false;
         }
     },

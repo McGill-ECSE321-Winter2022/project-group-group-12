@@ -10,8 +10,8 @@
             </div>
             <div class="vertical-separator"/>
             <div class="details">
-                <customer-detail v-if="!addMode && selectedCustomer >= 0" v-bind:customer="customers[selectedCustomer]"></customer-detail>
-                <customer-creator v-if="addMode" v-bind:onAdd="onAdd" />
+                <customer-detail v-if="!addMode && selectedCustomer >= 0" v-bind:onChange="onChange" v-bind:customer="customers[selectedCustomer]"></customer-detail>
+                <customer-creator v-if="addMode" v-bind:onAdd="onChange" />
             </div>
         </div>
     </div>

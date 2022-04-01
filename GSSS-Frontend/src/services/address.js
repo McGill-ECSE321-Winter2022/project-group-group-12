@@ -5,3 +5,15 @@ export const createAddress = (address) => new Promise((resolve, reject) => {
     .then(res => resolve(res))
     .catch(err => reject(err));
 });
+
+export const modifyAddress = (modifiedAddress) => new Promise((resolve, reject) => {
+    ax.post(`/address/${modifiedAddress.id}`, null, { params: {
+        fullName: modifiedAddress.fullName,
+        streetNumber: modifiedAddress.streetNumber,
+        streetName: modifiedAddress.streetName,
+        city: modifiedAddress.city,
+        postalCode: modifiedAddress.postalCode
+    }})
+    .then(res => resolve(res.data))
+    .catch(err => reject(err));
+});
