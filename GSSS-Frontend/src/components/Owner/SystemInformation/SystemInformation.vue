@@ -35,8 +35,19 @@ Vue class for the system information page.
           <p> Opening time:  <input placeholder="ex: 07:00"  type="text" id="startTimeInput" /></p>
           <p> Closing time:  <input placeholder="ex: 18:00" type="text" id="endTimeInput" /></p>
           <button v-on:click="saveBHForWeekday()">  Save Business Hours </button>
-          <p v-if="errorBH" style="color:red; font-style:italic;">{{ errorBH }}</p>
-          <p v-if="successBH" style="color:green; font-style:italic;">{{ successBH }}</p>
+<!--          <p v-if="errorBH" style="color:red; font-style:italic;">{{ errorBH }}</p>-->
+        <div v-if="errorBH" class="error">
+          <div>
+            {{ errorBH }}
+          </div>
+        </div>
+<!--          <p v-if="successBH" style="color:green; font-style:italic;">{{ successBH }}</p>-->
+<!--        success message-->
+        <div v-if="successBH" class="success">
+          <div>
+            {{ successBH }}
+          </div>
+        </div>
 
         </div>
         </td>
@@ -53,8 +64,21 @@ Vue class for the system information page.
           <p>Current fee:  <span style="color:deepskyblue;"> {{currentFee}}</span></p>
 
           <button v-on:click="saveCityAndFee()">  Save store information</button>
-          <p v-if="errorStoreInfo" style="color:red; font-style:italic;">{{ errorStoreInfo }}</p>
-          <p v-if="successStoreInfo" style="color:green; font-style:italic;">{{ successStoreInfo }}</p>
+<!--          <p v-if="errorStoreInfo" style="color:red; font-style:italic;">{{ errorStoreInfo }}</p>-->
+<!--          error message-->
+          <div v-if="errorStoreInfo" class="error">
+            <div>
+              {{ errorStoreInfo }}
+            </div>
+          </div>
+<!--          <p v-if="successStoreInfo" style="color:green; font-style:italic;">{{ successStoreInfo }}</p>-->
+<!--          success message-->
+          <div v-if="successStoreInfo" class="success">
+            <div>
+              {{ successStoreInfo }}
+            </div>
+          </div>
+
         </div>
         </td>
     </div>

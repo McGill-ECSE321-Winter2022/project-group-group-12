@@ -152,7 +152,6 @@ public class CustomerRestController {
    *
    * @param email     Email of the customer to update
    * @param username  Username we want to update
-   * @param password  Password we want to update
    * @param addressId Address we want to update
    * @param disabled  Change the disable state of the customer
    * @return The modified customer as a DTO object
@@ -170,8 +169,25 @@ public class CustomerRestController {
     return DtoUtility.convertToDto(customer);
   }
 
-  @GetMapping(value = {"/checkCity/{email}", "/checkCity/{email}/"})
-  public boolean checkIfInCity(@PathVariable("email") String email)
+  /**
+   * Mehtod to modify/update a customer's password
+   * @param email The email of the customer to modify
+   * @param password the new password of the customer
+   * @return The modified customer as a DTO object
+   * @throws IllegalArgumentException
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @PostMapping(value = {"/customer/password/{email}", "/customer/password/{email}/"})
+  public CustomerDto modifyPassword (@PathVariable("email") String email,
+      @RequestParam(name = "password") String password) throws IllegalArgumentException {
+    
+      return DtoUtility.convertToDto(
+      customerService.modifyPassword(email, password));
+  }
+
+  @GetMapping(value = {"/deliveryfee/{email}", "/deliveryfee/{email}/"})
+  public double returnDeliveryFee(@PathVariable("email") String email)
       throws IllegalArgumentException, NoSuchElementException {
 
     // Finding the associated customer if it exists (Will be null for an in person purchase)
@@ -181,11 +197,11 @@ public class CustomerRestController {
     Owner owner = ownerService.getOwner();
     String city = owner.getStoreCity();
 
-    // Return true if the customer is in the city, false otherwise
+    // Return the out of town fee if the customer is out of town, 0 else
     if (!city.equals(customer.getAddress().getCity())) {
-      return false;
+      return owner.getOutOfTownDeliveryFee();
     }
-    return true;
+    return 0;
   }
 
 }

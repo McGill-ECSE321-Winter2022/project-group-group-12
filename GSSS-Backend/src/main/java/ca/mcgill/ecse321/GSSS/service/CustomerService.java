@@ -246,6 +246,33 @@ public class CustomerService {
   }
 
   /**
+   * This service method updates the customer's password based on the givenm inputs
+   * A password must be at leats 6 characters long
+   * 
+   * @param email The email of the customer account to modify its password
+   * @param password The new password of the customer
+   * @return The modified customer
+   * @author Enzo Benoit-Jeannin
+   */
+  @Transactional
+  public Customer modifyPassword(String email, String password){
+    // Input validation
+    String error = "";
+    if (email == null || email.trim().length() == 0) {
+      error += "Customer username cannot be empty! ";
+    }
+    if (password == null || password.length() < 6 || password.trim().length() == 0) {
+      error += "Password has to be at least 6 characters! ";
+    }
+    if (error.length() > 0) {
+      throw new IllegalArgumentException(error);
+    }
+    Customer customer = getCustomerByEmail(email);
+    customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));
+    return customer;
+  }
+
+  /**
    * Service to add a purchase to a customer
    *
    * @param customer Customer to add the purchase to
