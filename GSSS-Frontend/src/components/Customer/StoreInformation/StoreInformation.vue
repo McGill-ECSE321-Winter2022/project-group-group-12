@@ -62,7 +62,7 @@ Vue class for the system information page.
 <!--        </table>-->
 
       </div>
-        <div v-else-if="selectedScreen == 3 ">We don't have any promotions at the time. Come back later!</div>
+        <div v-if="selectedScreen == 3 ">We don't have any promotions at the time. Come back later!</div>
       </div>
     </div>
 

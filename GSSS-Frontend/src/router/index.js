@@ -82,59 +82,6 @@ const customerRoutes = [
 
 export default new Router({
 
-  routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    },
-    {
-      path: '/ownerpurchases',
-      name: 'ViewPurchases',
-      component: ViewPurchases
-    },
-    {
-      path: '/customerselectitems',
-      name: 'ViewAndSelectItems',
-      component: ViewAndSelectItems
-    },
-    {
-      path: '/login',
-      name: 'LoginPage',
-      component: LoginPage
-    },
-    {
-      path: '/signup',
-      name: 'SignupPage',
-      component: SignupPage
-    },
-    {
-      path: '/customers',
-      name: 'CustomerList',
-      component: CustomerList
-    },
-    {
-      path: '/systeminformation',
-      name: 'SystemInformation',
-      component: SystemInformation
-    },
-    {
-      path: '/payment',
-      name: 'Payment',
-      component: Payment
-
-    },
-    {
-      path: '/purchasestats',
-      name: 'PurchaseStatistics',
-      component: PurchaseStatistics
-    },
-    {
-      path: '/storeinformation',
-      name: 'StoreInformation',
-      component: StoreInformation
-
-    }
-  ]
+  routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
 
 })
