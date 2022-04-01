@@ -51,9 +51,12 @@ About: Page to handle selecting items and adding them to the customer's cart
       </button>
     </div>
     <select id="selectDeliveryType" placeholder="Select delivery type">
-        <option value="delivery">Delivery</option>
-        <option value="pickup">Pickup</option>
+        <option v-on:click="selectDelivery(true)" value="delivery">Delivery</option>
+        <option v-on:click="selectDelivery(false)" value="pickup">Pickup</option>
     </select>
+    <p v-if="this.delivery && this.outOfCity">
+         A delivery fee of {{ outOfCityFee }}$ will apply (Out of city ({{storeCity}}) customer)
+    </p>
   </div>
 </template>
 
@@ -82,7 +85,8 @@ About: Page to handle selecting items and adding them to the customer's cart
       outOfCityFee: 0,
       error: '',
       total: 0,
-      delivery: undefined // If true delivery, if false pickup
+      delivery: undefined, // If true delivery, if false pickup
+      outOfCity: undefined // Only becomes true if the customer is out of city
     }
   },
 
@@ -109,6 +113,20 @@ About: Page to handle selecting items and adding them to the customer's cart
     for(product in this.cart) {
         this.total += product.price * product.count
     }
+
+    // Getting the email of the logged in customer
+    var customerEmail = localStorage.email
+
+    // Checking if the customer is out of town
+    AXIOS.get('/checkCity/' + customerEmail)
+    .then(response => {
+      this.outOfCity = response.data
+      })
+    .catch(e => {
+      this.error = e
+      setTimeout(()=>this.error=null, 3000)
+    })
+
   },
 
 
@@ -124,6 +142,16 @@ About: Page to handle selecting items and adding them to the customer's cart
         else {
             this.error = "Please choose delivery or pickup"
             setTimeout(()=>this.error=null, 3000)
+        }
+    },
+
+    // To toggle between delivery and pickup
+    delivery : function(bool) {
+        if(bool) {
+            this.delivery = true
+        }
+        else {
+            this.delivery = false
         }
     }
 
