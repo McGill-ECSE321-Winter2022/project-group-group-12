@@ -38,6 +38,5 @@
 
 <script src='./customerDetail.js'></script>
 
-<style scoped>
-    @import './customerDetail.css';
+<style scoped src='./customerDetail.css'>
 </style>
