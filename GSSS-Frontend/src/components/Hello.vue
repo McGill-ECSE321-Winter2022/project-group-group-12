@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <center><img src="../assets/Logo_GSSS.png" alt="centered image" height="300" width="300"> </center>
     <br>
     <h2>Available Links</h2>
     <ul>
