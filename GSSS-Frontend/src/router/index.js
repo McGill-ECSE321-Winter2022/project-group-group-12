@@ -10,6 +10,7 @@ import Payment from '@/components/Customer/Payment/Payment.vue'
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems.vue'
 import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
 import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
+import StoreInformation from '@/components/Customer/StoreInformation/StoreInformation.vue';
 
 Vue.use(Router)
 
@@ -72,15 +73,17 @@ const customerRoutes = [
     path: '/customer/account',
     name: 'Customer Account',
     component: ViewCustomerAccount
+  },
+  {
+    path: '/customer/storeinformation',
+    name: 'Store Information',
+    component: StoreInformation
   }
+
 ];
 
 export default new Router({
-<<<<<<< HEAD
 
   routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
 
-=======
-  routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
->>>>>>> b51ef3e54a0529cab791ed0e304f3c691696f88f
 })
