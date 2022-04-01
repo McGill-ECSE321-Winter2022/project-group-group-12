@@ -9,6 +9,7 @@ html{
     color: white;
     --color-accent: rgb(52, 75, 52);
     --color-accent-transparent: rgba(52, 75, 52, 0.205);
+    --navbar-height: 4rem;
 }
 
 input{
@@ -39,6 +40,7 @@ button:hover{
 }
 
 body{
+    margin-top: var(--navbar-height);
     padding: 2rem;
     background-color: transparent;
     color: white;
