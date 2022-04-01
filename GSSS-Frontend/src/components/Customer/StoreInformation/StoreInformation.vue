@@ -1,6 +1,7 @@
 <!--
 Vue class for the system information page.
 @author Theo Ghanem
+@Chris Hatoum
 -->
 
 <template>
@@ -11,17 +12,17 @@ Vue class for the system information page.
       <div class="menu">
         <ul class="selectable-list">
           <li v-on:click="showScreen(1)">About</li>
-          <li v-on:click="showScreen(2)">Business Hours</li>
+          <li v-on:click="showScreen(2)">Business Hours & delivery fee</li>
           <li v-on:click="showScreen(3)">Promotions</li>
         </ul>
 
       </div>
       <div class="vertical-separator"/>
       <div class="details">
-        <div v-if="selectedScreen == 1 ">Weclome to the GSSS! Founded by a group of enthusiastic students in 2022, in downtown montreal to provide an easy-to-use and reliable system for your everyday shopping needs!</div>
+        <div v-if="selectedScreen == 1 ">Welcome to the GSSS! Founded by a group of enthusiastic students in 2022, in downtown montreal to provide an easy-to-use and reliable system for your everyday shopping needs!</div>
         <div v-if="selectedScreen == 2 ">
           <br/>
-          <div class="align-content-center">Current Business Hours</div>
+          <div class="align-content-center">The current Business Hours are as follows:</div>
 
           <br/>
           <table class="currentBH">
@@ -60,6 +61,10 @@ Vue class for the system information page.
             </tr>
             </tbody>
           </table>
+          <br/>
+          <br/>
+          If you are a citizen of <b>{{currentCity}}</b>, then the delivery is free! <br>
+          However, if you do not live in this city then you must pay a delivery fee of : <b>{{currentFee}}</b> $
 
         </div>
 
