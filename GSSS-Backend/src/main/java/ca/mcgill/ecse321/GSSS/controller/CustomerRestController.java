@@ -152,7 +152,6 @@ public class CustomerRestController {
    *
    * @param email     Email of the customer to update
    * @param username  Username we want to update
-   * @param password  Password we want to update
    * @param addressId Address we want to update
    * @param disabled  Change the disable state of the customer
    * @return The modified customer as a DTO object
@@ -168,6 +167,23 @@ public class CustomerRestController {
     Customer customer =
         customerService.modifyCustomer(username, email, address, disabled);
     return DtoUtility.convertToDto(customer);
+  }
+
+  /**
+   * Mehtod to modify/update a customer's password
+   * @param email The email of the customer to modify
+   * @param password the new password of the customer
+   * @return The modified customer as a DTO object
+   * @throws IllegalArgumentException
+   * 
+   * @author Enzo Benoit-Jeannin
+   */
+  @PostMapping(value = {"/customer/password/{email}", "/customer/password/{email}/"})
+  public CustomerDto modifyPassword (@PathVariable("email") String email,
+      @RequestParam(name = "password") String password) throws IllegalArgumentException {
+    
+      return DtoUtility.convertToDto(
+      customerService.modifyPassword(email, password));
   }
 
   @GetMapping(value = {"/deliveryfee/{email}", "/deliveryfee/{email}/"})
