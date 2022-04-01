@@ -39,6 +39,13 @@ public class ItemCategoryRestController {
   @Autowired
   private ItemService itemService;
 
+  
+//  @GetMapping(value = {"/itemCategoryByName", "/itemCategoryByName/"})
+//  public ItemCategoryDto getCategoryByName(@RequestParam(name = "name") String name) throws IllegalArgumentException, NoSuchElementException {
+//    
+//    ItemCategory itemCategory = itemCategoryService.getCategoryByName(name);
+//    return DtoUtility.convertToDto(itemCategory);
+//  }
   /**
    * method to create itemCategoryDto with a name
    *
