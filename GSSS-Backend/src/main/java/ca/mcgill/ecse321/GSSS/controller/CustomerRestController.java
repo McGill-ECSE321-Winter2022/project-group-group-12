@@ -157,12 +157,11 @@ public class CustomerRestController {
   @PostMapping(value = {"/customer/{email}", "/customer/{email}/"})
   public CustomerDto modifyCustomer(@PathVariable("email") String email,
       @RequestParam(name = "username") String username,
-      @RequestParam(name = "password") String password,
       @RequestParam(name = "address") String addressId,
       @RequestParam(name = "disabled") boolean disabled) throws IllegalArgumentException {
     Address address = addressService.getAddress(addressId);
     Customer customer =
-        customerService.modifyCustomer(username, password, email, address, disabled);
+        customerService.modifyCustomer(username, email, address, disabled);
     return DtoUtility.convertToDto(customer);
   }
 }
