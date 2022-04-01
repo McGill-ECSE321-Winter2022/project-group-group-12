@@ -1,7 +1,7 @@
 <!-- Author: Wassim Jabbour -->
 
 <template>
-  <div>
+  <div class="wrapper">
     <h1>Purchases</h1>
     <ul class="purchase-list">
       <li v-for="(purchase, i) in purchases" :key="purchase.id" v-on:click="onPurchaseSelect(i)">

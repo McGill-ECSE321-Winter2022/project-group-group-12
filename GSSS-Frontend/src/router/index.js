@@ -6,7 +6,7 @@ import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases'
 import OwnerItemCategory from '@/components/Owner/ItemCategory/OwnerItemCategory'
 
 // Employee imports
-import EmployeeViewPurchase from '@/components/Employee/Purchase/EmployeeViewPurchase'
+import EmployeeViewPurchase from '@/components/Employee/Purchase/EmployeeViewPurchase.vue'
 import EmployeeViewShift from '@/components/Employee/Shift/EmployeeViewShift'
 
 // System imports
@@ -45,6 +45,11 @@ const otherRoutes = [
 
 const ownerRoutes = [
   {
+    path: '/owner/purchases',
+    name: 'ViewPurchases',
+    component: ViewPurchases
+  },
+  {
     path: '/owner/systeminformation',
     name: 'SystemInformation',
     component: SystemInformation
@@ -59,8 +64,8 @@ const ownerRoutes = [
 const employeeRoutes = [
   {
     path: '/employee/purchases',
-    name: 'ViewPurchases',
-    component: ViewPurchases
+    name: 'EmployeeViewPurchase',
+    component: EmployeeViewPurchase
   },
   {
     path: '/employee/customers',
@@ -98,11 +103,7 @@ const customerRoutes = [
 ];
 
 export default new Router({
-<<<<<<< HEAD
 
   routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
 
-=======
-  routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
->>>>>>> b51ef3e54a0529cab791ed0e304f3c691696f88f
 })

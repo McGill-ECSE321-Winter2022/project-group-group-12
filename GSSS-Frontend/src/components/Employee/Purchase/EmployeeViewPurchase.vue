@@ -1,5 +1,7 @@
+<!-- Author Enzo Benoit-Jeannin -->
+
 <template>
-  <div>
+  <div class="wrapper">
     <h1>Purchases</h1>
     <ul class="employeeviewpurchases">
       <li v-for="(purchase, i) in purchases" :key="purchase.id" v-on:click="onPurchaseSelect(i)">
@@ -7,10 +9,14 @@
       </li>
     </ul>
     <div class="details">
-        <div v-if="this.selectedPurchase!=-1">
+          
+          <div v-if="this.selectedPurchase!=-1">
+          <div> 
+            <h2> Selected Purchase information: </h2>
+          </div>
           <div> Id: {{ purchases[selectedPurchase].id }}</div>
           <div> Customer email: {{ purchases[selectedPurchase].customer }}</div>
-          <div> Order Type: {{ purchases[selectedPurchase].orderType }}</div>
+          <div> Order type: {{ purchases[selectedPurchase].orderType }}</div>
           <div> Order status: {{ purchases[selectedPurchase].orderStatus }}</div>
           <div> Date: {{ purchases[selectedPurchase].date }}</div>
           <div> Time: {{ purchases[selectedPurchase].time }}</div>
@@ -23,9 +29,14 @@
           </div> -->
         </div>
     </div>
+    <div v-if="error" class="error">
+      <div>
+        {{ error }}
+      </div>
+    </div>
   </div>
-</template>
 
+</template>
 <script>
 
 // Importing axios and setting up URLs
@@ -55,10 +66,11 @@ export default {
 
   data () {
     return {
-      purchases: [new PurchaseDto('Delivery', 'Delivered', '2022-03-31', '9:00', 'nydswerew', 'try')],
+      purchases: [new PurchaseDto('Delivery', 'Delivered', '2022-03-31', '17:00', 'nydswerew', 'try'), new PurchaseDto('Delivery', 'Delivered', '2022-03-31', '9:00', 'nydswerew', 'try')],
       selectedPurchase: -1, // The index of the selected purchase
       error: '',
       response: [],
+      countClick: [],
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
       selectedPurchaseItemsPrices: []
@@ -75,7 +87,8 @@ export default {
 
 //       // Iterating over all purchases and adding their customer's email as a field
 //       for(let i = 0; i < this.purchases.length; i++) {
-//         AXIOS.get('/customerByPurchase/' + this.purchases[i].id)
+//         countClick.push('0')
+//          AXIOS.get('/customerByPurchase/' + this.purchases[i].id)
 //         .then(response => {
 //           this.purchases[i].customer = response.data.email
 //         })

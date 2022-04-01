@@ -7,8 +7,22 @@
     padding: 0;
     margin: 0;
     list-style: none;
+    width: 300px;
+    float:left;
+    border: 1px solid red;
   }
-  
+
+  .details {
+    border: 1px solid green;
+    overflow: hidden;
+  }
+
+  .wrapper {
+    width: 500px;
+    border: 1px solid black;
+    overflow: hidden;
+  }
+
   .purchase-list li {
     position: relative;
     padding-left: 30px;
