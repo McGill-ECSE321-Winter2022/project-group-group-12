@@ -38,9 +38,71 @@ export default {
 
     }
   },
+  //This will be the first thing to run on the page
+  //It will get the current Business Hours and populate the table on the bottom of the page
+  created: function(){
+
+      getBusinessHours('Monday')
+        .then(res  => {
+        this.MonStartTime =res.startTimeFromBackend.slice(0, -3) //(the .slice(0. -3) is to remove the seconds from the time)
+        this.MonCloseTime =res.endTimeFromBackend.slice(0, -3)
+        })
+        .catch(e => {
+        })
+
+      getBusinessHours('Tuesday')
+        .then(res  => {
+        this.TueStartTime =res.startTimeFromBackend.slice(0, -3)
+        this.TueCloseTime =res.endTimeFromBackend.slice(0, -3)
+        })
+        .catch(e => {
+        })
+
+      getBusinessHours('Wednesday')
+        .then(res  => {
+        this.WedStartTime =res.startTimeFromBackend.slice(0, -3)
+        this.WedCloseTime =res.endTimeFromBackend.slice(0, -3)
+        })
+        .catch(e => {
+        })
+
+      getBusinessHours('Thursday')
+        .then(res  => {
+        this.ThuStartTime =res.startTimeFromBackend.slice(0, -3)
+        this.ThuCloseTime =res.endTimeFromBackend.slice(0, -3)
+        })
+        .catch(e => {
+        })
+
+      getBusinessHours('Friday')
+        .then(res  => {
+        this.FriStartTime =res.startTimeFromBackend.slice(0, -3)
+        this.FriCloseTime =res.endTimeFromBackend.slice(0, -3)
+        })
+        .catch(e => {
+        })
+
+      getBusinessHours('Saturday')
+        .then(res  => {
+        this.SatStartTime =res.startTimeFromBackend.slice(0, -3)
+        this.SatCloseTime =res.endTimeFromBackend.slice(0, -3)
+        })
+        .catch(e => {
+        })
+
+      getBusinessHours('Sunday')
+        .then(res  => {
+        this.SunStartTime =res.startTimeFromBackend.slice(0, -3)
+        this.SunCloseTime =res.endTimeFromBackend.slice(0, -3)
+        })
+        .catch(e => {
+        })
+
+  },
 
   methods: {
 
+    //Method that will be called when we press on the button to save the new city and out of city delivery fee
     saveCityAndFee: function () {
       this.chosenCity = document.getElementById('cityinput').value
       this.chosenFee = document.getElementById('feeinput').value
@@ -57,6 +119,7 @@ export default {
         })
     },
 
+    //Method that will be called when we press on the button to save new Business Hours
     saveBHForWeekday: function () {
       const select = document.getElementById('selectWeekday');
       this.selectedWeekday = select.options[select.selectedIndex].value;
@@ -98,33 +161,75 @@ export default {
           .then(response => {
             this.successBH = 'Successfully updated the Business Hours!'
             setTimeout(() => this.successBH = null, 5000);
+
             if(this.selectedWeekday==='Monday'){
-              this.MonStartTime=this.newStartTime;
-              this.MonCloseTime=this.newEndTime;
+                getBusinessHours(this.selectedWeekday)
+                  .then(res  => {
+                  this.MonStartTime =res.startTimeFromBackend.slice(0, -3) //(the .slice(0. -3) is to remove the seconds from the time)
+                  this.MonCloseTime =res.endTimeFromBackend.slice(0, -3)
+                  })
+                  .catch(e => {
+                  })
             }
+
             if(this.selectedWeekday==='Tuesday'){
-              this.TueStartTime=this.newStartTime;
-              this.TueCloseTime=this.newEndTime;
+              getBusinessHours(this.selectedWeekday)
+                .then(res  => {
+                this.TueStartTime =res.startTimeFromBackend.slice(0, -3)
+                this.TueCloseTime =res.endTimeFromBackend.slice(0, -3)
+                })
+                .catch(e => {
+                })
             }
+
             if(this.selectedWeekday==='Wednesday'){
-              this.WedStartTime=this.newStartTime;
-              this.WedCloseTime=this.newEndTime;
+              getBusinessHours(this.selectedWeekday)
+                .then(res  => {
+                this.WedStartTime =res.startTimeFromBackend.slice(0, -3)
+                this.WedCloseTime =res.endTimeFromBackend.slice(0, -3)
+                })
+                .catch(e => {
+                })
             }
+
             if(this.selectedWeekday==='Thursday'){
-              this.ThuStartTime=this.newStartTime;
-              this.ThuCloseTime=this.newEndTime;
+              getBusinessHours(this.selectedWeekday)
+                .then(res  => {
+                this.ThuStartTime =res.startTimeFromBackend.slice(0, -3)
+                this.ThuCloseTime =res.endTimeFromBackend.slice(0, -3)
+                })
+                .catch(e => {
+                })
             }
+
             if(this.selectedWeekday==='Friday'){
-              this.FriStartTime=this.newStartTime;
-              this.FriCloseTime=this.newEndTime;
+              getBusinessHours(this.selectedWeekday)
+                .then(res  => {
+                this.FriStartTime =res.startTimeFromBackend.slice(0, -3)
+                this.FriCloseTime =res.endTimeFromBackend.slice(0, -3)
+                })
+                .catch(e => {
+                })
             }
+
             if(this.selectedWeekday==='Saturday'){
-              this.SatStartTime=this.newStartTime;
-              this.SatCloseTime=this.newEndTime;
+              getBusinessHours(this.selectedWeekday)
+                .then(res  => {
+                this.SatStartTime =res.startTimeFromBackend.slice(0, -3)
+                this.SatCloseTime =res.endTimeFromBackend.slice(0, -3)
+                })
+                .catch(e => {
+                })
             }
+
             if(this.selectedWeekday==='Sunday'){
-              this.SunStartTime=this.newStartTime;
-              this.SunCloseTime=this.newEndTime;
+              getBusinessHours(this.selectedWeekday)
+                .then(res  => {
+                this.SunStartTime =res.startTimeFromBackend.slice(0, -3)
+                this.SunCloseTime =res.endTimeFromBackend.slice(0, -3)
+                })
+                .catch(e => {
+                })
             }
 
           })
@@ -134,6 +239,5 @@ export default {
           })
       }
     }
-
   }
 }
