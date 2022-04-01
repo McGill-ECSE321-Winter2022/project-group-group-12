@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases'
 import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation.vue'
 import LoginPage from '@/components/LoginPage/LoginPage'
@@ -10,6 +11,7 @@ import Hello from "@/components/Hello";
 import Payment from '@/components/Customer/Payment/Payment'
 import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAndSelectItems'
 import StoreInformation from "../components/Customer/StoreInformation/StoreInformation.vue";
+
 
 Vue.use(Router)
 
@@ -54,6 +56,7 @@ export default new Router({
       path: '/payment',
       name: 'Payment',
       component: Payment
+
     },
     {
       path: '/purchasestats',
@@ -64,6 +67,7 @@ export default new Router({
       path: '/storeinformation',
       name: 'StoreInformation',
       component: StoreInformation
+
     }
   ]
 })

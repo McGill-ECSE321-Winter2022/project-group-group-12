@@ -3,20 +3,21 @@
         <div>
             <h1>Sign Up</h1>
             <div>Full Name:</div>
-            <input placeholder="Enter your full name" type="text" />
+            <input placeholder="full name" type="text" v-model="customer.address.fullName"/>
             <div>Email:</div>
-            <input placeholder="Enter email address" type="text" />
+            <input placeholder="email address" type="text" v-model="customer.email"/>
             <div>Username:</div>
-            <input placeholder="Enter username" type="text" />
+            <input placeholder="username" type="text" v-model="customer.username"/>
             <div>Password:</div>
-            <input placeholder="Enter password" type="password" />
+            <input placeholder="password" type="password" v-model="customer.password"/>
             <div>Address:</div>
-            <input placeholder="Enter street name" type="text" />
-            <input placeholder="Enter street number" type="text" />
-            <input placeholder="Enter city" type="text" />
-            <input placeholder="Enter postal code" type="text" />
-
-            <button>Sign Up</button>
+            <input placeholder="street number" type="text" v-model="customer.address.streetNumber"/>
+            <input placeholder="street name" type="text" v-model="customer.address.streetName"/>
+            <input placeholder="city" type="text" v-model="customer.address.city" />
+            <input placeholder="postal code" type="text" v-model="customer.address.postalCode" />
+            
+            <p v-if="error" style="color:red; font-style:italic;">{{ error }}</p>
+            <button v-on:click="save()">Sign Up</button>
         </div>
     </div>
 </template>
@@ -25,13 +26,4 @@
     @import './signup.css';
 </style>
 
-<script>
-export default{
-    name: 'SignupPage',
-    data(){
-        return {
-
-        }
-    }
-}
-</script>
+<script src="./signUp.js" />

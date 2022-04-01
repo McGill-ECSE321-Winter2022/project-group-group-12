@@ -1,5 +1,5 @@
-import CustomerDetail from "../../CustomerDetail/CustomerDetail";
-import CustomerCreator from "../../CustomerCreator/CustomerCreator";
+import CustomerDetail from "../../CustomerDetail/CustomerDetail.vue";
+import CustomerCreator from "../../CustomerCreator/CustomerCreator.vue";
 
 import { getAllCustomers } from "../../../services/customer";
 
