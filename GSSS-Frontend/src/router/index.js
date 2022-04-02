@@ -14,7 +14,6 @@ import EmployeeList from '@/components/Owner/EmployeeList/EmployeeList.vue'
 // Employee imports
 import EmployeeViewPurchase from '@/components/Employee/Purchase/EmployeeViewPurchase.vue'
 import EmployeeViewShift from '@/components/Employee/Shift/EmployeeViewShift.vue'
-import StoreInformation2 from '@/components/Employee/StoreInformation/StoreInformation.vue';
 import EmployeeAccount from '@/components/Employee/EmployeeAccount/EmployeeAccount.vue'
 
 // System imports
@@ -45,7 +44,7 @@ const otherRoutes = [
     path: '/',
     name: 'Hello',
     component: Hello,
-    permissions: [NONE, CUSTOMER, EMPLOYEE, OWNER]
+    permissions: [NONE, CUSTOMER, EMPLOYEE, OWNER] // TODO REMOVE NONE AND TEST BEFORE SUBMISSION
   },
   {
     path: '/login',
@@ -56,7 +55,8 @@ const otherRoutes = [
   {
     path: '/signup',
     name: 'SignupPage',
-    component: SignupPage
+    component: SignupPage,
+    permissions: [NONE]
   },
 ]
 
@@ -70,70 +70,59 @@ const ownerRoutes = [
   {
     path: '/owner/systeminformation',
     name: 'SystemInformation',
-    component: SystemInformation
+    component: SystemInformation,
+    permissions: [OWNER]
   },
   {
     path: '/owner/itemcategory',
     name: 'OwnerItemCategory',
-    component: OwnerItemCategory
-  },
-  {
-    path: '/owner/createitem',
-    name: 'ItemCreator',
-    component: ItemCreator
+    component: OwnerItemCategory,
+    permissions: [OWNER]
   },
   {
     path: '/owner/viewandedititems',
     name: 'ViewAndEditItems',
-    component: ViewAndEditItems
-  },
-  {
-    path: '/owner/createshift',
-    name: 'ShiftCreator',
-    component: ShiftCreator
+    component: ViewAndEditItems,
+    permissions: [OWNER]
   },
   {
     path: '/owner/shifts',
     name: 'ShiftList',
-    component: ShiftList
+    component: ShiftList,
+    permissions: [OWNER]
   },
   {
     path: '/owner/employees',
     name: 'Employees List',
-    component: EmployeeList
+    component: EmployeeList,
+    permissions: [OWNER]
   }
-  // {
-  //   path: '/owner/createshift',
-  //   name: 'ShiftCreator',
-  //   component: ShiftCreator
-  // }
 ];
 
 const employeeRoutes = [
   {
     path: '/employee/purchases',
     name: 'EmployeeViewPurchase',
-    component: EmployeeViewPurchase
+    component: EmployeeViewPurchase,
+    permissions: [EMPLOYEE]
   },
   {
     path: '/employee/customers',
     name: 'CustomerList',
-    component: CustomerList
+    component: CustomerList,
+    permissions: [EMPLOYEE, OWNER]
   },
   {
     path: '/employee/view/shifts',
     name: 'EmployeeViewShift',
-    component: EmployeeViewShift
-  },
-  {
-    path: '/employee/storeinformation',
-    name: 'StoreInformation',
-    component: StoreInformation2
+    component: EmployeeViewShift,
+    permissions: [EMPLOYEE]
   },
   {
     path: '/employee/account',
     name: 'Employee Account',
-    component: EmployeeAccount
+    component: EmployeeAccount,
+    permissions: [EMPLOYEE]
   }
 ];
 
@@ -141,17 +130,20 @@ const customerRoutes = [
   {
     path: '/customer/shop',
     name: 'ViewAndSelectItems',
-    component: ViewAndSelectItems
+    component: ViewAndSelectItems,
+    permissions: [CUSTOMER]
   },
   {
     path: '/customer/confirmOrderType',
     name: 'ConfirmOrderType',
-    component: ConfirmOrderType
+    component: ConfirmOrderType,
+    permissions: [CUSTOMER]
   },
   {
     path: '/customer/payment',
     name: 'Payment',
-    component: Payment
+    component: Payment,
+    permissions: [CUSTOMER]
   },
   {
     path: '/customer/account',
@@ -162,12 +154,14 @@ const customerRoutes = [
   {
     path: '/customer/storeinformation',
     name: 'Store Information',
-    component: StoreInformation
+    component: StoreInformation,
+    permissions: [NONE, CUSTOMER, EMPLOYEE, OWNER]
   },
   {
     path: '/customer/orderhistory',
     name: 'Order History',
-    component: OrderHistory
+    component: OrderHistory,
+    permissions: [CUSTOMER]
   }
 
 ];
@@ -182,11 +176,26 @@ const router = new Router({
 router.beforeEach(async (to, from, next) => {
   let permission = localStorage.permission || NONE;
   let route = matchRoute(to.name);
-  if(route){
-    if(route.permissions.includes(permission)) next();
-    else next('/');
+  if(route && route.permissions.includes(permission)) next();
+  else {
+    switch(permission) {
+      case NONE:
+        next('/login')
+        break
+      case CUSTOMER:
+        next('/customer/shop')
+        break
+      case EMPLOYEE:
+        next('/')
+        break
+      case OWNER:
+        next('/')
+        break
+      default:
+        next('/')
+        break
+    }
   }
-  else next('/');
 });
 
 function matchRoute(routeName){
