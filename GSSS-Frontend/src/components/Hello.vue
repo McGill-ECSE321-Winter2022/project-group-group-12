@@ -17,6 +17,7 @@
       <li><a href="/#/customer/payment" >Payment page</a></li>
       <li><a href="/#/customer/account" >Customer Account page</a></li>
       <li><a href="/#/customer/storeinformation" >Store Information</a></li>
+      <li><a href="/#/owner/createshift" >Owner create shift</a></li>
 
     </ul>
     <div style="margin: 4rem 0;">
