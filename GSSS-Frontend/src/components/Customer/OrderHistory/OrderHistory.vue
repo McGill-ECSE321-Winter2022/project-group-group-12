@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <h1>Order History</h1>
+    <h1>Order History of {{localStorage.email}}</h1>
     <div class="wrapper">
       <div class="viewpurchases">
         <ul>
@@ -20,7 +20,6 @@
             <h2> Selected Purchase information: </h2>
           </div>
 
-          <div> Customer email: {{ purchases[selectedPurchase].customer }}</div>
           <div> Order Type: {{ purchases[selectedPurchase].orderType }}</div>
           <div> Order status: {{ purchases[selectedPurchase].orderStatus }}</div>
           <div> Date: {{ purchases[selectedPurchase].date }}</div>
@@ -87,23 +86,11 @@ export default {
 
     // Getting the purchases from the backend
 
-    AXIOS.get('/purchasesbycustomer/')
+    AXIOS.get('/purchasesbycustomer/' + localStorage.getItem("email"))
       .then(response => {
 
         // JSON responses are automatically parsed.
         this.purchases = response.data
-
-        // Iterating over all purchases and adding their customer's email as a field
-        for(let i = 0; i < this.purchases.length; i++) {
-          AXIOS.get('/customerByPurchase/' + this.purchases[i].id)
-            .then(response => {
-              this.purchases[i].customer = response.data.email
-            })
-            .catch(e => {
-              this.error = e
-              setTimeout(() => this.error = null, 3000);
-            })
-        }
 
         // Iterating over all purchases and adding their cost as a field
         for(let i = 0; i < this.purchases.length; i++) {
