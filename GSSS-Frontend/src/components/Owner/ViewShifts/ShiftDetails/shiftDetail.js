@@ -11,7 +11,7 @@ export default {
     },
     methods: {
         getEmployee: function() {
-            getEmployeeByShift(this.shift.id)
+            getEmployeeByShift(this.shift.shiftId)
             .then(res => employee)
             .catch(err => {
                 this.employeeError = err;
@@ -27,8 +27,5 @@ export default {
                 setTimeout(() => this.error = null, 3000);
             });
         }
-    },
-    props:{
-        onAdd: Function
-    }
+    }  
 }

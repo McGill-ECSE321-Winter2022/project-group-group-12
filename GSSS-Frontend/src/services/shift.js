@@ -7,7 +7,7 @@ export const addShift = (employeeEmail, shift) => new Promise((resolve, reject) 
 });
 
 export const deleteShift = (shift) => new Promise((resolve, reject) => {
-    ax.post('/shift/delete', null, { params: shift })
+    ax.delete('/shift/delete', null, { params: shift })
     .then(res => resolve(res))
     .catch(err => reject(err));
 });

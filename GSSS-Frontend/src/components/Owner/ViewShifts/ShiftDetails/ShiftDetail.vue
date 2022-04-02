@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>Shift Details</h3>
-        <div>ID: {{ shift.id }}</div>
+        <div>ID: {{ shift.shiftId }}</div>
         <div>Date: {{ shift.date }}</div>
         <div>Start Time: {{shift.startTime }}</div>
         <div>End Time: {{ shift.endTime }}</div>

@@ -138,7 +138,7 @@ public class ShiftService {
    * @param id id of the shift we want to delete
    * @author Theo Ghanem
    */
-  @Transactional
+  @Transactional  
   public void deleteShift(String id) {
    //throw exception if id passed is null or empty
     if (id == null || id.trim().length() == 0) {
