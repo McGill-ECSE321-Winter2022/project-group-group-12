@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,10 +37,13 @@ public class AddressRestController {
    * @author Theo Ghanem
    */
   @GetMapping(value = {"/address/{id}", "/address/{id}/"})
-  public AddressDto getAddress(@PathVariable("id") String id)
-      throws NoSuchElementException, IllegalArgumentException {
-    Address addressDto = addressService.getAddress(id);
-    return DtoUtility.convertToDto(addressDto);
+  public ResponseEntity<?> getAddress(@PathVariable("id") String id){
+	try {
+	    Address addressDto = addressService.getAddress(id);
+	    return ResponseEntity.ok(DtoUtility.convertToDto(addressDto));
+	}catch(Exception e) {
+		return ResponseEntity.badRequest().body(e.getMessage()); 
+	}
   }
 
   /**
@@ -71,15 +75,17 @@ public class AddressRestController {
    * @author Theo Ghanem
    */
   @PostMapping(value = {"/address", "/address/"})
-  public AddressDto createAddress(@RequestParam(name = "fullName") String fullName,
+  public ResponseEntity<?> createAddress(@RequestParam(name = "fullName") String fullName,
       @RequestParam(name = "streetName") String streetName,
       @RequestParam(name = "streetNumber") Integer streetNumber,
       @RequestParam(name = "city") String city,
       @RequestParam(name = "postalCode") String postalCode) throws IllegalArgumentException {
-    Address address =
-        addressService.createAddress(fullName, streetName, streetNumber, city, postalCode);
-    return DtoUtility.convertToDto(address);
-  }
+	  try{
+		  Address address = addressService.createAddress(fullName, streetName, streetNumber, city, postalCode);
+		 return ResponseEntity.ok(DtoUtility.convertToDto(address));
+	  }catch(Exception e) {
+		return ResponseEntity.badRequest().body(e.getMessage()); 
+	  }
 
   /**
    * Method to modify/update an address
