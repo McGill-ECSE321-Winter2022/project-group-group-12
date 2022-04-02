@@ -6,6 +6,7 @@ import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases.vue'
 import OwnerItemCategory from '@/components/Owner/ItemCategory/OwnerItemCategory.vue'
 import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
 import ViewAndEditItems from '@/components/Owner/ViewItems/ViewAndEditItems.vue'
+import EmployeeList from '@/components/Owner/EmployeeList/EmployeeList.vue'
 // import ShiftCreator from '@/components/Owner/ViewShifts/ShiftCreator/ShiftCreator.vue'
 
 // Employee imports
@@ -74,6 +75,11 @@ const ownerRoutes = [
     name: 'ViewAndEditItems',
     component: ViewAndEditItems
   },
+  {
+    path: '/owner/employees',
+    name: 'Employees List',
+    component: EmployeeList
+  }
   // {
   //   path: '/owner/createshift',
   //   name: 'ShiftCreator',

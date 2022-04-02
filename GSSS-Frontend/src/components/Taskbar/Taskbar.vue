@@ -27,7 +27,8 @@
 
                 <!-- Links if an owner is logged in -->
                 <nav v-if="permission == 2">
-                 <a href="/#/owner/systeminformation"  > System Information</a>
+                    <a href="/#/owner/systeminformation"> System Information</a>
+                    <a href="/#/owner/employees">Employees</a>
                     <a href>Logout</a>
                 </nav>
             </div>
