@@ -118,7 +118,6 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
       this.deliveryFee = response.data
       })
     .catch(e => {
-      console.log(e)
       this.error = e
       setTimeout(()=>this.error=null, 3000)
     })
