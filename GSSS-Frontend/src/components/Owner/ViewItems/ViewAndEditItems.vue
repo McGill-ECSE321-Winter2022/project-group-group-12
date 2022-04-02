@@ -49,7 +49,7 @@ About: Page to handle viewing and editing the items as the owner
             <input type="checkbox" v-model="stillAvailable" />
             <br/>
             <label>Item category: </label>
-            <select v-model="itemCategory.name">
+            <select v-model="itemCategory">
               <option v-for="ic in itemCategories" :value="ic.name" :key="ic.name">
                 {{ ic.name }}
               </option>
@@ -137,7 +137,7 @@ About: Page to handle viewing and editing the items as the owner
       this.price = this.items[i].price
       this.availableForOrder = this.items[i].availableForOrder
       this.stillAvailable = this.items[i].stillAvailable
-      this.itemCategory = this.items[i].category
+      this.itemCategory = this.items[i].category.name
     },
 
     modifyItem: function() {
