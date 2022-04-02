@@ -10,6 +10,7 @@ import ViewAndEditItems from '@/components/Owner/ViewItems/ViewAndEditItems.vue'
 // Employee imports
 import EmployeeViewPurchase from '@/components/Employee/Purchase/EmployeeViewPurchase.vue'
 import EmployeeViewShift from '@/components/Employee/Shift/EmployeeViewShift.vue'
+import StoreInformation2 from '@/components/Employee/StoreInformation/StoreInformation.vue';
 
 // System imports
 import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation.vue'
@@ -24,6 +25,7 @@ import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAnd
 import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
 import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
 import StoreInformation from '@/components/Customer/StoreInformation/StoreInformation.vue';
+
 
 Vue.use(Router)
 
@@ -89,6 +91,11 @@ const employeeRoutes = [
     name: 'EmployeeViewShift',
     component: EmployeeViewShift
   },
+  {
+    path: '/employee/storeinformation',
+    name: 'StoreInformation',
+    component: StoreInformation2
+  }
 ];
 
 const customerRoutes = [
