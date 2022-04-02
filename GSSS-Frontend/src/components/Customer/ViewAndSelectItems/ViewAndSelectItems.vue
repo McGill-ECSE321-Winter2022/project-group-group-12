@@ -123,6 +123,7 @@ About: Page to handle selecting items and adding them to the customer's cart
       cart: [],
       error: '',
       total: 0,
+      itemCategories: []
     }
   },
 
@@ -139,6 +140,19 @@ About: Page to handle selecting items and adding them to the customer's cart
           this.items[i].cart = false
           this.items[i].count = 0
       }
+      
+      })
+    .catch(e => {
+      this.error = e
+      setTimeout(()=>this.error=null, 3000)
+    })
+
+    // Getting the item categories from the backend
+    AXIOS.get('/itemCategories')
+    .then(response => {
+      
+      // JSON responses are automatically parsed.
+      this.itemCategories = response.data
       
       })
     .catch(e => {
