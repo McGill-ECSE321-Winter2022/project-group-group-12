@@ -29,4 +29,5 @@ public interface ShiftRepository extends CrudRepository<Shift, String> {
    * @author Theo Ghanem
    */
   List<Shift> findShiftsByDate(Date date);
+ 
 }

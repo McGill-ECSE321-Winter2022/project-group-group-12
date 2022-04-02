@@ -6,8 +6,16 @@ About: Page to handle selecting items and adding them to the customer's cart
 <!-- CSS uses bootstrap -->
 <template>
   <div class="container">
+    <div class="filter">
+      <label>Filter by category:  </label>
+      <select v-model="itemCategory" @change="filterItems()">
+        <option v-for="ic in itemCategories" :value="ic" :key="ic">
+          {{ ic }}
+        </option>
+      </select>
+    </div>
     <div class="row mt-2 justify-content-center">
-      <div class="items" v-for="product in this.items" :key="product.name">
+      <div class="items" v-for="product in this.filteredItems" :key="product.name">
         <div class="card" v-bind:title="product.description" style="width: 10rem;">
           <img :src="product.imageUrl" class="card-img-top" />
           <div class="card-body">
@@ -123,6 +131,9 @@ About: Page to handle selecting items and adding them to the customer's cart
       cart: [],
       error: '',
       total: 0,
+      itemCategories: [],
+      itemCategory: '',
+      filteredItems: []
     }
   },
 
@@ -139,7 +150,34 @@ About: Page to handle selecting items and adding them to the customer's cart
           this.items[i].cart = false
           this.items[i].count = 0
       }
+
+      // Setting the filtered items to be all by default (Cloning)
+      this.filteredItems = [...this.items]
       
+      })
+    .catch(e => {
+      this.error = e
+      setTimeout(()=>this.error=null, 3000)
+    })
+
+    // Getting the item categories from the backend
+    AXIOS.get('/itemCategories')
+    .then(response => {
+      
+      // JSON responses are automatically parsed.
+      this.itemCategories = response.data
+
+      // Replacing each item category by its name
+      for(let i = 0; i < this.itemCategories.length; i++) {
+        this.itemCategories[i] = this.itemCategories[i].name
+      }
+
+      // Adding an "all category"
+      this.itemCategories.push("All")
+      
+      // Setting the default category to be all
+      this.itemCategory = "All"
+
       })
     .catch(e => {
       this.error = e
@@ -200,6 +238,28 @@ About: Page to handle selecting items and adding them to the customer's cart
         else {
           this.error = "Error: No items selected!"
           setTimeout(()=>this.error=null, 3000)
+        }
+    },
+
+    // To filter items by category
+    filterItems : function() {
+        
+        // If no filter is chosen
+        if(this.itemCategory == "All") {
+          this.filteredItems = [...this.items]
+          return
+        }
+
+        // If a filter is chosen
+
+        // Empty the filtered items array
+        this.filteredItems = []
+
+        // Add all items with the required category to the filteredItems
+        for(let i = 0; i < this.items.length; i++) {
+          if(this.items[i].category.name == this.itemCategory) {
+            this.filteredItems.push(this.items[i])
+          }
         }
     }
   },

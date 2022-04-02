@@ -7,11 +7,17 @@
             <div>Password:</div>
             <input v-model="password" placeholder="Enter password" type="password" />
             <button @click="logIn()">Login</button>
+            <div v-if="error" class="error">
+                <div>
+                    {{ error }}
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
-<style scoped src='./login.css'>
+<style 
+scoped src='./login.css'>
 </style>
 
 <script src="./loginPage.js" />
