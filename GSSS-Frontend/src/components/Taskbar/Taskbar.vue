@@ -36,7 +36,6 @@
                     <a href="/owner/systeminformation">System Information</a>
                     <a href="/owner/employees">Employees</a>
                     <a href="/owner/purchases">Purchases</a>
-                    <a href='/owner/systeminformation'>System information</a>
                     <a href='/owner/itemcategory'>Item categories</a>
                     <a href='/owner/viewandedititems'>Items</a>
                     <a href='/owner/shifts'>Shifts</a>
