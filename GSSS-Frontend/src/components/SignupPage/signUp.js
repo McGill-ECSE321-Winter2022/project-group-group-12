@@ -5,24 +5,35 @@ export default {
     data: function(){
         return {
             customer: {
-                email: '',
-                username: '',
-                password: '',
+                email: null,
+                username: null,
+                password: null,
                 address: {
-                    fullName: '',
-                    streetNumber: '',
-                    streetName: '',
-                    city: '',
-                    postalCode: ''
+                    fullName: null,
+                    streetNumber: null,
+                    streetName: null,
+                    city: null,
+                    postalCode: null
                 }
             },
-            error: ''
+            error: '',
+            success: ''
         }
     },
     methods: {
         save: function(){
+            if(!this.customer.email || !this.customer.username || 
+                !this.customer.password || !this.customer.address.fullName || 
+                !this.customer.address.streetNumber || !this.customer.address.streetName || !this.customer.address.city || !this.customer.address.postalCode) {
+                    this.error = 'Please fill in all fields';
+                    setTimeout(() => this.error = null, 3000);
+                    return;
+            }
             createCustomer(this.customer)
-            .then(res => this.onAdd())
+            .then(res => {
+                success = 'Sign up successful'
+                setTimeout(() => this.success = null, 3000);
+            })
             .catch(err => {
                 this.error = err;
                 setTimeout(() => this.error = null, 5000);
