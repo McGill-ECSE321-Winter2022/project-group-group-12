@@ -32,16 +32,23 @@ import StoreInformation from '@/components/Customer/StoreInformation/StoreInform
 
 Vue.use(Router)
 
+const NONE = 'None';
+const CUSTOMER = 'Customer';
+const EMPLOYEE = 'Employee';
+const OWNER = 'Owner';
+
 const otherRoutes = [
   {
     path: '/',
     name: 'Hello',
-    component: Hello
+    component: Hello,
+    permissions: [NONE, CUSTOMER, EMPLOYEE, OWNER]
   },
   {
     path: '/login',
     name: 'LoginPage',
-    component: LoginPage
+    component: LoginPage,
+    permissions: [NONE]
   },
   {
     path: '/signup',
@@ -54,7 +61,8 @@ const ownerRoutes = [
   {
     path: '/owner/purchases',
     name: 'ViewPurchases',
-    component: ViewPurchases
+    component: ViewPurchases,
+    permissions: [OWNER]
   },
   {
     path: '/owner/systeminformation',
@@ -135,7 +143,8 @@ const customerRoutes = [
   {
     path: '/customer/account',
     name: 'Customer Account',
-    component: ViewCustomerAccount
+    component: ViewCustomerAccount,
+    permissions: [CUSTOMER]
   },
   {
     path: '/customer/storeinformation',
@@ -145,8 +154,27 @@ const customerRoutes = [
 
 ];
 
-export default new Router({
+const routes = [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes];
 
-  routes: [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes]
+const router = new Router({
+  mode: 'history',
+  routes
+});
 
-})
+router.beforeEach(async (to, from, next) => {
+  let permission = localStorage.permission || NONE;
+  let route = matchRoute(to.name);
+  if(route){
+    if(route.permissions.includes(permission)) next();
+    else next('/');
+  }
+  else next('/');
+});
+
+function matchRoute(routeName){
+  let matches = routes.filter(r => r.name == routeName);
+  if(matches.length != 1) return null;
+  else return matches[0];
+}
+
+export default router;
