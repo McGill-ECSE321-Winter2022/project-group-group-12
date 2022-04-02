@@ -218,6 +218,30 @@ public class PurchaseRestController {
     Purchase purchase =
         purchaseService.createPurchase(actualOrderType, employee, actualOrderStatus, items);
 
+    // Going through the items and decreasing their remaining quantity
+    for (Entry<String, Integer> entry : data.entrySet()) {
+
+      String itemName = entry.getKey();
+
+      Item item = itemService.getItemByName(itemName);
+
+      if (item.getRemainingQuantity() - entry.getValue() < 0) {
+        throw new IllegalArgumentException(
+            "There is not enough stock to buy this many of " + itemName);
+      }
+
+      Item modifiedItem =
+          itemService.modifyItem(
+              item.getName(),
+              item.getDescription(),
+              item.getImageUrl(),
+              item.getRemainingQuantity() - entry.getValue(),
+              item.getPrice(),
+              item.isAvailableForOrder(),
+              item.isStillAvailable(),
+              item.getCategory());
+    }
+
     return DtoUtility.convertToDto(purchase);
   }
 
@@ -225,9 +249,9 @@ public class PurchaseRestController {
    * Creates a purchase (With a customer) and returns its equivalent dto
    *
    * @param customerEmail The email of the customer
-   * @param orderType   The type of purchase
-   * @param orderStatus The status of purchase
-   * @param data        The map of itemDtos and their quantities
+   * @param orderType     The type of purchase
+   * @param orderStatus   The status of purchase
+   * @param data          The map of itemDtos and their quantities
    * @return The Dto corresponding to the created object
    * @throws IllegalArgumentException In case the input is invalid
    * @author Wassim Jabbour
@@ -266,6 +290,30 @@ public class PurchaseRestController {
 
     // Adding the purchase to the customer
     customerService.addPurchase(customer, purchase);
+
+    // Going through the items and decreasing their remaining quantity
+    for (Entry<String, Integer> entry : data.entrySet()) {
+
+      String itemName = entry.getKey();
+
+      Item item = itemService.getItemByName(itemName);
+
+      if (item.getRemainingQuantity() - entry.getValue() < 0) {
+        throw new IllegalArgumentException(
+            "There is not enough stock to buy this many of " + itemName);
+      }
+
+      Item modifiedItem =
+          itemService.modifyItem(
+              item.getName(),
+              item.getDescription(),
+              item.getImageUrl(),
+              item.getRemainingQuantity() - entry.getValue(),
+              item.getPrice(),
+              item.isAvailableForOrder(),
+              item.isStillAvailable(),
+              item.getCategory());
+    }
 
     return DtoUtility.convertToDto(purchase);
   }

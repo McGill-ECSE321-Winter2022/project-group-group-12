@@ -19,14 +19,16 @@
       </table>
     </div>
 
-
-
     <div v-if="error" class="error">
       <div>
         {{ error }}
       </div>
     </div>
-
+    <div v-if="success" class="success">
+        <div>
+          {{ success }}
+        </div>
+      </div>
   </div>
 
 </template>
@@ -57,14 +59,14 @@ export default {
 
     // Retrieve all shifts from an employee email
     created: function(){
+        localStorage.setItem("email", "email@employee.com")
         // Initilizing shifts from backend
         AXIOS.get('/shiftsbyemployee/' + localStorage.email)
-        .then(repsonse => {
+        .then(response => {
             // JSON repsonses are automatically parsed.
             this.shifts = response.data
         })
         .catch(e => {
-            this.error = e
             this.error = e
             setTimeout(()=>this.error=null, 3000)
         })

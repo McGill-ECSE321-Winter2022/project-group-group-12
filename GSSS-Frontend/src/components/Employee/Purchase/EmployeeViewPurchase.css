@@ -96,3 +96,20 @@
 .details {
   font-size: 100%;
 }
+
+.success {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: green;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.success > div {
+  background-color: rgba(0, 0, 0, 0.822);
+  padding: 0.5em 1em;
+  border-radius: 0.5rem;
+}

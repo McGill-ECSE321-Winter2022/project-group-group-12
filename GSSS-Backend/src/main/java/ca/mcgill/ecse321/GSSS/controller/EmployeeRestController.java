@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
+import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 import ca.mcgill.ecse321.GSSS.dto.EmployeeDto;
 import ca.mcgill.ecse321.GSSS.dto.ShiftDto;
 import ca.mcgill.ecse321.GSSS.model.Shift;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -89,22 +91,39 @@ public class EmployeeRestController {
   }
 
   /**
+   * Mehtod to modify/update a employee's password
+   *
+   * @param email    The email of the employee to modify
+   * @param password the new password of the employee
+   * @return The modified employee as a DTO object
+   * @throws IllegalArgumentException If the email is not correct
+   * @author Enzo Benoit-Jeannin
+   */
+  @PostMapping(value = {"/employee/password/{email}", "/employee/password/{email}/"})
+  public EmployeeDto modifyPassword(@PathVariable("email") String email,
+      @RequestParam(name = "password") String password)
+      throws IllegalArgumentException, NoSuchElementException {
+
+    return DtoUtility.convertToDto(
+        employeeService.modifyPassword(email, password));
+  }
+
+  /**
    * This API endpoint updates an employee's password
-   * 
+   *
    * @param employee Employee DTO
    * @return DTO of the newly updated employee.
    * @throws IllegalArgumentException
-   * 
    * @author Enzo Benoit-Jeannin
    */
   @PutMapping(value = {"/employee/password", "/employee/password/"})
   public EmployeeDto modifyPurchase(@RequestBody EmployeeDto employee)
       throws IllegalArgumentException {
-      return DtoUtility.convertToDto(
-          employeeService.modifyPassword(
-            employee.getEmail(), 
+    return DtoUtility.convertToDto(
+        employeeService.modifyPassword(
+            employee.getEmail(),
             employee.getPassword()));
-      }
+  }
 
   /**
    * This API endpoint gets and employee based on his email.
@@ -119,6 +138,22 @@ public class EmployeeRestController {
   public EmployeeDto getEmployee(@PathVariable("email") String email)
       throws IllegalArgumentException, NoSuchElementException {
     return DtoUtility.convertToDto(employeeService.getEmployeeByEmail(email));
+  }
+
+  /**
+   * @param shiftId
+   * @return employee with designated shift
+   * @throws IllegalArgumentException
+   * @throws NoSuchElementException
+   * @author Habib Jarweh
+   */
+  @GetMapping(value = {"/employeebyshift/{shiftId}", "/employeebyshift/"})
+  public EmployeeDto getEmployeeByShift(@PathVariable("shiftId") String shiftId)
+      throws IllegalArgumentException, NoSuchElementException {
+
+    Shift shift = shiftService.getShift(shiftId);
+
+    return DtoUtility.convertToDto(employeeService.getEmployeeByShift(shift));
   }
 
   /**
@@ -168,4 +203,6 @@ public class EmployeeRestController {
     employeeService.removeShift(
         employeeService.getEmployeeByEmail(email), shiftService.getShift(id));
   }
+
+
 }

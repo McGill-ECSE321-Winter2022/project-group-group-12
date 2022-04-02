@@ -32,7 +32,6 @@
       <tr >
         <td></td>
         <td colspan="2" class="space">All item categories in the system:</td>
-
       </tr>
 
       <div class = "categories">
@@ -48,6 +47,12 @@
           {{ error }}
         </div>
     </div>  
+
+    <div v-if="success" class="success">
+        <div>
+          {{ success }}
+        </div>
+      </div>
 
     </div>
 
@@ -83,6 +88,7 @@ export default {
       newItemCategory2: '',
       oldItemCategory: '',
       error: '',
+      success: '',
       response: [],
     }
   },
@@ -115,7 +121,8 @@ export default {
         this.error = ""
         this.newItemCategory = ""
         this.itemCategories.push(response.data)        
-
+        this.success = "Item category created successfully"
+        setTimeout(()=>this.success=null, 3000)
       })
       .catch(e => {
         this.error = e

@@ -92,7 +92,7 @@ public class ItemRestController {
    * @param price             of item
    * @param availableForOrder if item is available for order
    * @param stillAvailable    if item is still available
-   * @param itemCategoryDto   item category
+   * @param itemCategoryName   item category
    * @return itemDto we created
    * @throws IllegalArgumentException argument exception when any or all inputed strings are null or
    *                                  wrong, or when remaining quantity or price are negative, or
@@ -108,9 +108,9 @@ public class ItemRestController {
       @RequestParam(name = "price") double price,
       @RequestParam(name = "availableForOrder") boolean availableForOrder,
       @RequestParam(name = "stillAvailable") boolean stillAvailable,
-      @RequestParam(name = "itemCategory") ItemCategoryDto itemCategoryDto)
+      @RequestParam(name = "itemCategory") String itemCategoryName)
       throws IllegalArgumentException {
-    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
+    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryName);
     Item item =
         itemService.createItem(
             name,
@@ -134,7 +134,7 @@ public class ItemRestController {
    * @param price             of item we want to update
    * @param availableForOrder availability for order of item we want to update
    * @param stillAvailable    availability of item we want to update
-   * @param itemCategoryDto   item category
+   * @param itemCategoryName   item category
    * @return itemDto we want to update
    * @throws IllegalArgumentException argument exception when any or all inputed strings are null or
    *                                  wrong, or when remaining quantity or price are negative, or
@@ -150,9 +150,9 @@ public class ItemRestController {
       @RequestParam(name = "price") double price,
       @RequestParam(name = "availableForOrder") boolean availableForOrder,
       @RequestParam(name = "stillAvailable") boolean stillAvailable,
-      @RequestParam(name = "itemCategory") ItemCategoryDto itemCategoryDto)
+      @RequestParam(name = "itemCategory") String itemCategoryName)
       throws IllegalArgumentException {
-    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryDto.getName());
+    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryName);
     Item item =
         itemService.modifyItem(
             name,

@@ -1,3 +1,5 @@
+import { logOut } from "../../services/login";
+
 function getPermission(){
     if(localStorage.permission) return permissions[localStorage.permission];
     return -1;
@@ -15,6 +17,12 @@ export default {
     data: function(){
         return {
             permission: getPermission()
+        }
+    },
+    methods: {
+        logout: function(){
+            logOut();
+            this.$router.go('/');
         }
     }
 }

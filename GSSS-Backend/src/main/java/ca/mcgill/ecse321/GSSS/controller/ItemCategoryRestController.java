@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Chris Hatoum
  */
-public class ItemCategoryRestController {
+public class  ItemCategoryRestController {
 
   @Autowired
   private ItemCategoryService itemCategoryService;

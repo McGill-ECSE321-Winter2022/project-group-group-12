@@ -1,7 +1,7 @@
 <!--
 Vue class for the system information page.
 @author Theo Ghanem
-@Chris Hatoum
+@athour Chris Hatoum
 -->
 
 <template>
