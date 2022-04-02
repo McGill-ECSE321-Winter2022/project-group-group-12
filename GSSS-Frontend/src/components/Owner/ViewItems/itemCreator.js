@@ -5,17 +5,18 @@ export default {
     data: function(){
         return {
             item: {
-                name: '',
-                description: '',
-                imageUrl: '',
-                remainingQuantity: '',
-                price: '',
-                isAvailableForOrder: '',
-                isStillAvailable: '',
-                selectedCategory: ''
+                name: null,
+                description: null,
+                imageUrl: null,
+                remainingQuantity: null,
+                price: null,
+                isAvailableForOrder: null,
+                isStillAvailable: null,
+                selectedCategory: null
             },
             categories: [],
-            error: ''
+            error: '',
+            success: ''
         }
     },    
     created: function(){
@@ -25,9 +26,19 @@ export default {
     },
     methods: {
         save: function(){
-            this.item.selectedCategory = select.options[select.selectedIndex].value;
+            if(!this.item.name || !this.item.description || 
+                !this.item.imageUrl || !this.item.remainingQuantity || 
+                !this.item.price || !this.item.selectedCategory) {
+                    this.error = 'Please fill in all fields';
+                    setTimeout(() => this.error = null, 3000);
+                    return;
+            }
+
             createItem(this.item)
-            .then(res => this.onAdd())
+            .then(res => {
+                success = 'Item created successfully'
+                setTimeout(() => this.success = null, 3000);
+            })
             .catch(err => {
                 this.error = err;
                 setTimeout(() => this.error = null, 3000);

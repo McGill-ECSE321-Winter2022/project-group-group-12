@@ -6,7 +6,8 @@
     <h2>Available Links</h2>
     <ul>
       <li><a href="/#/customer/shop"> Main shopping page</a></li>
-      <li><a href="/#/employee/purchases" > Owner ViewPurchases </a></li>
+      <li><a href="/#/owner/purchases" > Owner ViewPurchases </a></li>
+      <li><a href="/#/employee/purchases" > Employee ViewPurchases </a></li>
       <li><a href="/#/owner/viewandedititems" > Owner view and edit items </a></li>
       <li><a href="/#/login"  > Login Page</a></li>
       <li><a href="/#/signup"  > Signup Page</a></li>

@@ -24,14 +24,23 @@
             <input style="margin-bottom: 1rem" type="checkbox" v-model="item.isStillAvailable" />
             <br/>
             <label>Category: </label>
-            <select id="selectCategory" placeholder="Select category">
-            <tr v-for="(category, index) in categories" :key="index">
-            <option value=key.name> key.name </option>
-            </tr>
+            <select v-model='item.selectedCategory'>
+                <option v-for="category in this.categories" :key="category.name"> 
+                    {{ category.name }}
+                </option>
             </select>
             <br/>
         </div>
-        <p v-if="error" style="color:red; font-style:italic;">{{ error }}</p>
+        <div v-if="error" class="error">
+            <div>
+                {{ error }}
+            </div>
+        </div>
+        <div v-if="success" class="success">
+            <div>
+                {{ success }}
+            </div>
+        </div>
         <button v-on:click="save()">Create</button>
     </div>
 </template>

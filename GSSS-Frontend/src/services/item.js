@@ -7,9 +7,9 @@ export const createItem = (item) => new Promise((resolve, reject) => {
             imageUrl : item.imageUrl,
             remainingQuantity: item.remainingQuantity,
             price: item.price, 
-            isAvailableForOrder: item.isAvailableForOrder,
-            isStillAvailable: item.isStillAvailable,
-            selectedCategory: item.selectedCategory
+            availableForOrder: item.isAvailableForOrder,
+            stillAvailable: item.isStillAvailable,
+            itemCategory: item.selectedCategory
         }})
         .then(res => resolve(res))
         .catch(err => reject(err));
