@@ -30,7 +30,7 @@ import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAnd
 import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
 import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
 import StoreInformation from '@/components/Customer/StoreInformation/StoreInformation.vue';
-import OrderHistory from "../components/Customer/OrderHistory/OrderHistory";
+import OrderHistory from '@/components/Customer/OrderHistory/OrderHistory.vue';
 
 
 Vue.use(Router)
