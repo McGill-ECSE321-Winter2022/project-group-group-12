@@ -13,6 +13,7 @@ import EmployeeList from '@/components/Owner/EmployeeList/EmployeeList.vue'
 import EmployeeViewPurchase from '@/components/Employee/Purchase/EmployeeViewPurchase.vue'
 import EmployeeViewShift from '@/components/Employee/Shift/EmployeeViewShift.vue'
 import StoreInformation2 from '@/components/Employee/StoreInformation/StoreInformation.vue';
+import EmployeeAccount from '@/components/Employee/EmployeeAccount/EmployeeAccount.vue'
 
 // System imports
 import SystemInformation from '@/components/Owner/SystemInformation/SystemInformation.vue'
@@ -107,6 +108,11 @@ const employeeRoutes = [
     path: '/employee/storeinformation',
     name: 'StoreInformation',
     component: StoreInformation2
+  },
+  {
+    path: '/employee/account',
+    name: 'Employee Account',
+    component: EmployeeAccount
   }
 ];
 

@@ -29,6 +29,7 @@
         </div>
         <div v-if="message" v-bind:style="isSuccess ? 'color: green; font-style: italic;' : 'color: red; font-style: italic;'">{{ message }}</div>
         <button v-if="mode == 0">View shifts</button>
+        <button v-if="mode == 0">View assigned purchases</button>
         <button v-if="mode == 0" v-on:click="changeMode(1)">Edit info</button>
         <button v-if="mode == 0" v-on:click="changeMode(2)">Edit password</button>
         <button class="save-button" v-if="mode != 0" v-on:click="changeMode(0, false)">Cancel</button>

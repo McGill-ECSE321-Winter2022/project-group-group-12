@@ -7,6 +7,12 @@ export const getAllEmployees = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+export const getEmployee = (email) => new Promise((resolve, reject) => {
+    ax.get(`/employee/${email}`)
+    .then(res => resolve(res.data))
+    .catch(err => reject(err));
+});
+
 export const createEmployee = (employee) => new Promise((resolve, reject) => {
     createAddress(employee.address)
     .then(res => {

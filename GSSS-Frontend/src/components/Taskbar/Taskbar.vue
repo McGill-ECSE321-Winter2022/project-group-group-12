@@ -22,6 +22,7 @@
                 <!-- Links if an employee is logged in -->
                 <nav v-if="permission == 1">
                     <a href="/#/employee/customers">Customers</a>
+                    <a href="/#/employee/account">Account</a>
                     <a href>Logout</a>
                 </nav>
 
