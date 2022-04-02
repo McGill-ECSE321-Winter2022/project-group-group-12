@@ -19,7 +19,7 @@
 
       <li><a href="/#/customer/storeinformation" >Store Information customer</a></li>
       <li><a href="/#/customer/orderhistory" >Order History</a></li>
-      <li><a href="/#/owner/createshift" >Owner create shift</a></li>
+      <li><a href="/#/owner/shifts" >Owner shifts view page</a></li>
 
 
     </ul>
