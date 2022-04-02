@@ -12,6 +12,7 @@
       <li><a href="/#/login"  > Login Page</a></li>
       <li><a href="/#/signup"  > Signup Page</a></li>
       <li><a href="/#/employee/customers"  > Customer List</a></li>
+      <li><a href="/#/employee/storeinformation" >Store Information</a></li>
       <li><a href="/#/owner/systeminformation"  > System Information</a></li>
       <li><a href="/#/customer/payment" >Payment page</a></li>
       <li><a href="/#/customer/account" >Customer Account page</a></li>
@@ -44,7 +45,7 @@ export default {
   methods: {
     changePermission: function(p){
       localStorage.setItem("permission", p);
-        
+
     }
   }
 }
