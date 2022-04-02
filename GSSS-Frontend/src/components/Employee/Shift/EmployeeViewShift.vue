@@ -24,6 +24,11 @@
         {{ error }}
       </div>
     </div>
+    <div v-if="success" class="success">
+        <div>
+          {{ success }}
+        </div>
+      </div>
   </div>
 
 </template>
@@ -57,7 +62,7 @@ export default {
         localStorage.setItem("email", "email@employee.com")
         // Initilizing shifts from backend
         AXIOS.get('/shiftsbyemployee/' + localStorage.email)
-        .then(repsonse => {
+        .then(response => {
             // JSON repsonses are automatically parsed.
             this.shifts = response.data
         })

@@ -3,7 +3,8 @@
 <template>
   <div>
     <h1>Purchases</h1>
-    <div class="wrapper">
+
+    <div class="wrapper" v-if="this.purchases.length != 0">
       <div class="employeeviewpurchases">
         <ul>
           <li v-for="(purchase, i) in purchases" :key="purchase.id" v-on:click="onPurchaseSelect(i)">
@@ -40,8 +41,7 @@
               <option value="Completed">Completed</option>
             </select>
             <button v-bind:disabled="!orderStatus" @click="modifyPurchaseStatus()">Modify Order Status</button>
-          
-          </div>
+        </div>
         
       </div>
 
@@ -52,15 +52,15 @@
       </div>
 
       <div v-if="success" class="success">
-      <div>
-        {{ success }}
+        <div>
+          {{ success }}
+        </div>
       </div>
-    </div>
-
     </div>
   </div>
 
 </template>
+
 <script>
 
 // Importing axios and setting up URLs
@@ -94,7 +94,6 @@ export default {
   },
 
   created: function() {
-    localStorage.setItem("email", "email@employee.com")
     // Getting the purchases from the backend using the email of the employye logged in
     AXIOS.get('/purchasesbyemployee/'.concat(localStorage.email))
     .then(response => {
