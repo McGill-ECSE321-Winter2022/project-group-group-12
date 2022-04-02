@@ -12,6 +12,12 @@ export default{
     },
     methods: {
         logIn: function () {
+          if(!this.email || !this.password) {
+                this.error = 'Please fill in all fields';
+                setTimeout(() => this.error = null, 3000);
+                return;
+        }
+
             login(this.email, this.password)
             .then(response => {
                 localStorage.setItem('email', this.email);
