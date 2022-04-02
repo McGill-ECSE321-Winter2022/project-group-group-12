@@ -12,12 +12,15 @@
       <li><a href="/#/login"  > Login Page</a></li>
       <li><a href="/#/signup"  > Signup Page</a></li>
       <li><a href="/#/employee/customers"  > Customer List</a></li>
-      <li><a href="/#/employee/storeinformation" >Store Information</a></li>
+      <li><a href="/#/employee/storeinformation" >Store Information employee</a></li>
       <li><a href="/#/owner/systeminformation"  > System Information</a></li>
       <li><a href="/#/customer/payment" >Payment page</a></li>
       <li><a href="/#/customer/account" >Customer Account page</a></li>
-      <li><a href="/#/customer/storeinformation" >Store Information</a></li>
+
+      <li><a href="/#/customer/storeinformation" >Store Information customer</a></li>
+      <li><a href="/#/customer/orderhistory" >Order History</a></li>
       <li><a href="/#/owner/createshift" >Owner create shift</a></li>
+
 
     </ul>
     <div style="margin: 4rem 0;">

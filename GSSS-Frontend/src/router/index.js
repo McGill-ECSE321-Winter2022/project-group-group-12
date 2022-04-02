@@ -27,6 +27,7 @@ import ViewAndSelectItems from '@/components/Customer/ViewAndSelectItems/ViewAnd
 import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewCustomerAccount.vue';
 import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
 import StoreInformation from '@/components/Customer/StoreInformation/StoreInformation.vue';
+import OrderHistory from "../components/Customer/OrderHistory/OrderHistory";
 
 
 Vue.use(Router)
@@ -135,6 +136,11 @@ const customerRoutes = [
     path: '/customer/storeinformation',
     name: 'Store Information',
     component: StoreInformation
+  },
+  {
+    path: '/customer/orderhistory',
+    name: 'Order History',
+    component: OrderHistory
   }
 
 ];
