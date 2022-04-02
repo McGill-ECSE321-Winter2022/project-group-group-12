@@ -5,19 +5,25 @@ export default {
     data: function(){
         return {
             shift: {
-                date: '',
-                startTime: '',
-                endTime: '',
+                date: null,
+                startTime: null,
+                endTime: null,
             },
             employees : [],
-            selectedEmployeeEmail: '', 
+            selectedEmployee: '', 
             error: ''
         }
     },
     methods: {
         save: function(){
-            this.selectedEmployeeEmail = select.options[select.selectedIndex].value;
-            addShift(this.selectedEmployeeEmail, this.shift)
+            if(!this.shift.date || !this.shift.startTime || 
+                !this.shift.endTime) {
+                    this.error = 'Please fill in all fields';
+                    setTimeout(() => this.error = null, 3000);
+                    return;
+            }
+
+            addShift(this.selectedEmployee, this.shift)
             .then(res => this.onAdd())
             .catch(err => {
                 this.error = err;

@@ -1,20 +1,22 @@
+
 input{
-    margin-bottom: 1rem;
-    display: block;
+  margin-bottom: 1rem;
+  display: block;
 }
 
 .login-container{
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .login-container > div,
 .login-container > div > *{
-    width: fit-content;
-}
+  width: fit-content;
+} 
+
 .error {
     position: fixed;
-    bottom: 0;
+    bottom: 00;
     left: 0;
     right: 0;
     color: red;

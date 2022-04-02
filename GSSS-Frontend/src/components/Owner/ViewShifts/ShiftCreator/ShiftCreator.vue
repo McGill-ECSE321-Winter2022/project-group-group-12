@@ -12,15 +12,19 @@
             <input type="text" placeholder="ex: 18:00" v-model="shift.endTime"/>
             <br/>
             <label> Employees </label>
-            <select id="selectEmployee" placeholder="Select employee">
-            <tr v-for="(employee, index) in employees" :key="index">
-            <option value=key.email> key </option>
-            </tr>
+            <select v-model='selectedEmployee'>
+                <option v-for="employee in this.employees" :key="employee.email"> 
+                    {{ employee.email }}
+                </option>
             </select>
             <br/>
         </div>
-        <p v-if="error" style="color:red; font-style:italic;">{{ error }}</p>
         <button v-on:click="save()">Create</button>
+        <div v-if="error" class="error">
+            <div>
+                {{ error }}
+            </div>
+        </div>
     </div>
 </template>
 
