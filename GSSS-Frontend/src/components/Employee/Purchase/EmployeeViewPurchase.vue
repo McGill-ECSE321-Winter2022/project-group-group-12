@@ -88,7 +88,7 @@ export default {
       selectedPurchase: -1, // The index of the selected purchase
       error: '',
       response: [],
-      orderStatus: [],
+      orderStatus: '',
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
       selectedPurchaseItemsPrices: []
@@ -178,6 +178,7 @@ export default {
       })
       .then((response) => {
         this.selectedPurchase.orderStatus = response.data.orderStatus
+        location.reload(true);
       })
       .catch(e => {
         this.error = e
