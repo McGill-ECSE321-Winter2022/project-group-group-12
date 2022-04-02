@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <h1>Order History</h1>
+    <h2>Order History of {{email}}</h2>
     <div class="wrapper">
       <div class="viewpurchases">
         <ul>
@@ -20,7 +20,6 @@
             <h2> Selected Purchase information: </h2>
           </div>
 
-          <div> Customer email: {{ purchases[selectedPurchase].customer }}</div>
           <div> Order Type: {{ purchases[selectedPurchase].orderType }}</div>
           <div> Order status: {{ purchases[selectedPurchase].orderStatus }}</div>
           <div> Date: {{ purchases[selectedPurchase].date }}</div>
@@ -32,13 +31,6 @@
               <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index] }}$ / unit )</li>
             </ul>
           </div>
-          <h2> Modify purchase order status: </h2>
-          <select class="selector" name="Order Status" id="orderStatus" v-model="orderStatus">
-            <option value="BeingPrepared">Being Prepared</option>
-            <option value="OutForDelivery">Out for Delivery</option>
-            <option value="Completed">Completed</option>
-          </select>
-          <button v-bind:disabled="!orderStatus" @click="modifyPurchaseStatus(orderStatus)">Modify Order Status</button>
         </div>
       </div>
       <div v-if="error" class="error">
@@ -75,35 +67,24 @@ export default {
       selectedPurchase: -1, // The index of the selected customer
       error: '',
       orderStatus: '',
-      response: [],
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
       selectedPurchaseItemsPrices: [],
-      permission: localStorage.permission
+      email: ''
     }
   },
 
   created: function() {
 
+    this.email = localStorage.getItem("email")
+
     // Getting the purchases from the backend
 
-    AXIOS.get('/purchasesbycustomer/')
+    AXIOS.get('/purchasesbycustomer/' + localStorage.getItem("email"))
       .then(response => {
 
         // JSON responses are automatically parsed.
         this.purchases = response.data
-
-        // Iterating over all purchases and adding their customer's email as a field
-        for(let i = 0; i < this.purchases.length; i++) {
-          AXIOS.get('/customerByPurchase/' + this.purchases[i].id)
-            .then(response => {
-              this.purchases[i].customer = response.data.email
-            })
-            .catch(e => {
-              this.error = e
-              setTimeout(() => this.error = null, 3000);
-            })
-        }
 
         // Iterating over all purchases and adding their cost as a field
         for(let i = 0; i < this.purchases.length; i++) {
