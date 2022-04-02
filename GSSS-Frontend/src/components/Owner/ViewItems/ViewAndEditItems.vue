@@ -28,7 +28,7 @@ About: Page to handle viewing and editing the items as the owner
         {{ success }}
       </div>
     </div>
-    <div v-if="this.selectedItem != -1">
+    <div style="text-align:center" v-if="this.selectedItem != -1">
             <h2> {{ this.name }} </h2>
             <label>Description: </label>
             <input type="text" placeholder="Enter description" v-model="description"/>
