@@ -16,21 +16,21 @@
                 <nav v-if="permission == 0">
                     <a href="/#/customer/shop">Browse shop</a>
                     <a href="/#/customer/account">Account info</a>
-                    <a href>Logout</a>
+                    <a v-on:click="logout()">Logout</a>
                 </nav>
 
                 <!-- Links if an employee is logged in -->
                 <nav v-if="permission == 1">
                     <a href="/#/employee/customers">Customers</a>
                     <a href="/#/employee/account">Account</a>
-                    <a href>Logout</a>
+                    <a v-on:click="logout()">Logout</a>
                 </nav>
 
                 <!-- Links if an owner is logged in -->
                 <nav v-if="permission == 2">
-                    <a href="/#/owner/systeminformation"> System Information</a>
+                    <a href="/#/owner/systeminformation">System Information</a>
                     <a href="/#/owner/employees">Employees</a>
-                    <a href>Logout</a>
+                    <a v-on:click="logout()">Logout</a>
                 </nav>
             </div>
     </header>
