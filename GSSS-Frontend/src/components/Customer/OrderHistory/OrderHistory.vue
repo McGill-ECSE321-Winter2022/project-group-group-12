@@ -5,7 +5,7 @@
     <h2>Order History of {{email}}</h2>
     <div class="wrapper">
       <div class="viewpurchases">
-        <ul>
+        <ul class = "selectable-list">
           <li  v-for="(purchase, i) in purchases" :key="purchase.id" v-on:click="onPurchaseSelect(i)">
             {{ purchase.date }}
           </li>
@@ -17,7 +17,7 @@
         <div v-if="this.selectedPurchase!=-1">
 
           <div>
-            <h2> Selected Purchase information: </h2>
+            <h5> Selected Purchase information: </h5>
           </div>
 
           <div> Order Type: {{ purchases[selectedPurchase].orderType }}</div>
