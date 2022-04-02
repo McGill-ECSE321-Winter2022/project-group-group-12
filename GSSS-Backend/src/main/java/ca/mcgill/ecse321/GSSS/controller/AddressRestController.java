@@ -101,15 +101,19 @@ public class AddressRestController {
    * @author Theo Ghanem
    */
   @PostMapping(value = {"/address/{id}", "/address/{id}/"})
-  public AddressDto modifyAddress(@PathVariable("id") String id,
+  public ResponseEntity<?> modifyAddress(@PathVariable("id") String id,
       @RequestParam(name = "fullName") String fullName,
       @RequestParam(name = "streetName") String streetName,
       @RequestParam(name = "streetNumber") Integer streetNumber,
       @RequestParam(name = "city") String city,
       @RequestParam(name = "postalCode") String postalCode) throws IllegalArgumentException {
-    Address address =
+   try {
+	  Address address =
         addressService.modifyAddress(fullName, streetName, streetNumber, city, postalCode, id);
-    return DtoUtility.convertToDto(address);
+    return ResponseEntity.ok(DtoUtility.convertToDto(address));
+   }catch(Exception e) {
+	   return ResponseEntity.badRequest().body(e.getMessage());
+   }
   }
 
   @DeleteMapping(value = {"/address/{id}", "/address/{id}/"})
