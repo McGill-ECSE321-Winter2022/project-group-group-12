@@ -13,39 +13,57 @@
       </div>
 
       <div class = "vertical-separator"/>
-        <div class="details">
-            <div v-if="this.selectedPurchase!=-1">
+      <div class = "details">
+          <div v-if="this.selectedPurchase!=-1">
 
-              <div> 
-                <h2> Selected Purchase information: </h2>
-              </div>
+            <div> 
+              <h2> Selected Purchase information: </h2>
+            </div>
 
-              <div> Customer email: {{ purchases[selectedPurchase].customer }}</div>
-              <div> Order Type: {{ purchases[selectedPurchase].orderType }}</div>
-              <div> Order status: {{ purchases[selectedPurchase].orderStatus }}</div>
-              <div> Date: {{ purchases[selectedPurchase].date }}</div>
-              <div> Time: {{ purchases[selectedPurchase].time }}</div>
-              <div> Employee: {{ purchases[selectedPurchase].employee.email }} </div>
-              <div> Cost: {{ purchases[selectedPurchase].cost }}$</div>
-              <div> Items:
-                  <ul v-for="(n, index) in this.selectedPurchaseItems.length" :key="index"> 
-                      <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index] }}$ / unit )</li>
-                  </ul>
-              </div>
-              <h2> Modify purchase order status: </h2>
-              <select class="selector" name="Order Status" id="orderStatus" v-model="orderStatus">
+            <div> Customer email: {{ purchases[selectedPurchase].customer }}</div>
+            <div> Order type: {{ purchases[selectedPurchase].orderType }}</div>
+            <div> Order status: {{ purchases[selectedPurchase].orderStatus }}</div>
+            <div> Date: {{ purchases[selectedPurchase].date }}</div>
+            <div> Time: {{ purchases[selectedPurchase].time }}</div>
+            <div> Employee: {{ purchases[selectedPurchase].employee.email }} </div>
+            <div> Cost: {{ purchases[selectedPurchase].cost }}$</div>
+            <div> Items:
+                <ul v-for="(n, index) in this.selectedPurchaseItems.length" :key="index"> 
+                    <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index] }}$ / unit )</li>
+                </ul>
+            </div>
+
+            <h2> Modify purchase order status: </h2>
+            <select class="selector" name="Order Status" id="orderStatus" v-model="orderStatus">
               <option value="BeingPrepared">Being Prepared</option>
               <option value="OutForDelivery">Out for Delivery</option>
               <option value="Completed">Completed</option>
-              </select>
-              <button v-bind:disabled="!orderStatus" @click="modifyPurchaseStatus(orderStatus)">Modify Order Status</button>
-            </div>
+            </select>
+            <button v-bind:disabled="!orderStatus" @click="modifyPurchaseStatus()">Modify Order Status</button>
+
+            <h2> Modify the assigned employee: </h2>
+            <select class="selector" v-model='selectedEmployee'>
+              <option v-for="employee in this.employees" :key="employee.email"> 
+                  {{ employee.email }}
+              </option>
+            </select>
+            <button v-bind:disabled="!selectedEmployee" @click="modifyPurchaseEmployee()">Modify Employee</button>
+
+          </div>
+        
         </div>
+
       <div v-if="error" class="error">
         <div>
           {{ error }}
         </div>
       </div>
+
+      <div v-if="success" class="success">
+      <div>
+        {{ success }}
+      </div>
+    </div>
 
     </div>
   </div>
@@ -72,18 +90,21 @@ export default {
   data () {
     return {
       purchases: [],
+      employees: [],
+      employee: '',
       selectedPurchase: -1, // The index of the selected customer
       error: '',
+      success: '',
       orderStatus: '',
       response: [],
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
-      selectedPurchaseItemsPrices: []
+      selectedPurchaseItemsPrices: [],
+      selectedEmployee: '',
     }
   },
 
   created: function() {
-
     // Getting the purchases from the backend
     AXIOS.get('/purchases')
     .then(response => {
@@ -120,6 +141,15 @@ export default {
       this.error = e
       setTimeout(() => this.error = null, 3000);
     })
+
+    AXIOS.get('/employees')
+    .then(response => {
+      this.employees = response.data
+    })
+    .catch(e => {
+      this.error = e
+      setTimeout(() => this.error = null, 3000);
+    })
   },
 
   methods: {
@@ -152,21 +182,23 @@ export default {
       }
     },
 
-    modifyPurchaseStatus: function(orderStatus){
+    modifyPurchaseStatus: function(){
       // Modifies selected purchase's order status
-      AXIOS.post('/purchase/modify/' + this.selectedPurchase.id, 
+      AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id,
       {},
       {params: {
-        purchaseId: selectedPurchase.id,
-        orderType: selectedPurchase.orderType,
-        orderStatus: orderStatus,
-        data: selectedPurchaseItems,
-        employeeEmail: selectedPurchase.employeeEmail,
+        purchaseId: this.purchases[this.selectedPurchase].id,
+        orderType: this.purchases[this.selectedPurchase].orderType,
+        orderStatus: this.orderStatus,
+        data: this.purchases[this.selectedPurchase].data,
+        employeeEmail: this.purchases[this.selectedPurchase].employee.email,
         },
       })
       .then((response) => {
-        this.selectedPurchase.orderStatus = response.data.orderStatus
-        location.reload(true);
+        this.purchases[this.selectedPurchase] = response.data
+        this.selectedPurchase = -1
+        this.success = "Purchase status modified successfully"
+        setTimeout(()=>this.success=null, 3000)
       })
       .catch(e => {
         this.error = e
@@ -174,21 +206,23 @@ export default {
       });
     },
 
-    modifyPurchaseEmployee: function(newEmployeeEmail){
+    modifyPurchaseEmployee: function(){
       // Modifies selected purchase's order status
-      AXIOS.post('/purchase/modify/' + this.selectedPurchase.id, 
+      AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id, 
       {},
       {params: {
-        purchaseId: selectedPurchase.id,
-        orderType: selectedPurchase.orderType,
-        orderStatus: selectedPurchase.orderStatus,
-        data: selectedPurchaseItems,
-        employeeEmail: newEmployeeEmail,
+        purchaseId: this.purchases[this.selectedPurchase].id,
+        orderType: this.purchases[this.selectedPurchase].orderType,
+        orderStatus: this.purchases[this.selectedPurchase].orderStatus,
+        data: this.purchases[this.selectedPurchase].data,
+        employeeEmail: this.selectedEmployee,
         },
       })
       .then((response) => {
-        this.selectedPurchase.employeeEmail = response.data.employeeEmail
-        location.reload(true);
+        this.purchases[this.selectedPurchase] = response.data
+        this.selectedPurchase = -1
+        this.success = "Purchase employee modified successfully"
+        setTimeout(()=>this.success=null, 3000)
       })
       .catch(e => {
         this.error = e
