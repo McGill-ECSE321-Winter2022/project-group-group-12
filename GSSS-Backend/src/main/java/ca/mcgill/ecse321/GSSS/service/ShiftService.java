@@ -46,6 +46,11 @@ public class ShiftService {
     }
     return shift;
   }
+  
+  @Transactional 
+  public List<Shift> getAllShifts() {
+    return Utility.toList(shiftRepository.findAll());
+  }
 
   /**
    * Get the list of shifts associated to a date

@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.GSSS.controller;
 
+import ca.mcgill.ecse321.GSSS.dto.CustomerDto;
 import ca.mcgill.ecse321.GSSS.dto.ShiftDto;
+import ca.mcgill.ecse321.GSSS.model.Customer;
 import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Shift;
 import ca.mcgill.ecse321.GSSS.service.EmployeeService;
@@ -14,6 +16,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +40,21 @@ public class ShiftRestController {
 
   @Autowired
   private EmployeeService employeeService;
+  
+  /**
+   * method to get all shifts
+   * 
+   * @return list of shift dtos
+   * @author Habib Jarweh
+   */
+  @GetMapping(value = {"/shifts", "/shifts/"})
+  public List<ShiftDto> getAllShifts() {
+    List<ShiftDto> shiftDtos = new ArrayList<>();
+    for (Shift shift : shiftService.getAllShifts()) {
+      shiftDtos.add(DtoUtility.convertToDto(shift));
+    }
+    return shiftDtos;
+  }
 
   /**
    * Controller method to modify a shift
@@ -91,6 +109,16 @@ public class ShiftRestController {
       shiftDtos.add(DtoUtility.convertToDto(shift));
     }
     return shiftDtos;
+  }
+  
+  /**
+   * method to delete shift
+   * 
+   * @author Habib Jarweh
+   */
+  @DeleteMapping(value = { "shift/delete", "/shift/delete/" })
+  public void deleteShift(@RequestParam("shiftId") String shiftId) throws IllegalArgumentException{
+    shiftService.deleteShift(shiftId);
   }
 }
 
