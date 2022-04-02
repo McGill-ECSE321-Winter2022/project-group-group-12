@@ -1,7 +1,7 @@
 import { createItem, getAllCategories } from "../../../services/item";
 
 export default {
-    name: 'customer-creator',
+    name: 'item-creator',
     data: function(){
         return {
             item: {
@@ -16,7 +16,6 @@ export default {
             },
             categories: [],
             error: '',
-            success: ''
         }
     },    
     created: function(){
@@ -36,16 +35,12 @@ export default {
 
             createItem(this.item)
             .then(res => {
-                success = 'Item created successfully'
-                setTimeout(() => this.success = null, 3000);
+                this.$router.go()
             })
             .catch(err => {
                 this.error = err;
                 setTimeout(() => this.error = null, 3000);
             });
         }
-    },
-    props:{
-        onAdd: Function
     }
 }

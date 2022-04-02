@@ -28,38 +28,44 @@ About: Page to handle viewing and editing the items as the owner
         {{ success }}
       </div>
     </div>
-    <div style="text-align:center" v-if="this.selectedItem != -1">
-            <h2> {{ this.name }} </h2>
-            <label>Description: </label>
-            <input type="text" placeholder="Enter description" v-model="description"/>
-            <br/>
-            <label>Image URL: </label>
-            <input type="text" placeholder="Enter image URL" v-model="imageUrl" />
-            <br/>
-            <label>Remaining quantity: </label>
-            <input type="number" placeholder="Enter quantity" v-model="remainingQuantity" />
-            <br/>
-            <label>Price (In $): </label>
-            <input type="number" placeholder="Enter price" v-model="price" />
-            <br/>
-            <label>Available for pickup and delivery: </label>
-            <input type="checkbox" v-model="availableForOrder" />
-            <br/>
-            <label>Still available (Not out of supply): </label>
-            <input type="checkbox" v-model="stillAvailable" />
-            <br/>
-            <label>Item category: </label>
-            <select v-model="itemCategory">
-              <option v-for="ic in itemCategories" :value="ic.name" :key="ic.name">
-                {{ ic.name }}
-              </option>
-            </select>
-            <button v-on:click="modifyItem()">Modify</button>
+    <div class="operations">
+      <div v-if="this.selectedItem != -1">
+              <h2> Modify: {{ this.name }} </h2>
+              <label>Description: </label>
+              <input type="text" placeholder="Enter description" v-model="description"/>
+              <br/>
+              <label>Image URL: </label>
+              <input type="text" placeholder="Enter image URL" v-model="imageUrl" />
+              <br/>
+              <label>Remaining quantity: </label>
+              <input type="number" placeholder="Enter quantity" v-model="remainingQuantity" />
+              <br/>
+              <label>Price (In $): </label>
+              <input type="number" placeholder="Enter price" v-model="price" />
+              <br/>
+              <label>Available for pickup and delivery: </label>
+              <input type="checkbox" v-model="availableForOrder" />
+              <br/>
+              <label>Still available (Not out of supply): </label>
+              <input type="checkbox" v-model="stillAvailable" />
+              <br/>
+              <label>Item category: </label>
+              <select v-model="itemCategory">
+                <option v-for="ic in itemCategories" :value="ic.name" :key="ic.name">
+                  {{ ic.name }}
+                </option>
+              </select>
+              <button v-on:click="modifyItem()">Modify</button>
         </div>
+        <div v-if="selectedItem!=-1" class = "vertical-separator" style="margin: 0 3rem"></div>
+        <ItemCreator/>
+      </div>
   </div>
 </template>
 
 <script>
+
+    import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
 
     // Importing axios and setting up URLs
     import axios from 'axios'
@@ -179,10 +185,13 @@ About: Page to handle viewing and editing the items as the owner
         setTimeout(()=>this.error=null, 3000)
       })
     }
+
+
+    },
     
-  },
-
-
+    components: {
+      ItemCreator
+    }
   }
 </script>
 
@@ -235,10 +244,12 @@ About: Page to handle viewing and editing the items as the owner
      padding: 0.5em 1em;
      border-radius: 0.5rem;
    }
-
-   .checkout {
-     margin-top: 1.5em;
+   
+   .operations {
+     display: flex;
+     justify-content: center;
    }
+
 
 
 </style>

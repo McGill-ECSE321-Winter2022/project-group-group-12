@@ -36,11 +36,6 @@
                 {{ error }}
             </div>
         </div>
-        <div v-if="success" class="success">
-            <div>
-                {{ success }}
-            </div>
-        </div>
         <button v-on:click="save()">Create</button>
     </div>
 </template>
