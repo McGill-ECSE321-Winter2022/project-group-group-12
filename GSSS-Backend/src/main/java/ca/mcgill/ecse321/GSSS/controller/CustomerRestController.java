@@ -171,19 +171,20 @@ public class CustomerRestController {
 
   /**
    * Mehtod to modify/update a customer's password
-   * @param email The email of the customer to modify
+   *
+   * @param email    The email of the customer to modify
    * @param password the new password of the customer
    * @return The modified customer as a DTO object
    * @throws IllegalArgumentException
-   * 
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/customer/password/{email}", "/customer/password/{email}/"})
-  public CustomerDto modifyPassword (@PathVariable("email") String email,
-      @RequestParam(name = "password") String password) throws IllegalArgumentException {
-    
-      return DtoUtility.convertToDto(
-      customerService.modifyPassword(email, password));
+  public CustomerDto modifyPassword(@PathVariable("email") String email,
+      @RequestParam(name = "password") String password)
+      throws IllegalArgumentException, NoSuchElementException {
+
+    return DtoUtility.convertToDto(
+        customerService.modifyPassword(email, password));
   }
 
   /**
@@ -192,7 +193,7 @@ public class CustomerRestController {
    * @param email The email of the customer
    * @return The delivery fee
    * @throws IllegalArgumentException If email is empty
-   * @throws NoSuchElementException If no customer with the email exists
+   * @throws NoSuchElementException   If no customer with the email exists
    */
   @GetMapping(value = {"/deliveryfee/{email}", "/deliveryfee/{email}/"})
   public double returnDeliveryFee(@PathVariable("email") String email)
