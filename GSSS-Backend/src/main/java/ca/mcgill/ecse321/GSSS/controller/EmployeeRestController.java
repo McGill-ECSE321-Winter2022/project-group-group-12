@@ -99,7 +99,7 @@ public class EmployeeRestController {
    * @throws IllegalArgumentException If the email is not correct
    * @author Enzo Benoit-Jeannin
    */
-  @PostMapping(value = {"/customer/password/{email}", "/customer/password/{email}/"})
+  @PostMapping(value = {"/employee/password/{email}", "/employee/password/{email}/"})
   public EmployeeDto modifyPassword(@PathVariable("email") String email,
       @RequestParam(name = "password") String password)
       throws IllegalArgumentException, NoSuchElementException {
