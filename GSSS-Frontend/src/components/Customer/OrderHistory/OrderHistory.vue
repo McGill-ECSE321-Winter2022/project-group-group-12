@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <h1>Order History of {{localStorage.email}}</h1>
+    <h2>Order History of {{email}}</h2>
     <div class="wrapper">
       <div class="viewpurchases">
         <ul>
@@ -31,13 +31,6 @@
               <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index] }}$ / unit )</li>
             </ul>
           </div>
-          <h2> Modify purchase order status: </h2>
-          <select class="selector" name="Order Status" id="orderStatus" v-model="orderStatus">
-            <option value="BeingPrepared">Being Prepared</option>
-            <option value="OutForDelivery">Out for Delivery</option>
-            <option value="Completed">Completed</option>
-          </select>
-          <button v-bind:disabled="!orderStatus" @click="modifyPurchaseStatus(orderStatus)">Modify Order Status</button>
         </div>
       </div>
       <div v-if="error" class="error">
@@ -74,15 +67,16 @@ export default {
       selectedPurchase: -1, // The index of the selected customer
       error: '',
       orderStatus: '',
-      response: [],
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
       selectedPurchaseItemsPrices: [],
-      permission: localStorage.permission
+      email: ''
     }
   },
 
   created: function() {
+
+    this.email = localStorage.getItem("email")
 
     // Getting the purchases from the backend
 
