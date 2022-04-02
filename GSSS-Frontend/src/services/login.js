@@ -5,3 +5,8 @@ export const login = (email, password) => new Promise((resolve, reject) => {
       .then(res => resolve(res))
       .catch(err => reject(err));
   });
+
+export const logOut = () => {
+  localStorage.removeItem('email');
+  localStorage.removeItem('permission');
+}

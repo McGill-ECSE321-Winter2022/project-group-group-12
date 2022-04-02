@@ -49,7 +49,7 @@ export default {
   methods: {
     changePermission: function(p){
       localStorage.setItem("permission", p);
-
+      this.$router.go();
     }
   }
 }
