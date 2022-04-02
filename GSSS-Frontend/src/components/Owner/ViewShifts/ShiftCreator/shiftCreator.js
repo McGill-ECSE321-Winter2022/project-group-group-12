@@ -1,4 +1,5 @@
 import { addShift } from "../../../../services/shift";
+import { getAllEmployees } from "../../../../services/employee";
 
 export default {
     name: 'shift-creator',
@@ -14,6 +15,11 @@ export default {
             error: ''
         }
     },
+    created: function(){
+        getAllEmployees()
+        .then(res => this.employees = res)
+        .catch(err => console.log(err));
+    },
     methods: {
         save: function(){
             if(!this.shift.date || !this.shift.startTime || 
@@ -23,7 +29,7 @@ export default {
                     return;
             }
 
-            addShift(this.selectedEmployee, this.shift)
+            addShift(this.selectedEmployee.email, this.shift)
             .then(res => this.onAdd())
             .catch(err => {
                 this.error = err;

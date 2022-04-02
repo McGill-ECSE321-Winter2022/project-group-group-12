@@ -1,7 +1,7 @@
 import ax from "./common";
 
-export const addShift = (employeeEmail, shift) => new Promise((resolve, reject) => {
-    ax.post('/employee/shift/{email}', null, { params: employeeEmail, shift })
+export const addShift = (email, shift) => new Promise((resolve, reject) => {
+    ax.post(`/employee/shift/${email}`, null, { params: shift })
     .then(res => resolve(res))
     .catch(err => reject(err));
 });
@@ -18,8 +18,8 @@ export const getAllShifts = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-export const getEmployeeByShift = () => new Promise((resolve, reject) => {
-    ax.get('/employeebyshift')
+export const getEmployeeByShift = (shiftId) => new Promise((resolve, reject) => {
+    ax.get(`/employeebyshift/${shiftId}`)
     .then(res => resolve(res.data))
     .catch(err => reject(err));
 });
