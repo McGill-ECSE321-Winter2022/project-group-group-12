@@ -86,6 +86,7 @@ public class AddressRestController {
 	  }catch(Exception e) {
 		return ResponseEntity.badRequest().body(e.getMessage()); 
 	  }
+  }
 
   /**
    * Method to modify/update an address
