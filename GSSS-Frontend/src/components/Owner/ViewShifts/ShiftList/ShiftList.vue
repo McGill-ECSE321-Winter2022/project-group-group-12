@@ -4,7 +4,7 @@
         <div class="ham">
             <div class="menu">
                 <ul class="selectable-list">
-                    <li v-for="(shift, i) in shifts" :key=shift.startTime v-on:click="selectCustomer(i)">{{ shift.startTime }}</li>
+                    <li v-for="(shift, i) in shifts" :key=shift.date v-on:click="selectShift(i)">{{ shift.date }}</li>
                 </ul>
                 <button v-on:click="addShift()">Add shift</button>
             </div>

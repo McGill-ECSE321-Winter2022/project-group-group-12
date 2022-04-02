@@ -4,42 +4,42 @@ import ShiftCreator from "../ShiftCreator/ShiftCreator.vue";
 import { getAllShifts } from "../../../../services/shift";
 
 export default {
-    name: 'customers',
+    name: 'shifts',
     data(){
         return {
-            customers: [],
-            selectedCustomer: -1,
+            shifts: [],
+            selectedShift: -1,
             addMode: false
         }
     },
     created: function(){
-        getAllCustomers()
-        .then(res => this.customers = res)
+        getAllShifts()
+        .then(res => this.shifts = res)
         .catch(err => console.log(err));
     },
     methods:{
-        selectCustomer: function(i){
-            this.selectedCustomer = i;
+        selectShift: function(i){
+            this.selectedShift = i;
             this.addMode = false;
         },
-        selectLastCustomer: function(){
-            this.selectedCustomer = this.customers.length - 1;
+        selectLastShift: function(){
+            this.selectedShift = this.shifts.length - 1;
         },
-        addCustomer: function(){
+        addShift: function(){
             this.addMode = true;
         },
         onChange: function(){
-            getAllCustomers()
+            getAllShifts()
             .then(res => {
-                this.customers = res;
-                this.selectLastCustomer();
+                this.shfits = res;
+                this.selectLastShift();
             })
             .catch(err => console.log(err));
             this.addMode = false;
         }
     },
     components:{
-        CustomerDetail,
-        CustomerCreator
+        ShiftDetail,
+        ShiftCreator
     }
 }

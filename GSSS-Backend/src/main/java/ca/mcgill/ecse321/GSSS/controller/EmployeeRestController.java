@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -120,6 +121,23 @@ public class EmployeeRestController {
       throws IllegalArgumentException, NoSuchElementException {
     return DtoUtility.convertToDto(employeeService.getEmployeeByEmail(email));
   }
+  
+  /**
+   * 
+   * @param shiftId 
+   * @return employee with designated shift
+   * @throws IllegalArgumentException
+   * @throws NoSuchElementException
+   * @author Habib Jarweh
+   */
+  @GetMapping(value = {"/employeebyshift", "/employeebyshift/"})
+  public EmployeeDto getEmployeeByShift(@RequestParam("shiftId") String shiftId)
+      throws IllegalArgumentException, NoSuchElementException {
+    
+    Shift shift = shiftService.getShift(shiftId);
+    
+    return DtoUtility.convertToDto(employeeService.getEmployeeByShift(shift));
+  }
 
   /**
    * This API endpoint deletes an employee based on his email.
@@ -168,4 +186,6 @@ public class EmployeeRestController {
     employeeService.removeShift(
         employeeService.getEmployeeByEmail(email), shiftService.getShift(id));
   }
+  
+  
 }
