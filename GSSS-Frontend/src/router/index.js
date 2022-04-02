@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases.vue'
 import OwnerItemCategory from '@/components/Owner/ItemCategory/OwnerItemCategory.vue'
 import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
+import ShiftCreator from '@/components/Owner/ViewShifts/ShiftCreator/ShiftCreator.vue'
 
 // Employee imports
 import EmployeeViewPurchase from '@/components/Employee/Purchase/EmployeeViewPurchase.vue'
@@ -64,6 +65,11 @@ const ownerRoutes = [
     path: '/owner/createitem',
     name: 'ItemCreator',
     component: ItemCreator
+  },
+  {
+    path: '/owner/createshift',
+    name: 'ShiftCreator',
+    component: ShiftCreator
   }
 ];
 
