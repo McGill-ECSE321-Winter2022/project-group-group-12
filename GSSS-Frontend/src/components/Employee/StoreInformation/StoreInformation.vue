@@ -19,10 +19,10 @@ Vue class for the system information page.
       </div>
       <div class="vertical-separator"/>
       <div class="details">
-        <div v-if="selectedScreen == 1 ">Welcome to the GSSS! Founded by a group of enthusiastic students in 2022, in downtown montreal to provide an easy-to-use and reliable system for your everyday shopping needs!</div>
+        <div v-if="selectedScreen == 1 ">Welcome to the GSSS! Founded by a group of enthusiastic students in 2022, we value your effort and hard work in making our store the best!</div>
         <div v-if="selectedScreen == 2 ">
           <br/>
-          <div class="align-content-center">The current Business Hours are as follows:</div>
+          <div class="align-content-center">The current Business Hours are as follow:</div>
 
           <br/>
           <table class="currentBH">
@@ -69,9 +69,9 @@ Vue class for the system information page.
         </div>
 
 
-      <div v-if="selectedScreen == 3 ">We don't have any promotions at the time. Come back later!</div>
+        <div v-if="selectedScreen == 3 ">We don't have any promotions at the time. Come back later!</div>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 

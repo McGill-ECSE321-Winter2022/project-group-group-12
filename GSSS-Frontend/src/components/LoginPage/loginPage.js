@@ -7,11 +7,17 @@ export default{
         return {
             email: '',
             password: '',
-            errorMsg: ''
+            error: ''
         }
     },
     methods: {
         logIn: function () {
+          if(!this.email || !this.password) {
+                this.error = 'Please fill in all fields';
+                setTimeout(() => this.error = null, 3000);
+                return;
+        }
+
             login(this.email, this.password)
             .then(response => {
                 localStorage.setItem('email', this.email);
@@ -24,7 +30,7 @@ export default{
                   self.$router.push({ name: "SystemInformation" });
                 }
               })
-              .catch((error) => self.errorMsg = "Invalid username or password.")
+              .catch((error) => self.error = "Invalid username or password.")
               
         }
     }

@@ -15,9 +15,18 @@
             <input placeholder="street name" type="text" v-model="customer.address.streetName"/>
             <input placeholder="city" type="text" v-model="customer.address.city" />
             <input placeholder="postal code" type="text" v-model="customer.address.postalCode" />
-            
-            <p v-if="error" style="color:red; font-style:italic;">{{ error }}</p>
             <button v-on:click="save()">Sign Up</button>
+            </div>
+            <div v-if="error" class="error">
+                <div>
+                    {{ error }}
+                </div>
+            </div>
+            <div v-if="success" class="success">
+                <div>
+                    {{ success }}
+                </div>
+            </div>
         </div>
     </div>
 </template>

@@ -32,10 +32,15 @@
                       <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index] }}$ / unit )</li>
                   </ul>
               </div>
-
+              <h2> Modify purchase order status: </h2>
+              <select class="selector" name="Order Status" id="orderStatus" v-model="orderStatus">
+              <option value="BeingPrepared">Being Prepared</option>
+              <option value="OutForDelivery">Out for Delivery</option>
+              <option value="Completed">Completed</option>
+              </select>
+              <button v-bind:disabled="!orderStatus" @click="modifyPurchaseStatus(orderStatus)">Modify Order Status</button>
             </div>
         </div>
-        
       <div v-if="error" class="error">
         <div>
           {{ error }}
@@ -69,6 +74,7 @@ export default {
       purchases: [],
       selectedPurchase: -1, // The index of the selected customer
       error: '',
+      orderStatus: '',
       response: [],
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
@@ -144,9 +150,53 @@ export default {
           setTimeout(() => this.error = null, 3000);
         })
       }
+    },
+
+    modifyPurchaseStatus: function(orderStatus){
+      // Modifies selected purchase's order status
+      AXIOS.post('/purchase/modify/' + this.selectedPurchase.id, 
+      {},
+      {params: {
+        purchaseId: selectedPurchase.id,
+        orderType: selectedPurchase.orderType,
+        orderStatus: orderStatus,
+        data: selectedPurchaseItems,
+        employeeEmail: selectedPurchase.employeeEmail,
+        },
+      })
+      .then((response) => {
+        this.selectedPurchase.orderStatus = response.data.orderStatus
+        location.reload(true);
+      })
+      .catch(e => {
+        this.error = e
+        setTimeout(() => this.error = null, 3000);
+      });
+    },
+
+    modifyPurchaseEmployee: function(newEmployeeEmail){
+      // Modifies selected purchase's order status
+      AXIOS.post('/purchase/modify/' + this.selectedPurchase.id, 
+      {},
+      {params: {
+        purchaseId: selectedPurchase.id,
+        orderType: selectedPurchase.orderType,
+        orderStatus: selectedPurchase.orderStatus,
+        data: selectedPurchaseItems,
+        employeeEmail: newEmployeeEmail,
+        },
+      })
+      .then((response) => {
+        this.selectedPurchase.employeeEmail = response.data.employeeEmail
+        location.reload(true);
+      })
+      .catch(e => {
+        this.error = e
+        setTimeout(() => this.error = null, 3000);
+      });
     }
   },
-  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
