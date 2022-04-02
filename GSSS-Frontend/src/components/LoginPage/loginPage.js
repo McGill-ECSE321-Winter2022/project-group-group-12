@@ -7,7 +7,7 @@ export default{
         return {
             email: '',
             password: '',
-            errorMsg: ''
+            error: ''
         }
     },
     methods: {
@@ -30,7 +30,7 @@ export default{
                   self.$router.push({ name: "SystemInformation" });
                 }
               })
-              .catch((error) => self.errorMsg = "Invalid username or password.")
+              .catch((error) => self.error = "Invalid username or password.")
               
         }
     }

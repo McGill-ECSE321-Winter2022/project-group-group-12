@@ -9,16 +9,6 @@
             <button @click="logIn()">Login</button>
         </div>
     </div>
-    <div v-if="error" class="error">
-        <div>
-            {{ error }}
-        </div>
-    </div>
-    <div v-if="success" class="success">
-        <div>
-            {{ success }}
-        </div>
-    </div>
 </template>
 
 <style scoped src='./login.css'>
