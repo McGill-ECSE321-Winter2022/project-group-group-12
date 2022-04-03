@@ -28,177 +28,124 @@ import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrde
 import StoreInformation from '@/components/Customer/StoreInformation/StoreInformation.vue';
 import OrderHistory from '@/components/Customer/OrderHistory/OrderHistory.vue';
 
-
 Vue.use(Router)
 
-const NONE = 'None';
-const CUSTOMER = 'Customer';
-const EMPLOYEE = 'Employee';
-const OWNER = 'Owner';
-
-const otherRoutes = [
+export default new Router ({
+  mode: 'history',
+  routes: [
+  // {
+  //   path: '/',
+  //   name: 'Hello',
+  //   component: Hello,
+  //   // permissions: [EMPLOYEE, OWNER]
+  // },
   {
     path: '/',
-    name: 'Hello',
-    component: Hello,
-    permissions: [EMPLOYEE, OWNER] // TODO REMOVE NONE AND TEST BEFORE SUBMISSION
-  },
-  {
-    path: '/login',
     name: 'LoginPage',
     component: LoginPage,
-    permissions: [NONE]
+    // permissions: [NONE]
   },
   {
     path: '/signup',
     name: 'SignupPage',
     component: SignupPage,
-    permissions: [NONE]
+    // permissions: [NONE]
   },
-]
-
-const ownerRoutes = [
   {
     path: '/owner/purchases',
     name: 'ViewPurchases',
     component: ViewPurchases,
-    permissions: [OWNER]
+    // permissions: [OWNER]
   },
   {
     path: '/owner/systeminformation',
     name: 'SystemInformation',
     component: SystemInformation,
-    permissions: [OWNER]
+    // permissions: [OWNER]
   },
   {
     path: '/owner/itemcategory',
     name: 'OwnerItemCategory',
     component: OwnerItemCategory,
-    permissions: [OWNER]
+    // permissions: [OWNER]
   },
   {
     path: '/owner/viewandedititems',
     name: 'ViewAndEditItems',
     component: ViewAndEditItems,
-    permissions: [OWNER]
+    // permissions: [OWNER]
   },
   {
     path: '/owner/shifts',
     name: 'ShiftList',
     component: ShiftList,
-    permissions: [OWNER]
+    // permissions: [OWNER]
   },
   {
     path: '/owner/employees',
     name: 'Employees List',
     component: EmployeeList,
-    permissions: [OWNER]
-  }
-];
-
-const employeeRoutes = [
+    // permissions: [OWNER]
+  },
   {
     path: '/employee/purchases',
     name: 'EmployeeViewPurchase',
     component: EmployeeViewPurchase,
-    permissions: [EMPLOYEE]
+    // permissions: [EMPLOYEE]
   },
   {
     path: '/employee/customers',
     name: 'CustomerList',
     component: CustomerList,
-    permissions: [EMPLOYEE, OWNER]
+    // permissions: [EMPLOYEE, OWNER]
   },
   {
     path: '/employee/view/shifts',
     name: 'EmployeeViewShift',
     component: EmployeeViewShift,
-    permissions: [EMPLOYEE]
+    // permissions: [EMPLOYEE]
   },
   {
     path: '/employee/account',
     name: 'Employee Account',
     component: EmployeeAccount,
-    permissions: [EMPLOYEE]
-  }
-];
-
-const customerRoutes = [
+    // permissions: [EMPLOYEE]
+  },
   {
     path: '/customer/shop',
     name: 'ViewAndSelectItems',
     component: ViewAndSelectItems,
-    permissions: [CUSTOMER]
+    // permissions: [CUSTOMER]
   },
   {
     path: '/customer/confirmOrderType',
     name: 'ConfirmOrderType',
     component: ConfirmOrderType,
-    permissions: [CUSTOMER]
+    // permissions: [CUSTOMER]
   },
   {
     path: '/customer/payment',
     name: 'Payment',
     component: Payment,
-    permissions: [CUSTOMER]
+    // permissions: [CUSTOMER]
   },
   {
     path: '/customer/account',
     name: 'Customer Account',
     component: ViewCustomerAccount,
-    permissions: [CUSTOMER]
+    // permissions: [CUSTOMER]
   },
   {
     path: '/customer/storeinformation',
     name: 'Store Information',
     component: StoreInformation,
-    permissions: [NONE, CUSTOMER, EMPLOYEE, OWNER]
+    // permissions: [NONE, CUSTOMER, EMPLOYEE, OWNER]
   },
   {
     path: '/customer/orderhistory',
     name: 'Order History',
     component: OrderHistory,
-    permissions: [CUSTOMER]
+    // permissions: [CUSTOMER]
   }
-
-];
-
-const allRoutes = [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes];
-
-const router = new Router({
-  mode: 'history',
-  routes: allRoutes,
-});
-
-router.beforeEach(async (to, from, next) => {
-  let permission = localStorage.permission || NONE;
-  let route = matchRoute(to.name);
-  if(route && route.permissions.includes(permission)) next();
-  else {
-    switch(permission) {
-      case NONE:
-        next( {name: 'LoginPage'} )
-        break
-      case CUSTOMER:
-        next({name: 'ViewAndSelectItems'})
-        break
-      case EMPLOYEE:
-        next({name: 'Hello'})
-        break
-      case OWNER:
-        next({name: 'Hello'})
-        break
-      default:
-        next({name: 'Hello'})
-        break
-    }
-  }
-});
-
-function matchRoute(routeName){
-  let matches = allRoutes.filter(r => r.name == routeName);
-  if(matches.length != 1) return null;
-  else return matches[0];
-}
-
-export default router;
+]
+})
