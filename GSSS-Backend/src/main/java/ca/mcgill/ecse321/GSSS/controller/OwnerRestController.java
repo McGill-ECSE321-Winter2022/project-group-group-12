@@ -7,6 +7,7 @@ import ca.mcgill.ecse321.GSSS.service.AddressService;
 import ca.mcgill.ecse321.GSSS.service.OwnerService;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,27 +35,26 @@ public class OwnerRestController {
    * @param email The owner's email
    * @param password The owner's password
    * @param addressId The address' ID
-   * @return The created/retrieved owner DTO
-   * @throws IllegalArgumentException If the inputs are invalid
+   * @return The created/retrieved owner DTO if successful, else return the error
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/createowner", "/createowner/"})
-  public OwnerDto createOwner(
+  public ResponseEntity<?> createOwner(
       @RequestParam(name = "username") String username,
       @RequestParam(name = "email") String email,
       @RequestParam(name = "password") String password,
-      @RequestParam(name = "address") String addressId)
-      throws IllegalArgumentException {
-    Owner owner = null;
+      @RequestParam(name = "address") String addressId){
     try {
       Address address = addressService.getAddress(addressId);
-      owner = ownerService.createOwner(username, email, password, address);
-    } catch (IllegalArgumentException e) {
-      if (e.getMessage().contains("Owner already exists in the system!")) {
-        owner = ownerService.getOwner();
-      }
+      Owner owner = ownerService.createOwner(username, email, password, address);
+	  return ResponseEntity.ok(DtoUtility.convertToDto(owner));
+    }catch(Exception e) {
+    	if (e.getMessage().contains("Owner already exists in the system!")) {
+	        Owner owner = ownerService.getOwner();
+	  	  	return ResponseEntity.ok(DtoUtility.convertToDto(owner));
+	      }
+    	return ResponseEntity.badRequest().body(e.getMessage());
     }
-    return DtoUtility.convertToDto(owner);
   }
 
   /**
@@ -74,20 +74,21 @@ public class OwnerRestController {
    * @param username Username we want to update
    * @param password Password we want to update
    * @param addressId Address we want to update
-   * @return The modified owner as a DTO object
-   * @throws IllegalArgumentException If the inputs are invalid
-   * @throws NoSuchElementException If the owner doesn't exist
+   * @return The modified owner as a DTO object if successful, else return the error
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/owner", "/owner/"})
-  public OwnerDto modifyOwner(
+  public ResponseEntity<?> modifyOwner(
       @RequestParam(name = "username") String username,
       @RequestParam(name = "password") String password,
-      @RequestParam(name = "address") String addressId)
-      throws IllegalArgumentException, NoSuchElementException {
-    Address address = addressService.getAddress(addressId);
-    Owner owner = ownerService.modifyOwner(username, password, address);
-    return DtoUtility.convertToDto(owner);
+      @RequestParam(name = "address") String addressId){
+	  try {
+	    Address address = addressService.getAddress(addressId);
+	    Owner owner = ownerService.modifyOwner(username, password, address);
+	    return ResponseEntity.ok(DtoUtility.convertToDto(owner));
+	  }catch (Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
@@ -95,16 +96,18 @@ public class OwnerRestController {
    *
    * @param city The new city
    * @param fee The new fee
-   * @return The new owner with modified info
+   * @return The new owner with modified info if successful, else return the error
    * @author Wassim Jabbour
    */
   @PostMapping(value = {"/info", "/info/"})
-  public OwnerDto modifySystemInformation(
-      @RequestParam(name = "city") String city, @RequestParam(name = "fee") double fee)
-      throws IllegalArgumentException, NoSuchElementException {
-
-    Owner owner = ownerService.modifySystemInformation(city, fee);
-    return DtoUtility.convertToDto(owner);
+  public ResponseEntity<?> modifySystemInformation(
+      @RequestParam(name = "city") String city, @RequestParam(name = "fee") double fee){
+	  try {
+	    Owner owner = ownerService.modifySystemInformation(city, fee);
+	    return ResponseEntity.ok(DtoUtility.convertToDto(owner));
+	  }catch (Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
 }
