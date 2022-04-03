@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,40 +63,39 @@ public class CustomerRestController {
    * GET method that retrieves the customer dto corresponding to an email
    *
    * @param email The email to search the cutsomer from
-   * @return The corresponding customer dto
-   * @throws NoSuchElementException, IllegalArgumentException
+   * @return The corresponding customer dto if successful, else return the error
    * @author Enzo Benoit-Jeannin
    */
   @GetMapping(value = {"/customer/{email}", "/customer/{email}/"})
-  public CustomerDto getCustomer(@PathVariable("email") String email)
-      throws IllegalArgumentException, NoSuchElementException {
-
-    if (email == null) {
-      throw new IllegalArgumentException("There is no such email!");
-    }
-
-    CustomerDto customerDto = DtoUtility.convertToDto(customerService.getCustomerByEmail(email));
-    return customerDto;
+  public ResponseEntity<?> getCustomer(@PathVariable("email") String email){
+	 
+	try {
+	    CustomerDto customerDto = DtoUtility.convertToDto(customerService.getCustomerByEmail(email));
+	    return ResponseEntity.ok(customerDto);
+	}catch(Exception e) {
+		return ResponseEntity.badRequest().body(e.getMessage());
+	}
   }
 
   /**
    * GET method that retrieves the customer dto corresponding to a purchase
    *
    * @param purchaseId The ID of the purchase
-   * @return The customer with the passed purchase
-   * @throws IllegalArgumentException If the purchase ID is null or empty
-   * @throws NoSuchElementException   If no purchase exists with the given purchase ID
+   * @return The customer with the passed purchase if successful, else return the error
    */
   @GetMapping(value = {"/customerByPurchase/{purchaseId}", "/customerByPurchase/{purchaseId}/"})
-  public CustomerDto getCustomerByPurchase(@PathVariable("purchaseId") String purchaseId)
-      throws IllegalArgumentException, NoSuchElementException {
+  public ResponseEntity<?> getCustomerByPurchase(@PathVariable("purchaseId") String purchaseId){
+	  try {
+		  Purchase purchase = purchaseService.getPurchase(purchaseId);
 
-    Purchase purchase = purchaseService.getPurchase(purchaseId);
+		    CustomerDto customerDto = DtoUtility.convertToDto(
+		        customerService.getCustomerByPurchase(purchase));
 
-    CustomerDto customerDto = DtoUtility.convertToDto(
-        customerService.getCustomerByPurchase(purchase));
-
-    return customerDto;
+		    return ResponseEntity.ok(customerDto);
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }	
+    
   }
 
 
@@ -106,17 +106,21 @@ public class CustomerRestController {
    * @param email     Email of the Customer DTO to create
    * @param password  Password of the Customer DTO to create
    * @param addressId Address of the Customer DTO to create
-   * @return Created customer DTO
-   * @throws IllegalArgumentException
+   * @return Created customer DTO if successful, else return error
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/customer", "/customer/"})
-  public CustomerDto createCustomer(@RequestParam(name = "username") String username,
+  public ResponseEntity<?> createCustomer(@RequestParam(name = "username") String username,
       @RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
-      @RequestParam(name = "address") String addressId) throws IllegalArgumentException {
-    Address address = addressService.getAddress(addressId);
-    return DtoUtility
-        .convertToDto(customerService.createCustomer(username, email, password, address));
+      @RequestParam(name = "address") String addressId){
+	  try {
+		  Address address = addressService.getAddress(addressId);
+		    return ResponseEntity.ok(DtoUtility.convertToDto(customerService.createCustomer(username, email, password, address)));
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+
+	  }
+   
   }
 
   /**
@@ -135,16 +139,20 @@ public class CustomerRestController {
    *
    * @param email      Email of the cusotmer to add the purchase to
    * @param purchaseId id of the purchase to add to the customer's purchase history
-   * @return Customer DTO
+   * @return Customer DTO if successful, else return error
    * @author Enzo Benoit-Jeannin
    * @author Enzo Benoit-Jeannin
-   * @thorws IllegalArgumentException
    */
   @PostMapping(value = {"/customer/purchase/{email}", "/customer/purhcase/{email}/"})
-  public CustomerDto addPurchase(@PathVariable String email,
-      @RequestParam(name = "purchase") String purchaseId) throws IllegalArgumentException {
-    return DtoUtility.convertToDto(customerService.addPurchase(
-        customerService.getCustomerByEmail(email), purchaseService.getPurchase(purchaseId)));
+  public ResponseEntity<?> addPurchase(@PathVariable String email,
+      @RequestParam(name = "purchase") String purchaseId) {
+	  try {
+	    return ResponseEntity.ok(DtoUtility.convertToDto(customerService.addPurchase(
+	        customerService.getCustomerByEmail(email), purchaseService.getPurchase(purchaseId)))); 
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+
+	  }
   }
 
   /**
@@ -154,63 +162,71 @@ public class CustomerRestController {
    * @param username  Username we want to update
    * @param addressId Address we want to update
    * @param disabled  Change the disable state of the customer
-   * @return The modified customer as a DTO object
-   * @throws IllegalArgumentException
+   * @return The modified customer as a DTO object if successful, else return error
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/customer/{email}", "/customer/{email}/"})
-  public CustomerDto modifyCustomer(@PathVariable("email") String email,
+  public ResponseEntity<?> modifyCustomer(@PathVariable("email") String email,
       @RequestParam(name = "username") String username,
       @RequestParam(name = "address") String addressId,
-      @RequestParam(name = "disabled") boolean disabled) throws IllegalArgumentException {
-    Address address = addressService.getAddress(addressId);
-    Customer customer =
-        customerService.modifyCustomer(username, email, address, disabled);
-    return DtoUtility.convertToDto(customer);
+      @RequestParam(name = "disabled") boolean disabled) {
+	  try {
+	    Address address = addressService.getAddress(addressId);
+	    Customer customer =
+	        customerService.modifyCustomer(username, email, address, disabled);
+	    return ResponseEntity.ok(DtoUtility.convertToDto(customer));
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+
+	  }
   }
 
   /**
-   * Mehtod to modify/update a customer's password
+   * Method to modify/update a customer's password
    *
    * @param email    The email of the customer to modify
    * @param password the new password of the customer
-   * @return The modified customer as a DTO object
-   * @throws IllegalArgumentException
+   * @return The modified customer as a DTO object if successful, else return error
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/customer/password/{email}", "/customer/password/{email}/"})
-  public CustomerDto modifyPassword(@PathVariable("email") String email,
-      @RequestParam(name = "password") String password)
-      throws IllegalArgumentException, NoSuchElementException {
-
-    return DtoUtility.convertToDto(
-        customerService.modifyPassword(email, password));
+  public ResponseEntity<?> modifyPassword(@PathVariable("email") String email,
+      @RequestParam(name = "password") String password){
+	  
+	  try {
+	    return ResponseEntity.ok(DtoUtility.convertToDto(
+	        customerService.modifyPassword(email, password)));
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
    * Finds the delivery fee associated with a customer
    *
    * @param email The email of the customer
-   * @return The delivery fee
-   * @throws IllegalArgumentException If email is empty
-   * @throws NoSuchElementException   If no customer with the email exists
+   * @return The delivery fee if successful, else return error
    */
   @GetMapping(value = {"/deliveryfee/{email}", "/deliveryfee/{email}/"})
-  public double returnDeliveryFee(@PathVariable("email") String email)
-      throws IllegalArgumentException, NoSuchElementException {
+  public ResponseEntity<?> returnDeliveryFee(@PathVariable("email") String email){
+	  try {
+		// Finding the associated customer if it exists (Will be null for an in person purchase)
+		    Customer customer = customerService.getCustomerByEmail(email);
 
-    // Finding the associated customer if it exists (Will be null for an in person purchase)
-    Customer customer = customerService.getCustomerByEmail(email);
+		    // Getting the system information (city)
+		    Owner owner = ownerService.getOwner();
+		    String city = owner.getStoreCity();
 
-    // Getting the system information (city)
-    Owner owner = ownerService.getOwner();
-    String city = owner.getStoreCity();
+		    // Return the out of town fee if the customer is out of town, 0 else
+		    if (!city.equals(customer.getAddress().getCity())) {
+		      return ResponseEntity.ok(owner.getOutOfTownDeliveryFee());
+		    }
+		    return ResponseEntity.ok(0);
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
 
-    // Return the out of town fee if the customer is out of town, 0 else
-    if (!city.equals(customer.getAddress().getCity())) {
-      return owner.getOutOfTownDeliveryFee();
-    }
-    return 0;
+	  }
+    
   }
 
 }
