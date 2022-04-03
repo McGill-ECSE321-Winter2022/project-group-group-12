@@ -41,7 +41,7 @@ const otherRoutes = [
     path: '/',
     name: 'Hello',
     component: Hello,
-    permissions: [NONE, CUSTOMER, EMPLOYEE, OWNER] // TODO REMOVE NONE AND TEST BEFORE SUBMISSION
+    permissions: [EMPLOYEE, OWNER] // TODO REMOVE NONE AND TEST BEFORE SUBMISSION
   },
   {
     path: '/login',

@@ -93,7 +93,7 @@ export default {
               this.purchases[i].cost = response.data
             })
             .catch(e => {
-              this.error = e
+              this.error = e.response.data
               setTimeout(() => this.error = null, 3000);
             })
         }
@@ -134,7 +134,7 @@ export default {
             this.selectedPurchaseItemsPrices.push(response.data.price)
           })
           .catch(e => {
-            this.error = e
+            this.error = e.response.data
             setTimeout(() => this.error = null, 3000);
           })
       }
@@ -157,7 +157,7 @@ export default {
           location.reload(true);
         })
         .catch(e => {
-          this.error = e
+          this.error = e.response.data
           setTimeout(() => this.error = null, 3000);
         });
     },
@@ -179,7 +179,7 @@ export default {
           location.reload(true);
         })
         .catch(e => {
-          this.error = e
+          this.error = e.response.data
           setTimeout(() => this.error = null, 3000);
         });
     }

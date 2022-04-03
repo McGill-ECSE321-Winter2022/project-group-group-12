@@ -97,7 +97,7 @@ export default {
     .then(response => {
       this.itemCategories = response.data
     }).catch(e => {
-    this.error = e
+    this.error = e.response.data
     setTimeout(() => this.error = null, 3000);
     })
   },
@@ -125,7 +125,7 @@ export default {
         setTimeout(()=>this.success=null, 3000)
       })
       .catch(e => {
-        this.error = e
+        this.error = e.response.data
         setTimeout(() => this.error = null, 3000);
       })
     },
@@ -145,7 +145,7 @@ export default {
         location.reload(true);
       })
       .catch(e => {
-        this.error = e
+        this.error = e.response.data
         setTimeout(() => this.error = null, 3000);
       })
     },

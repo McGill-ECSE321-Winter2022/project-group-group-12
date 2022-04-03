@@ -119,7 +119,7 @@ export default {
           this.purchases[i].customer = response.data.email
         })
         .catch(e => {
-          this.error = e
+          this.error = e.response.data
           setTimeout(() => this.error = null, 3000);
         })
       }
@@ -131,7 +131,7 @@ export default {
           this.purchases[i].cost = response.data
         })
         .catch(e => {
-          this.error = e
+          this.error = e.response.data
           setTimeout(() => this.error = null, 3000);
         })
       }
@@ -147,7 +147,7 @@ export default {
       this.employees = response.data
     })
     .catch(e => {
-      this.error = e
+      this.error = e.response.data
       setTimeout(() => this.error = null, 3000);
     })
   },
@@ -176,7 +176,7 @@ export default {
           this.selectedPurchaseItemsPrices.push(response.data.price)
         })
         .catch(e => {
-          this.error = e
+          this.error = e.response.data
           setTimeout(() => this.error = null, 3000);
         })
       }
@@ -201,7 +201,7 @@ export default {
         setTimeout(()=>this.success=null, 3000)
       })
       .catch(e => {
-        this.error = e
+        this.error = e.response.data
         setTimeout(() => this.error = null, 3000);
       });
     },
@@ -225,7 +225,7 @@ export default {
         setTimeout(()=>this.success=null, 3000)
       })
       .catch(e => {
-        this.error = e
+        this.error = e.response.data
         setTimeout(() => this.error = null, 3000);
       });
     }

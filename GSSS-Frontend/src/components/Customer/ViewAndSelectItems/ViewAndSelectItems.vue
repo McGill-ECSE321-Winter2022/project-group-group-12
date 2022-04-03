@@ -161,7 +161,7 @@ About: Page to handle selecting items and adding them to the customer's cart
       
       })
     .catch(e => {
-      this.error = e
+      this.error = e.response.data
       setTimeout(()=>this.error=null, 3000)
     })
 
@@ -185,7 +185,7 @@ About: Page to handle selecting items and adding them to the customer's cart
 
       })
     .catch(e => {
-      this.error = e
+      this.error = e.response.data
       setTimeout(()=>this.error=null, 3000)
     })
   },

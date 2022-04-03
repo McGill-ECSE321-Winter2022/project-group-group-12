@@ -118,7 +118,7 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
       this.deliveryFee = response.data
       })
     .catch(e => {
-      this.error = e
+      this.error = e.response.data
       setTimeout(()=>this.error=null, 3000)
     })
 
@@ -158,7 +158,7 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
           this.$router.push("/customer/payment")
         })
         .catch(e => {
-          this.error = e
+          this.error = e.response.data
           setTimeout(()=>this.error=null, 3000)
         })
     }

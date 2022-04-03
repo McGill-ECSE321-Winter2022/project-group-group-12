@@ -131,7 +131,7 @@ export default {
           this.currentFee = this.chosenFee;
         })
         .catch(e => {
-          this.errorStoreInfo = 'Failed to update the store information!'
+          this.errorStoreInfo = e
           setTimeout(() => this.errorStoreInfo = null, 5000);
         })
     },
@@ -170,7 +170,7 @@ export default {
 
             })
             .catch(e => {
-              this.errorBH = 'Failed to update the Business Hours!'
+              this.errorBH = e
               setTimeout(() => this.errorBH = null, 5000);
             })
         }
@@ -254,7 +254,7 @@ export default {
 
           })
           .catch(e => {
-            this.errorBH = 'Failed to update the Business Hours!'
+            this.errorBH = e
             setTimeout(() => this.errorBH = null, 5000);
           })
       }

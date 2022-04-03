@@ -67,7 +67,7 @@ export default {
             this.shifts = response.data
         })
         .catch(e => {
-            this.error = e
+            this.error = e.response.data
             setTimeout(()=>this.error=null, 3000)
         })
 

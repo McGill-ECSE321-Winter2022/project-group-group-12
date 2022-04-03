@@ -22,10 +22,11 @@ export default{
             .then(response => {
                 localStorage.setItem('email', this.email);
                 localStorage.setItem('permission', response.data);
+                console.log(response.data)
                 this.$router.go('/')
               })
               .catch((error) => {
-                this.error = "Invalid username or password."
+                this.error = error
                 setTimeout(() => this.error = null, 3000);
               })
               

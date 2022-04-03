@@ -112,7 +112,7 @@ About: Page to handle viewing and editing the items as the owner
       
       })
     .catch(e => {
-      this.error = e
+      this.error = e.response.data
       setTimeout(()=>this.error=null, 3000)
     })
 
@@ -125,7 +125,7 @@ About: Page to handle viewing and editing the items as the owner
       
       })
     .catch(e => {
-      this.error = e
+      this.error = e.response.data
       setTimeout(()=>this.error=null, 3000)
     })
   },
@@ -181,7 +181,7 @@ About: Page to handle viewing and editing the items as the owner
           setTimeout(()=>this.success=null, 3000)
         })
       .catch(e => {
-        this.error = e
+        this.error = e.response.data
         setTimeout(()=>this.error=null, 3000)
       })
     }
