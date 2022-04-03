@@ -6,13 +6,10 @@ import ca.mcgill.ecse321.GSSS.model.Employee;
 import ca.mcgill.ecse321.GSSS.model.Owner;
 import ca.mcgill.ecse321.GSSS.service.AccountService;
 import java.util.NoSuchElementException;
-import javax.servlet.http.Cookie;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,44 +37,20 @@ class AccountRestController {
    * @author Philippe Sarouphim Hochar
    */
   @PostMapping(value = {"/account/login", "/account/login/"})
-  public String logIn(@RequestParam() String email, @RequestParam String password) throws NoSuchElementException, IllegalArgumentException {
+  public ResponseEntity<String> logIn(@RequestParam() String email, @RequestParam String password){
 
-    Account account = accountService.authenticate(email, password);
+	try {
+	    Account account = accountService.authenticate(email, password);
+	    if (account instanceof Customer)
+	        return ResponseEntity.ok("Customer");
+	      else if (account instanceof Employee) 
+	        return ResponseEntity.ok("Employee");
+	      else if (account instanceof Owner) 
+	        return ResponseEntity.ok("Owner");
+	      return null;
 
-    Cookie cookie = new Cookie("token", account.getEmail());
-
-    // Creating the cookie and setting it
-    cookie.setPath("/");
-    cookie.setSecure(false);
-    cookie.setHttpOnly(true);
-    
-    if (account instanceof Customer)
-      return "Customer";
-    else if (account instanceof Employee) 
-      return "Employee";
-    else if (account instanceof Owner) 
-      return "Owner";
-    
-    return null;
-
-  }
-
-  /**
-   * To log out of a session
-   *
-   * @param response The HTTP servlet response to remove the cookies
-   * @author Philippe Sarouphim Hochar
-   */
-  @GetMapping(value = {"/account/logout", "/account/logout/"})
-  public void logOut(HttpServletResponse response) {
-    Cookie cookie = new Cookie("token", "");
-
-    // Removing the cookie
-    cookie.setMaxAge(0);
-    cookie.setPath("/");
-    cookie.setSecure(false);
-    cookie.setHttpOnly(true);
-
-    response.addCookie(cookie);
+	}catch (Exception e){
+		return ResponseEntity.badRequest().body(e.getMessage());
+	}
   }
 }
