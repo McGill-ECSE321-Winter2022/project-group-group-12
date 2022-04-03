@@ -57,7 +57,7 @@ jobs:
         environment: GSSS-Backend/src/test/integration/postman-environment.json
         reporters: cli
         
-  deploy:
+  deploy-backend:
     needs: integration-tests
     runs-on: ubuntu-18.04
     steps:
@@ -69,3 +69,15 @@ jobs:
         heroku_email: "wassim.jabbour@mail.mcgill.ca"
       env:
         HD_SPRING_PROFILES_ACTIVE: "production"
+        
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: push frontend
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: 0e2c3d03-6e02-430f-88a5-7faa22a6a330
+          heroku_app_name: "grocerystore-frontend" #Must be unique in Heroku
+          heroku_email: "sarouphim.philippe@gmail.com"
+          dontuseforce: false
