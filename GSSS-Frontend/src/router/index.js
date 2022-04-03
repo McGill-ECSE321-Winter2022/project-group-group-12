@@ -30,122 +30,157 @@ import OrderHistory from '@/components/Customer/OrderHistory/OrderHistory.vue';
 
 Vue.use(Router)
 
+function requireNone(from, to, next) {
+  var permission = localStorage.getItem("permission")
+  if(!permission) next()
+  else redirectDefault(permission)
+}
+
+function requireCustomer(from, to, next) {
+  var permission = localStorage.getItem("permission")
+  if(permission == "Customer") next()
+  else redirectDefault(permission)
+}
+
+function requireEmployee(from, to, next) {
+  var permission = localStorage.getItem("permission")
+  if(permission == "Employee") next()
+  else redirectDefault(permission)
+}
+
+function requireOwner(from, to, next) {
+  var permission = localStorage.getItem("permission")
+  if(permission == "Owner") next()
+  else redirectDefault(permission)
+}
+
+function requireEmployeeOrOwner(from, to, next) {
+  var permission = localStorage.getItem("permission")
+  if(permission == "Employee" || permission == "Owner") next()
+  else redirectDefault(permission)
+}
+
+function redirectDefault(permission) {
+  if(permission == "Employee" || permission == "Owner") next({ name: 'Hello' })
+  else if (permission == "Customer") next({ name: 'ViewAndSelectItems' })
+  else next({ name: 'LoginPage' })
+}
+
 export default new Router ({
   mode: 'history',
   routes: [
-  // {
-  //   path: '/',
-  //   name: 'Hello',
-  //   component: Hello,
-  //   // permissions: [EMPLOYEE, OWNER]
-  // },
+  {
+    path: '/',
+    name: 'Hello',
+    component: Hello,
+    beforeEnter: requireEmployeeOrOwner
+  },
   {
     path: '/',
     name: 'LoginPage',
     component: LoginPage,
-    // permissions: [NONE]
+    beforeEnter: requireNone
   },
   {
     path: '/signup',
     name: 'SignupPage',
     component: SignupPage,
-    // permissions: [NONE]
+    beforeEnter: requireNone
   },
   {
     path: '/owner/purchases',
     name: 'ViewPurchases',
     component: ViewPurchases,
-    // permissions: [OWNER]
+    beforeEnter: requireOwner
   },
   {
     path: '/owner/systeminformation',
     name: 'SystemInformation',
     component: SystemInformation,
-    // permissions: [OWNER]
+    beforeEnter: requireOwner
   },
   {
     path: '/owner/itemcategory',
     name: 'OwnerItemCategory',
     component: OwnerItemCategory,
-    // permissions: [OWNER]
+    beforeEnter: requireOwner
   },
   {
     path: '/owner/viewandedititems',
     name: 'ViewAndEditItems',
     component: ViewAndEditItems,
-    // permissions: [OWNER]
+    beforeEnter: requireOwner
   },
   {
     path: '/owner/shifts',
     name: 'ShiftList',
     component: ShiftList,
-    // permissions: [OWNER]
+    beforeEnter: requireOwner
   },
   {
     path: '/owner/employees',
     name: 'Employees List',
     component: EmployeeList,
-    // permissions: [OWNER]
+    beforeEnter: requireOwner
   },
   {
     path: '/employee/purchases',
     name: 'EmployeeViewPurchase',
     component: EmployeeViewPurchase,
-    // permissions: [EMPLOYEE]
+    beforeEnter: requireEmployee
   },
   {
     path: '/employee/customers',
     name: 'CustomerList',
     component: CustomerList,
-    // permissions: [EMPLOYEE, OWNER]
+    /beforeEnter: requireEmployeeOrOwner
   },
   {
     path: '/employee/view/shifts',
     name: 'EmployeeViewShift',
     component: EmployeeViewShift,
-    // permissions: [EMPLOYEE]
+    beforeEnter: requireEmployee
   },
   {
     path: '/employee/account',
     name: 'Employee Account',
     component: EmployeeAccount,
-    // permissions: [EMPLOYEE]
+    beforeEnter: requireEmployee
   },
   {
     path: '/customer/shop',
     name: 'ViewAndSelectItems',
     component: ViewAndSelectItems,
-    // permissions: [CUSTOMER]
+    beforeEnter: requireCustomer
   },
   {
     path: '/customer/confirmOrderType',
     name: 'ConfirmOrderType',
     component: ConfirmOrderType,
-    // permissions: [CUSTOMER]
+    beforeEnter: requireCustomer
   },
   {
     path: '/customer/payment',
     name: 'Payment',
     component: Payment,
-    // permissions: [CUSTOMER]
+    beforeEnter: requireCustomer
   },
   {
     path: '/customer/account',
     name: 'Customer Account',
     component: ViewCustomerAccount,
-    // permissions: [CUSTOMER]
+    beforeEnter: requireCustomer
   },
   {
     path: '/customer/storeinformation',
     name: 'Store Information',
     component: StoreInformation,
-    // permissions: [NONE, CUSTOMER, EMPLOYEE, OWNER]
   },
   {
     path: '/customer/orderhistory',
     name: 'Order History',
     component: OrderHistory,
-    // permissions: [CUSTOMER]
+    beforeEnter: requireCustomer
   }
 ]
 })
