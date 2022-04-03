@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Router from 'vue-router'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 // Owner imports
