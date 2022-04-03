@@ -19,7 +19,7 @@
 </template>
 
 <style 
-scoped src='./login.css'>
+scoped src='/src/components/LoginPage/login.css'>
 </style>
 
 <script src="./loginPage.js" />
