@@ -153,6 +153,11 @@ About: Page to handle selecting items and adding them to the customer's cart
 
       // Setting the filtered items to be all by default (Cloning)
       this.filteredItems = [...this.items]
+
+      if(this.items.length == 0) {
+        this.error = "Note: There are no items in the system at the current time."
+        setTimeout(()=>this.error=null, 3000)
+      }
       
       })
     .catch(e => {

@@ -98,6 +98,11 @@ export default {
             })
         }
 
+        if(this.purchases.length == 0) {
+          this.error = "Note: The current customer has not made any online purchases yet"
+          setTimeout(()=>this.error=null, 3000)
+        }
+
       })
       .catch(e => {
         this.error = e
