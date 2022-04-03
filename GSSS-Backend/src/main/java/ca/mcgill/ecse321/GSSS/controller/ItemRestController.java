@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,35 +37,39 @@ public class ItemRestController {
    * method to get itemDto by name
    *
    * @param name name we want to find item by
-   * @return itemDto item we want to find
-   * @throws IllegalArgumentException argument exception when inputted name is either null or empty
-   * @throws NoSuchElementException   such element exception when there is no item with the inputed
-   *                                  name
+   * @return itemDto item we want to find if successful, else return the error
    * @author Habib Jarweh
    */
   @GetMapping(value = {"/item/{name}", "/item/{name}/"})
-  public ItemDto getItemByName(@PathVariable("name") String name)
-      throws IllegalArgumentException, NoSuchElementException {
-    Item item = itemService.getItemByName(name);
-    return DtoUtility.convertToDto(item, item.getCategory());
+  public ResponseEntity<?> getItemByName(@PathVariable("name") String name){
+	  try {
+	    Item item = itemService.getItemByName(name);
+	    return ResponseEntity.ok(DtoUtility.convertToDto(item, item.getCategory()));
+	  }catch(Exception e){
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
    * method to get itemdtos by their category
    *
    * @param categoryName category name of items we want
-   * @return List<ItemDto> itemDto's we want to get
+   * @return List<ItemDto> itemDto's we want to get if successful, else return the error
    * @author Habib Jarweh
    */
   @GetMapping(value = {"/item/category/{categoryName}", "/item/category/{categoryName}/"})
-  public List<ItemDto> getItemsByCategory(@PathVariable("categoryName") String categoryName) {
-    ItemCategory itemCategory = itemCategoryService.getCategoryByName(categoryName);
-    List<Item> items = itemService.getItemsByCategory(itemCategory);
-    List<ItemDto> itemDtos = new ArrayList<ItemDto>();
-    for (Item i : items) {
-      itemDtos.add(DtoUtility.convertToDto(i));
-    }
-    return itemDtos;
+  public ResponseEntity<?> getItemsByCategory(@PathVariable("categoryName") String categoryName){
+	  try {
+	    ItemCategory itemCategory = itemCategoryService.getCategoryByName(categoryName);
+	    List<Item> items = itemService.getItemsByCategory(itemCategory);
+	    List<ItemDto> itemDtos = new ArrayList<ItemDto>();
+	    for (Item i : items) {
+	      itemDtos.add(DtoUtility.convertToDto(i));
+	    }
+	    return ResponseEntity.ok(itemDtos);
+	  }catch(Exception e){
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
@@ -93,14 +98,11 @@ public class ItemRestController {
    * @param availableForOrder if item is available for order
    * @param stillAvailable    if item is still available
    * @param itemCategoryName   item category
-   * @return itemDto we created
-   * @throws IllegalArgumentException argument exception when any or all inputed strings are null or
-   *                                  wrong, or when remaining quantity or price are negative, or
-   *                                  when item category is null
+   * @return itemDto we created if successful, else return the error
    * @author Habib Jarweh
    */
   @PostMapping(value = {"/item", "/item/"})
-  public ItemDto createItem(
+  public ResponseEntity<?> createItem(
       @RequestParam(name = "name") String name,
       @RequestParam(name = "description") String description,
       @RequestParam(name = "imageUrl") String imageUrl,
@@ -108,20 +110,23 @@ public class ItemRestController {
       @RequestParam(name = "price") double price,
       @RequestParam(name = "availableForOrder") boolean availableForOrder,
       @RequestParam(name = "stillAvailable") boolean stillAvailable,
-      @RequestParam(name = "itemCategory") String itemCategoryName)
-      throws IllegalArgumentException {
-    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryName);
-    Item item =
-        itemService.createItem(
-            name,
-            description,
-            imageUrl,
-            remainingQuantity,
-            price,
-            availableForOrder,
-            stillAvailable,
-            itemCategory);
-    return DtoUtility.convertToDto(item, itemCategory);
+      @RequestParam(name = "itemCategory") String itemCategoryName){
+	  try {
+	    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryName);
+	    Item item =
+	        itemService.createItem(
+	            name,
+	            description,
+	            imageUrl,
+	            remainingQuantity,
+	            price,
+	            availableForOrder,
+	            stillAvailable,
+	            itemCategory);
+	    return ResponseEntity.ok(DtoUtility.convertToDto(item, itemCategory));
+	  }catch(Exception e){
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
@@ -135,14 +140,11 @@ public class ItemRestController {
    * @param availableForOrder availability for order of item we want to update
    * @param stillAvailable    availability of item we want to update
    * @param itemCategoryName   item category
-   * @return itemDto we want to update
-   * @throws IllegalArgumentException argument exception when any or all inputed strings are null or
-   *                                  wrong, or when remaining quantity or price are negative, or
-   *                                  when item category is null
+   * @return itemDto we want to update if successful, else return the error
    * @author Habib Jarweh
    */
   @PostMapping(value = {"/item/{name}", "/item/{name}/"})
-  public ItemDto modifyItem(
+  public ResponseEntity<?> modifyItem(
       @PathVariable("name") String name,
       @RequestParam(name = "description") String description,
       @RequestParam(name = "imageUrl") String imageUrl,
@@ -150,31 +152,39 @@ public class ItemRestController {
       @RequestParam(name = "price") double price,
       @RequestParam(name = "availableForOrder") boolean availableForOrder,
       @RequestParam(name = "stillAvailable") boolean stillAvailable,
-      @RequestParam(name = "itemCategory") String itemCategoryName)
-      throws IllegalArgumentException {
-    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryName);
-    Item item =
-        itemService.modifyItem(
-            name,
-            description,
-            imageUrl,
-            remainingQuantity,
-            price,
-            availableForOrder,
-            stillAvailable,
-            itemCategory);
-    return DtoUtility.convertToDto(item, itemCategory);
+      @RequestParam(name = "itemCategory") String itemCategoryName){
+	  try {
+	    ItemCategory itemCategory = itemCategoryService.getCategoryByName(itemCategoryName);
+	    Item item =
+	        itemService.modifyItem(
+	            name,
+	            description,
+	            imageUrl,
+	            remainingQuantity,
+	            price,
+	            availableForOrder,
+	            stillAvailable,
+	            itemCategory);
+	    return ResponseEntity.ok(DtoUtility.convertToDto(item, itemCategory));
+	  }catch(Exception e){
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
    * method to delete item
    *
    * @param name name of the item we want to delete
-   * @throws IllegalArgumentException argument exception when name is null or empty
+   * @return null if successful, else return the error
    * @author Habib Jarweh
    */
   @DeleteMapping(value = {"/item/{name}", "/item/{name}/"})
-  public void deleteItem(@PathVariable("name") String name) throws IllegalArgumentException {
-    itemService.deleteItem(name);
+  public ResponseEntity<?> deleteItem(@PathVariable("name") String name){
+	  try {
+		  itemService.deleteItem(name);
+		  return ResponseEntity.ok(null);
+	  }catch(Exception e){
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 }
