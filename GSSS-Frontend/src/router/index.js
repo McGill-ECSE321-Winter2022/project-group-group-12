@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 // Owner imports
 import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases.vue'
@@ -27,6 +27,7 @@ import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewC
 import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
 import StoreInformation from '@/components/Customer/StoreInformation/StoreInformation.vue';
 import OrderHistory from '@/components/Customer/OrderHistory/OrderHistory.vue';
+import { create } from 'domain'
 
 
 Vue.use(Router)
@@ -165,9 +166,9 @@ const customerRoutes = [
 
 const allRoutes = [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes];
 
-const router = new Router({
-  mode: 'history',
-  routes: allRoutes
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: allRoutes,
 });
 
 router.beforeEach(async (to, from, next) => {
