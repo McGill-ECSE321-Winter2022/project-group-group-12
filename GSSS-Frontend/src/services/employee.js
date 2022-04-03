@@ -34,6 +34,8 @@ export const modifyEmployee = (modifiedEmpoyee) => new Promise((resolve, reject)
     .catch(err => reject(err));
 });
 
-export const modifyPassword = (email, modifiedPassword) => new Promise((resolve, reject) => {
-    reject("To be implemented");
+export const modifyPassword = (email, password) => new Promise((resolve, reject) => {
+    ax.post(`/employee/password/${email}`, null, { params: { password } })
+    .then(res => resolve())
+    .catch(err => reject(err));
 });
