@@ -4,6 +4,7 @@
 
 <template>
     <header>
+            <a href="/"><img src="../../assets/Logo_GSSS_notext.png" alt="centered image" height="60px" width="60px"></a>
             <h1><a href="/">GSSS</a></h1>
             <div>
                 <!-- Links if no user is logged in -->

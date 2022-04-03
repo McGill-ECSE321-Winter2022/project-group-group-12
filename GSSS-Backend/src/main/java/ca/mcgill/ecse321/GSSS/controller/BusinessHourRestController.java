@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,26 +35,27 @@ public class BusinessHourRestController {
    * GET method that retrieves the business hour corresponding to a certain day of the week
    *
    * @param weekday A string with the weekday we want to find
-   * @return The corresponding business hour dto
-   * @throws IllegalArgumentException, NoSuchElementException
+   * @return The corresponding business hour dto if successful, else return the error
    * @author Wassim Jabbour
    */
   @GetMapping(value = {"/businesshour/{weekday}", "/businesshour/{weekday}/"})
-  public BusinessHourDto getBusinessHourByWeekday(@PathVariable("weekday") String weekday)
-      throws NoSuchElementException, IllegalArgumentException {
-
-    Weekday correspondingWeekday = DtoUtility.findWeekdayByName(weekday); // Helper method
-    // defined below
-
-    // If the passed weekday is not valid
-    if (correspondingWeekday == null) {
-      throw new IllegalArgumentException("There is no such weekday!");
-    }
-
-    BusinessHourDto businessHourDto =
-        DtoUtility.convertToDto(businessHourService.getBusinessHourByWeekday(correspondingWeekday));
-
-    return businessHourDto;
+  public ResponseEntity<?> getBusinessHourByWeekday(@PathVariable("weekday") String weekday){
+	try {
+	    Weekday correspondingWeekday = DtoUtility.findWeekdayByName(weekday); // Helper method
+	    // defined below
+	
+	    // If the passed weekday is not valid
+	    if (correspondingWeekday == null) {
+	      throw new IllegalArgumentException("There is no such weekday!");
+	    }
+	
+	    BusinessHourDto businessHourDto =
+	        DtoUtility.convertToDto(businessHourService.getBusinessHourByWeekday(correspondingWeekday));
+	
+	    return ResponseEntity.ok(businessHourDto);
+	}catch (Exception e) {
+		return ResponseEntity.badRequest().body(e.getMessage());
+	}
   }
 
   /**
@@ -63,32 +65,33 @@ public class BusinessHourRestController {
    * @param weekday   The day of the week the BusinessHour is happening on
    * @param startTime The start time of the opening hours for that day
    * @param endTime   The end time of the opening hours for that day
-   * @return The Dto corresponding to the created business hour
-   * @throws IllegalArgumentException
+   * @return The Dto corresponding to the created business hour if successful, else return the error
    * @author Wassim Jabbour
    */
   @PostMapping(value = {"/businesshour", "/businesshour/"})
-  public BusinessHourDto updateBusinessHour(
+  public ResponseEntity<?> updateBusinessHour(
       @RequestParam(name = "weekday") String weekday,
       @RequestParam(name = "starttime")
       @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm")
           LocalTime startTime,
       @RequestParam(name = "endtime")
       @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm")
-          LocalTime endTime)
-      throws IllegalArgumentException {
-
-    Weekday correspondingWeekday = DtoUtility.findWeekdayByName(weekday); // Helper method in DtoUtility
-    
-    if (correspondingWeekday == null) {
-      throw new IllegalArgumentException("There is no such weekday!");
-    }
-
-    BusinessHour businessHour =
-        businessHourService.createBusinessHour(
-            correspondingWeekday, Time.valueOf(startTime), Time.valueOf(endTime));
-
-    return DtoUtility.convertToDto(businessHour);
+          LocalTime endTime){
+	  try {
+	    Weekday correspondingWeekday = DtoUtility.findWeekdayByName(weekday); // Helper method in DtoUtility
+	    
+	    if (correspondingWeekday == null) {
+	      throw new IllegalArgumentException("There is no such weekday!");
+	    }
+	
+	    BusinessHour businessHour =
+	        businessHourService.createBusinessHour(
+	            correspondingWeekday, Time.valueOf(startTime), Time.valueOf(endTime));
+	
+	    return ResponseEntity.ok(DtoUtility.convertToDto(businessHour));
+	  }catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
