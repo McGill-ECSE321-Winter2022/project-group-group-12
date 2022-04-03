@@ -1,39 +1,9 @@
 <template>
   <div class="hello">
-    <h1 style="text-align:center;font-size:50px;"> <p style="color:powderblue;"> {{ msg }} </p> </h1>
-    <h1 style="text-align:center;font-size:30px;"> <p style="color:#FFD700;"> {{ quote }} </p> </h1>
+    <h1 style="text-align:center;font-size:50px;"> <p style="color:white;"> {{ msg }} </p> </h1>
+    <h1 style="text-align:center;font-size:30px;"> <p style="color:#b36b00"> {{ quote }} </p> </h1>
+    <br><br>
     <center><img src="../assets/Logo_GSSS.png" alt="centered image" height="300" width="300"> </center>
-    <br>
-    <h2>Available Links</h2>
-    <ul>
-      <li><a href="/customer/shop"> Main shopping page</a></li>
-      <li><a href="/owner/purchases" > Owner ViewPurchases </a></li>
-      <li><a href="/employee/purchases" > Employee ViewPurchases </a></li>
-      <li><a href="/owner/viewandedititems" > Owner view and edit items </a></li>
-      <li><a href="/login"  > Login Page</a></li>
-      <li><a href="/signup"  > Signup Page</a></li>
-      <li><a href="/employee/customers"  > Customer List</a></li>
-      <li><a href="/employee/storeinformation" >Store Information employee</a></li>
-      <li><a href="/owner/systeminformation"  > System Information</a></li>
-      <li><a href="/customer/payment" >Payment page</a></li>
-      <li><a href="/customer/account" >Customer Account page</a></li>
-
-      <li><a href="/customer/storeinformation" >Store Information customer</a></li>
-      <li><a href="/customer/orderhistory" >Order History</a></li>
-      <li><a href="/owner/shifts" >Owner shifts view page</a></li>
-
-
-    </ul>
-    <div style="margin: 4rem 0;">
-      <h2>!!! The following is intended for development purposes only !!!</h2>
-      <p>Choose a permission:</p>
-      <button v-on:click="changePermission('')" v-bind:style="!permission ? 'background: blue;' : ''">None</button>
-      <button v-on:click="changePermission('Customer')" v-bind:style="permission == 'Customer' ? 'background: blue;' : ''">Customer</button>
-      <button v-on:click="changePermission('Employee')" v-bind:style="permission == 'Employee' ? 'background: blue;' : ''">Employee</button>
-      <button v-on:click="changePermission('Owner')" v-bind:style="permission == 'Owner' ? 'background: blue;' : ''">Owner</button>
-    </div>
-    <h2>Github</h2>
-    <li><a href="https://github.com/McGill-ECSE321-Winter2022/project-group-group-12" target="_blank">Our github page</a></li>
   </div>
 </template>
 
@@ -42,7 +12,7 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome back to work, GSSS staff members !',
+      msg: '',
       quote: '',
       count: 0,
       permission: localStorage.permission,
@@ -80,12 +50,13 @@ export default {
   created: function() {
     // Choosing a quote randomly
     this.quote = this.quoteBank[Math.floor(Math.random() * this.quoteBank.length)]
-  },
 
-  methods: {
-    changePermission: function(p){
-      localStorage.setItem("permission", p);
-      this.$router.go();
+    // Setting the message based on if owner or employee
+    if(this.permission == "Employee") {
+      this.msg = "Welcome back, dear member of the GSSS staff!"
+    }
+    else {
+      this.msg = "Welcome back, dear owner of the GSSS!"
     }
   }
 }
