@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,27 +57,29 @@ public class EmployeeRestController {
    * This API endpoint creates a new employee.
    *
    * @param employee Employee DTO (passed in the request body).
-   * @return DTO of the newly created employee.
-   * @throws IllegalArgumentException If the input is invalid
+   * @return DTO of the newly created employee if successful, else return error
    * @author Philippe Sarouphim Hochar.
    */
   @PostMapping(value = {"/employee", "/employee/"})
-  public EmployeeDto createEmployee(@RequestBody EmployeeDto employee)
-      throws IllegalArgumentException {
-    return DtoUtility.convertToDto(
-        employeeService.createEmployee(
-            employee.getUsername(),
-            employee.getEmail(),
-            employee.getPassword(),
-            addressService.getAddress(employee.getAddress().getId())));
+  public ResponseEntity<?> createEmployee(@RequestBody EmployeeDto employee){
+	  try {
+		  return ResponseEntity.ok(DtoUtility.convertToDto(
+			        employeeService.createEmployee(
+			            employee.getUsername(),
+			            employee.getEmail(),
+			            employee.getPassword(),
+			            addressService.getAddress(employee.getAddress().getId()))));
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
+    
   }
 
   /**
    * This API endpoint updates an employee.
    *
    * @param employee Employee DTO
-   * @return DTO of the newly updated employee.
-   * @throws IllegalArgumentException If the input is invalid
+   * @return DTO of the newly updated employee. if successful, else return error
    * @author Philippe Sarouphim Hochar.
    */
   @PutMapping(value = {"/employee", "/employee/"})
