@@ -70,6 +70,11 @@ export default {
             this.error = e
             setTimeout(()=>this.error=null, 3000)
         })
+
+        if(this.shifts.length == 0) {
+          this.error = "Note: The current employee has not yet been assigned any shifts"
+          setTimeout(()=>this.error=null, 3000)
+        }
     }
 }
 </script>

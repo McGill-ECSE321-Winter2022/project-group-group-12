@@ -100,6 +100,11 @@ export default {
       // JSON responses are automatically parsed.
       this.purchases = response.data
 
+      if(this.purchases.length == 0) {
+          this.error = "Note: The current employee has not yet been assigned any purchases"
+          setTimeout(()=>this.error=null, 3000)
+      }
+
       // Iterating over all purchases and adding their customer's email as a field
       for(let i = 0; i < this.purchases.length; i++) {
         console.log(this.purchases[i].name)
