@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1 style="text-align:center;font-size:50px;"> <p style="color:powderblue;"> {{ msg }} </p> </h1>
+    <h1 style="text-align:center;font-size:30px;"> <p style="color:#FFD700;"> {{ quote }} </p> </h1>
     <center><img src="../assets/Logo_GSSS.png" alt="centered image" height="300" width="300"> </center>
     <br>
     <h2>Available Links</h2>
@@ -41,7 +42,8 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: 'Welcome to the best Grocery Store Website out there !',
+      msg: 'Welcome back to work, GSSS staff members !',
+      quote: 'Quote of the day: “The only place where success comes before work is in the dictionary.” ',
       count: 0,
       permission: localStorage.permission
     }
