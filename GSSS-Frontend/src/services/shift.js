@@ -1,14 +1,28 @@
 import ax from "./common";
 
 export const addShift = (email, shift) => new Promise((resolve, reject) => {
-    ax.post(`/employee/shift/${email}`, null, { params: shift })
+    ax.post(`/employee/shift/${email}`, shift)
     .then(res => resolve(res))
     .catch(err => reject(err));
 });
 
 export const deleteShift = (shift) => new Promise((resolve, reject) => {
-    ax.delete('/shift/delete', null, { params: shift })
+    ax.delete('/shift/delete', {
+    params:{
+            shiftId: shift
+        }
+    })
     .then(res => resolve(res))
+    .catch(err => reject(err));
+});
+
+export const removeShift = (shift, employee) => new Promise((resolve, reject) => {
+    ax.delete('/employee/shift/' + employee + '/' + shift)
+    .then(res => {
+        deleteShift(shift)
+        .then(res2 => resolve())
+        .catch(err2 => reject(err2))
+    })
     .catch(err => reject(err));
 });
 

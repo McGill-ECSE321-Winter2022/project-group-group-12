@@ -1,11 +1,10 @@
 <template>
     <div>
         <h3>Shift Details</h3>
-        <div>ID: {{ shift.shiftId }}</div>
         <div>Date: {{ shift.date }}</div>
         <div>Start Time: {{shift.startTime }}</div>
         <div>End Time: {{ shift.endTime }}</div>
-        <div> Employee: {{ employee.email }}</div>
+        <div> Employee: {{ employee }}</div>
         <button v-on:click="remove()">Delete Shift</button>
     </div>
 </template>   

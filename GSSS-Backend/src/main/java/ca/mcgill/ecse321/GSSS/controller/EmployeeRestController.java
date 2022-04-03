@@ -147,7 +147,7 @@ public class EmployeeRestController {
    * @throws NoSuchElementException
    * @author Habib Jarweh
    */
-  @GetMapping(value = {"/employeebyshift/{shiftId}", "/employeebyshift/"})
+  @GetMapping(value = {"/employeebyshift/{shiftId}", "/employeebyshift/{shiftId}/"})
   public EmployeeDto getEmployeeByShift(@PathVariable("shiftId") String shiftId)
       throws IllegalArgumentException, NoSuchElementException {
 
