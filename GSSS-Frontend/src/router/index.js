@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { createRouter, createWebHashHistory } from 'vue-router'
 
 // Owner imports
 import ViewPurchases from '@/components/Owner/ViewPurchases/ViewPurchases.vue'
@@ -28,7 +27,6 @@ import ViewCustomerAccount from '@/components/Customer/ViewCustomerAccount/ViewC
 import ConfirmOrderType from '@/components/Customer/ConfirmOrderType/ConfirmOrderType.vue';
 import StoreInformation from '@/components/Customer/StoreInformation/StoreInformation.vue';
 import OrderHistory from '@/components/Customer/OrderHistory/OrderHistory.vue';
-import { create } from 'domain'
 
 
 Vue.use(Router)
@@ -167,8 +165,8 @@ const customerRoutes = [
 
 const allRoutes = [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes];
 
-const router = createRouter({
-  history: createWebHashHistory(),
+const router = new Router({
+  mode: 'history',
   routes: allRoutes,
 });
 
@@ -179,19 +177,19 @@ router.beforeEach(async (to, from, next) => {
   else {
     switch(permission) {
       case NONE:
-        next('/login')
+        next( {name: 'LoginPage'} )
         break
       case CUSTOMER:
-        next('/customer/shop')
+        next({name: 'ViewAndSelectItems'})
         break
       case EMPLOYEE:
-        next('/')
+        next({name: 'Hello'})
         break
       case OWNER:
-        next('/')
+        next({name: 'Hello'})
         break
       default:
-        next('/')
+        next({name: 'Hello'})
         break
     }
   }
