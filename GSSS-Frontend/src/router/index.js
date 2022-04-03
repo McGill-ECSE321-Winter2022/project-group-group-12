@@ -163,11 +163,11 @@ const customerRoutes = [
 
 ];
 
-const routes = [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes];
+const allRoutes = [...otherRoutes, ...ownerRoutes, ...employeeRoutes, ...customerRoutes];
 
 const router = new Router({
   mode: 'history',
-  routes
+  routes: allRoutes
 });
 
 router.beforeEach(async (to, from, next) => {
@@ -196,7 +196,7 @@ router.beforeEach(async (to, from, next) => {
 });
 
 function matchRoute(routeName){
-  let matches = routes.filter(r => r.name == routeName);
+  let matches = allRoutes.filter(r => r.name == routeName);
   if(matches.length != 1) return null;
   else return matches[0];
 }
