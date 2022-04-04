@@ -38,8 +38,8 @@
 **Deliverable 3:**
 | Name                      |               Team Role                    | Individual efforts |
 |---------------------------|--------------------------------------------|--------------------|
-| Enzo Benoit-Jeannin       |            |   35    hours      |
-| Wassim Jabbour            |            |   40    hours      |
+| Enzo Benoit-Jeannin       |Documentation & Writing front end pages & Recording|   35    hours      |
+| Wassim Jabbour            |Managing & Writing front end pages|   40    hours      |
 | Philippe Sarouphim Hochar |            |       hours      |
 | Habib Jarweh              |            |       hours      |
 | Theo Ghanem               |            |       hours      |
