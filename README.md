@@ -36,14 +36,14 @@
 
 ***
 **Deliverable 3:**
-| Name                      |               Team Role                    | Individual efforts |
-|---------------------------|--------------------------------------------|--------------------|
+| Name                      |               Team Role                           | Individual efforts |
+|---------------------------|---------------------------------------------------|--------------------|
 | Enzo Benoit-Jeannin       |Documentation & Writing front end pages & Recording|   35    hours      |
-| Wassim Jabbour            |Managing & Writing front end pages|   40    hours      |
-| Philippe Sarouphim Hochar |            |       hours      |
-| Habib Jarweh              |            |       hours      |
-| Theo Ghanem               |            |       hours      |
-| Chris Hatoum              |            |       hours      |
+| Wassim Jabbour            |Managing & Writing front end pages                 |   40    hours      |
+| Philippe Sarouphim Hochar |  Writing front end pages                          |       hours        |
+| Habib Jarweh              |  Writing front end pages                          |       hours        |
+| Theo Ghanem               | Writing and testing front end pages               |    35   hours      |
+| Chris Hatoum              |   Writing front end pages                         |       hours        |
   
   <ins>Figure 3: Overview Table for deliverable 3</ins>
   
