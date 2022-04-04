@@ -29,5 +29,4 @@
 
 <script src="./customerCreator.js" />
 
-<style scoped src="./customerCreator.css">
-</style>
+<style scoped src="./customerCreator.css" />

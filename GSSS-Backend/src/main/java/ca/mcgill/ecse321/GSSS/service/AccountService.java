@@ -54,7 +54,11 @@ public class AccountService {
 
     Customer customer = customerRepository.findCustomerByEmail(email);
     if (customer != null) {
-      if (customer
+		if (customer.isDisabled()) {
+	    	throw new IllegalArgumentException("The account associated with this email is disabled");
+		}
+		
+		if (customer
           .getPassword()
           .equals(Utility.hashAndSaltPassword(password, customer.getSalt()))) {
         return customer;
@@ -65,6 +69,9 @@ public class AccountService {
 
     Employee employee = employeeRepository.findEmployeeByEmail(email);
     if (employee != null) {
+	  if (employee.isDisabled()) {
+    	throw new IllegalArgumentException("The account associated with this email is disabled");
+	  }
       if (employee
           .getPassword()
           .equals(Utility.hashAndSaltPassword(password, employee.getSalt()))) {
@@ -75,6 +82,7 @@ public class AccountService {
     }
 
     Owner owner = ownerRepository.findOwnerByEmail(email);
+    // can't disable owner so no need to check it
     if (owner != null) {
       if (owner.getPassword().equals(Utility.hashAndSaltPassword(password, owner.getSalt()))) {
         return owner;

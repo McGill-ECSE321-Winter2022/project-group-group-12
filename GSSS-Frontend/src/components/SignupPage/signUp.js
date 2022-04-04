@@ -31,8 +31,7 @@ export default {
             }
             createCustomer(this.customer)
             .then(res => {
-                success = 'Sign up successful'
-                setTimeout(() => this.success = null, 3000);
+                this.$router.push({ name: 'LoginPage'})
             })
             .catch(err => {
                 this.error = err;

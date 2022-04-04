@@ -12,11 +12,11 @@ export const createItem = (item) => new Promise((resolve, reject) => {
             itemCategory: item.selectedCategory
         }})
         .then(res => resolve(res))
-        .catch(err => reject(err));
+        .catch(err => reject(err.response.data));
 });
 
 export const getAllCategories = (itemCategory) => new Promise((resolve, reject) => {
     ax.get('/itemCategories')
     .then(res => resolve(res.data))
-    .catch(err => reject(err));
+    .catch(err => reject(err.response.data));
 });

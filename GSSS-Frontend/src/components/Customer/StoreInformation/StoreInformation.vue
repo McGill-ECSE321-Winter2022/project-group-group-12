@@ -75,9 +75,6 @@ Vue class for the system information page.
   </div>
 </template>
 
-
-<style scoped>
-@import './storeInformation.css';
-</style>
-
 <script src="./storeInformation.js" />
+
+<style scoped src="./storeInformation.css" />

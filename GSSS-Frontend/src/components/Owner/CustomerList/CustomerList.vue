@@ -7,6 +7,7 @@
                     <li v-for="(customer, i) in customers" :key=customer.email v-on:click="selectCustomer(i)">{{ customer.email }}</li>
                 </ul>
                 <button v-on:click="addCustomer()">Add customer</button>
+                <div v-if="error" style="color: red; font-style: italic;">{{ error }}</div>
             </div>
             <div class="vertical-separator"/>
             <div class="details">
@@ -17,7 +18,6 @@
     </div>
 </template>
 
-<script src='./customerList.js'></script>
+<script src='./customerList.js' />
 
-<style scoped src='./customerList.css'>
-</style>
+<style scoped src='./customerList.css' />

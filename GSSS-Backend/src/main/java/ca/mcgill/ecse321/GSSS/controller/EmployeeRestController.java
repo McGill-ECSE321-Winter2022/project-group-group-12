@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,116 +57,133 @@ public class EmployeeRestController {
    * This API endpoint creates a new employee.
    *
    * @param employee Employee DTO (passed in the request body).
-   * @return DTO of the newly created employee.
-   * @throws IllegalArgumentException If the input is invalid
+   * @return DTO of the newly created employee if successful, else return error
    * @author Philippe Sarouphim Hochar.
    */
   @PostMapping(value = {"/employee", "/employee/"})
-  public EmployeeDto createEmployee(@RequestBody EmployeeDto employee)
-      throws IllegalArgumentException {
-    return DtoUtility.convertToDto(
-        employeeService.createEmployee(
-            employee.getUsername(),
-            employee.getEmail(),
-            employee.getPassword(),
-            addressService.getAddress(employee.getAddress().getId())));
+  public ResponseEntity<?> createEmployee(@RequestBody EmployeeDto employee){
+	  try {
+		  return ResponseEntity.ok(DtoUtility.convertToDto(
+			        employeeService.createEmployee(
+			            employee.getUsername(),
+			            employee.getEmail(),
+			            employee.getPassword(),
+			            addressService.getAddress(employee.getAddress().getId()))));
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
+    
   }
 
   /**
    * This API endpoint updates an employee.
    *
    * @param employee Employee DTO
-   * @return DTO of the newly updated employee.
-   * @throws IllegalArgumentException If the input is invalid
+   * @return DTO of the newly updated employee if successful, else return error
    * @author Philippe Sarouphim Hochar.
    */
   @PutMapping(value = {"/employee", "/employee/"})
-  public EmployeeDto modifyEmployee(@RequestBody EmployeeDto employee)
-      throws IllegalArgumentException {
-    return DtoUtility.convertToDto(
-        employeeService.modifyEmployee(
-            employee.getUsername(),
-            employee.getEmail(),
-            addressService.getAddress(employee.getAddress().getId()),
-            employee.isDisabled()));
+  public ResponseEntity<?> modifyEmployee(@RequestBody EmployeeDto employee) {
+	  try {
+	    return ResponseEntity.ok(DtoUtility.convertToDto(
+	        employeeService.modifyEmployee(
+	            employee.getUsername(),
+	            employee.getEmail(),
+	            addressService.getAddress(employee.getAddress().getId()),
+	            employee.isDisabled())));
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
-   * Mehtod to modify/update a employee's password
+   * Method to modify/update a employee's password
    *
    * @param email    The email of the employee to modify
-   * @param password the new password of the employee
-   * @return The modified employee as a DTO object
-   * @throws IllegalArgumentException If the email is not correct
+   * @param password the new password of the employee 
+   * @return The modified employee as a DTO object if successful, else return error
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/employee/password/{email}", "/employee/password/{email}/"})
-  public EmployeeDto modifyPassword(@PathVariable("email") String email,
-      @RequestParam(name = "password") String password)
-      throws IllegalArgumentException, NoSuchElementException {
+  public ResponseEntity<?> modifyPassword(@PathVariable("email") String email,
+      @RequestParam(name = "password") String password){
+	  try {
+		    return ResponseEntity.ok(DtoUtility.convertToDto(
+		            employeeService.modifyPassword(email, password)));
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
 
-    return DtoUtility.convertToDto(
-        employeeService.modifyPassword(email, password));
+
   }
 
   /**
    * This API endpoint updates an employee's password
    *
    * @param employee Employee DTO
-   * @return DTO of the newly updated employee.
-   * @throws IllegalArgumentException
+   * @return DTO of the newly updated employee if successful, else return error
    * @author Enzo Benoit-Jeannin
    */
   @PutMapping(value = {"/employee/password", "/employee/password/"})
-  public EmployeeDto modifyPurchase(@RequestBody EmployeeDto employee)
-      throws IllegalArgumentException {
-    return DtoUtility.convertToDto(
-        employeeService.modifyPassword(
-            employee.getEmail(),
-            employee.getPassword()));
+  public ResponseEntity<?> modifyPurchase(@RequestBody EmployeeDto employee){
+	  try {
+		  return ResponseEntity.ok(DtoUtility.convertToDto(
+				    employeeService.modifyPassword(
+				        employee.getEmail(),
+				        employee.getPassword())));
+	  }catch(Exception e) {
+		  return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
    * This API endpoint gets and employee based on his email.
    *
    * @param email Email of the employee to fetch.
-   * @return DTO of the employee corresponding to the email.
-   * @throws IllegalArgumentException If the input is invalid
-   * @throws NoSuchElementException   If the service method finds an element doesn't exist
+   * @return DTO of the employee corresponding to the email if successful, else return error
    * @author Philippe Sarouphim Hochar.
    */
   @GetMapping(value = {"/employee/{email}", "/employee/{email}/"})
-  public EmployeeDto getEmployee(@PathVariable("email") String email)
-      throws IllegalArgumentException, NoSuchElementException {
-    return DtoUtility.convertToDto(employeeService.getEmployeeByEmail(email));
+  public ResponseEntity<?> getEmployee(@PathVariable("email") String email){
+	  try {
+    return ResponseEntity.ok(DtoUtility.convertToDto(employeeService.getEmployeeByEmail(email)));
+	  }catch(Exception e) {
+		 return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
    * @param shiftId
-   * @return employee with designated shift
-   * @throws IllegalArgumentException
-   * @throws NoSuchElementException
+   * @return employee with designated shift if successful, else return the error
    * @author Habib Jarweh
    */
-  @GetMapping(value = {"/employeebyshift/{shiftId}", "/employeebyshift/"})
-  public EmployeeDto getEmployeeByShift(@PathVariable("shiftId") String shiftId)
-      throws IllegalArgumentException, NoSuchElementException {
-
-    Shift shift = shiftService.getShift(shiftId);
-
-    return DtoUtility.convertToDto(employeeService.getEmployeeByShift(shift));
+  @GetMapping(value = {"/employeebyshift/{shiftId}", "/employeebyshift/{shiftId}/"})
+  public ResponseEntity<?> getEmployeeByShift(@PathVariable("shiftId") String shiftId){
+	  
+	  try {
+	
+	    Shift shift = shiftService.getShift(shiftId);
+	
+	    return ResponseEntity.ok(DtoUtility.convertToDto(employeeService.getEmployeeByShift(shift)));
+	  }catch(Exception e) {
+			 return ResponseEntity.badRequest().body(e.getMessage());
+		  }
   }
 
   /**
    * This API endpoint deletes an employee based on his email.
    *
-   * @param email Email of the employee to delete.
-   * @throws IllegalArgumentException If the input is invalid
+   * @param email Email of the employee to delete if successful, else return the error
    * @author Philippe Sarouphim Hochar.
    */
   @DeleteMapping(value = {"/employee/{email}", "/employee/{email}/"})
-  public void deleteEmployee(@PathVariable("email") String email) throws IllegalArgumentException {
-    employeeService.deleteEmployee(email);
+  public ResponseEntity<?> deleteEmployee(@PathVariable("email") String email) {
+	  try {
+		  employeeService.deleteEmployee(email);
+		  return ResponseEntity.ok(null);
+	  }catch(Exception e) {
+		 return ResponseEntity.badRequest().body(e.getMessage());
+	  }
   }
 
   /**
@@ -175,18 +193,20 @@ public class EmployeeRestController {
    *
    * @param email Email of the employee (in the path).
    * @param shift Shift (in the req body).
-   * @return DTO of the new employee.
-   * @throws IllegalArgumentException If the input is invalid
-   * @throws NoSuchElementException   If the service method finds an element doesn't exist
+   * @return DTO of the new employee if successful, else return error
    * @author Philippe Sarouphim Hochar.
    */
   @PostMapping(value = {"/employee/shift/{email}", "/employee/shift/{email}/"})
-  public EmployeeDto addShift(@PathVariable String email, @RequestBody ShiftDto shift)
-      throws IllegalArgumentException, NoSuchElementException {
-    Shift newShift =
-        shiftService.createShift(shift.getDate(), shift.getStartTime(), shift.getEndTime());
-    return DtoUtility.convertToDto(
-        employeeService.addShift(employeeService.getEmployeeByEmail(email), newShift));
+  public ResponseEntity<?> addShift(@PathVariable String email, @RequestBody ShiftDto shift){
+	  try {
+		  Shift newShift =
+			        shiftService.createShift(shift.getDate(), shift.getStartTime(), shift.getEndTime());
+	    return ResponseEntity.ok(DtoUtility.convertToDto(
+	        employeeService.addShift(employeeService.getEmployeeByEmail(email), newShift)));
+	  }catch(Exception e) {
+		 return ResponseEntity.badRequest().body(e.getMessage());
+	  }
+    
   }
 
   /**
@@ -194,14 +214,17 @@ public class EmployeeRestController {
    *
    * @param email Email of the employee (passed in path).
    * @param id    Id of the shift (passed in path).
-   * @throws IllegalArgumentException If the input is invalid
    * @author Philippe Sarouphim Hochar.
    */
   @DeleteMapping(value = {"/employee/shift/{email}/{id}", "/employee/shift/{email}/{id}/"})
-  public void removeShift(@PathVariable("email") String email, @PathVariable("id") String id)
-      throws IllegalArgumentException {
-    employeeService.removeShift(
-        employeeService.getEmployeeByEmail(email), shiftService.getShift(id));
+  public ResponseEntity<?> removeShift(@PathVariable("email") String email, @PathVariable("id") String id){
+    try {
+	  employeeService.removeShift(employeeService.getEmployeeByEmail(email), shiftService.getShift(id));
+	  return ResponseEntity.ok(null);
+    }catch(Exception e) {
+		 return ResponseEntity.badRequest().body(e.getMessage());
+	  }
+   
   }
 
 

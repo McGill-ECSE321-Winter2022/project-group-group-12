@@ -1,4 +1,5 @@
-import { deleteShift, getEmployeeByShift } from "../../../../services/shift";
+import { getEmployee } from "../../../../services/employee";
+import { removeShift, getEmployeeByShift } from "../../../../services/shift";
 
 export default {
     name: 'shift-details',
@@ -9,10 +10,15 @@ export default {
             employeeError: ''
         }
     },
+
+    created: function() {
+        this.getEmployee()
+    },
+
     methods: {
         getEmployee: function() {
-            getEmployeeByShift(this.shift.shiftId)
-            .then(res => employee)
+            getEmployeeByShift(this.shift.id)
+            .then(res => this.employee = res.email)
             .catch(err => {
                 this.employeeError = err;
                 setTimeout(() => this.employeeError = null, 3000);
@@ -20,12 +26,25 @@ export default {
         },
 
         remove: function(){
-            deleteShift(this.shift)
-            .then(res => null)
+            removeShift(this.shift.id, this.employee)
+            .then(res => {
+                this.$router.go()
+            })
             .catch(err => {
                 this.error = err;
                 setTimeout(() => this.error = null, 3000);
             });
         }
-    }  
+    } ,
+
+    props: {
+        shift: Object,
+        onChange: Function
+    },
+
+    watch: {
+        shift: function() {
+            this.getEmployee()
+        }
+    }
 }

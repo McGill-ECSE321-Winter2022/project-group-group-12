@@ -42,5 +42,4 @@
 
 <script src="./itemCreator.js" />
 
-<style scoped src="./itemCreator.css">
-</style>
+<style scoped src="./itemCreator.css" />

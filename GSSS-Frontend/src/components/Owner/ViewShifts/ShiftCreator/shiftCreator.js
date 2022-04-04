@@ -11,7 +11,7 @@ export default {
                 endTime: null,
             },
             employees : [],
-            selectedEmployee: '', 
+            selectedEmployee: null, 
             error: ''
         }
     },
@@ -23,14 +23,17 @@ export default {
     methods: {
         save: function(){
             if(!this.shift.date || !this.shift.startTime || 
-                !this.shift.endTime) {
+                !this.shift.endTime || !this.selectedEmployee) {
                     this.error = 'Please fill in all fields';
                     setTimeout(() => this.error = null, 3000);
                     return;
             }
 
-            addShift(this.selectedEmployee.email, this.shift)
-            .then(res => this.onAdd())
+            addShift(this.selectedEmployee, this.shift)
+            .then(res => {
+                this.onAdd();
+                this.$router.go()
+             })
             .catch(err => {
                 this.error = err;
                 setTimeout(() => this.error = null, 3000);

@@ -9,14 +9,14 @@ import ax from "./common";
 export const updateCityAndFee = (city, fee) => new Promise((resolve, reject) => {
   ax.post('/info', null, { params: {city,fee} })
     .then(res => resolve(res))
-    .catch(err => reject(err));
+    .catch(err => reject(err.response.data));
 });
 
 
 export const updateBusinessHours = (weekday, starttime, endtime) => new Promise((resolve, reject) => {
   ax.post('/businesshour', null, { params: {weekday,starttime, endtime} })
     .then(res => resolve(res))
-    .catch(err => reject(err));
+    .catch(err => reject(err.response.data));
 });
 
 
@@ -28,7 +28,7 @@ export const getBusinessHours = (selectedWeekday) => new Promise((resolve, rejec
         endTimeFromBackend: res.data.endTime
         }
       ))
-    .catch(err => reject(err))
+    .catch(err => reject(err.response.data))
 });
 
 
@@ -41,7 +41,7 @@ export const getCityAndFee = () => new Promise((resolve, reject) => {
             outOfCityFeeFromBackend: res.data.outOfTownDeliveryFee
             }
     ))
-    .catch(err => reject(err))
+    .catch(err => reject(err.response.data))
 
 });
 

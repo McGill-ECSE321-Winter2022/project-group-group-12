@@ -6,18 +6,19 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e"
+    "test": "npm run unit && npm run e2e",
+    "postinstall": "npm run build",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.26.1",
-    "bootstrap": "^4.0.0-beta.2",
-    "bootstrap-vue": "latest",
+    "express": "^4.17.3",
     "jquery": "^3.6.0",
     "popper.js": "^1.12.9",
+    "serve-static": "^1.15.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vue2-datepicker": "^3.10.4"
@@ -41,7 +42,6 @@
     "css-loader": "^0.28.0",
     "cssnano": "^3.10.0",
     "eventsource-polyfill": "^0.9.6",
-    "express": "^4.14.1",
     "extract-text-webpack-plugin": "^2.0.0",
     "file-loader": "^0.11.1",
     "friendly-errors-webpack-plugin": "^1.1.3",

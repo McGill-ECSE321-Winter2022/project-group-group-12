@@ -5,7 +5,7 @@
     </div>
 </template>
 
-<style scoped src="./viewCustomerAccount.css">
-</style>
 
 <script src="./viewCustomerAccount.js"/>
+
+<style scoped src="./viewCustomerAccount.css" />

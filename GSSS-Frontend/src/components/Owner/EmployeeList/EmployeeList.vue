@@ -7,6 +7,7 @@
                     <li v-for="(employee, i) in employees" :key=employee.email v-on:click="selectEmployee(i)">{{ employee.email }}</li>
                 </ul>
                 <button v-on:click="addEmployee()">Add employee</button>
+                <div v-if="error" style="color: red; font-style: italic;">{{ error }}</div>
             </div>
             <div class="vertical-separator"/>
             <div class="details">

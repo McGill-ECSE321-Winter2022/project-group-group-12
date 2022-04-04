@@ -4,13 +4,13 @@ import { createAddress, modifyAddress } from "./address";
 export const getAllCustomers = () => new Promise((resolve, reject) => {
     ax.get('/customers')
     .then(res => resolve(res.data))
-    .catch(err => reject(err));
+    .catch(err => reject(err.response.data));
 });
 
 export const getCustomer = (email) => new Promise((resolve, reject) => {
     ax.get(`/customer/${email}`)
     .then(res => resolve(res.data))
-    .catch(err => reject(err));
+    .catch(err => reject(err.response.data));
 })
 
 export const createCustomer = (customer) => new Promise((resolve, reject) => {
@@ -23,9 +23,9 @@ export const createCustomer = (customer) => new Promise((resolve, reject) => {
             address: res.data.id
         }})
         .then(res => resolve(res))
-        .catch(err => reject(err));
+        .catch(err => reject(err.response.data));
     })
-    .catch(err => reject(err));
+    .catch(err => reject(err.response.data));
 });
 
 export const modifyCustomer = (modifiedCustomer) => new Promise((resolve, reject) => {
@@ -38,11 +38,13 @@ export const modifyCustomer = (modifiedCustomer) => new Promise((resolve, reject
             disabled: modifiedCustomer.disabled
         }})
         .then(res2 => resolve(res2.data))
-        .catch(err => reject(err));
+        .catch(err => reject(err.response.data));
     })
-    .catch(err => reject(err));
+    .catch(err => reject(err.response.data));
 });
 
-export const modifyPassword = (newPassword) => new Promise((resolve, reject) => {
-    reject("To be implemented");
+export const modifyPassword = (email, password) => new Promise((resolve, reject) => {
+    ax.post(`/customer/password/${email}`, null, { params: { password } })
+    .then(res => resolve())
+    .catch(err => reject(err.response.data));
 });

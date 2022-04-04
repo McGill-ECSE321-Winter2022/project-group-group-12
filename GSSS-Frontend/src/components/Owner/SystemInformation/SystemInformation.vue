@@ -129,8 +129,6 @@ Vue class for the system information page.
 
 </template>
 
-<style scoped src='./systemInformation.css'>
-</style>
-
-
 <script src="./systemInformation.js" />
+
+<style scoped src="./systemInformation.css" />

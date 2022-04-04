@@ -78,28 +78,7 @@ Vue class for the payment page.
   </div>
 </template>
 
-<script>
-export default {
-  
-  name: "Payment",
-
-   data () {
-    return {
-      total: 0
-    }
-  },
-
-  created: function() {
-    this.total = localStorage.getItem('cost')
-  },
-
-  methods: {
-    backToMain: function() {
-      this.$router.push("/customer/shop")
-    }
-  }
-}
-</script>
+<script src="./payment.js"/>
 
 <style scoped src="./payment.css">
 </style>

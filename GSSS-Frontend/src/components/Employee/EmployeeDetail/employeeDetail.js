@@ -60,7 +60,7 @@ export default {
             });
         },
         editPassword: function(){
-            modifyPassword(this.mod.password)
+            modifyPassword(this.employee.email, this.mod.password)
             .then(res => {
                 this.message = "Password succesfully changed!";
                 this.isSuccess = true;

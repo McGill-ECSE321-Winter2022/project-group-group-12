@@ -33,47 +33,6 @@
 
 </template>
 
-<script>
-// Importing axios and setting up URLs
-import axios from 'axios'
-var config = require('../../../../config')
+<script src="./employeeViewShift.js"/>
 
-var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
-var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort
-
-var AXIOS = axios.create({
-    baseURL: backendUrl,
-    headers: { 'Access-Control-Allow-Origin': frontendUrl }
-  })
-  
-export default {
-    name: 'employeeviewshifts',
-
-    data(){
-        return{
-            shifts: [],
-            error: '',
-            response: []
-        }
-    },
-
-    // Retrieve all shifts from an employee email
-    created: function(){
-        localStorage.setItem("email", "email@employee.com")
-        // Initilizing shifts from backend
-        AXIOS.get('/shiftsbyemployee/' + localStorage.email)
-        .then(response => {
-            // JSON repsonses are automatically parsed.
-            this.shifts = response.data
-        })
-        .catch(e => {
-            this.error = e
-            setTimeout(()=>this.error=null, 3000)
-        })
-    }
-}
-</script>
-
-<style scoped>
-    @import './EmployeeViewShift.css';
-</style>
+<style scoped src="./EmployeeViewShift.css" />
