@@ -11,7 +11,7 @@
     <div class = "categories">
       <p>All item categories in the system</p>
       <ul v-for="(itemcategory, i) in itemCategories" :key="itemcategory.name" v-on:click="onSelect(i)">
-          <li> - {{ itemcategory.name }} </li>
+          <li>{{ itemcategory.name }}</li>
       </ul>
     </div>
 
