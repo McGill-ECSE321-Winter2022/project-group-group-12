@@ -2,7 +2,7 @@ export default {
   
     name: "Payment",
   
-     data () {
+    data () {
       return {
         total: 0
       }
@@ -14,7 +14,8 @@ export default {
   
     methods: {
       backToMain: function() {
-        this.$router.push("/#/customer/shop")
+        this.$router.push({ name: 'ViewAndSelectItems'})
       }
     }
+
   }

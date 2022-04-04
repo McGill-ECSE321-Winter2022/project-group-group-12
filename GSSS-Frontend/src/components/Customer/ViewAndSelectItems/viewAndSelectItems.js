@@ -129,7 +129,7 @@
         if(this.cart.length > 0) {
           localStorage.setItem("cart", JSON.stringify(this.cart));
           localStorage.setItem("cartCost", this.total)
-          this.$router.push("/#/customer/confirmOrderType")
+          this.$router.push({ name: 'ConfirmOrderType'})
         }
         else {
           this.error = "Error: No items selected!"
