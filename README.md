@@ -38,8 +38,8 @@
 **Deliverable 3:**
 | Name                      |               Team Role                    | Individual efforts |
 |---------------------------|--------------------------------------------|--------------------|
-| Enzo Benoit-Jeannin       |            |       hours      |
-| Wassim Jabbour            |            |       hours      |
+| Enzo Benoit-Jeannin       |Documentation & Writing front end pages & Recording|   35    hours      |
+| Wassim Jabbour            |Managing & Writing front end pages|   40    hours      |
 | Philippe Sarouphim Hochar |            |       hours      |
 | Habib Jarweh              |            |       hours      |
 | Theo Ghanem               |            |       hours      |
@@ -47,4 +47,4 @@
   
   <ins>Figure 3: Overview Table for deliverable 3</ins>
   
-   Project Report: 
+   Project Report: https://github.com/McGill-ECSE321-Winter2022/project-group-group-12/wiki/Deliverable-3:-Report
