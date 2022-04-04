@@ -39,28 +39,28 @@ function requireNone(from, to, next) {
 function requireCustomer(from, to, next) {
   var permission = localStorage.getItem("permission")
   if(permission == "Customer") next()
-  else redirectDefault(permission)
+  else redirectDefault(permission, next)
 }
 
 function requireEmployee(from, to, next) {
   var permission = localStorage.getItem("permission")
   if(permission == "Employee") next()
-  else redirectDefault(permission)
+  else redirectDefault(permission, next)
 }
 
 function requireOwner(from, to, next) {
   var permission = localStorage.getItem("permission")
   if(permission == "Owner") next()
-  else redirectDefault(permission)
+  else redirectDefault(permission, next)
 }
 
 function requireEmployeeOrOwner(from, to, next) {
   var permission = localStorage.getItem("permission")
   if(permission == "Employee" || permission == "Owner") next()
-  else redirectDefault(permission)
+  else redirectDefault(permission, next)
 }
 
-function redirectDefault(permission) {
+function redirectDefault(permission, next) {
   if(permission == "Employee" || permission == "Owner") next({ name: 'Hello' })
   else if (permission == "Customer") next({ name: 'ViewAndSelectItems' })
   else next({ name: 'LoginPage' })
