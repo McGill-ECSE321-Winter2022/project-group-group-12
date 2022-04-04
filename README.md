@@ -1,6 +1,7 @@
 # Group 12
 
-"The Beatles" is a software engineering student team composed of 6 members: Wassim jabbour, Habib Jarweh, Theo Ghanem, Chris Hatoum, Philippe Sarouphim Hochar, and Enzo Benoit-Jeannin. Our project consists of developing the Grocery Store Software System (GSSS) for a grocery store to support their customers, owner and employees. All functionnalities of the system will be available via a web interface as well as an Android application.
+For our McGill ECSE 321: Introduction to Software Engineering course. <br>
+We are a student team composed of 6 members: Wassim jabbour, Habib Jarweh, Theo Ghanem, Chris Hatoum, Philippe Sarouphim Hochar, and Enzo Benoit-Jeannin. Our project consists of developing the Grocery Store Software System (GSSS) for a grocery store to support their customers, owner and employees. All functionnalities of the system will be available via a web interface as well as an Android application.
   
   ***
 **Deliverable 1:**
@@ -36,14 +37,14 @@
 
 ***
 **Deliverable 3:**
-| Name                      |               Team Role                    | Individual efforts |
-|---------------------------|--------------------------------------------|--------------------|
+| Name                      |               Team Role                           | Individual efforts |
+|---------------------------|---------------------------------------------------|--------------------|
 | Enzo Benoit-Jeannin       |Documentation & Writing front end pages & Recording|   35    hours      |
-| Wassim Jabbour            |Managing & Writing front end pages|   40    hours      |
-| Philippe Sarouphim Hochar |            |       hours      |
-| Habib Jarweh              |            |       hours      |
-| Theo Ghanem               |            |       hours      |
-| Chris Hatoum              |            |       hours      |
+| Wassim Jabbour            |Managing & Writing front end pages                 |   40    hours      |
+| Philippe Sarouphim Hochar |  Writing front end pages                          |       hours        |
+| Habib Jarweh              |  Writing front end pages                          |       hours        |
+| Theo Ghanem               | Writing and testing front end pages               |    35   hours      |
+| Chris Hatoum              |   Writing front end pages                         |       hours        |
   
   <ins>Figure 3: Overview Table for deliverable 3</ins>
   
