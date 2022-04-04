@@ -89,8 +89,8 @@ About: Page to handle selecting items and adding them to the customer's cart
         </tbody>
       </table>
     </div>
-    <div class="row">
-      <div class="col text-center">
+    <div class="row" style="width:100%">
+      <div style="text-align:center; width:100%" class="col text-center">
         <h4>Total cost: {{ total }}$</h4>
       </div>
     </div>

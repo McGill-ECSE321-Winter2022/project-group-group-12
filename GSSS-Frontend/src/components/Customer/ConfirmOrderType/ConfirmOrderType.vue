@@ -35,8 +35,8 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
         </tbody>
       </table>
     </div>
-    <div class="row">
-      <div class="col text-center">
+    <div class="row" style="width:100%">
+      <div class="col text-center" style="width:100%; text-align:center">
         <h4>Total cost: {{ total }}$</h4>
       </div>
     </div>
