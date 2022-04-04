@@ -101,9 +101,6 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
 
     // Getting the cart from local storage
     this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    if(!this.cart) {
-        this.$router.go('/#/customer/shop')
-    }
 
     // Getting the total cost without the fee
     this.total = parseInt(localStorage.getItem("cartCost"))
