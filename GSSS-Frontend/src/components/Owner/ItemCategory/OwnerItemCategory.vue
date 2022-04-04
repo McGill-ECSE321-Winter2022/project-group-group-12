@@ -12,7 +12,7 @@
           </td>
 
           <td width=27%>
-            <button v-bind:disabled="!newItemCategory" @click="createItemCategory(newItemCategory)">Create Category</button>
+            <button v-bind:disabled="!newItemCategory" @click="createItemCategory()">Create Category</button>
           </td>
 
           <td>
@@ -25,7 +25,7 @@
 
           <td width=27%>
             <div>
-              <button v-bind:disabled="!oldItemCategory" @click="modifyItemCategory(oldItemCategory, newItemCategory2)">Modify Category</button>
+              <button v-bind:disabled="!oldItemCategory" @click="modifyItemCategory()">Modify Category</button>
             </div>
           </td>
       </tr>

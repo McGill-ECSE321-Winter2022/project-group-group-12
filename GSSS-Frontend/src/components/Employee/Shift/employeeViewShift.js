@@ -25,7 +25,6 @@ export default {
 
     // Retrieve all shifts from an employee email
     created: function(){
-        localStorage.setItem("email", "email@employee.com")
         // Initilizing shifts from backend
         AXIOS.get('/shiftsbyemployee/' + localStorage.email)
         .then(response => {

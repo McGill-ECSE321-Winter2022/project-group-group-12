@@ -113,6 +113,11 @@ export default {
     },
 
     modifyPurchaseStatus: function(){
+      if(!this.orderStatus) {
+        this.error = 'Please fill in fields';
+        setTimeout(() => this.error = null, 3000);
+        return;
+      }
       // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id,
       {},
@@ -137,6 +142,11 @@ export default {
     },
 
     modifyPurchaseEmployee: function(){
+      if(!this.selectedEmployee) {
+        this.error = 'Please fill in fields';
+        setTimeout(() => this.error = null, 3000);
+        return;
+      }
       // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id, 
       {},

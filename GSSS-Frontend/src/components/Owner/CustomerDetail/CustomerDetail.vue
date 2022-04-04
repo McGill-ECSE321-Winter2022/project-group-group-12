@@ -3,6 +3,7 @@
         <h3>{{ customer.email }}</h3>
         <div v-if="mode == 0">
             <div>Username: {{ customer.username }}</div>
+            <div style="margin-bottom: 1rem">Disabled: {{ customer.disabled }}</div>
             <div>Address:</div>
             <p>{{ customer.address.fullName }}<br/>{{customer.address.streetNumber}}, {{ customer.address.streetName }}<br/>{{ customer.address.city }}, {{ customer.address.postalCode }}</p>
         </div>
@@ -10,6 +11,8 @@
             <label>Username: </label>
             <input type="text" placeholder="Enter username" v-model="mod.username"/>
             <br/>
+            <label>Disabled: </label>
+            <input style="margin-bottom: 1rem" type="checkbox" v-model="mod.disabled" />
             <div>Address:</div>
             <div class="address-input"><input type="text" placeholder="Full Name" v-model="mod.address.fullName"/></div>
             <div class="address-input">

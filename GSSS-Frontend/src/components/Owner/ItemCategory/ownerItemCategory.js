@@ -45,12 +45,17 @@ onSelect: function(i) {
   this.oldItemCategory = this.itemCategories[i].name
 },
 
-createItemCategory: function(name){
+createItemCategory: function(){
+  if(!this.newItemCategory) {
+    this.error = 'Please fill in fields';
+    setTimeout(() => this.error = null, 3000);
+    return;
+  }
   AXIOS.post('/itemCategory/',
   {},
   {
     params: {
-      name: name
+      name: this.newItemCategory
     },
   }
   )
@@ -67,13 +72,18 @@ createItemCategory: function(name){
   })
 },
 
-modifyItemCategory: function(categoryOldName, categorynewName){
+modifyItemCategory: function(){
+  if(!this.oldItemCategory || !this.newItemCategory2) {
+    this.error = 'Please fill in fields';
+    setTimeout(() => this.error = null, 3000);
+    return;
+  }
   AXIOS.post('/itemCategory/modify/',
   {},
   {
     params: {
-      oldName: categoryOldName,
-      newName: categorynewName
+      oldName: this.oldItemCategory,
+      newName: this.newItemCategory2
     }
   })
   .then(response => {

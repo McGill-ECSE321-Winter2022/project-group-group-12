@@ -1,4 +1,4 @@
-import CustomerDetail from "../../CustomerDetail/CustomerDetail.vue";
+import CustomerDetail from "../CustomerDetail/CustomerDetail.vue";
 import CustomerCreator from "../../CustomerCreator/CustomerCreator.vue";
 
 import { getAllCustomers } from "../../../services/customer";
