@@ -14,7 +14,7 @@ About: Page to handle selecting items and adding them to the customer's cart
         </option>
       </select>
     </div>
-    <div class="row mt-2 justify-content-center">
+    <div class="allItems">
       <div class="items" v-for="product in this.filteredItems" :key="product.name">
         <div class="card" v-bind:title="product.description" style="width: 10rem;">
           <img :src="product.imageUrl" class="card-img-top" />
