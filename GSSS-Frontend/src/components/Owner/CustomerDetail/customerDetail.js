@@ -7,6 +7,7 @@ export default {
             mode: 0,
             mod: {
                 username: '',
+                disabled: '',
                 address: null
             },
             message: null,
@@ -21,6 +22,7 @@ export default {
             if(this.mode == 0 && i == 1){
                 this.mod.email = this.customer.email;
                 this.mod.username = this.customer.username;
+                this.mod.disabled = this.customer.disabled;
                 this.mod.address = {
                     id: this.customer.address.id,
                     fullName: this.customer.address.fullName,
@@ -58,7 +60,7 @@ export default {
             });
         },
         editPassword: function(){
-            modifyPassword(this.mod.password)
+            modifyPassword(this.customer.email, this.mod.password)
             .then(res => {
                 this.message = "Password succesfully changed!";
                 this.isSuccess = true;
