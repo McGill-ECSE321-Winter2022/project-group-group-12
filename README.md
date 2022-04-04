@@ -41,10 +41,10 @@ We are a student team composed of 6 members: Wassim jabbour, Habib Jarweh, Theo 
 |---------------------------|---------------------------------------------------|--------------------|
 | Enzo Benoit-Jeannin       |Documentation & Writing front end pages & Recording|   35    hours      |
 | Wassim Jabbour            |Managing & Writing front end pages                 |   40    hours      |
-| Philippe Sarouphim Hochar |  Writing front end pages                          |       hours        |
-| Habib Jarweh              |  Writing front end pages                          |       hours        |
+| Philippe Sarouphim Hochar |  Writing front end pages                          |    40   hours      |
+| Habib Jarweh              |  Writing front end pages                          |    33   hours      |
 | Theo Ghanem               | Writing and testing front end pages               |    35   hours      |
-| Chris Hatoum              |   Writing front end pages                         |       hours        |
+| Chris Hatoum              |   Writing front end pages                         |    33   hours      |
   
   <ins>Figure 3: Overview Table for deliverable 3</ins>
   
