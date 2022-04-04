@@ -47,8 +47,6 @@
     </header>
 </template>
 
-<style scoped>
-    @import "./taskbar.css";
-</style>
-
 <script src="./taskbar.js"/>
+
+<style scoped src="./taskbar.css"/>

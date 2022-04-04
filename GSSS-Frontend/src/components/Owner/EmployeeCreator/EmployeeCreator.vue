@@ -29,5 +29,4 @@
 
 <script src="./employeeCreator.js" />
 
-<style scoped src="./employeeCreator.css">
-</style>
+<style scoped src="./employeeCreator.css" />

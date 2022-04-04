@@ -5,7 +5,6 @@
     </div>
 </template>
 
-<style scoped src="./employeeAccount.css">
-</style>
-
 <script src="./employeeAccount.js"/>
+
+<style scoped src="./employeeAccount.css" />

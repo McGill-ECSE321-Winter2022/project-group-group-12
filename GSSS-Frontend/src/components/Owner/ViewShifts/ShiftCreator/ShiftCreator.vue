@@ -30,5 +30,4 @@
 
 <script src="./shiftCreator.js" />
 
-<style scoped src="./shiftCreator.css">
-</style>
+<style scoped src="./shiftCreator.css" />

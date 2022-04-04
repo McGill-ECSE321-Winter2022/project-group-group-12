@@ -27,7 +27,6 @@
     </div>   
 </template>
 
-<style scoped src='./signup.css'>
-</style>
-
 <script src="./signUp.js" />
+
+<style scoped src='./signup.css' />

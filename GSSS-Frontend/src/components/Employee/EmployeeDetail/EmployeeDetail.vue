@@ -35,7 +35,6 @@
     </div>
 </template>
 
-<script src='./employeeDetail.js'></script>
+<script src='./employeeDetail.js' />
 
-<style scoped src='./employeeDetail.css'>
-</style>
+<style scoped src='./employeeDetail.css' />

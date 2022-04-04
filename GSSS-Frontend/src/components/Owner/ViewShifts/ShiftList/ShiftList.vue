@@ -17,7 +17,6 @@
     </div>
 </template>
 
-<script src='./shiftList.js'></script>
+<script src='./shiftList.js' />
 
-<style scoped src='./shiftList.css'>
-</style>
+<style scoped src='./shiftList.css' />
