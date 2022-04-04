@@ -57,7 +57,7 @@ methods: {
   payment : function() {
 
       // Store the total cost with the fee in a variable
-      this.total = this.total + this.deliveryFee
+      if(this.deliveryfee) this.total = this.total + this.deliveryFee
       localStorage.setItem('cost', this.total)
 
       // Add the purchase to the database
