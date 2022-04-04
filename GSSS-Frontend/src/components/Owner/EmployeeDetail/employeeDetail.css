@@ -1,0 +1,12 @@
+button{
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.save-button{
+    display: inline-block;
+}
+
+.address-input{
+    margin-bottom: 0.5rem;
+}

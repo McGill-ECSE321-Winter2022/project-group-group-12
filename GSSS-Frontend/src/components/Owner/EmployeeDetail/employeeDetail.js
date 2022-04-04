@@ -7,6 +7,7 @@ export default {
             mode: 0,
             mod: {
                 username: '',
+                disabled: '',
                 address: null
             },
             message: null,
@@ -21,6 +22,7 @@ export default {
             if(this.mode == 0 && i == 1){
                 this.mod.email = this.employee.email;
                 this.mod.username = this.employee.username;
+                this.mod.disabled = this.employee.disabled;
                 this.mod.address = {
                     id: this.employee.address.id,
                     fullName: this.employee.address.fullName,

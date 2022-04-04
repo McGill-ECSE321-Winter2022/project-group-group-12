@@ -1,4 +1,4 @@
-import EmployeeDetail from "../../Employee/EmployeeDetail/EmployeeDetail.vue";
+import EmployeeDetail from "../EmployeeDetail/EmployeeDetail.vue";
 import EmployeeCreator from "../EmployeeCreator/EmployeeCreator.vue";
 
 import { getAllEmployees } from "../../../services/employee";
