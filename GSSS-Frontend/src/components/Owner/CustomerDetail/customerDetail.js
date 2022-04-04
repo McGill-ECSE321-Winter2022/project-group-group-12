@@ -1,4 +1,4 @@
-import { modifyCustomer, modifyPassword } from "../../services/customer";
+import { modifyCustomer, modifyPassword } from "../../../services/customer";
 
 export default {
     name: 'customer-detail',
