@@ -6,7 +6,7 @@ About: Page to handle viewing and editing the items as the owner
 <!-- CSS uses bootstrap -->
 <template>
   <div class="container">
-    <div class="row mt-2 justify-content-center">
+    <div class="allItems">
       <div class="items" v-for="(product, index) in this.items" :key="product.name">
         <div class="card" v-on:click="selectItem(index)" style="width: 10rem;">
           <img :src="product.imageUrl" class="card-img-top" />
