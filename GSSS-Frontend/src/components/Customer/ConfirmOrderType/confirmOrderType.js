@@ -14,17 +14,17 @@ const AXIOS = axios.create({
 
 export default {
 
-name: 'ConfirmOrderType',
+  name: 'ConfirmOrderType',
 
-data () {
-return {
-  cart: [],
-  deliveryFee: 0,
-  error: '',
-  total: 0,
-  type: '', // If true delivery, if false pickup
-}
-},
+  data () {
+    return {
+      cart: [],
+      deliveryFee: 0,
+      error: '',
+      total: 0,
+      type: '', // If true delivery, if false pickup
+    }
+  },
 
 created: function() {
 
@@ -55,42 +55,40 @@ AXIOS.get('/deliveryfee/' + customerEmail)
 // User defined methods
 methods: {
 
-// To proceed to checkout
-payment : function() {
+  // To proceed to checkout
+  payment : function() {
 
-    // Store the total cost with the fee in a variable
-    this.total = this.total + this.deliveryFee
-    localStorage.setItem('cost', this.total)
+      // Store the total cost with the fee in a variable
+      this.total = this.total + this.deliveryFee
+      localStorage.setItem('cost', this.total)
 
-    // Add the purchase to the database
-    var itemMap = new Map()
+      // Add the purchase to the database
+      var itemMap = new Map()
 
-    for(var i = 0; i < this.cart.length; i++) {
-      itemMap.set(this.cart[i].name, this.cart[i].count)
+      for(var i = 0; i < this.cart.length; i++) {
+        itemMap.set(this.cart[i].name, this.cart[i].count)
+      }
+
+      // Convert map to JSON which can be passed in request
+      var convertedMap = Object.assign({}, ...Array.from(itemMap.entries()).map(([k, v]) =>({[k]: v}) ))
+
+      AXIOS.post('/purchasewithcustomer', convertedMap, 
+      { 
+        params: {
+          email: localStorage.getItem("email"),
+          ordertype: this.type,
+          orderstatus: "BeingPrepared" 
+        } 
+      }
+      .then(response => {
+        // Route to new page
+        this.$router.push({ name: 'Payment'})
+      })
+      .catch(e => {
+        this.error = e.response.data
+        setTimeout(()=>this.error=null, 3000)
+      }))
+
     }
-
-    // Convert map to JSON which can be passed in request
-    var convertedMap = Object.assign({}, ...Array.from(itemMap.entries()).map(([k, v]) =>({[k]: v}) ))
-
-    AXIOS.post('/purchasewithcustomer', convertedMap, 
-    { 
-      params: {
-        email: localStorage.getItem("email"),
-        ordertype: this.type,
-        orderstatus: "BeingPrepared" 
-      } 
-    }
-    .then(response => {
-      // Route to new page
-      this.$router.push({ name: 'Payment'})
-    })
-    .catch(e => {
-      this.error = e.response.data
-      setTimeout(()=>this.error=null, 3000)
-    })
-}
-
-},
-
-
+  }
 }
