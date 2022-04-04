@@ -11,5 +11,4 @@
 
 <script src="./shiftDetail.js" />
 
-<style scoped src="./shiftDetail.css">
-</style>
+<style scoped src="./shiftDetail.css" />

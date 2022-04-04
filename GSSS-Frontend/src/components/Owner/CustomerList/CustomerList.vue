@@ -17,7 +17,6 @@
     </div>
 </template>
 
-<script src='./customerList.js'></script>
+<script src='./customerList.js' />
 
-<style scoped src='./customerList.css'>
-</style>
+<style scoped src='./customerList.css' />

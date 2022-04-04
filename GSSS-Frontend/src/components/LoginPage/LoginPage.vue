@@ -18,8 +18,6 @@
     </div>
 </template>
 
-<style 
-scoped src='./login.css'>
-</style>
-
 <script src="./loginPage.js" />
+
+<style scoped src='./login.css' />

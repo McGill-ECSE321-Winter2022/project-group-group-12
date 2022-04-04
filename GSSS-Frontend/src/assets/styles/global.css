@@ -10,6 +10,7 @@ html{
     --color-accent: rgb(52, 75, 52);
     --color-accent-transparent: rgba(52, 75, 52, 0.205);
     --navbar-height: 4rem;
+    font-family: sans-serif;
 }
 
 input{
@@ -23,6 +24,7 @@ input[type="password"]{
     border: solid var(--color-accent);
     border-width: 0 0 1px 0;
     color: white;
+    padding: 0.25em 0.5em;
 }
 
 button{
@@ -32,6 +34,7 @@ button{
     color: white;
     border-radius: 0.25rem;
     border: solid transparent 2px;
+    cursor: pointer;
 }
 
 button:hover{
