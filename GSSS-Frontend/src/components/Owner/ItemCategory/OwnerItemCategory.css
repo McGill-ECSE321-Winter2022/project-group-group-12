@@ -2,13 +2,16 @@ input{
     display: block;
 }
 
-.addModifyCategory{
-    display: flex;
-    justify-content: center;
-}
-
 table{
     width: 70%;
+}
+
+input{
+    margin-bottom: 0.5rem;
+}
+
+button{
+    margin-bottom: 2rem;
 }
 
 /* Center the title */
