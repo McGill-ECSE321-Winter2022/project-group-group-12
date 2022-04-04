@@ -9,13 +9,17 @@ export default {
         return {
             customers: [],
             selectedCustomer: -1,
-            addMode: false
+            addMode: false,
+            error: null
         }
     },
     created: function(){
         getAllCustomers()
         .then(res => this.customers = res)
-        .catch(err => console.log(err));
+        .catch(err => {
+            this.error = err;
+            setTimeout(() => this.error = null, 5000);
+        });
     },
     methods:{
         selectCustomer: function(i){
@@ -34,7 +38,10 @@ export default {
                 this.customers = res;
                 this.selectLastCustomer();
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                this.error = err;
+                setTimeout(() => this.error = null, 5000);
+            });
             this.addMode = false;
         }
     },

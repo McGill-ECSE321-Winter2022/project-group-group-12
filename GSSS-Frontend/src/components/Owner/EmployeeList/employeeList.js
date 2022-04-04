@@ -9,13 +9,17 @@ export default {
         return {
             employees: [],
             selectedEmployee: -1,
-            addMode: false
+            addMode: false,
+            error: null
         }
     },
     created: function(){
         getAllEmployees()
         .then(res => this.employees = res)
-        .catch(err => console.log(err));
+        .catch(err => {
+            this.error = err;
+            setTimeout(() => this.error = null, 5000);
+        });
     },
     methods:{
         selectEmployee: function(i){
@@ -34,7 +38,10 @@ export default {
                 this.employees = res;
                 this.selectLastEmployee();
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                this.error = err;
+                setTimeout(() => this.error = null, 5000);
+            });
             this.addMode = false;
         }
     },
