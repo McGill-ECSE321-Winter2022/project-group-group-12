@@ -34,8 +34,6 @@ this.type = "Delivery"
 // Getting the cart from local storage
 this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-if(!this.cart) this.$router.push({ name: 'ViewAndSelectItems'})
-
 // Getting the total cost without the fee
 this.total = parseInt(localStorage.getItem("cartCost"))
 

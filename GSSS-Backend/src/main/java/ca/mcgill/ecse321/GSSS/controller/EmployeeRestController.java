@@ -118,25 +118,6 @@ public class EmployeeRestController {
   }
 
   /**
-   * This API endpoint updates an employee's password
-   *
-   * @param employee Employee DTO
-   * @return DTO of the newly updated employee if successful, else return error
-   * @author Enzo Benoit-Jeannin
-   */
-  @PutMapping(value = {"/employee/password", "/employee/password/"})
-  public ResponseEntity<?> modifyPurchase(@RequestBody EmployeeDto employee){
-	  try {
-		  return ResponseEntity.ok(DtoUtility.convertToDto(
-				    employeeService.modifyPassword(
-				        employee.getEmail(),
-				        employee.getPassword())));
-	  }catch(Exception e) {
-		  return ResponseEntity.badRequest().body(e.getMessage());
-	  }
-  }
-
-  /**
    * This API endpoint gets and employee based on his email.
    *
    * @param email Email of the employee to fetch.
