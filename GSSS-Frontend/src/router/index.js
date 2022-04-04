@@ -133,7 +133,7 @@ export default new Router ({
     path: '/employee/customers',
     name: 'CustomerList',
     component: CustomerList,
-    /beforeEnter: requireEmployeeOrOwner
+    beforeEnter: requireEmployeeOrOwner
   },
   {
     path: '/employee/view/shifts',
