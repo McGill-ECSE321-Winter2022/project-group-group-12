@@ -238,7 +238,7 @@ About: Page to handle selecting items and adding them to the customer's cart
         if(this.cart.length > 0) {
           localStorage.setItem("cart", JSON.stringify(this.cart));
           localStorage.setItem("cartCost", this.total)
-          this.$router.push("/customer/confirmOrderType")
+          this.$router.push("/#/customer/confirmOrderType")
         }
         else {
           this.error = "Error: No items selected!"

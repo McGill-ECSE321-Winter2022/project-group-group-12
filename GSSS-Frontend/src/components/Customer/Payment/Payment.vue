@@ -95,7 +95,7 @@ export default {
 
   methods: {
     backToMain: function() {
-      this.$router.push("/customer/shop")
+      this.$router.push("/#/customer/shop")
     }
   }
 }
