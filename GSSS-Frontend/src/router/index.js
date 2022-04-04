@@ -76,7 +76,7 @@ export default new Router ({
     beforeEnter: requireEmployeeOrOwner
   },
   {
-    path: '/',
+    path: '/login',
     name: 'LoginPage',
     component: LoginPage,
     beforeEnter: requireNone
