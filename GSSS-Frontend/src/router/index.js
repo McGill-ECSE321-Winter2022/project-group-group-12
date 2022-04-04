@@ -33,7 +33,7 @@ Vue.use(Router)
 function requireNone(from, to, next) {
   var permission = localStorage.getItem("permission")
   if(!permission) next()
-  else redirectDefault(permission)
+  else redirectDefault(permission, next)
 }
 
 function requireCustomer(from, to, next) {
