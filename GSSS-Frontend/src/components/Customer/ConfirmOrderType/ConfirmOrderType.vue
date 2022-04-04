@@ -155,7 +155,7 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
         })
         .then(response => {
           // Route to new page
-          this.$router.push("/customer/payment")
+          this.$router.go("/customer/payment")
         })
         .catch(e => {
           this.error = e.response.data
