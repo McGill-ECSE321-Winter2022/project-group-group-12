@@ -22,7 +22,7 @@ export default{
             .then(response => {
                 localStorage.setItem('email', this.email);
                 localStorage.setItem('permission', response.data);
-                this.$router.go('/')
+                this.$router.push({ name: 'ViewAndSelectItems'}) // Will go to hello if owner
               })
               .catch((error) => {
                 this.error = error
