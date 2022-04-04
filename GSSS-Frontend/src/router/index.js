@@ -33,7 +33,7 @@ Vue.use(Router)
 function requireNone(from, to, next) {
   var permission = localStorage.getItem("permission")
   if(!permission) next()
-  else redirectDefault(permission)
+  else redirectDefault(permission, next)
 }
 
 function requireCustomer(from, to, next) {
@@ -75,7 +75,7 @@ export default new Router ({
     beforeEnter: requireEmployeeOrOwner
   },
   {
-    path: '/',
+    path: '/login',
     name: 'LoginPage',
     component: LoginPage,
     beforeEnter: requireNone

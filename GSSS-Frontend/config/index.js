@@ -8,9 +8,9 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    host: 'https://grocerystore-frontend.herokuapp.com',
+    host: 'grocerystore-frontend.herokuapp.com',
     port: 443,
-    backendHost: 'https://grocerystore-backend.herokuapp.com',
+    backendHost: 'grocerystore-backend.herokuapp.com',
     backendPort: 443,
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
