@@ -22,7 +22,6 @@ export default{
             .then(response => {
                 localStorage.setItem('email', this.email);
                 localStorage.setItem('permission', response.data);
-                console.log(response.data)
                 this.$router.go('/')
               })
               .catch((error) => {

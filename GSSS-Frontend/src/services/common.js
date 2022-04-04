@@ -7,7 +7,7 @@ const backendUrl = (process.env.NODE_ENV === "production")
 const frontendUrl = (process.env.NODE_ENV === "production")
   ? `https://${config.build.host}`
   : `http://${config.dev.host}:${config.dev.port}`;
-const AXIOS = axios.create({
+export default axios.create({
   baseURL: backendUrl,
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 });
