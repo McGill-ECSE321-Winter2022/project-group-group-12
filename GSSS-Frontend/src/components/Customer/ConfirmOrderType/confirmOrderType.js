@@ -77,7 +77,7 @@ methods: {
           ordertype: this.type,
           orderstatus: "BeingPrepared" 
         } 
-      }
+      })
       .then(response => {
         // Route to new page
         this.$router.push({ name: 'Payment'})
@@ -85,7 +85,7 @@ methods: {
       .catch(e => {
         this.error = e.response.data
         setTimeout(()=>this.error=null, 3000)
-      }))
+      })
 
     }
   }
