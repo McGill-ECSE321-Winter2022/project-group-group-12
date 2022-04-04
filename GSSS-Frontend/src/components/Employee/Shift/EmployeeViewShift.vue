@@ -12,9 +12,9 @@
         <th> Shift start time</th>
         <th> Shift end time</th>
       <tr v-for="shift in this.shifts" :key=shift.date>
-          <td> {{ shift.date }} </td>
-          <td> {{ shift.startTime }} </td>
-          <td> {{ shift.endTime }} </td>
+          <td style="text-align:center"> {{ shift.date }} </td>
+          <td style="text-align:center"> {{ shift.startTime }} </td>
+          <td style="text-align:center"> {{ shift.endTime }} </td>
       </tr>
       </table>
     </div>
