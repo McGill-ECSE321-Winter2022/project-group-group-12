@@ -102,14 +102,12 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
     // Getting the cart from local storage
     this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
+    if(!this.cart) {
+      this.$router.push({ name: 'ViewAndSelectItems'})
+    }
+
     // Getting the total cost without the fee
     this.total = parseInt(localStorage.getItem("cartCost"))
-
-    // Getting the email of the logged in customer
-    var customerEmail = localStorage.email
-    if(!customerEmail) {
-        this.$router.go('login')
-    }
 
     // Getting the delivery fee from the backend
     AXIOS.get('/deliveryfee/' + customerEmail)
@@ -154,7 +152,7 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
         })
         .then(response => {
           // Route to new page
-          this.$router.go("/customer/payment")
+          this.$router.push({ name: 'Payment'})
         })
         .catch(e => {
           this.error = e.response.data
