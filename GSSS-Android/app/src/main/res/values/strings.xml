@@ -15,4 +15,6 @@
     <string name="passwordPrompt">Enter password:</string>
     <string name="emailHint">example@email.com</string>
     <string name="passwordHint">password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

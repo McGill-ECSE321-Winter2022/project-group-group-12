@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    private String errorText = null;
+    private String errorText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         refreshErrorMessage();
     }
@@ -79,48 +79,4 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    private void refreshErrorMessage() {
-        // set the error message
-        TextView tvError = (TextView) findViewById(R.id.error);
-        tvError.setText(errorText);
-
-        if (errorText == null || errorText.length() == 0) {
-            tvError.setVisibility(View.GONE);
-        } else {
-            tvError.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void login(View v) {
-
-        // Reset the error
-        errorText = "";
-
-        // Get the textfields from the view
-        final TextView loginEmail = (TextView) findViewById(R.id.loginEmail);
-        final TextView loginPassword = (TextView) findViewById(R.id.loginPassword);
-
-        // Create a map with the params to pass
-        Map<String, String> params = new HashMap<>();
-        params.put("email", loginEmail.getText().toString());
-        params.put("password", loginPassword.getText().toString());
-
-        HttpUtils.post("account/login", new RequestParams(params), new JsonHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                errorText = "Logged in successfully";
-                refreshErrorMessage();
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    errorText += errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    errorText += e.getMessage();
-                }
-                refreshErrorMessage();
-            }
-        });
-    }
 }
