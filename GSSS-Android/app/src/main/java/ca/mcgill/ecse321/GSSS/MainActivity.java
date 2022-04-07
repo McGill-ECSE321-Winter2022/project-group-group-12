@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    private String error = null;
+    private String errorText = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+//        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         refreshErrorMessage();
     }
@@ -82,9 +82,9 @@ public class MainActivity extends AppCompatActivity {
     private void refreshErrorMessage() {
         // set the error message
         TextView tvError = (TextView) findViewById(R.id.error);
-        tvError.setText(error);
+        tvError.setText(errorText);
 
-        if (error == null || error.length() == 0) {
+        if (errorText == null || errorText.length() == 0) {
             tvError.setVisibility(View.GONE);
         } else {
             tvError.setVisibility(View.VISIBLE);
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     public void login(View v) {
 
         // Reset the error
-        error = "";
+        errorText = "";
 
         // Get the textfields from the view
         final TextView loginEmail = (TextView) findViewById(R.id.loginEmail);
@@ -109,15 +109,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                error = "Logged in successfully";
+                errorText = "Logged in successfully";
                 refreshErrorMessage();
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
-                    error += errorResponse.get("message").toString();
+                    errorText += errorResponse.get("message").toString();
                 } catch (JSONException e) {
-                    error += e.getMessage();
+                    errorText += e.getMessage();
                 }
                 refreshErrorMessage();
             }
