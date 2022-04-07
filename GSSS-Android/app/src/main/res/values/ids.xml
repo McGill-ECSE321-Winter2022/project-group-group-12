@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="editTextTextEmailAddress" type="id" />
+    <item name="button_first2" type="id" />
+    <item name="button_first" type="id" />
+    <item name="editTextTextPassword" type="id" />
+</resources>
