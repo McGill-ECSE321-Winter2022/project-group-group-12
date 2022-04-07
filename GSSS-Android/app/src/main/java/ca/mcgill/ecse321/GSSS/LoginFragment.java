@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.GSSS;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -17,6 +20,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -28,6 +33,13 @@ public class LoginFragment extends Fragment {
 
     // Instance variables
     private String errorText;
+
+    private View rootView;
+
+    private EditText emailEditText;
+    private EditText passwordEditText;
+    private Button loginButton;
+    private TextView errorTextView;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -42,51 +54,64 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        rootView =  inflater.inflate(R.layout.fragment_login, container, false);
+
+        // Bind with UI
+        emailEditText = rootView.findViewById(R.id.edit_email);
+        passwordEditText = rootView.findViewById(R.id.edit_password);
+        loginButton = rootView.findViewById(R.id.button_login);
+        errorTextView = rootView.findViewById(R.id.text_error);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                login();
+            }
+        });
+
+        return rootView;
     }
 
-    public void login(View v) {
-
-        // Reset the error
-        errorText = "";
-
-        // Get the textfields from the view
-        final TextView loginEmail = (TextView) findViewById(R.id.loginEmail);
-        final TextView loginPassword = (TextView) findViewById(R.id.loginPassword);
+    public void login() {
 
         // Create a map with the params to pass
         Map<String, String> params = new HashMap<>();
-        params.put("email", loginEmail.getText().toString());
-        params.put("password", loginPassword.getText().toString());
+        params.put("email", emailEditText.getText().toString());
+        params.put("password", passwordEditText.getText().toString());
 
         HttpUtils.post("account/login", new RequestParams(params), new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                errorText = "Logged in successfully";
-                refreshErrorMessage();
+                setMessage("Logged in succesfully!", false);
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                String error;
                 try {
-                    errorText += errorResponse.get("message").toString();
+                    error = errorResponse.get("message").toString();
                 } catch (JSONException e) {
-                    errorText += e.getMessage();
+                    error = e.getMessage();
                 }
-                refreshErrorMessage();
+                setMessage(error, true);
             }
         });
     }
 
-    private void refreshErrorMessage() {
-        // set the error message
-        TextView tvError = (TextView) findViewById(R.id.error);
-        tvError.setText(errorText);
-
-        if (errorText == null || errorText.length() == 0) {
-            tvError.setVisibility(View.GONE);
-        } else {
-            tvError.setVisibility(View.VISIBLE);
+    private void setMessage(String message, boolean error){
+        if(message == null){
+            errorTextView.setVisibility(View.GONE);
+            return;
         }
+        errorTextView.setVisibility(View.VISIBLE);
+        errorTextView.setText(message);
+        errorTextView.setTextColor(error ? Color.RED : Color.GREEN);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                errorTextView.setVisibility(View.GONE);
+            }
+        }, 5000);
     }
 }
