@@ -33,7 +33,7 @@ export default {
 
     watch: {
         '$route'() {
-          this.permission = getPermission;
+          this.permission = getPermission();
         }
     }
 }
