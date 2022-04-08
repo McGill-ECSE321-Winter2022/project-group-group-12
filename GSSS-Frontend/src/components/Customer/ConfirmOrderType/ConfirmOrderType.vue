@@ -26,7 +26,7 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
             </th>
             <td>{{ product.name }}</td>
             <td>
-              {{ product.price }}$/unit
+              {{ product.price.toFixed(2) }}$/unit
             </td>
             <td>
               {{ product.count }}
@@ -37,7 +37,7 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
     </div>
     <div class="row" style="width:100%">
       <div class="col text-center" style="width:100%; text-align:center">
-        <h4>Total cost: {{ total }}$</h4>
+        <h4>Total cost: {{ total.toFixed(2) }}$</h4>
       </div>
     </div>
     <div v-if="error" class="error">
@@ -58,7 +58,7 @@ About: Page to confirm the purchase and select the type of order (Adds the fee)
     <br>
     <div style="text-align:center">
         <p v-if="this.type == 'Delivery' && this.deliveryFee != 0">
-            Note: A delivery fee of {{ deliveryFee }}$ will apply (Out of city customer)
+            Note: A delivery fee of {{ deliveryFee.toFixed(2) }}$ will apply (Out of city customer)
         </p>
     </div>
   </div>

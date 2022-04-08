@@ -72,7 +72,7 @@ Vue class for the payment page.
 
     <div class="col-25">
       <div class="container">
-        <h2>Total <span class="price" style="color:black"><b> {{ total }}$</b></span></h2>
+        <h2>Total <span class="price" style="color:black"><b> {{ total.toFixed(2) }}$</b></span></h2>
       </div>
     </div>
   </div>
