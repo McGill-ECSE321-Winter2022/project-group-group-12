@@ -16,15 +16,21 @@ export default {
     name: 'taskbar',
     data: function(){
         return {
-            permission: getPermission()
+            permission: -1
         }
     },
+
+    oncreate: function() {
+        this.permission = getPermission();
+    },
+
     methods: {
         logout: function(){
             logOut();
             this.$router.push( { name: 'Hello' } );
         }
     },
+    
     watch: {
         '$route'() {
           this.permission = getPermission;
