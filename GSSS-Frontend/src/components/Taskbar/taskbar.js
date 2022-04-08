@@ -27,7 +27,7 @@ export default {
     methods: {
         logout: function(){
             logOut();
-            this.$router.push( { name: 'Hello' } );
+            this.$router.push( { name: 'LoginPage' } );
         }
     },
 
