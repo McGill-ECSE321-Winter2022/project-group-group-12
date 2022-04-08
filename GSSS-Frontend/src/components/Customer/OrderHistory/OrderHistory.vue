@@ -25,10 +25,10 @@
           <div> Date: {{ purchases[selectedPurchase].date }}</div>
           <div> Time: {{ purchases[selectedPurchase].time }}</div>
           <div> Employee: {{ purchases[selectedPurchase].employee.email }} </div>
-          <div> Cost: {{ purchases[selectedPurchase].cost }}$</div>
+          <div> Cost: {{ purchases[selectedPurchase].cost.toFixed(2) }}$</div>
           <div> Items:
             <ul v-for="(n, index) in this.selectedPurchaseItems.length" :key="index">
-              <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index] }}$ / unit )</li>
+              <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index].toFixed(2) }}$ / unit )</li>
             </ul>
           </div>
         </div>

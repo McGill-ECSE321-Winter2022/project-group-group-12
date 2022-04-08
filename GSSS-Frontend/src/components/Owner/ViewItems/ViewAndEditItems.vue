@@ -12,7 +12,7 @@ About: Page to handle viewing and editing the items as the owner
           <img :src="product.imageUrl" class="card-img-top" />
           <div class="card-body">
             <h6 class="card-title">
-              {{ product.name }} - {{ product.price }}$
+              {{ product.name }} - {{ product.price.toFixed(2) }}$
             </h6>
           </div>
         </div>

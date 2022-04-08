@@ -22,7 +22,7 @@ export default {
     methods: {
         logout: function(){
             logOut();
-            this.$router.go('/');
+            this.$router.push( { name: 'Hello' } );
         }
     }
 }

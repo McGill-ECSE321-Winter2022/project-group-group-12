@@ -38,9 +38,10 @@ this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
 this.total = parseInt(localStorage.getItem("cartCost"))
 
 // Getting the delivery fee from the backend
-AXIOS.get('/deliveryfee/' + customerEmail)
+AXIOS.get('/deliveryfee/' + localStorage.getItem("email"))
 .then(response => {
   this.deliveryFee = response.data
+  console.log(this.deliveryFee)
   })
 .catch(e => {
   this.error = e.response.data

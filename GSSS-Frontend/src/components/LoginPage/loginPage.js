@@ -22,8 +22,7 @@ export default{
             .then(response => {
                 localStorage.setItem('email', this.email);
                 localStorage.setItem('permission', response.data);
-                if(response.data == "Customer") this.$router.go('/')
-                else this.$router.go('/')
+                this.$router.push( { name: 'Hello' } );
               })
               .catch((error) => {
                 this.error = error
