@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    private String errorText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

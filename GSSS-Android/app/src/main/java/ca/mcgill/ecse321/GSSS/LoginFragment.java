@@ -1,10 +1,14 @@
 package ca.mcgill.ecse321.GSSS;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +16,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -54,7 +61,7 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView =  inflater.inflate(R.layout.fragment_login, container, false);
+        rootView = inflater.inflate(R.layout.fragment_login, container, false);
 
         // Bind with UI
         emailEditText = rootView.findViewById(R.id.edit_email);
@@ -72,6 +79,11 @@ public class LoginFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Method to send a POST request and login to the system
+     *
+     * @author Wassim Jabbour
+     */
     public void login() {
 
         // Create a map with the params to pass
@@ -79,27 +91,41 @@ public class LoginFragment extends Fragment {
         params.put("email", emailEditText.getText().toString());
         params.put("password", passwordEditText.getText().toString());
 
-        HttpUtils.post("account/login", new RequestParams(params), new JsonHttpResponseHandler() {
+        // The post request
+        HttpUtils.post("account/login", new RequestParams(params), new AsyncHttpResponseHandler() {
 
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                setMessage("Logged in succesfully!", false);
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                String error;
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                // Set the success message
+                setMessage("Logged in successfully!", false);
+
+                // Extract the permission returned from the backend
+                String permission;
                 try {
-                    error = errorResponse.get("message").toString();
-                } catch (JSONException e) {
-                    error = e.getMessage();
+                    permission = new String(responseBody, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    setMessage(e.getMessage(), true);
                 }
-                setMessage(error, true);
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                // Display the failure message
+                try {
+                    setMessage(new String(responseBody, "UTF-8"), true);
+                } catch (UnsupportedEncodingException e) {
+                    setMessage(e.getMessage(), true);
+                }
             }
         });
     }
 
-    private void setMessage(String message, boolean error){
-        if(message == null){
+    private void setMessage(String message, boolean error) {
+
+        if (message == null) {
             errorTextView.setVisibility(View.GONE);
             return;
         }
@@ -110,7 +136,7 @@ public class LoginFragment extends Fragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                errorTextView.setVisibility(View.GONE);
+                errorTextView.setVisibility(View.INVISIBLE);
             }
         }, 5000);
     }
