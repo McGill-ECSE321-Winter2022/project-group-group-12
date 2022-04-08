@@ -22,8 +22,12 @@ export default {
     methods: {
         logout: function(){
             logOut();
-            this.permission = -1;
             this.$router.push( { name: 'Hello' } );
+        }
+    },
+    watch: {
+        '$route'() {
+          this.permission = getPermission;
         }
     }
 }
