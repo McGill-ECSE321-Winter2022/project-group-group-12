@@ -20,7 +20,7 @@ export default {
         }
     },
 
-    oncreate: function() {
+    created: function() {
         this.permission = getPermission();
     },
 
@@ -30,7 +30,7 @@ export default {
             this.$router.push( { name: 'Hello' } );
         }
     },
-    
+
     watch: {
         '$route'() {
           this.permission = getPermission;
