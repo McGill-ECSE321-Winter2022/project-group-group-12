@@ -22,7 +22,7 @@ export default{
             .then(response => {
                 localStorage.setItem('email', this.email);
                 localStorage.setItem('permission', response.data);
-                if(localStorage.getItem('permission') == 'customer') this.$router.push( { name: 'ViewAndSelectItems' } );
+                if(localStorage.getItem('permission') == 'Customer') this.$router.push( { name: 'ViewAndSelectItems' } );
                 else this.$router.push( { name: 'Hello' } );
               })
               .catch((error) => {
