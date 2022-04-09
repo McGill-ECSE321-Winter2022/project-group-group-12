@@ -10,7 +10,8 @@ export default {
             employees: [],
             selectedEmployee: -1,
             addMode: false,
-            error: null
+            error: null,
+            menu: true
         }
     },
     created: function(){
@@ -25,12 +26,15 @@ export default {
         selectEmployee: function(i){
             this.selectedEmployee = i;
             this.addMode = false;
+            this.menu = false;
         },
         selectLastEmployee: function(){
             this.selectedEmployee = this.employees.length - 1;
+            this.menu = false;
         },
         addEmployee: function(){
             this.addMode = true;
+            this.menu = false;
         },
         onChange: function(){
             getAllEmployees()
