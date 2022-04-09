@@ -20,7 +20,7 @@ About: Page to handle selecting items and adding them to the customer's cart
           <img :src="product.imageUrl" class="card-img-top" />
           <div class="card-body">
             <h6 class="card-title">
-              {{ product.name }} - {{ product.price }}$
+              {{ product.name }} - {{ product.price.toFixed(2) }}$
             </h6>
             <!-- Can't add an item to cart if it is not available at the moment / just for in person purcases / Isn't in stock -->
             <button
@@ -61,7 +61,7 @@ About: Page to handle selecting items and adding them to the customer's cart
             </th>
             <td>{{ product.name }}</td>
             <td>
-              {{ product.price }}$/unit
+              {{ product.price.toFixed(2) }}$/unit
             </td>
             <td>
               <button
@@ -91,7 +91,7 @@ About: Page to handle selecting items and adding them to the customer's cart
     </div>
     <div class="row" style="width:100%">
       <div style="text-align:center; width:100%" class="col text-center">
-        <h4>Total cost: {{ total }}$</h4>
+        <h4>Total cost: {{ total.toFixed(2) }}$</h4>
       </div>
     </div>
     <div v-if="error" class="error">
