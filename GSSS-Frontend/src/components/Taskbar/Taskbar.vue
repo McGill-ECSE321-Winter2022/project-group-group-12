@@ -29,6 +29,14 @@
                     <a href='/#/employee/purchases'>Assigned purchases</a>
                     <a href='/#/employee/view/shifts'>Assigned shifts</a>
                     <a href='/#/customer/storeinformation'>Store information</a>
+                    <select name="list" id="list" v-on:change="goToNewPage()">
+                        <option value='/' selected>Home</option>
+                        <option value="/#/employee/customers">Account info</option>
+                        <option value="/#/employee/customers">Customers</option>
+                        <option value="/#/employee/purchases">Assigned purchases</option>
+                        <option value="/#/employee/view/shifts">Assigned shifts</option>
+                        <option value="/#/customer/storeinformation">Store information</option>
+                    </select>
                     <a v-on:click="logout()">Logout</a>
                 </nav>
 
