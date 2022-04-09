@@ -65,7 +65,6 @@ export default {
                 this.message = "Password succesfully changed!";
                 this.isSuccess = true;
                 setTimeout(() => this.message = null, 5000);
-                this.onChange();
             })
             .catch(err => {
                 this.message = err;

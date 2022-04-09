@@ -10,7 +10,8 @@ export default {
             customers: [],
             selectedCustomer: -1,
             addMode: false,
-            error: null
+            error: null,
+            menu: true
         }
     },
     created: function(){
@@ -25,12 +26,15 @@ export default {
         selectCustomer: function(i){
             this.selectedCustomer = i;
             this.addMode = false;
+            this.menu = false;
         },
         selectLastCustomer: function(){
             this.selectedCustomer = this.customers.length - 1;
+            this.menu = false;
         },
         addCustomer: function(){
             this.addMode = true;
+            this.menu = false;
         },
         onChange: function(){
             getAllCustomers()
