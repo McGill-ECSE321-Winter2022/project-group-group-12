@@ -99,7 +99,7 @@ export default {
       for (let i = 0; i < this.selectedPurchaseItems.length; i++) {
         AXIOS.get('/item/' + this.selectedPurchaseItems[i])
         .then(response => {
-          this.selectedPurchaseItemsPrices.push(response.price)
+          this.selectedPurchaseItemsPrices.push(Number.parseFloat(response.price).toFixed(2))
         })
         .catch(e => {
           this.error = e.response.data
