@@ -17,3 +17,9 @@ export const modifyCategory = (oldCategory, newCategory) => new Promise((resolve
     .then(res => resolve(res.data))
     .catch(err => reject(err.response.data));
 });
+
+export const deleteCategory = (category) => new Promise((resolve, reject) => {
+    ax.delete(`/itemCategory/${category}`)
+    .then(res => resolve(res.data))
+    .catch(err => reject(err.response.data));
+});

@@ -1,4 +1,4 @@
-import { getAllCategories, createCategory, modifyCategory } from "../../../services/itemCategory";
+import { getAllCategories, createCategory, modifyCategory, deleteCategory } from "../../../services/itemCategory";
 
 export default {
   name: 'addModifyCategory',
@@ -65,6 +65,20 @@ export default {
         this.error = err;
         setTimeout(() => this.error = null, 5000);
       })
+    },
+    remove: function(i){
+      deleteCategory(this.itemCategories[i].name)
+      .then(res => {
+        this.itemCategories.splice(i, 1);
+        this.success = true;
+        this.error = "Category succesfully deleted";
+        setTimeout(() => this.error = null, 5000);
+      })
+      .catch(err => {
+        this.success = false;
+        this.error = err;
+        setTimeout(() => this.error = null, 5000);
+      });
     }
   }
 }
