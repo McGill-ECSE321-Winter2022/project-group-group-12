@@ -120,20 +120,16 @@ export default {
       }
       // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id,
-      {},
+      this.purchases[this.selectedPurchase].items,
       {params: {
         purchaseId: this.purchases[this.selectedPurchase].id,
         orderType: this.purchases[this.selectedPurchase].orderType,
         orderStatus: this.orderStatus,
-        data: this.purchases[this.selectedPurchase].data,
         employeeEmail: this.purchases[this.selectedPurchase].employee.email,
         },
       })
       .then((response) => {
-        this.purchases[this.selectedPurchase] = response.data
-        this.selectedPurchase = -1
-        this.success = "Purchase status modified successfully"
-        setTimeout(()=>this.success=null, 3000)
+        this.$router.go()
       })
       .catch(e => {
         this.error = e.response.data
@@ -149,20 +145,16 @@ export default {
       }
       // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id, 
-      {},
+      this.purchases[this.selectedPurchase].items,
       {params: {
         purchaseId: this.purchases[this.selectedPurchase].id,
         orderType: this.purchases[this.selectedPurchase].orderType,
         orderStatus: this.purchases[this.selectedPurchase].orderStatus,
-        data: this.purchases[this.selectedPurchase].data,
         employeeEmail: this.selectedEmployee,
         },
       })
       .then((response) => {
-        this.purchases[this.selectedPurchase] = response.data
-        this.selectedPurchase = -1
-        this.success = "Purchase employee modified successfully"
-        setTimeout(()=>this.success=null, 3000)
+        this.$router.go()
       })
       .catch(e => {
         this.error = e.response.data
