@@ -31,6 +31,7 @@ export default {
       selectedPurchaseQuantities: [],
       selectedPurchaseItemsPrices: [],
       selectedEmployee: '',
+      menu : true
     }
   },
 
@@ -94,6 +95,7 @@ export default {
       this.selectedPurchaseItems = []
       this.selectedPurchaseQuantities = []
       this.selectedPurchaseItemsPrices = []
+      this.menu = false
       
       for (const [item, quantity] of Object.entries(this.purchases[i].items)) {
         this.selectedPurchaseItems.push(item)
@@ -113,6 +115,8 @@ export default {
     },
 
     modifyPurchaseStatus: function(){
+      this.menu = false
+      
       if(!this.orderStatus) {
         this.error = 'Please fill in fields';
         setTimeout(() => this.error = null, 3000);
@@ -138,6 +142,8 @@ export default {
     },
 
     modifyPurchaseEmployee: function(){
+      this.menu = false
+
       if(!this.selectedEmployee) {
         this.error = 'Please fill in fields';
         setTimeout(() => this.error = null, 3000);
