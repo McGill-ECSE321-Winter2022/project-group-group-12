@@ -69,7 +69,7 @@ Vue class for the system information page.
           <br/>
           <br/>
           <p>If you are a citizen of <b>{{currentCity}}</b>, then the delivery is free! <br>
-            However, if you do not live in this city then you must pay a delivery fee of : <b>{{currentFee}}</b> </p>
+            However, if you do not live in this city then you must pay a delivery fee of : <b>{{currentFee}}</b>$ </p>
 
           <br/>
           <button class="back-button" v-on:click="menu = true">Back</button>
