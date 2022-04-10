@@ -46,7 +46,6 @@ export default {
 
       // Iterating over all purchases and adding their customer's email as a field
       for(let i = 0; i < this.purchases.length; i++) {
-        console.log(this.purchases[i].name)
          AXIOS.get('/customerByPurchase/' + this.purchases[i].id)
         .then(response => {
           this.purchases[i].customer = response.data.email
@@ -99,7 +98,8 @@ export default {
       for (let i = 0; i < this.selectedPurchaseItems.length; i++) {
         AXIOS.get('/item/' + this.selectedPurchaseItems[i])
         .then(response => {
-          this.selectedPurchaseItemsPrices.push(response.price)
+          console.log(response)
+          this.selectedPurchaseItemsPrices.push(response.data.price)
         })
         .catch(e => {
           this.error = e.response.data
