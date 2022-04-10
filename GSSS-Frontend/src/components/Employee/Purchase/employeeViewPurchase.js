@@ -112,10 +112,9 @@ export default {
       AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id,
       {},
       {params: {
-        purchaseId: this.purchases[this.selectedPurchase].id,
         orderType: this.purchases[this.selectedPurchase].orderType,
         orderStatus: this.orderStatus,
-        data: this.purchases[this.selectedPurchase].data,
+        data: this.purchases[this.selectedPurchase],
         employeeEmail: this.purchases[this.selectedPurchase].employee.email,
         },
       })
