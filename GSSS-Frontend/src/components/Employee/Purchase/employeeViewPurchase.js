@@ -124,8 +124,6 @@ export default {
         },
       })
       .then((response) => {
-        this.purchases[this.selectedPurchase] = response.data
-        this.selectedPurchase = -1
         this.$router.go() // Refresh the page
       })
       .catch(e => {
