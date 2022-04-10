@@ -28,7 +28,7 @@ export default {
         remove: function(){
             removeShift(this.shift.id, this.employee)
             .then(res => {
-                this.$router.push( {name: 'ShiftList'} )
+                this.$router.go()
             })
             .catch(err => {
                 this.error = err;
