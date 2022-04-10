@@ -122,6 +122,7 @@ export default {
       .then((response) => {
         this.purchases[this.selectedPurchase] = response.data
         this.selectedPurchase = -1
+        this.menu = true // Go back to menu
         this.success = "Purchase status modified successfully"
         setTimeout(()=>this.success=null, 3000)
       })
