@@ -56,7 +56,7 @@ public class  ItemCategoryRestController {
    */
   @PostMapping(value = {"/itemCategory", "/itemCategory/"})
   public ResponseEntity<?> createCategory(@RequestParam(name = "name") String name){
-	  try {
+		try {
 	    ItemCategory itemCategory = itemCategoryService.createCategory(name);
 	    return ResponseEntity.ok(DtoUtility.convertToDto(itemCategory));
 	  }catch(Exception e) {
