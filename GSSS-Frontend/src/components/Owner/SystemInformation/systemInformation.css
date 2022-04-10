@@ -9,7 +9,16 @@ table {
 }
 
 td {
-  padding: 10px 0;
+  padding: 30px 0;
+}
+
+table tr td:empty {
+  width: 15px;
+}
+
+.verticalLine {
+  border-left: 1px solid darkgrey;
+  height: 250px;
 }
 
 input{
@@ -59,7 +68,6 @@ input#cityinput{
 }
 
 
-
 .success {
   position: fixed;
   bottom: 0;
@@ -77,4 +85,35 @@ input#cityinput{
   border-radius: 0.5rem;
 }
 
+.currentBH{
+  border-collapse: separate;
+  border-spacing: 30px 0;
+}
+
+
+@media only screen and (max-width: 480px) {
+  /* horizontal scrollbar for tables if mobile screen */
+
+  .currentBH {
+    overflow-x: auto;
+    display: block;
+  }
+
+  /*.currentBH tr{*/
+  /*  padding: 0px;*/
+  /*}*/
+  .systemInformation-container{
+    display: block;
+    justify-content: center;
+  }
+
+  table {
+    border-collapse: collapse;
+
+  }
+  td {
+    padding: 30px 0;
+  }
+
+}
 
