@@ -35,7 +35,7 @@ export default {
 
             createItem(this.item)
             .then(res => {
-                this.$router.push( { name: 'viewAndEditItems' } );
+                this.$router.go();
             })
             .catch(err => {
                 this.error = err;
