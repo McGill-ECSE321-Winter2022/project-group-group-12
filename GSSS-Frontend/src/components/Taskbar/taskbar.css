@@ -49,15 +49,22 @@ nav > a:hover{
         right: 0;
         background-color: rgba(0, 0, 0, 0.763);
         text-align: center;
-        padding: 2rem 0;
+        padding: 4rem 0;
         display: var(--open);
     }
 
     nav > a {
         display: block;
-        margin-bottom: 2rem;
+        margin-bottom: 4rem;
         color: white;
-        font-size: large;
+        font-size: 2rem;
+    }
+
+    nav > .logout-btn {
+        position: absolute;
+        bottom: 2rem;
+        left: 0;
+        right: 0;
     }
 
     .taskbar-button {

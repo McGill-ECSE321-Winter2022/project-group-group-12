@@ -19,7 +19,7 @@
                     <a href="/#/customer/shop">Shop</a>
                     <a href='/#/customer/storeinformation'>Store information</a>
                     <a href='/#/customer/orderhistory'>Order history</a>
-                    <a v-on:click="logout()">Logout</a>
+                    <a v-on:click="logout()" class="logout-btn">Logout</a>
                 </nav>
 
                 <!-- Links if an employee is logged in -->
@@ -29,7 +29,7 @@
                     <a href='/#/employee/purchases'>Assigned purchases</a>
                     <a href='/#/employee/view/shifts'>Assigned shifts</a>
                     <a href='/#/customer/storeinformation'>Store information</a>
-                    <a v-on:click="logout()">Logout</a>
+                    <a v-on:click="logout()" class="logout-btn">Logout</a>
                 </nav>
 
                 <!-- Links if an owner is logged in -->
@@ -41,7 +41,7 @@
                     <a href='/#/owner/viewandedititems'>Items</a>
                     <a href='/#/owner/shifts'>Shifts</a>
                     <a href='/#/employee/customers'>Customers</a>
-                    <a v-on:click="logout()">Logout</a>
+                    <a v-on:click="logout()" class="logout-btn">Logout</a>
                 </nav>
 
                 <button class="taskbar-button" v-on:click="toggleTaskbar()">
