@@ -9,7 +9,8 @@ export default {
         return {
             shifts: [],
             selectedShift: -1,
-            addMode: false
+            addMode: false,
+            menu: true
         }
     },
     created: function(){
@@ -21,12 +22,15 @@ export default {
         selectShift: function(i){
             this.selectedShift = i;
             this.addMode = false;
+            this.menu = false;
         },
         selectLastShift: function(){
             this.selectedShift = this.shifts.length - 1;
+            this.menu = false;
         },
         addShift: function(){
             this.addMode = true;
+            this.menu = false;
         },
         onChange: function(){
             getAllShifts()
