@@ -40,14 +40,14 @@ About: Page to handle selecting items and adding them to the customer's cart
         </div>
       </div>
     </div>
-    <div class="row mt-2">
+    <div class="table-container">
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th class="cartSmallMobile" scope="col">#</th>
             <th scope="col">Product</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Price</th>
+            <th class="cartMobile" scope="col">Product Name</th>
+            <th class="cartMobile" scope="col">Price</th>
             <th scope="col">Quantity</th>
             <th scope="col">Remove</th>
           </tr>
@@ -55,12 +55,14 @@ About: Page to handle selecting items and adding them to the customer's cart
         <tbody>
           <!-- Displaying the cart -->
           <tr v-for="(product, index) in this.cart" :key="index">
-            <th scope="row">{{ index + 1 }}</th>
+            <th class="cartSmallMobile" scope="row">{{ index + 1 }}</th>
             <th scope="row">
               <img :src="product.imageUrl" style="width: 4rem;" />
             </th>
-            <td>{{ product.name }}</td>
-            <td>
+            <td class="cartMobile">
+              {{ product.name }}
+            </td>
+            <td class="cartMobile">
               {{ product.price.toFixed(2) }}$/unit
             </td>
             <td>
@@ -70,7 +72,7 @@ About: Page to handle selecting items and adding them to the customer's cart
               >
                 -
               </button>
-              {{ product.count }}
+                {{ product.count }}
               <button
                 v-on:click="increaseQ(index)"
                 class="btn btn-primary btn-sm"

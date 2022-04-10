@@ -21,3 +21,32 @@
 }
 
 
+
+@media(max-width: 750px){ 
+  
+  .cartMobile{
+    display: none;
+    width: 0px;
+    overflow: hidden;
+  }
+
+  .allItems{
+    margin: 0rem 0rem;
+  }
+
+  table{
+    table-layout: fixed;
+  }
+
+}
+
+@media(max-width: 550px){ 
+
+  .cartSmallMobile{
+    display: none;
+    overflow: hidden;
+    width: 0px;
+
+  }
+}
+

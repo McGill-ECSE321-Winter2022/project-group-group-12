@@ -33,7 +33,8 @@ import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
       price: 0,
       availableForOrder: true,
       stillAvailable: true,
-      itemCategory: ''
+      itemCategory: '',
+      menu: true
     }
   },
 
@@ -71,6 +72,9 @@ import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
     
     // Modifies the selected item and the default value of all modify fields  
     selectItem: function(i) {
+      // Set the menu to disappear
+      this.menu = false
+
       this.selectedItem = i
       this.name = this.items[i].name
       this.description = this.items[i].description

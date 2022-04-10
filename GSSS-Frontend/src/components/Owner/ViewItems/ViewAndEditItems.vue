@@ -29,7 +29,9 @@ About: Page to handle viewing and editing the items as the owner
       </div>
     </div>
     <div class="operations">
-      <div v-if="this.selectedItem != -1">
+      <div class="modifyItem" v-bind:class="menu ? 'menu-open' : 'menu-closed'">
+        <div v-if="this.selectedItem != -1">
+              <button class="back-button" v-on:click="menu = true">Back</button>
               <h2> Modify: {{ this.name }} </h2>
               <label>Description: </label>
               <input type="text" placeholder="Enter description" v-model="description"/>
@@ -56,7 +58,10 @@ About: Page to handle viewing and editing the items as the owner
                 </option>
               </select>
               <button v-on:click="modifyItem()">Modify</button>
+          
+          </div>
         </div>
+
         <div v-if="selectedItem!=-1" class = "vertical-separator" style="margin: 0 3rem"></div>
         <ItemCreator/>
       </div>
