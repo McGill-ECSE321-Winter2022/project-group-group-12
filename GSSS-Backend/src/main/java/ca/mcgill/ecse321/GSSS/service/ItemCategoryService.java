@@ -41,7 +41,7 @@ public class ItemCategoryService {
     }
 
     // Create and attempt to add new category to database
-    ItemCategory category = new ItemCategory();
+    category = new ItemCategory();
     category.setName(name);
 
     return itemCategoryRepository.save(category);
