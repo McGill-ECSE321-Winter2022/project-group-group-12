@@ -17,6 +17,7 @@
                 <input placeholder="city" type="text" v-model="customer.address.city" />
                 <input placeholder="postal code" type="text" v-model="customer.address.postalCode" />
                 <button v-on:click="save()">Sign Up</button>
+              <p> <a href="/#/login">Already have an account?</a></p>
             </div>
         </div>
         <div v-if="error" class="error">
@@ -24,7 +25,7 @@
                 {{ error }}
             </div>
         </div>
-    </div>   
+    </div>
 </template>
 
 <script src="./signUp.js" />
