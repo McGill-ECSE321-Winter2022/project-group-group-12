@@ -34,7 +34,8 @@ import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
       availableForOrder: true,
       stillAvailable: true,
       itemCategory: '',
-      menu: true
+      menu: true,
+      addMode: false,
     }
   },
 
@@ -74,7 +75,7 @@ import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
     selectItem: function(i) {
       // Set the menu to disappear
       this.menu = false
-
+      this.addMode = false
       this.selectedItem = i
       this.name = this.items[i].name
       this.description = this.items[i].description
@@ -124,8 +125,26 @@ import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
         this.error = e.response.data
         setTimeout(()=>this.error=null, 3000)
       })
-    }
-
+    },
+    createItem: function(){
+      this.addMode = true;
+      this.menu = false;
+    },
+    onChange: function(){
+      // Getting the items from the backend
+      AXIOS.get('/items')
+      .then(response => {
+        
+        // JSON responses are automatically parsed.
+        this.items = response.data
+        
+        })
+      .catch(e => {
+        this.error = e.response.data
+        setTimeout(()=>this.error=null, 3000)
+      })
+      this.addMode = false;
+  }
 
     },
     
