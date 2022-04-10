@@ -31,13 +31,12 @@ class AccountRestController {
    *
    * @param email The email of the account I'm logging in with
    * @param password The input password
-   * @param response HTTP servlet response for the cookies
    * @throws NoSuchElementException If no account exists with the given credentials
    * @throws IllegalArgumentException If the inputs are invalid
    * @author Philippe Sarouphim Hochar
    */
   @PostMapping(value = {"/account/login", "/account/login/"})
-  public ResponseEntity<String> logIn(@RequestParam() String email, @RequestParam String password){
+  public ResponseEntity<String> logIn(@RequestParam String email, @RequestParam String password){
 
 	try {
 	    Account account = accountService.authenticate(email, password);

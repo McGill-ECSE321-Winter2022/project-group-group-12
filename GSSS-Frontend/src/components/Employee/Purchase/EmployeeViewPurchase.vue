@@ -30,7 +30,7 @@
             <div> Cost: {{ purchases[selectedPurchase].cost.toFixed(2) }}$</div>
             <div> Items:
                 <ul v-for="(n, index) in this.selectedPurchaseItems.length" :key="index"> 
-                    <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index].toFixed(2) }}$ / unit )</li>
+                    <li> {{ selectedPurchaseItems[index] }} : {{ selectedPurchaseQuantities[index] }} ( {{ selectedPurchaseItemsPrices[index] }}$ / unit )</li>
                 </ul>
             </div>
             <br>

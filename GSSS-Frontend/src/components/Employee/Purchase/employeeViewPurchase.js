@@ -35,9 +35,10 @@ export default {
     // Getting the purchases from the backend using the email of the employye logged in
     AXIOS.get('/purchasesbyemployee/'.concat(localStorage.email))
     .then(response => {
+
       // JSON responses are automatically parsed.
       this.purchases = response.data
-
+      
       if(this.purchases.length == 0) {
           this.error = "Note: The current employee has not yet been assigned any purchases"
           setTimeout(()=>this.error=null, 3000)
@@ -45,7 +46,6 @@ export default {
 
       // Iterating over all purchases and adding their customer's email as a field
       for(let i = 0; i < this.purchases.length; i++) {
-        console.log(this.purchases[i].name)
          AXIOS.get('/customerByPurchase/' + this.purchases[i].id)
         .then(response => {
           this.purchases[i].customer = response.data.email
@@ -81,6 +81,7 @@ export default {
       
       // Set the menu to disappear
       this.menu = false
+
       // Set the selected purchase to be the one at index i
       this.selectedPurchase = i
 
@@ -97,10 +98,11 @@ export default {
       for (let i = 0; i < this.selectedPurchaseItems.length; i++) {
         AXIOS.get('/item/' + this.selectedPurchaseItems[i])
         .then(response => {
+          console.log(response)
           this.selectedPurchaseItemsPrices.push(response.data.price)
         })
         .catch(e => {
-          this.error = e
+          this.error = e.response.data
           setTimeout(() => this.error = null, 3000);
         })
       }
@@ -114,7 +116,7 @@ export default {
       }
       // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id,
-      this.purchases[this.selectedPurchase],
+      this.purchases[this.selectedPurchase].items,
       {params: {
         purchaseId: this.purchases[this.selectedPurchase].id,
         orderType: this.purchases[this.selectedPurchase].orderType,
@@ -126,7 +128,7 @@ export default {
         this.$router.go() // Refresh the page
       })
       .catch(e => {
-        this.error = e
+        this.error = e.response.data
         setTimeout(() => this.error = null, 3000);
       });
     },

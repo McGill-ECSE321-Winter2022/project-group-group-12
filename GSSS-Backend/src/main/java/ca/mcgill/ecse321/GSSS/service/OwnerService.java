@@ -77,7 +77,7 @@ public class OwnerService {
     }
 
     owner = new Owner();
-    owner.setEmail(email);
+    owner.setEmail(email.toLowerCase());
     owner.setUsername(username);
     owner.setSalt(Utility.getSalt());
     owner.setPassword(Utility.hashAndSaltPassword(password, owner.getSalt()));
