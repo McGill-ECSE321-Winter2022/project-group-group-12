@@ -101,9 +101,11 @@ input#cityinput {
     display: block;
   }
 
-  /*.currentBH tr{*/
-  /*  padding: 0px;*/
-  /*}*/
+  p {
+    word-break: normal;
+    white-space: normal;
+  }
+  
   .systemInformation-container {
     display: block;
     justify-content: center;

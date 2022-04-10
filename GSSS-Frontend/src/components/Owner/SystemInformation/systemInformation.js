@@ -8,6 +8,7 @@ export default {
   name: 'SystemInformation',
   data() {
     return {
+      selectedScreen: 0,
       selectedWeekday: '',
       newStartTime: '',
       newEndTime: '',
@@ -38,7 +39,7 @@ export default {
       SatCloseTime: '--:--',
       SunStartTime: '--:--',
       SunCloseTime: '--:--',
-
+      menu: true
     }
   },
   //This will be the first thing to run on the page
@@ -257,6 +258,11 @@ export default {
             setTimeout(() => this.errorBH = null, 5000);
           })
       }
+    },
+
+    showScreen: function (i) {
+      this.selectedScreen = i;
+      this.menu = false;
     }
   }
 }
