@@ -1,14 +1,14 @@
 
-
 .purchase-list {
   color: black;
 }
+
 .purchase-list ul {
   padding: 0;
   margin: 0;
   list-style: none;
   width: 300px;
-  float:left;
+  float: left;
   border: 1px solid red;
 }
 
@@ -21,7 +21,7 @@
   border: 1px solid #aaa;
   border-radius: 8px;
   width: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cccccc), color-stop(25%,#ffffff), color-stop(75%,#ffffff), color-stop(100%,#cccccc));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(25%, #ffffff), color-stop(75%, #ffffff), color-stop(100%, #cccccc));
   cursor: pointer;
   box-shadow: 2px 2px 3px #666;
   user-select: none;
@@ -52,7 +52,7 @@
 .purchase-list li:hover {
   border-color: #777;
   box-shadow: 3px 3px 5px #333;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dddddd), color-stop(25%,#ffffff), color-stop(75%,#ffffff), color-stop(100%,#dddddd));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(25%, #ffffff), color-stop(75%, #ffffff), color-stop(100%, #dddddd));
 }
 
 .purchase-list li:hover:before {

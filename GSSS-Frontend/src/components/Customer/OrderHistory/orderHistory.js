@@ -1,6 +1,6 @@
-
 // Importing axios and setting up URLs
 import axios from 'axios'
+
 var config = require('../../../../config')
 const backendUrl = (process.env.NODE_ENV === "production")
   ? `https://${config.build.backendHost}`
@@ -10,7 +10,7 @@ const frontendUrl = (process.env.NODE_ENV === "production")
   : `http://${config.dev.host}:${config.dev.port}`;
 const AXIOS = axios.create({
   baseURL: backendUrl,
-  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  headers: {'Access-Control-Allow-Origin': frontendUrl}
 });
 export default {
   name: 'OrderHistory',

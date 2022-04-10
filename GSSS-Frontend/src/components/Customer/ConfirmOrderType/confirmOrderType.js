@@ -1,5 +1,6 @@
 // Importing axios and setting up URLs
 import axios from 'axios'
+
 const config = require('../../../../config');
 const backendUrl = (process.env.NODE_ENV === "production")
   ? `https://${config.build.backendHost}`
@@ -9,14 +10,14 @@ const frontendUrl = (process.env.NODE_ENV === "production")
   : `http://${config.dev.host}:${config.dev.port}`;
 const AXIOS = axios.create({
   baseURL: backendUrl,
-  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  headers: {'Access-Control-Allow-Origin': frontendUrl}
 });
 
 export default {
 
   name: 'ConfirmOrderType',
 
-  data () {
+  data() {
     return {
       cart: [],
       deliveryFee: 0,
@@ -26,67 +27,67 @@ export default {
     }
   },
 
-created: function() {
+  created: function () {
 
 // Initializing the delivery type
-this.type = "Delivery"
+    this.type = "Delivery"
 
 // Getting the cart from local storage
-this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
 // Getting the total cost without the fee
-this.total = parseInt(localStorage.getItem("cartCost"))
+    this.total = parseInt(localStorage.getItem("cartCost"))
 
 // Getting the delivery fee from the backend
-AXIOS.get('/deliveryfee/' + localStorage.getItem("email"))
-.then(response => {
-  this.deliveryFee = response.data
-  console.log(this.deliveryFee)
-  })
-.catch(e => {
-  this.error = e.response.data
-  setTimeout(()=>this.error=null, 3000)
-})
+    AXIOS.get('/deliveryfee/' + localStorage.getItem("email"))
+      .then(response => {
+        this.deliveryFee = response.data
+        console.log(this.deliveryFee)
+      })
+      .catch(e => {
+        this.error = e.response.data
+        setTimeout(() => this.error = null, 3000)
+      })
 
-},
+  },
 
 
 // User defined methods
-methods: {
+  methods: {
 
-  // To proceed to checkout
-  payment : function() {
+    // To proceed to checkout
+    payment: function () {
 
       // Store the total cost with the fee in a variable
-      if(this.deliveryfee) this.total = this.total + this.deliveryFee
+      if (this.deliveryfee) this.total = this.total + this.deliveryFee
       localStorage.setItem('cost', this.total)
 
       // Add the purchase to the database
       var itemMap = new Map()
 
-      for(var i = 0; i < this.cart.length; i++) {
+      for (var i = 0; i < this.cart.length; i++) {
         itemMap.set(this.cart[i].name, this.cart[i].count)
       }
 
       // Convert map to JSON which can be passed in request
-      var convertedMap = Object.assign({}, ...Array.from(itemMap.entries()).map(([k, v]) =>({[k]: v}) ))
+      var convertedMap = Object.assign({}, ...Array.from(itemMap.entries()).map(([k, v]) => ({[k]: v})))
 
-      AXIOS.post('/purchasewithcustomer', convertedMap, 
-      { 
-        params: {
-          email: localStorage.getItem("email"),
-          ordertype: this.type,
-          orderstatus: "BeingPrepared" 
-        } 
-      })
-      .then(response => {
-        // Route to new page
-        this.$router.push({ name: 'Payment'})
-      })
-      .catch(e => {
-        this.error = e.response.data
-        setTimeout(()=>this.error=null, 3000)
-      })
+      AXIOS.post('/purchasewithcustomer', convertedMap,
+        {
+          params: {
+            email: localStorage.getItem("email"),
+            ordertype: this.type,
+            orderstatus: "BeingPrepared"
+          }
+        })
+        .then(response => {
+          // Route to new page
+          this.$router.push({name: 'Payment'})
+        })
+        .catch(e => {
+          this.error = e.response.data
+          setTimeout(() => this.error = null, 3000)
+        })
 
     }
   }
