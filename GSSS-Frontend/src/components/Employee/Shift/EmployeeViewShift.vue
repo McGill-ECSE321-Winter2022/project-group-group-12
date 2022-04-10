@@ -13,8 +13,8 @@
         <th> Shift end time</th>
       <tr v-for="shift in this.shifts" :key=shift.date>
           <td style="text-align:center"> {{ shift.date }} </td>
-          <td style="text-align:center"> {{ shift.startTime }} </td>
-          <td style="text-align:center"> {{ shift.endTime }} </td>
+          <td style="text-align:center"> {{ shift.startTime.slice(0, -3) }} </td>
+          <td style="text-align:center"> {{ shift.endTime.slice(0, -3) }} </td>
       </tr>
       </table>
     </div>

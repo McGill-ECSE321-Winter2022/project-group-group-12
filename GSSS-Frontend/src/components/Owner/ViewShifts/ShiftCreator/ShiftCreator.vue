@@ -6,14 +6,14 @@
             <input type="text" placeholder="YYYY-MM-DD" v-model="shift.date"/>
             <br/>
             <label>Start Time: </label>
-            <input type="text" placeholder="ex: 7:00:00" v-model="shift.startTime"/>
+            <input type="text" placeholder="ex: 7:00" v-model="shift.startTime"/>
             <br/>
             <label>End Time: </label>
-            <input type="text" placeholder="ex: 18:00:00" v-model="shift.endTime"/>
+            <input type="text" placeholder="ex: 18:00" v-model="shift.endTime"/>
             <br/>
             <label> Employees </label>
             <select v-model='selectedEmployee'>
-                <option v-for="employee in this.employees" :value="employee.email" :key="employee.email"> 
+                <option v-for="employee in this.employees" :value="employee.email" :key="employee.email">
                     {{ employee.email }}
                 </option>
             </select>
