@@ -4,8 +4,8 @@
   <div>
     <h1>Purchases</h1>
 
-    <div class="wrapper" v-if="this.purchases.length != 0">
-      <div class="employeeviewpurchases">
+    <div class="ham" v-if="this.purchases.length != 0">
+      <div class="menu" v-bind:class="menu ? 'menu-open' : 'menu-closed'">
         <ul class = "selectable-list">
           <li v-for="(purchase, i) in purchases" :key="purchase.id" v-on:click="onPurchaseSelect(i)">
             {{ purchase.date }}
@@ -14,9 +14,9 @@
       </div>
 
       <div class = "vertical-separator"/>
-      <div class = "details">
+      <div class="details" v-bind:class="menu ? 'menu-open' : 'menu-closed'">
           <div v-if="this.selectedPurchase!=-1">
-          
+            <button class="back-button" v-on:click="menu = true">Back</button>
             <div> 
               <h2> Selected Purchase information: </h2>
             </div>

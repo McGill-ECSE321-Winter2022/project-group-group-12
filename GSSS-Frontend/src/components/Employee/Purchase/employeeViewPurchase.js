@@ -26,7 +26,8 @@ export default {
       orderStatus: '',
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
-      selectedPurchaseItemsPrices: []
+      selectedPurchaseItemsPrices: [],
+      menu: true
     }
   },
 
@@ -77,6 +78,9 @@ export default {
   methods: {
     
     onPurchaseSelect: function(i) {
+      
+      // Set the menu to disappear
+      this.menu = false
       // Set the selected purchase to be the one at index i
       this.selectedPurchase = i
 
