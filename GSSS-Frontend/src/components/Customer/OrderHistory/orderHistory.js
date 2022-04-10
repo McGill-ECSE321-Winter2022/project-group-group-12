@@ -14,7 +14,7 @@ const AXIOS = axios.create({
 });
 export default {
   name: 'OrderHistory',
-  data () {
+  data() {
     return {
       purchases: [],
       selectedPurchase: -1, // The index of the selected customer
@@ -23,10 +23,12 @@ export default {
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
       selectedPurchaseItemsPrices: [],
-      email: ''
+      email: '',
+      menu: true
     }
   },
-  created: function() {
+
+  created: function () {
     this.email = localStorage.getItem("email")
     // Getting the purchases from the backend
     AXIOS.get('/purchasesbycustomer/' + localStorage.getItem("email"))
@@ -34,7 +36,7 @@ export default {
         // JSON responses are automatically parsed.
         this.purchases = response.data
         // Iterating over all purchases and adding their cost as a field
-        for(let i = 0; i < this.purchases.length; i++) {
+        for (let i = 0; i < this.purchases.length; i++) {
           AXIOS.get('/purchase/cost/' + this.purchases[i].id)
             .then(response => {
               this.purchases[i].cost = response.data
@@ -44,9 +46,9 @@ export default {
               setTimeout(() => this.error = null, 3000);
             })
         }
-        if(this.purchases.length == 0) {
+        if (this.purchases.length == 0) {
           this.error = "Note: The current customer has not made any online purchases yet"
-          setTimeout(()=>this.error=null, 3000)
+          setTimeout(() => this.error = null, 3000)
         }
       })
       .catch(e => {
@@ -55,13 +57,15 @@ export default {
       })
   },
   methods: {
-    onPurchaseSelect: function(i) {
+    onPurchaseSelect: function (i) {
       // Set the selected purchase to be the one at index i
+      this.menu = false
       this.selectedPurchase = i
       // Refresh the selectedPurchase item lists
       this.selectedPurchaseItems = []
       this.selectedPurchaseQuantities = []
       this.selectedPurchaseItemsPrices = []
+
       for (const [item, quantity] of Object.entries(this.purchases[i].items)) {
         this.selectedPurchaseItems.push(item)
         this.selectedPurchaseQuantities.push(quantity)
@@ -69,55 +73,13 @@ export default {
       for (let i = 0; i < this.selectedPurchaseItems.length; i++) {
         AXIOS.get('/item/' + this.selectedPurchaseItems[i])
           .then(response => {
-            this.selectedPurchaseItemsPrices.push(response.data.price)
+            this.selectedPurchaseItemsPrices.push(response.data.price.toFixed(2))
           })
           .catch(e => {
             this.error = e.response.data
             setTimeout(() => this.error = null, 3000);
           })
       }
-    },
-    modifyPurchaseStatus: function(orderStatus){
-      // Modifies selected purchase's order status
-      AXIOS.post('/purchase/modify/' + this.selectedPurchase.id,
-        {},
-        {params: {
-            purchaseId: selectedPurchase.id,
-            orderType: selectedPurchase.orderType,
-            orderStatus: orderStatus,
-            data: selectedPurchaseItems,
-            employeeEmail: selectedPurchase.employeeEmail,
-          },
-        })
-        .then((response) => {
-          this.selectedPurchase.orderStatus = response.data.orderStatus
-          location.reload(true);
-        })
-        .catch(e => {
-          this.error = e.response.data
-          setTimeout(() => this.error = null, 3000);
-        });
-    },
-    modifyPurchaseEmployee: function(newEmployeeEmail){
-      // Modifies selected purchase's order status
-      AXIOS.post('/purchase/modify/' + this.selectedPurchase.id,
-        {},
-        {params: {
-            purchaseId: selectedPurchase.id,
-            orderType: selectedPurchase.orderType,
-            orderStatus: selectedPurchase.orderStatus,
-            data: selectedPurchaseItems,
-            employeeEmail: newEmployeeEmail,
-          },
-        })
-        .then((response) => {
-          this.selectedPurchase.employeeEmail = response.data.employeeEmail
-          location.reload(true);
-        })
-        .catch(e => {
-          this.error = e.response.data
-          setTimeout(() => this.error = null, 3000);
-        });
     }
-  },
+  }
 }
