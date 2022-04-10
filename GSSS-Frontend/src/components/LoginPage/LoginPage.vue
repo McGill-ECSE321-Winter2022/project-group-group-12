@@ -8,6 +8,7 @@
                 <div>Password:</div>
                 <input v-model="password" placeholder="Enter password" type="password" />
                 <button @click="logIn()">Log In</button>
+                <p> <a href="/#/signup">Create an account!</a></p>
             </div>
         </div>
         <div v-if="error" class="error">

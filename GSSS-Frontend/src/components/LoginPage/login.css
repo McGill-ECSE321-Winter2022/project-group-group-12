@@ -12,11 +12,22 @@ input{
 .login-container > div,
 .login-container > div > *{
   width: fit-content;
-} 
+}
+
+.a{
+  text-decoration: none;
+}
+a:link, a:visited {
+  color: white;
+}
+a:hover {
+  color: lawngreen;
+}
+
 
 .error {
     position: fixed;
-    bottom: 00;
+    bottom: 0;
     left: 0;
     right: 0;
     color: red;
