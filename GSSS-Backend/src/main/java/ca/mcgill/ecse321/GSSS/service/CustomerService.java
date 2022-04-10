@@ -48,7 +48,7 @@ public class CustomerService {
       throw new IllegalArgumentException("Customer email cannot be empty!");
     }
 
-    Customer customer = customerRepository.findCustomerByEmail(email);
+    Customer customer = customerRepository.findCustomerByEmail(email.toLowerCase());
 
     if (customer == null) {
       throw new NoSuchElementException("No customer with email " + email + " exists!");
@@ -172,7 +172,7 @@ public class CustomerService {
     } catch (NoSuchElementException e) {
       if (e.getMessage().equals("No customer with email " + email + " exists!")) {
         customer = new Customer();
-        customer.setEmail(email);
+        customer.setEmail(email.toLowerCase());
         customer.setUsername(username);
         customer.setSalt(Utility.getSalt());
         customer.setPassword(Utility.hashAndSaltPassword(password, customer.getSalt()));

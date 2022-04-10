@@ -10,6 +10,7 @@ import java.sql.Time;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,7 @@ public class EmployeeService {
       if (e.getMessage().equals("No employee with email " + email + " exists!")) {
         employee = new Employee();
         employee.setUsername(username);
-        employee.setEmail(email);
+        employee.setEmail(email.toLowerCase());
         employee.setSalt(Utility.getSalt());
         employee.setPassword(Utility.hashAndSaltPassword(password, employee.getSalt()));
         employee.setAddress(address);
@@ -200,7 +201,7 @@ public class EmployeeService {
     }
 
     // Finding the employee with that email
-    Employee employee = employeeRepository.findEmployeeByEmail(email);
+    Employee employee = employeeRepository.findEmployeeByEmail(email.toLowerCase());
     if (employee == null) {
       throw new NoSuchElementException("No employee with email " + email + " exists!");
     }
