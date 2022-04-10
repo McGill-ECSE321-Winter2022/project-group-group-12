@@ -35,9 +35,10 @@ export default {
     // Getting the purchases from the backend using the email of the employye logged in
     AXIOS.get('/purchasesbyemployee/'.concat(localStorage.email))
     .then(response => {
+
       // JSON responses are automatically parsed.
       this.purchases = response.data
-
+      
       if(this.purchases.length == 0) {
           this.error = "Note: The current employee has not yet been assigned any purchases"
           setTimeout(()=>this.error=null, 3000)
@@ -81,6 +82,7 @@ export default {
       
       // Set the menu to disappear
       this.menu = false
+
       // Set the selected purchase to be the one at index i
       this.selectedPurchase = i
 
@@ -97,7 +99,7 @@ export default {
       for (let i = 0; i < this.selectedPurchaseItems.length; i++) {
         AXIOS.get('/item/' + this.selectedPurchaseItems[i])
         .then(response => {
-          this.selectedPurchaseItemsPrices.push(response.data.price.toFixed(2))
+          this.selectedPurchaseItemsPrices.push(response.price)
         })
         .catch(e => {
           this.error = e.response.data
@@ -114,7 +116,7 @@ export default {
       }
       // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id,
-      this.purchases[this.selectedPurchase],
+      this.purchases[this.selectedPurchase].items,
       {params: {
         purchaseId: this.purchases[this.selectedPurchase].id,
         orderType: this.purchases[this.selectedPurchase].orderType,
