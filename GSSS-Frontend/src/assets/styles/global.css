@@ -95,9 +95,9 @@ cursor: default;
 }
 
 .allItems {
-display: flex;
-margin: 2rem 5rem;
-flex-wrap: wrap;
+    display: flex;
+    margin: 2rem 5rem;
+    flex-wrap: wrap;
 }
 
 .table {
