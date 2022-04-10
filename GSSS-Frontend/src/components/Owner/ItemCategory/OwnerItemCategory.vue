@@ -6,6 +6,7 @@
         <p v-if="!category.edit">{{ category.name }}</p>
         <input v-if="category.edit" type="text" v-bind:placeholder="category.name" v-model="editedCategories[i]"/>
         <button v-if="!category.edit" class="image-button" v-on:click="edit(i)"><img style="height: 1.5rem" src="../../../assets/edit-icon.svg" /></button>
+        <button v-if="!category.edit" class="image-button" v-on:click="remove(i)"><img style="height: 1.5rem" src="../../../assets/delete-icon.svg" /></button>
         <button v-if="category.edit" class="image-button" v-on:click="cancel(i)"><img style="height: 1.5rem" src="../../../assets/cancel-icon.svg" /></button>
         <button v-if="category.edit" class="image-button" v-on:click="save(i)"><img style="height: 1.5rem" src="../../../assets/save-icon.svg" /></button>
       </li>
