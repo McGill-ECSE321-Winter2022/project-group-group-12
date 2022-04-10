@@ -9,7 +9,7 @@ export default {
     },
   
     created: function() {
-      this.total = localStorage.getItem('cost')
+      this.total = Number.parseFloat(localStorage.getItem('cost'))
     },
   
     methods: {
