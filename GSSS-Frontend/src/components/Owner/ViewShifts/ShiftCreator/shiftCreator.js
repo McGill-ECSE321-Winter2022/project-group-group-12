@@ -32,7 +32,7 @@ export default {
             addShift(this.selectedEmployee, this.shift)
             .then(res => {
                 this.onAdd();
-                this.$router.push({ name: 'ShiftList' });
+                this.$router.go()
              })
             .catch(err => {
                 this.error = err;

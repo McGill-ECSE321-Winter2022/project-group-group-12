@@ -26,7 +26,8 @@ export default {
       orderStatus: '',
       selectedPurchaseItems: [],
       selectedPurchaseQuantities: [],
-      selectedPurchaseItemsPrices: []
+      selectedPurchaseItemsPrices: [],
+      menu: true
     }
   },
 
@@ -77,6 +78,9 @@ export default {
   methods: {
     
     onPurchaseSelect: function(i) {
+      
+      // Set the menu to disappear
+      this.menu = false
       // Set the selected purchase to be the one at index i
       this.selectedPurchase = i
 
@@ -93,10 +97,10 @@ export default {
       for (let i = 0; i < this.selectedPurchaseItems.length; i++) {
         AXIOS.get('/item/' + this.selectedPurchaseItems[i])
         .then(response => {
-          this.selectedPurchaseItemsPrices.push(response.data.price)
+          this.selectedPurchaseItemsPrices.push(response.data.price.toFixed(2))
         })
         .catch(e => {
-          this.error = e
+          this.error = e.response.data
           setTimeout(() => this.error = null, 3000);
         })
       }
@@ -110,23 +114,19 @@ export default {
       }
       // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id,
-      {},
+      this.purchases[this.selectedPurchase],
       {params: {
         purchaseId: this.purchases[this.selectedPurchase].id,
         orderType: this.purchases[this.selectedPurchase].orderType,
         orderStatus: this.orderStatus,
-        data: this.purchases[this.selectedPurchase].data,
         employeeEmail: this.purchases[this.selectedPurchase].employee.email,
         },
       })
       .then((response) => {
-        this.purchases[this.selectedPurchase] = response.data
-        this.selectedPurchase = -1
-        this.success = "Purchase status modified successfully"
-        setTimeout(()=>this.success=null, 3000)
+        this.$router.go() // Refresh the page
       })
       .catch(e => {
-        this.error = e
+        this.error = e.response.data
         setTimeout(() => this.error = null, 3000);
       });
     },
