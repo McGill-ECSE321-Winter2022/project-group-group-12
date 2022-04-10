@@ -131,7 +131,7 @@ export default {
           this.currentFee = this.chosenFee;
         })
         .catch(e => {
-          this.errorStoreInfo = e
+          this.errorStoreInfo = "Error: Invalid input"
           setTimeout(() => this.errorStoreInfo = null, 5000);
         })
     },
@@ -170,7 +170,7 @@ export default {
 
             })
             .catch(e => {
-              this.errorBH = e
+              this.errorBH = "Error: Invalid input"
               setTimeout(() => this.errorBH = null, 5000);
             })
         }
@@ -254,7 +254,7 @@ export default {
 
           })
           .catch(e => {
-            this.errorBH = e
+            this.errorBH = "Error: Invalid input"
             setTimeout(() => this.errorBH = null, 5000);
           })
       }
