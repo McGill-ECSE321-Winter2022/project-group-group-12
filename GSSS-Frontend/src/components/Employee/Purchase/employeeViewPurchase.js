@@ -126,8 +126,7 @@ export default {
       .then((response) => {
         this.purchases[this.selectedPurchase] = response.data
         this.selectedPurchase = -1
-        this.success = "Purchase status modified successfully"
-        setTimeout(()=>this.success=null, 3000)
+        this.$router.go() // Refresh the page
       })
       .catch(e => {
         this.error = e
