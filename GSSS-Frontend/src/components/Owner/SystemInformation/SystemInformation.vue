@@ -59,8 +59,8 @@ Vue class for the system information page.
             <p>Store city: <input placeholder="ex: Montreal" type="text" id="cityinput"/></p>
             <p>Current city: <span style="color:deepskyblue; font-style:italic;">{{currentCity}}</span></p>
             <br/>
-            <p>Out of city fee: <input placeholder="ex: 5$" type="number"  min="0"  max="10" id="feeinput"/> </p>
-            <p>Current fee:  <span style="color:deepskyblue;"> {{currentFee}}</span></p>
+            <p>Out of city fee: <input placeholder="ex: 5" type="number"  min="0"  max="10" id="feeinput"/> </p>
+            <p>Current fee:  <span style="color:deepskyblue;"> {{currentFee}}</span>$</p>
 
             <button v-on:click="saveCityAndFee()">  Save store information</button>
 
