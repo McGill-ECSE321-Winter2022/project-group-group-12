@@ -16,7 +16,8 @@ export default {
     name: 'taskbar',
     data: function(){
         return {
-            permission: -1
+            permission: -1,
+            taskbar: false
         }
     },
 
@@ -28,6 +29,10 @@ export default {
         logout: function(){
             logOut();
             this.$router.push( { name: 'LoginPage' } );
+        },
+
+        toggleTaskbar: function() {
+            this.taskbar = !this.taskbar;
         }
     },
 
