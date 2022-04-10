@@ -32,6 +32,10 @@ export default {
       this.itemCategories = [...this.itemCategories];
     },
     save: function(i){
+      if(this.itemCategories[i].name == this.editedCategories[i]) {
+        cancel(i);
+        return;
+      }
       modifyCategory(this.itemCategories[i].name, this.editedCategories[i])
       .then(res => {
         this.itemCategories[i] = { name: this.editedCategories[i] };
