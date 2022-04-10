@@ -1,101 +1,66 @@
-// Importing axios and setting up URLs
-import axios from 'axios'
-var config = require('../../../../config')
-const backendUrl = (process.env.NODE_ENV === "production")
-  ? `https://${config.build.backendHost}`
-  : `http://${config.dev.backendHost}:${config.dev.backendPort}`;
-const frontendUrl = (process.env.NODE_ENV === "production")
-  ? `https://${config.build.host}`
-  : `http://${config.dev.host}:${config.dev.port}`;
-const AXIOS = axios.create({
-  baseURL: backendUrl,
-  headers: { 'Access-Control-Allow-Origin': frontendUrl }
-});
-
-function ItemCategoryDto(name){
-this.name = name
-}
+import { getAllCategories, createCategory, modifyCategory } from "../../../services/itemCategory";
 
 export default {
-name: 'addModifyCategory',
-data () {
-return {
-  itemCategories: [],
-  newItemCategory: '',
-  newItemCategory2: '',
-  oldItemCategory: '',
-  error: '',
-  success: '',
-  response: [],
-}
-},
-created: function (itemCategoryName) { 
-AXIOS.get('/itemCategories/')
-.then(response => {
-  this.itemCategories = response.data
-}).catch(e => {
-this.error = e.response.data
-setTimeout(() => this.error = null, 3000);
-})
-},
-
-methods: {
-onSelect: function(i) {
-  // Set the selected purchase to be the one at index i
-  this.oldItemCategory = this.itemCategories[i].name
-},
-
-createItemCategory: function(){
-  if(!this.newItemCategory) {
-    this.error = 'Please fill in fields';
-    setTimeout(() => this.error = null, 3000);
-    return;
-  }
-  AXIOS.post('/itemCategory/',
-  {},
-  {
-    params: {
-      name: this.newItemCategory
-    },
-  }
-  )
-  .then((response) => {
-    this.error = ""
-    this.newItemCategory = ""
-    this.itemCategories.push(response.data)        
-    this.success = "Item category created successfully"
-    setTimeout(()=>this.success=null, 3000)
-  })
-  .catch(e => {
-    this.error = e.response.data
-    setTimeout(() => this.error = null, 3000);
-  })
-},
-
-modifyItemCategory: function(){
-  if(!this.oldItemCategory || !this.newItemCategory2) {
-    this.error = 'Please fill in fields';
-    setTimeout(() => this.error = null, 3000);
-    return;
-  }
-  AXIOS.post('/itemCategory/modify/',
-  {},
-  {
-    params: {
-      oldName: this.oldItemCategory,
-      newName: this.newItemCategory2
+  name: 'addModifyCategory',
+  data () {
+    return {
+      itemCategories: [],
+      editedCategories: [],
+      newCategory: '',
+      error: '',
+      success: false
     }
-  })
-  .then(response => {
-    this.oldItemCategory = ''
-    this.newItemCategory2 = ''
-    location.reload(true);
-  })
-  .catch(e => {
-    this.error = e.response.data
-    setTimeout(() => this.error = null, 3000);
-  })
-},
+  },
+  created: function () {
+    getAllCategories()
+    .then(res => this.itemCategories = res)
+    .catch(err => {
+      this.error = err;
+      setTimeout(() => this.error = null, 5000);
+    });
+  },
 
-}
+  methods: {
+    edit: function(i){
+      this.itemCategories[i].edit = true;
+      this.itemCategories = [...this.itemCategories];
+      this.editedCategories[i] = this.itemCategories[i].name;
+      this.editedCategories = [...editedCategories];
+    },
+    cancel: function(i){
+      this.itemCategories[i].edit = false;
+      this.itemCategories = [...this.itemCategories];
+    },
+    save: function(i){
+      modifyCategory(this.itemCategories[i].name, this.editedCategories[i])
+      .then(res => {
+        this.itemCategories[i] = { name: this.editedCategories[i] };
+        this.itemCategories = [...this.itemCategories];
+        this.success = true;
+        this.error = "Category succesfully modified!";
+        setTimeout(() => this.error = null, 5000);
+      })
+      .catch(err => {
+        this.success = false;
+        this.error = err;
+        setTimeout(() => this.error = null, 5000);
+      });
+    },
+    create: function(){
+      createCategory(this.newCategory)
+      .then(res => {
+        this.itemCategories.push({ name: this.newCategory });
+        this.itemCategories = [...this.itemCategories];
+        this.newCategory = null;
+        this.success = true;
+        this.error = "Category succesfully created!";
+        setTimeout(() => this.error = null, 5000);
+      })
+      .catch(err => {
+        this.success = false;
+        this.error = err;
+        setTimeout(() => this.error = null, 5000);
+      })
+    }
+  }
 }

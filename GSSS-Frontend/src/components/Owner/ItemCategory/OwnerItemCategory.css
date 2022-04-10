@@ -1,28 +1,56 @@
-input{
-    display: block;
+.editable-list{
+    list-style-type: none;
+    padding-left: 0;
 }
 
-table{
-    width: 70%;
+.editable-list > li{
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    width: 20rem;
 }
 
-input{
-    margin-bottom: 0.5rem;
+.editable-list button{
+    padding: 0 0.1rem;
 }
 
-button{
-    margin-bottom: 2rem;
+.editable-list p{
+    margin: 0;
+    display: inline-block;
 }
 
-/* Center the title */
-td.space { 
-    font-size: 130%;
-    line-height: 100px; 
-    vertical-align:baseline;
+.editable-list > li > p,
+.editable-list > li > input{
+    flex-basis: 100%;
 }
 
-.categories {
-    font-size: 120%;
+.create-category{
+    margin-top: 3rem;
+    width: 20rem;
+    max-width: 100%;
+}
+
+.create-category-input{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.create-category-input > input{
+    flex-basis: 100%;
+}
+
+.create-category-input > button{
+    margin-left: 0.5rem;
+}
+
+.create-category h3{
+    margin: 0;
+}
+
+.editable-list input{
+    min-width: none;
 }
 
 .error {
@@ -34,10 +62,18 @@ td.space {
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
-  }
-  
-  .error > div {
+}
+
+.error > div {
     background-color: rgba(0, 0, 0, 0.822);
     padding: 0.5em 1em;
     border-radius: 0.5rem;
-  }
+}
+
+@media (max-width: 370px){
+
+    .addModifyCategory{
+        margin: 0 -1rem;
+    }
+
+}

@@ -42,6 +42,15 @@ button:hover{
     border: solid var(--color-accent) 2px;
 }
 
+.image-button{
+    background: transparent;
+    border: none;
+}
+
+.image-button:hover{
+    border: none;
+}
+
 body{
     margin-top: var(--navbar-height);
     padding: 2rem;
