@@ -34,6 +34,12 @@ public class ItemCategoryService {
       throw new IllegalArgumentException("Item category name cannot be empty!");
     }
 
+    // Check it doesn't already exist
+    ItemCategory category = itemCategoryRepository.findItemCategoryByName(name);
+    if(category != null) {
+      throw new IllegalArgumentException("An item category with this name already exists!");
+    }
+
     // Create and attempt to add new category to database
     ItemCategory category = new ItemCategory();
     category.setName(name);
