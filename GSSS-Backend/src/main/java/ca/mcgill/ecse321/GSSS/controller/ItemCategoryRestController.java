@@ -5,11 +5,9 @@ import ca.mcgill.ecse321.GSSS.model.Item;
 import ca.mcgill.ecse321.GSSS.model.ItemCategory;
 import ca.mcgill.ecse321.GSSS.service.ItemCategoryService;
 import ca.mcgill.ecse321.GSSS.service.ItemService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Chris Hatoum
  */
-public class  ItemCategoryRestController {
+public class ItemCategoryRestController {
 
   @Autowired
   private ItemCategoryService itemCategoryService;
@@ -40,13 +38,13 @@ public class  ItemCategoryRestController {
   @Autowired
   private ItemService itemService;
 
-  
 //  @GetMapping(value = {"/itemCategoryByName", "/itemCategoryByName/"})
 //  public ItemCategoryDto getCategoryByName(@RequestParam(name = "name") String name) throws IllegalArgumentException, NoSuchElementException {
 //    
 //    ItemCategory itemCategory = itemCategoryService.getCategoryByName(name);
 //    return DtoUtility.convertToDto(itemCategory);
 //  }
+
   /**
    * method to create itemCategoryDto with a name
    *
@@ -55,13 +53,13 @@ public class  ItemCategoryRestController {
    * @author Chris Hatoum
    */
   @PostMapping(value = {"/itemCategory", "/itemCategory/"})
-  public ResponseEntity<?> createCategory(@RequestParam(name = "name") String name){
-		try {
-	    ItemCategory itemCategory = itemCategoryService.createCategory(name);
-	    return ResponseEntity.ok(DtoUtility.convertToDto(itemCategory));
-	  }catch(Exception e) {
-		return ResponseEntity.badRequest().body(e.getMessage());
-	  }
+  public ResponseEntity<?> createCategory(@RequestParam(name = "name") String name) {
+    try {
+      ItemCategory itemCategory = itemCategoryService.createCategory(name);
+      return ResponseEntity.ok(DtoUtility.convertToDto(itemCategory));
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 
   /**
@@ -72,14 +70,24 @@ public class  ItemCategoryRestController {
    * @author Chris Hatoum
    */
   @DeleteMapping(value = {"/itemCategory/{name}", "/itemCategory/{name}/"})
-  public ResponseEntity<?> deleteCategory(@PathVariable("name") String name){
-	  try {
-		  itemCategoryService.deleteCategory(name);
-		  return ResponseEntity.ok(null);
-	  }catch(Exception e) {
-		return ResponseEntity.badRequest().body(e.getMessage());
-	  }
-  	}
+  public ResponseEntity<?> deleteCategory(@PathVariable("name") String name)
+      throws IllegalArgumentException, NoSuchElementException {
+    try {
+
+      // Get the item category
+      ItemCategory itemCategory = itemCategoryService.getCategoryByName(name);
+
+      // Check no items are associated with it
+      List<Item> associatedItems = itemService.getItemsByCategory(itemCategory);
+      if (associatedItems.size() > 0) {
+        return ResponseEntity.badRequest().body("This item category has items associated with it!");
+      }
+      itemCategoryService.deleteCategory(name);
+      return ResponseEntity.ok(null);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
 
   /**
    * Method to get list of all the itemCategoryDTO's
@@ -88,7 +96,7 @@ public class  ItemCategoryRestController {
    * @author Chris Hatoum
    */
   @GetMapping(value = {"/itemCategories", "/itemCategories/"})
-  public List<ItemCategoryDto> getAllItemCategories(){
+  public List<ItemCategoryDto> getAllItemCategories() {
     List<ItemCategoryDto> itemCategoryDtos = new ArrayList<>();
     for (ItemCategory itemCategory : itemCategoryService.getAll()) {
       itemCategoryDtos.add(DtoUtility.convertToDto(itemCategory));
@@ -105,21 +113,25 @@ public class  ItemCategoryRestController {
    * @author Enzo Benoit-Jeannin
    */
   @PostMapping(value = {"/itemCategory/modify", "/itemCategory/modify/"})
-  public ResponseEntity<?> modifyCategory(@RequestParam(name = "oldName") String oldName, @RequestParam(name = "newName") String newName){
-	  try {
-	    ItemCategory itemCategory = itemCategoryService.createCategory(newName);  // create a new category with the given new name
-	
-	    ItemCategory oldCategory = itemCategoryService.getCategoryByName(oldName);  // Get the old one using the old name
-	   
-	    List<Item> items = itemService.getItemsByCategory(oldCategory);     // For all items that were in the old category, set their new category with the newly created one
-	    for (Item i : items){
-	      i.setCategory(itemCategory);
-	    }
-	    itemCategoryService.deleteCategory(oldName);
-	      
-	    return ResponseEntity.ok(DtoUtility.convertToDto(itemCategory));
-	  }catch(Exception e) {
-		return ResponseEntity.badRequest().body(e.getMessage());
-	  }
+  public ResponseEntity<?> modifyCategory(@RequestParam(name = "oldName") String oldName,
+      @RequestParam(name = "newName") String newName) {
+    try {
+      ItemCategory itemCategory = itemCategoryService.createCategory(
+          newName);  // create a new category with the given new name
+
+      ItemCategory oldCategory = itemCategoryService.getCategoryByName(
+          oldName);  // Get the old one using the old name
+
+      List<Item> items = itemService.getItemsByCategory(
+          oldCategory);     // For all items that were in the old category, set their new category with the newly created one
+      for (Item i : items) {
+        i.setCategory(itemCategory);
+      }
+      itemCategoryService.deleteCategory(oldName);
+
+      return ResponseEntity.ok(DtoUtility.convertToDto(itemCategory));
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 }

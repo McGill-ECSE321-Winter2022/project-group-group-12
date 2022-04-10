@@ -1,4 +1,3 @@
-
 //Javascript for the System information page.
 //author Theo Ghanem
 
@@ -9,6 +8,7 @@ export default {
   name: 'SystemInformation',
   data() {
     return {
+      selectedScreen: 0,
       selectedWeekday: '',
       newStartTime: '',
       newEndTime: '',
@@ -25,94 +25,94 @@ export default {
       successBH: '',
       successStoreInfo: '',
 
-      MonStartTime:'--:--',
-      MonCloseTime:'--:--',
-      TueStartTime:'--:--',
-      TueCloseTime:'--:--',
-      WedStartTime:'--:--',
-      WedCloseTime:'--:--',
-      ThuStartTime:'--:--',
-      ThuCloseTime:'--:--',
-      FriStartTime:'--:--',
-      FriCloseTime:'--:--',
-      SatStartTime:'--:--',
-      SatCloseTime:'--:--',
-      SunStartTime:'--:--',
-      SunCloseTime:'--:--',
-
+      MonStartTime: '--:--',
+      MonCloseTime: '--:--',
+      TueStartTime: '--:--',
+      TueCloseTime: '--:--',
+      WedStartTime: '--:--',
+      WedCloseTime: '--:--',
+      ThuStartTime: '--:--',
+      ThuCloseTime: '--:--',
+      FriStartTime: '--:--',
+      FriCloseTime: '--:--',
+      SatStartTime: '--:--',
+      SatCloseTime: '--:--',
+      SunStartTime: '--:--',
+      SunCloseTime: '--:--',
+      menu: true
     }
   },
   //This will be the first thing to run on the page
   //It will get the current Business Hours and populate the table on the bottom of the page
-  created: function(){
+  created: function () {
     //get the business hours of the particular weekday
-      getBusinessHours('Monday')
-        .then(res  => {
-        this.MonStartTime =res.startTimeFromBackend.slice(0, -3) //(the .slice(0. -3) is to remove the seconds from the time)
-        this.MonCloseTime =res.endTimeFromBackend.slice(0, -3)
-        })
-        .catch(e => {
-          // this.MonStartTime='--:--'
-          // this.MonCloseTime='--:--'
-        })
+    getBusinessHours('Monday')
+      .then(res => {
+        this.MonStartTime = res.startTimeFromBackend.slice(0, -3) //(the .slice(0. -3) is to remove the seconds from the time)
+        this.MonCloseTime = res.endTimeFromBackend.slice(0, -3)
+      })
+      .catch(e => {
+        // this.MonStartTime='--:--'
+        // this.MonCloseTime='--:--'
+      })
 
-      getBusinessHours('Tuesday')
-        .then(res  => {
-        this.TueStartTime =res.startTimeFromBackend.slice(0, -3)
-        this.TueCloseTime =res.endTimeFromBackend.slice(0, -3)
-        })
-        .catch(e => {
-        })
+    getBusinessHours('Tuesday')
+      .then(res => {
+        this.TueStartTime = res.startTimeFromBackend.slice(0, -3)
+        this.TueCloseTime = res.endTimeFromBackend.slice(0, -3)
+      })
+      .catch(e => {
+      })
 
-      getBusinessHours('Wednesday')
-        .then(res  => {
-        this.WedStartTime =res.startTimeFromBackend.slice(0, -3)
-        this.WedCloseTime =res.endTimeFromBackend.slice(0, -3)
-        })
-        .catch(e => {
-        })
+    getBusinessHours('Wednesday')
+      .then(res => {
+        this.WedStartTime = res.startTimeFromBackend.slice(0, -3)
+        this.WedCloseTime = res.endTimeFromBackend.slice(0, -3)
+      })
+      .catch(e => {
+      })
 
-      getBusinessHours('Thursday')
-        .then(res  => {
-        this.ThuStartTime =res.startTimeFromBackend.slice(0, -3)
-        this.ThuCloseTime =res.endTimeFromBackend.slice(0, -3)
-        })
-        .catch(e => {
-        })
+    getBusinessHours('Thursday')
+      .then(res => {
+        this.ThuStartTime = res.startTimeFromBackend.slice(0, -3)
+        this.ThuCloseTime = res.endTimeFromBackend.slice(0, -3)
+      })
+      .catch(e => {
+      })
 
-      getBusinessHours('Friday')
-        .then(res  => {
-        this.FriStartTime =res.startTimeFromBackend.slice(0, -3)
-        this.FriCloseTime =res.endTimeFromBackend.slice(0, -3)
-        })
-        .catch(e => {
-        })
+    getBusinessHours('Friday')
+      .then(res => {
+        this.FriStartTime = res.startTimeFromBackend.slice(0, -3)
+        this.FriCloseTime = res.endTimeFromBackend.slice(0, -3)
+      })
+      .catch(e => {
+      })
 
-      getBusinessHours('Saturday')
-        .then(res  => {
-        this.SatStartTime =res.startTimeFromBackend.slice(0, -3)
-        this.SatCloseTime =res.endTimeFromBackend.slice(0, -3)
-        })
-        .catch(e => {
-        })
+    getBusinessHours('Saturday')
+      .then(res => {
+        this.SatStartTime = res.startTimeFromBackend.slice(0, -3)
+        this.SatCloseTime = res.endTimeFromBackend.slice(0, -3)
+      })
+      .catch(e => {
+      })
 
-      getBusinessHours('Sunday')
-        .then(res  => {
-        this.SunStartTime =res.startTimeFromBackend.slice(0, -3)
-        this.SunCloseTime =res.endTimeFromBackend.slice(0, -3)
-        })
-        .catch(e => {
-        })
+    getBusinessHours('Sunday')
+      .then(res => {
+        this.SunStartTime = res.startTimeFromBackend.slice(0, -3)
+        this.SunCloseTime = res.endTimeFromBackend.slice(0, -3)
+      })
+      .catch(e => {
+      })
 
 
     //Get current Store City and out of town delivery fee
-      getCityAndFee()
-        .then(res  => {
-          this.currentCity =res.currentCityFromBackend
-          this.currentFee =res.outOfCityFeeFromBackend
-        })
-        .catch(e => {
-        })
+    getCityAndFee()
+      .then(res => {
+        this.currentCity = res.currentCityFromBackend
+        this.currentFee = res.outOfCityFeeFromBackend
+      })
+      .catch(e => {
+      })
 
   },
 
@@ -127,7 +127,7 @@ export default {
         .then(response => {
           this.successStoreInfo = 'Successfully updated store information!'
           setTimeout(() => this.successStoreInfo = null, 5000);
-          this.currentCity=this.chosenCity;
+          this.currentCity = this.chosenCity;
           this.currentFee = this.chosenFee;
         })
         .catch(e => {
@@ -152,21 +152,21 @@ export default {
               this.successBH = 'Successfully updated the Business Hours!'
               setTimeout(() => this.successBH = null, 5000)
 
-                this.MonStartTime=
-                this.TueStartTime=
-                this.WedStartTime=
-                this.ThuStartTime=
-                this.FriStartTime=
-                this.SatStartTime=
-                this.SunStartTime = this.newStartTime;
+              this.MonStartTime =
+                this.TueStartTime =
+                  this.WedStartTime =
+                    this.ThuStartTime =
+                      this.FriStartTime =
+                        this.SatStartTime =
+                          this.SunStartTime = this.newStartTime;
 
-                this.MonCloseTime=
-                this.TueCloseTime=
-                this.WedCloseTime=
-                this.ThuCloseTime=
-                this.FriCloseTime=
-                this.SatCloseTime=
-                this.SunCloseTime= this.newEndTime;
+              this.MonCloseTime =
+                this.TueCloseTime =
+                  this.WedCloseTime =
+                    this.ThuCloseTime =
+                      this.FriCloseTime =
+                        this.SatCloseTime =
+                          this.SunCloseTime = this.newEndTime;
 
             })
             .catch(e => {
@@ -182,71 +182,71 @@ export default {
             this.successBH = 'Successfully updated the Business Hours!'
             setTimeout(() => this.successBH = null, 5000);
 
-            if(this.selectedWeekday==='Monday'){
-                getBusinessHours(this.selectedWeekday)
-                  .then(res  => {
-                  this.MonStartTime =res.startTimeFromBackend.slice(0, -3) //(the .slice(0. -3) is to remove the seconds from the time)
-                  this.MonCloseTime =res.endTimeFromBackend.slice(0, -3)
-                  })
-                  .catch(e => {
-                  })
-            }
-
-            if(this.selectedWeekday==='Tuesday'){
+            if (this.selectedWeekday === 'Monday') {
               getBusinessHours(this.selectedWeekday)
-                .then(res  => {
-                this.TueStartTime =res.startTimeFromBackend.slice(0, -3)
-                this.TueCloseTime =res.endTimeFromBackend.slice(0, -3)
+                .then(res => {
+                  this.MonStartTime = res.startTimeFromBackend.slice(0, -3) //(the .slice(0. -3) is to remove the seconds from the time)
+                  this.MonCloseTime = res.endTimeFromBackend.slice(0, -3)
                 })
                 .catch(e => {
                 })
             }
 
-            if(this.selectedWeekday==='Wednesday'){
+            if (this.selectedWeekday === 'Tuesday') {
               getBusinessHours(this.selectedWeekday)
-                .then(res  => {
-                this.WedStartTime =res.startTimeFromBackend.slice(0, -3)
-                this.WedCloseTime =res.endTimeFromBackend.slice(0, -3)
+                .then(res => {
+                  this.TueStartTime = res.startTimeFromBackend.slice(0, -3)
+                  this.TueCloseTime = res.endTimeFromBackend.slice(0, -3)
                 })
                 .catch(e => {
                 })
             }
 
-            if(this.selectedWeekday==='Thursday'){
+            if (this.selectedWeekday === 'Wednesday') {
               getBusinessHours(this.selectedWeekday)
-                .then(res  => {
-                this.ThuStartTime =res.startTimeFromBackend.slice(0, -3)
-                this.ThuCloseTime =res.endTimeFromBackend.slice(0, -3)
+                .then(res => {
+                  this.WedStartTime = res.startTimeFromBackend.slice(0, -3)
+                  this.WedCloseTime = res.endTimeFromBackend.slice(0, -3)
                 })
                 .catch(e => {
                 })
             }
 
-            if(this.selectedWeekday==='Friday'){
+            if (this.selectedWeekday === 'Thursday') {
               getBusinessHours(this.selectedWeekday)
-                .then(res  => {
-                this.FriStartTime =res.startTimeFromBackend.slice(0, -3)
-                this.FriCloseTime =res.endTimeFromBackend.slice(0, -3)
+                .then(res => {
+                  this.ThuStartTime = res.startTimeFromBackend.slice(0, -3)
+                  this.ThuCloseTime = res.endTimeFromBackend.slice(0, -3)
                 })
                 .catch(e => {
                 })
             }
 
-            if(this.selectedWeekday==='Saturday'){
+            if (this.selectedWeekday === 'Friday') {
               getBusinessHours(this.selectedWeekday)
-                .then(res  => {
-                this.SatStartTime =res.startTimeFromBackend.slice(0, -3)
-                this.SatCloseTime =res.endTimeFromBackend.slice(0, -3)
+                .then(res => {
+                  this.FriStartTime = res.startTimeFromBackend.slice(0, -3)
+                  this.FriCloseTime = res.endTimeFromBackend.slice(0, -3)
                 })
                 .catch(e => {
                 })
             }
 
-            if(this.selectedWeekday==='Sunday'){
+            if (this.selectedWeekday === 'Saturday') {
               getBusinessHours(this.selectedWeekday)
-                .then(res  => {
-                this.SunStartTime =res.startTimeFromBackend.slice(0, -3)
-                this.SunCloseTime =res.endTimeFromBackend.slice(0, -3)
+                .then(res => {
+                  this.SatStartTime = res.startTimeFromBackend.slice(0, -3)
+                  this.SatCloseTime = res.endTimeFromBackend.slice(0, -3)
+                })
+                .catch(e => {
+                })
+            }
+
+            if (this.selectedWeekday === 'Sunday') {
+              getBusinessHours(this.selectedWeekday)
+                .then(res => {
+                  this.SunStartTime = res.startTimeFromBackend.slice(0, -3)
+                  this.SunCloseTime = res.endTimeFromBackend.slice(0, -3)
                 })
                 .catch(e => {
                 })
@@ -258,6 +258,11 @@ export default {
             setTimeout(() => this.errorBH = null, 5000);
           })
       }
+    },
+
+    showScreen: function (i) {
+      this.selectedScreen = i;
+      this.menu = false;
     }
   }
 }

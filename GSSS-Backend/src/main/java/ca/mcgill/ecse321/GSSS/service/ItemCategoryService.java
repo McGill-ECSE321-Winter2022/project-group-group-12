@@ -21,9 +21,6 @@ public class ItemCategoryService {
   @Autowired
   private ItemCategoryRepository itemCategoryRepository;
 
-  @Autowired
-  private ItemService itemService;
-
   /**
    * This service creates a new item category and adds it to the database.
    *
@@ -94,19 +91,6 @@ public class ItemCategoryService {
     // Input validation
     if (name == null || name.trim().length() == 0) {
       throw new IllegalArgumentException("Item category name cannot be empty!");
-    }
-
-    // Get the item category
-    ItemCategory itemCategory = itemCategoryRepository.findItemCategoryByName(name);
-
-    if(itemCategory == null) {
-      throw new IllegalArgumentException("No item category associated with the given name!");
-    }
-
-    // Check no items are associated with it
-    List<Item> associatedItems = itemService.getItemsByCategory(itemCategory);
-    if(associatedItems.size() > 0) {
-      throw new IllegalArgumentException("This category has items associated with it!");
     }
 
     itemCategoryRepository.deleteById(name);

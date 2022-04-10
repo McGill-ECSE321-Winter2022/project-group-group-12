@@ -18,33 +18,36 @@ table tr td:empty {
 
 .verticalLine {
   border-left: 1px solid darkgrey;
-  height: 250px;
+  height: 270px;
 }
 
-input{
+input {
   margin-bottom: 1rem;
   display: inline-block;
   /*width: 400px;*/
 }
 
-input#startTimeInput{
+input#startTimeInput {
   width: 75px;
   text-align: center;
 }
-input#endTimeInput{
+
+input#endTimeInput {
   width: 75px;
   text-align: center;
 }
-input#feeinput{
+
+input#feeinput {
   width: 75px;
   text-align: center;
 }
-input#cityinput{
+
+input#cityinput {
   width: 100px;
   text-align: center;
 }
 
-.systemInformation-container{
+.systemInformation-container {
   display: flex;
   justify-content: center;
 
@@ -85,7 +88,7 @@ input#cityinput{
   border-radius: 0.5rem;
 }
 
-.currentBH{
+.currentBH {
   border-collapse: separate;
   border-spacing: 30px 0;
 }
@@ -93,16 +96,17 @@ input#cityinput{
 
 @media only screen and (max-width: 480px) {
   /* horizontal scrollbar for tables if mobile screen */
-
   .currentBH {
     overflow-x: auto;
     display: block;
   }
 
-  /*.currentBH tr{*/
-  /*  padding: 0px;*/
-  /*}*/
-  .systemInformation-container{
+  p {
+    word-break: normal;
+    white-space: normal;
+  }
+  
+  .systemInformation-container {
     display: block;
     justify-content: center;
   }
@@ -111,6 +115,7 @@ input#cityinput{
     border-collapse: collapse;
 
   }
+
   td {
     padding: 30px 0;
   }
