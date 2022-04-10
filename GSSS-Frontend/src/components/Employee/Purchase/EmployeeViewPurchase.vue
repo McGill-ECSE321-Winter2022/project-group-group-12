@@ -6,7 +6,7 @@
 
     <div class="wrapper" v-if="this.purchases.length != 0">
       <div class="employeeviewpurchases">
-        <ul>
+        <ul class = "selectable-list">
           <li v-for="(purchase, i) in purchases" :key="purchase.id" v-on:click="onPurchaseSelect(i)">
             {{ purchase.date }}
           </li>
