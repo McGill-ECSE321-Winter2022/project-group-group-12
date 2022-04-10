@@ -26,6 +26,7 @@ export default {
       SatCloseTime:'--:--',
       SunStartTime:'--:--',
       SunCloseTime:'--:--',
+      menu: true
     }
   },
 
@@ -101,6 +102,7 @@ export default {
   methods:{
     showScreen: function(i){
       this.selectedScreen = i;
+      this.menu = false;
     }
   }
 }
