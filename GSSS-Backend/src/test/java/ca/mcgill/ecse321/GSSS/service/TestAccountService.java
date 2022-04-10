@@ -153,7 +153,7 @@ public class TestAccountService {
     try {
       accountService.authenticate("NoAccountHasThisEmail@email.com", "pw");
     } catch (NoSuchElementException e) {
-      assertEquals("No account with email NoAccountHasThisEmail@email.com exists!", e.getMessage());
+      assertEquals("No account with email noaccounthasthisemail@email.com exists!", e.getMessage());
       return;
     }
     fail();
