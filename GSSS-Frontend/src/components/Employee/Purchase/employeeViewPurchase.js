@@ -97,10 +97,10 @@ export default {
       for (let i = 0; i < this.selectedPurchaseItems.length; i++) {
         AXIOS.get('/item/' + this.selectedPurchaseItems[i])
         .then(response => {
-          this.selectedPurchaseItemsPrices.push(response.data.price)
+          this.selectedPurchaseItemsPrices.push(response.data.price.toFixed(2))
         })
         .catch(e => {
-          this.error = e
+          this.error = e.response.data
           setTimeout(() => this.error = null, 3000);
         })
       }
@@ -126,7 +126,7 @@ export default {
         this.$router.go() // Refresh the page
       })
       .catch(e => {
-        this.error = e
+        this.error = e.response.data
         setTimeout(() => this.error = null, 3000);
       });
     },
