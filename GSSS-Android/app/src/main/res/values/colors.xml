@@ -10,6 +10,6 @@
 
     <!-- User-Defined common background color -->
     <color name="background">#303030</color>
-    <color name="GSSSgreen">#9ACD32</color>
+    <color name="GSSSgreen">#344b34</color>
 
 </resources>
