@@ -114,7 +114,7 @@ export default {
       }
       // Modifies selected purchase's order status
       AXIOS.post('/purchase/modify/'+this.purchases[this.selectedPurchase].id,
-      {this.purchases[this.selectedPurchase]},
+      this.purchases[this.selectedPurchase],
       {params: {
         purchaseId: this.purchases[this.selectedPurchase].id,
         orderType: this.purchases[this.selectedPurchase].orderType,
