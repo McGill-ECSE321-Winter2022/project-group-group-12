@@ -19,13 +19,6 @@
                     <a href="/#/customer/shop">Shop</a>
                     <a href='/#/customer/storeinformation'>Store information</a>
                     <a href='/#/customer/orderhistory'>Order history</a>
-                    <select name="list" id="list" v-on:change="goToNewPage()">
-                        <option value='/#/' selected>Home</option>
-                        <option value="/#/customer/account">Account info</option>
-                        <option value="/#/customer/shop">Shop</option>
-                        <option value="/#/customer/storeinformation">Store information</option>
-                        <option value="/#/customer/orderhistory">Order history</option>
-                    </select>
                     <a v-on:click="logout()">Logout</a>
                 </nav>
 
@@ -48,16 +41,6 @@
                     <a href='/#/owner/viewandedititems'>Items</a>
                     <a href='/#/owner/shifts'>Shifts</a>
                     <a href='/#/employee/customers'>Customers</a>
-                    <select name="list" id="list" v-on:change="goToNewPage()">
-                        <option value='/' selected>Home</option>
-                        <option value="/#/owner/systeminformation">System information</option>
-                        <option value="/#/owner/employees">Employees</option>
-                        <option value="/#/owner/purchases">Purchases</option>
-                        <option value="/#/owner/itemcategory">Item Categories</option>
-                        <option value="/#/owner/viewandedititems">Items</option>
-                        <option value="/#/owner/shifts">Shifts</option>
-                        <option value="/#/owner/customers">Customers</option>
-                    </select>
                     <a v-on:click="logout()">Logout</a>
                 </nav>
 
