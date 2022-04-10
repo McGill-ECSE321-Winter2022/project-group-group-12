@@ -11,18 +11,29 @@ input{
 }
 
 button{
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    list-style-type: none;
+
+}
+.buttons{
+  float: left;
+  justify-content: center;
+  margin-left: 0;
+  padding-left: 0;
+
 }
 
 /* Center the title */
-td.space { 
+td.space {
     font-size: 130%;
-    line-height: 100px; 
+    line-height: 100px;
     vertical-align:baseline;
 }
 
 .categories {
     font-size: 120%;
+    justify-content: left;
 }
 
 .error {
@@ -35,7 +46,7 @@ td.space {
     display: flex;
     justify-content: center;
   }
-  
+
   .error > div {
     background-color: rgba(0, 0, 0, 0.822);
     padding: 0.5em 1em;

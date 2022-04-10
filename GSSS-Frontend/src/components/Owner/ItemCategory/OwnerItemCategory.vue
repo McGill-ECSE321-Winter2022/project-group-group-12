@@ -9,9 +9,11 @@
     <button v-bind:disabled="!oldItemCategory" @click="modifyItemCategory()">Modify Category</button>
 
     <div class = "categories">
-      <p>All item categories in the system</p>
-      <ul v-for="(itemcategory, i) in itemCategories" :key="itemcategory.name" v-on:click="onSelect(i)">
-          <li>{{ itemcategory.name }}</li>
+      <p>Available item categories</p>
+      <ul class="buttons" >
+        <button v-for="(itemcategory, i) in itemCategories" :key="itemcategory.name" v-on:click="onSelect(i)">
+          <li >{{ itemcategory.name }}</li>
+          </button>
       </ul>
     </div>
 
@@ -19,7 +21,7 @@
         <div>
           {{ error }}
         </div>
-    </div>  
+    </div>
 
     <div v-if="success" class="success">
       <div>
