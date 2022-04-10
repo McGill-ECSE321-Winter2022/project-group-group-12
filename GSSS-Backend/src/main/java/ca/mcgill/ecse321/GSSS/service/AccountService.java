@@ -52,6 +52,9 @@ public class AccountService {
       throw new IllegalArgumentException(error);
     }
 
+    // Making the email system case insensitive
+    email = email.toLowerCase();
+
     Customer customer = customerRepository.findCustomerByEmail(email);
     if (customer != null) {
 		if (customer.isDisabled()) {
