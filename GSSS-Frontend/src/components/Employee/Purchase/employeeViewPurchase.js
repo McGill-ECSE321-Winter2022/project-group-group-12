@@ -119,7 +119,7 @@ export default {
         purchaseId: this.purchases[this.selectedPurchase].id,
         orderType: this.purchases[this.selectedPurchase].orderType,
         orderStatus: this.orderStatus,
-        data: this.purchases[this.selectedPurchase].data,
+        data: this.purchases[this.selectedPurchase],
         employeeEmail: this.purchases[this.selectedPurchase].employee.email,
         },
       })

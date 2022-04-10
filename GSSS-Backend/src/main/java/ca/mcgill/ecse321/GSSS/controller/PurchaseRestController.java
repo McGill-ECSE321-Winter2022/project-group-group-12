@@ -333,7 +333,7 @@ public class PurchaseRestController {
    * @return purchaseDto The purchase we modified if successful, else return the error
    * @author Habib Jarweh
    */
-  @PostMapping(value = {"purchase/modify/{purchaseid}", "/purchase/modify/{purchaseId}/"})
+  @PostMapping(value = {"purchase/modify/{purchaseid}", "/purchase/modify/{purchaseid}/"})
   public ResponseEntity<?> modifyPurchase(@PathVariable(name = "purchaseid") String purchaseId,
       @RequestParam(name = "orderType") String orderType,
       @RequestParam(name = "orderStatus") String orderStatus,
