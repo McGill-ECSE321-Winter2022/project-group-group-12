@@ -6,7 +6,7 @@
             <input type="text" placeholder="YYYY-MM-DD" v-model="shift.date"/>
             <br/>
             <label>Start Time: </label>
-            <input type="text" placeholder="ex: 7:00" v-model="shift.startTime"/>
+            <input type="text" placeholder="ex: 07:00" v-model="shift.startTime"/>
             <br/>
             <label>End Time: </label>
             <input type="text" placeholder="ex: 18:00" v-model="shift.endTime"/>
