@@ -25,7 +25,7 @@ Vue class for the system information page.
             <button class="back-button" v-on:click="menu = true">Back</button>
             <br/>
             <div>
-              <p>Select weekday: </p>
+              Select weekday:
               <select id="selectWeekday" placeholder="Select day">
                 <option value="" disabled selected>Select your day</option>
                 <option value="1">All days</option>
@@ -47,17 +47,7 @@ Vue class for the system information page.
             <br/>
             <br/>
             <hr>
-            <div v-if="errorBH" class="error">
-              <div>
-                {{ errorBH }}
-              </div>
-            </div>
 
-            <div v-if="successBH" class="success">
-              <div>
-                {{ successBH }}
-              </div>
-            </div>
 
           </div> <!-- end of Weekday and BH section-->
 
@@ -100,15 +90,20 @@ Vue class for the system information page.
             </tr>
             </tbody>
           </table>
-          <br/>
-          <br/>
-          <p>What the customers will see:</p>
-          <p>If you are a citizen of <b>{{ currentCity }}</b>, then the delivery is free! <br>
-            However, if you do not live in this city then you must pay a delivery fee of : <b>{{ currentFee }}</b>$ </p>
+          <div v-if="errorBH" class="error">
+            <div>
+              {{ errorBH }}
+            </div>
+          </div>
 
+          <div v-if="successBH" class="success">
+            <div>
+              {{ successBH }}
+            </div>
+          </div>
         </div>
 
-<!--        if the second option is selected-->
+        <!--        if the second option is selected-->
         <div v-if="selectedScreen == 2 ">
           <br/>
           <button class="back-button" v-on:click="menu = true">Back</button>
@@ -121,21 +116,18 @@ Vue class for the system information page.
             <p>Current fee: <span style="color:deepskyblue;"> {{ currentFee }}</span>$</p>
 
             <button v-on:click="saveCityAndFee()"> Save store information</button>
-
-            <div v-if="errorStoreInfo" class="error">
-              <div>
-                {{ errorStoreInfo }}
-              </div>
+          </div>
+          <div v-if="errorStoreInfo" class="error">
+            <div>
+              {{ errorStoreInfo }}
             </div>
-
-            <div v-if="successStoreInfo" class="success">
-              <div>
-                {{ successStoreInfo }}
-              </div>
-            </div>
-
           </div>
 
+          <div v-if="successStoreInfo" class="success">
+            <div>
+              {{ successStoreInfo }}
+            </div>
+          </div>
 
         </div>
 

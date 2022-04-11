@@ -3,23 +3,6 @@ Styling for the system information page.
 @author Theo Ghanem
  */
 
-table {
-  border-collapse: separate;
-  border-spacing: 30px 0;
-}
-
-td {
-  padding: 30px 0;
-}
-
-table tr td:empty {
-  width: 15px;
-}
-
-.verticalLine {
-  border-left: 1px solid darkgrey;
-  height: 270px;
-}
 
 input {
   margin-bottom: 1rem;
@@ -39,7 +22,6 @@ input#endTimeInput {
 
 input#feeinput {
   width: 75px;
-  text-align: center;
 }
 
 input#cityinput {
@@ -70,13 +52,12 @@ input#cityinput {
   border-radius: 0.5rem;
 }
 
-
 .success {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  color: lawngreen;
+  color: green;
   margin-bottom: 2rem;
   display: flex;
   justify-content: center;
@@ -90,7 +71,11 @@ input#cityinput {
 
 .currentBH {
   border-collapse: separate;
-  border-spacing: 30px 0;
+  border-spacing: 20px 0;
+}
+
+td {
+  padding: 10px 0;
 }
 
 
@@ -101,23 +86,15 @@ input#cityinput {
     display: block;
   }
 
-  p {
-    word-break: normal;
-    white-space: normal;
-  }
-  
+
   .systemInformation-container {
     display: block;
     justify-content: center;
   }
 
-  table {
-    border-collapse: collapse;
-
-  }
 
   td {
-    padding: 30px 0;
+    padding: 10px 0;
   }
 
 }
