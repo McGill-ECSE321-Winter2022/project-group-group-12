@@ -18,8 +18,11 @@ export const createEmployee = (employee) => new Promise((resolve, reject) => {
     .then(res => {
         employee.address.id = res.data.id;
         ax.post("/employee", employee)
-        .then(res2 => resolve(res2.data))
-        .catch(err => reject(err));
+        .then(res2 => {
+            console.log(res2)
+            resolve(res2)
+        })
+        .catch(err2 => reject(err2.response.data));
     })
     .catch(err => reject(err.response.data));
 });

@@ -22,8 +22,8 @@ export const createCustomer = (customer) => new Promise((resolve, reject) => {
             password: customer.password,
             address: res.data.id
         }})
-        .then(res => resolve(res))
-        .catch(err => reject(err.response.data));
+        .then(res2 => resolve(res2))
+        .catch(err2 => reject(err2.response.data));
     })
     .catch(err => reject(err.response.data));
 });
@@ -44,6 +44,6 @@ export const modifyCustomer = (modifiedCustomer) => new Promise((resolve, reject
 
 export const modifyPassword = (email, password) => new Promise((resolve, reject) => {
     ax.post(`/customer/password/${email}`, null, { params: { password } })
-    .then(res => resolve())
+    .then(res => resolve(res))
     .catch(err => reject(err.response.data));
 });
