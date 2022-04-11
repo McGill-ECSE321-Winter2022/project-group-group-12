@@ -1,11 +1,13 @@
 <template>
     <div>
         <h3>{{ customer.email }}</h3>
+        
         <div v-if="mode == 0">
             <div>Username: {{ customer.username }}</div>
             <div>Address:</div>
             <p>{{ customer.address.fullName }}<br/>{{customer.address.streetNumber}}, {{ customer.address.streetName }}<br/>{{ customer.address.city }}, {{ customer.address.postalCode }}</p>
         </div>
+
         <div v-if="mode == 1">
             <label>Username: </label>
             <input type="text" placeholder="Enter username" v-model="mod.username"/>
@@ -21,6 +23,7 @@
                 <input type="text" placeholder="Postal Code" v-model="mod.address.postalCode"/>
             </div>
         </div>
+
         <div v-if="mode == 2">
             <input type="password" placeholder="Enter new password" v-model="mod.password" />
         </div>

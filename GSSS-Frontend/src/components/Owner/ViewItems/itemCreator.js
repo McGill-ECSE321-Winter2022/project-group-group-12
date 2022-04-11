@@ -32,10 +32,9 @@ export default {
                     setTimeout(() => this.error = null, 3000);
                     return;
             }
-
             createItem(this.item)
-            .then(res => {
-                this.$router.go();
+            .then(response => {
+                location.reload();
             })
             .catch(err => {
                 this.error = err;

@@ -119,6 +119,7 @@ import ItemCreator from '@/components/Owner/ViewItems/ItemCreator.vue'
           this.items[this.selectedItem] = response.data
           this.selectedItem = -1
           this.success = "Item modified successfully"
+          this.$router.go() // Refresh the page
           setTimeout(()=>this.success=null, 3000)
         })
       .catch(e => {
