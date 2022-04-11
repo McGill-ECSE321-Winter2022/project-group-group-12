@@ -49,3 +49,20 @@ We are a student team composed of 6 members: Wassim jabbour, Habib Jarweh, Theo 
   <ins>Figure 3: Overview Table for deliverable 3</ins>
   
    Project Report: https://github.com/McGill-ECSE321-Winter2022/project-group-group-12/wiki/Deliverable-3:-Report
+ 
+ 
+ 
+***   
+**Deliverable 4:**
+| Name                      |               Team Role                           | Individual efforts |
+|---------------------------|---------------------------------------------------|--------------------|
+| Enzo Benoit-Jeannin       |Documentation & Writing front end pages & Recording|         hours      |
+| Wassim Jabbour            |Managing & Writing front end pages                 |         hours      |
+| Philippe Sarouphim Hochar |  Writing front end pages                          |         hours      |
+| Habib Jarweh              |  Writing front end pages                          |         hours      |
+| Theo Ghanem               | Writing and testing front end pages               |         hours      |
+| Chris Hatoum              |   Writing front end pages                         |         hours      |
+  
+  <ins>Figure 4: Overview Table for deliverable 4</ins> 
+  
+   Project Report: https://github.com/McGill-ECSE321-Winter2022/project-group-group-12/wiki/Deliverable-4:-Report
