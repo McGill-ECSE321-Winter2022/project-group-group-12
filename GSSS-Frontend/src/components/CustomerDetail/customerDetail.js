@@ -50,6 +50,7 @@ export default {
                 this.isSuccess = true;
                 setTimeout(() => this.message = null, 5000);
                 this.onChange();
+                this.$router.go()
             })
             .catch(err => {
                 this.message = err;
