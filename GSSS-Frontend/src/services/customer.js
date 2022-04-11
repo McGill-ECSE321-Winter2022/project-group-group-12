@@ -37,7 +37,7 @@ export const modifyCustomer = (modifiedCustomer) => new Promise((resolve, reject
             disabled: modifiedCustomer.disabled
         }})
         .then(res2 => resolve(res2.data))
-        .catch(err => reject(err.response.data));
+        .catch(err2 => reject(err2.response.data));
     })
     .catch(err => reject(err));
 });

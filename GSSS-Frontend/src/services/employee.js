@@ -31,9 +31,9 @@ export const modifyEmployee = (modifiedEmpoyee) => new Promise((resolve, reject)
     .then(res => {
         ax.put("/employee", modifiedEmpoyee)
         .then(res2 => resolve(res2.data))
-        .catch(err => reject(err));
+        .catch(err2 => reject(err2.response.data));
     })
-    .catch(err => reject(err.response.data));
+    .catch(err => reject(err));
 });
 
 export const modifyPassword = (email, password) => new Promise((resolve, reject) => {
