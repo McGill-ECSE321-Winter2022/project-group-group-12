@@ -22,12 +22,15 @@ export default {
     },
     methods: {
         save: function(){
-            if(!this.shift.date || !this.shift.startTime.concat(":00") ||
-                !this.shift.endTime.concat(":00") || !this.selectedEmployee) {
+            if(!this.shift.date || !this.shift.startTime ||
+                !this.shift.endTime || !this.selectedEmployee) {
                     this.error = 'Please fill in all fields';
                     setTimeout(() => this.error = null, 3000);
                     return;
             }
+
+            this.shift.startTime.concat(":00")
+            this.shift.endTime.concat(":00")
 
             addShift(this.selectedEmployee, this.shift)
             .then(res => {
