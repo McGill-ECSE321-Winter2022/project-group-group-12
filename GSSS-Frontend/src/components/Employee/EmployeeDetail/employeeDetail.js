@@ -7,7 +7,8 @@ export default {
             mode: 0,
             mod: {
                 username: '',
-                address: null
+                address: null,
+                disabled: false
             },
             message: null,
             isSuccess: false
