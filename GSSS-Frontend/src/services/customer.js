@@ -33,7 +33,6 @@ export const modifyCustomer = (modifiedCustomer) => new Promise((resolve, reject
     .then(res => {
         ax.post(`/customer/${modifiedCustomer.email}`, null, { params: {
             username: modifiedCustomer.username,
-            password: modifiedCustomer.password,
             address: modifiedCustomer.address.id,
             disabled: modifiedCustomer.disabled
         }})
