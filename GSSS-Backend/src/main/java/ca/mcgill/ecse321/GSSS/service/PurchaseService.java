@@ -10,10 +10,18 @@ import ca.mcgill.ecse321.GSSS.model.OrderType;
 import ca.mcgill.ecse321.GSSS.model.Purchase;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.TimeZone;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -203,8 +211,13 @@ public class PurchaseService {
     purchase.setOrderStatus(orderStatus);
     purchase.setOrderType(orderType);
     purchase.setItems(items);
-    purchase.setDate(new Date(System.currentTimeMillis()));
-    purchase.setTime(new Time(System.currentTimeMillis()));
+
+    // Get current date
+    OffsetDateTime currentDateTimeInMontreal = OffsetDateTime.now(ZoneId.of("America/New_York"));
+    long epochMilli = currentDateTimeInMontreal.toEpochSecond() * 1000;
+
+    purchase.setDate(new Date(epochMilli));
+    purchase.setTime(new Time(epochMilli));
     purchase.setEmployee(employee);
     purchase.setId(UUID.randomUUID().toString());
     purchaseRepository.save(purchase);
