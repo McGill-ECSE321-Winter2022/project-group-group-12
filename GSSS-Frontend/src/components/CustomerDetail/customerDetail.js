@@ -30,6 +30,7 @@ export default {
                     city: this.customer.address.city,
                     postalCode: this.customer.address.postalCode
                 };
+                this.mod.disabled = false;
             }
             else if(this.mode == 1 && i == 0){
                 if(save) this.editCustomer();
