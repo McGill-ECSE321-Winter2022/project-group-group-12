@@ -11,7 +11,7 @@ export default {
                 endTime: null,
             },
             employees : [],
-            selectedEmployee: null, 
+            selectedEmployee: null,
             error: ''
         }
     },
@@ -22,8 +22,8 @@ export default {
     },
     methods: {
         save: function(){
-            if(!this.shift.date || !this.shift.startTime || 
-                !this.shift.endTime || !this.selectedEmployee) {
+            if(!this.shift.date || !this.shift.startTime.concat(":00") ||
+                !this.shift.endTime.concat(":00") || !this.selectedEmployee) {
                     this.error = 'Please fill in all fields';
                     setTimeout(() => this.error = null, 3000);
                     return;
