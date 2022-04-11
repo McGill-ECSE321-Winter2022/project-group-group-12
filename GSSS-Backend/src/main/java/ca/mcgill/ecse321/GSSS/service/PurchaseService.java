@@ -211,13 +211,8 @@ public class PurchaseService {
     purchase.setOrderStatus(orderStatus);
     purchase.setOrderType(orderType);
     purchase.setItems(items);
-
-    // Get current date
-    OffsetDateTime currentDateTimeInMontreal = OffsetDateTime.now(ZoneId.of("America/New_York"));
-    long epochMilli = currentDateTimeInMontreal.toEpochSecond() * 1000;
-
-    purchase.setDate(new Date(epochMilli));
-    purchase.setTime(new Time(epochMilli));
+    purchase.setDate(new Date(System.currentTimeMillis()));
+    purchase.setTime(new Time(System.currentTimeMillis()));
     purchase.setEmployee(employee);
     purchase.setId(UUID.randomUUID().toString());
     purchaseRepository.save(purchase);
