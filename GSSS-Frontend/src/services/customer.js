@@ -22,10 +22,10 @@ export const createCustomer = (customer) => new Promise((resolve, reject) => {
             password: customer.password,
             address: res.data.id
         }})
-        .then(res2 => resolve(res2))
+        .then(res2 => resolve(res2.data))
         .catch(err2 => reject(err2.response.data));
     })
-    .catch(err => reject(err.response.data));
+    .catch(err => reject(err));
 });
 
 export const modifyCustomer = (modifiedCustomer) => new Promise((resolve, reject) => {
@@ -39,7 +39,7 @@ export const modifyCustomer = (modifiedCustomer) => new Promise((resolve, reject
         .then(res2 => resolve(res2.data))
         .catch(err => reject(err.response.data));
     })
-    .catch(err => reject(err.response.data));
+    .catch(err => reject(err));
 });
 
 export const modifyPassword = (email, password) => new Promise((resolve, reject) => {
