@@ -70,10 +70,9 @@ About: Page to handle viewing and editing the items as the owner
                 </select>
                 <button v-on:click="modifyItem()">Modify</button>
               </div>
-              
-              <div v-if="addMode" v-bind:onAdd="onChange">
+          </div>
+          <div v-if="addMode" v-bind:onAdd="onChange">
                 <ItemCreator/>
-              </div>
           </div>
 
       <div v-if="error" class="error">
