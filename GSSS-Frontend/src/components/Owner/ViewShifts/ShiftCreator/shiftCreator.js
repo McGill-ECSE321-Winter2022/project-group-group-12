@@ -29,8 +29,8 @@ export default {
                     return;
             }
 
-            this.shift.startTime.concat(":00")
-            this.shift.endTime.concat(":00")
+            this.shift.startTime = this.shift.startTime.concat(":00")
+            this.shift.endTime = this.shift.endTime.concat(":00")
 
             addShift(this.selectedEmployee, this.shift)
             .then(res => {
