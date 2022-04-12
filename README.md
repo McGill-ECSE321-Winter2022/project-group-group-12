@@ -5,7 +5,7 @@ We are a student team composed of 6 members: Wassim jabbour, Habib Jarweh, Theo 
 <br><br>
 Demo of all the features on both the website and the android application: https://www.youtube.com/watch?v=CsE2xNE7Ep4
 <br><br>
-Business proposal: 
+Business proposal slides: https://github.com/McGill-ECSE321-Winter2022/project-group-group-12/Presentation.pdf
 
   ***
 **Deliverable 1:**
