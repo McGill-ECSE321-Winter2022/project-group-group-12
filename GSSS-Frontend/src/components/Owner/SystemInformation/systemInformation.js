@@ -20,10 +20,8 @@ export default {
       chosenFee: 0,
       currentFee: 0,
 
-      errorBH: '',
-      errorStoreInfo: '',
-      successBH: '',
-      successStoreInfo: '',
+      error: '',
+      success: '',
 
       MonStartTime: '--:--',
       MonCloseTime: '--:--',
@@ -125,14 +123,14 @@ export default {
 
       updateCityAndFee(this.chosenCity, this.chosenFee) //calls the backend to change the city and fee
         .then(response => {
-          this.successStoreInfo = 'Successfully updated store information!'
-          setTimeout(() => this.successStoreInfo = null, 5000);
+          this.success = 'Successfully updated store information!'
+          setTimeout(() => this.success = null, 5000);
           this.currentCity = this.chosenCity;
           this.currentFee = this.chosenFee;
         })
         .catch(e => {
-          this.errorStoreInfo = "Error: Invalid input"
-          setTimeout(() => this.errorStoreInfo = null, 5000);
+          this.error = "Error: Invalid input"
+          setTimeout(() => this.error = null, 5000);
         })
     },
 
@@ -149,8 +147,8 @@ export default {
           this.selectedWeekday = select.options[i].value;
           updateBusinessHours(this.selectedWeekday, this.newStartTime, this.newEndTime)
             .then(response => {
-              this.successBH = 'Successfully updated the Business Hours!'
-              setTimeout(() => this.successBH = null, 5000)
+              this.success = 'Successfully updated the Business Hours!'
+              setTimeout(() => this.success = null, 5000)
 
               this.MonStartTime =
                 this.TueStartTime =
@@ -170,8 +168,8 @@ export default {
 
             })
             .catch(e => {
-              this.errorBH = "Error: Invalid input"
-              setTimeout(() => this.errorBH = null, 5000);
+              this.error = "Error: Invalid input"
+              setTimeout(() => this.error = null, 5000);
             })
         }
 
@@ -179,8 +177,8 @@ export default {
       } else {
         updateBusinessHours(this.selectedWeekday, this.newStartTime, this.newEndTime)
           .then(response => {
-            this.successBH = 'Successfully updated the Business Hours!'
-            setTimeout(() => this.successBH = null, 5000);
+            this.success = 'Successfully updated the Business Hours!'
+            setTimeout(() => this.success = null, 5000);
 
             if (this.selectedWeekday === 'Monday') {
               getBusinessHours(this.selectedWeekday)
@@ -254,8 +252,8 @@ export default {
 
           })
           .catch(e => {
-            this.errorBH = "Error: Invalid input"
-            setTimeout(() => this.errorBH = null, 5000);
+            this.error = "Error: Invalid input"
+            setTimeout(() => this.error = null, 5000);
           })
       }
     },

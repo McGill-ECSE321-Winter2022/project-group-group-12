@@ -90,17 +90,6 @@ Vue class for the system information page.
             </tr>
             </tbody>
           </table>
-          <div v-if="errorBH" class="error">
-            <div>
-              {{ errorBH }}
-            </div>
-          </div>
-
-          <div v-if="successBH" class="success">
-            <div>
-              {{ successBH }}
-            </div>
-          </div>
         </div>
 
         <!--        if the second option is selected-->
@@ -117,21 +106,20 @@ Vue class for the system information page.
 
             <button v-on:click="saveCityAndFee()"> Save store information</button>
           </div>
-          <div v-if="errorStoreInfo" class="error">
-            <div>
-              {{ errorStoreInfo }}
-            </div>
-          </div>
-
-          <div v-if="successStoreInfo" class="success">
-            <div>
-              {{ successStoreInfo }}
-            </div>
-          </div>
 
         </div>
 
 
+      </div>
+    </div>
+    <div v-if="error" class="error">
+      <div>
+        {{ error }}
+      </div>
+    </div>
+    <div v-if="success" class="success">
+      <div>
+        {{ success }}
       </div>
     </div>
   </div>
