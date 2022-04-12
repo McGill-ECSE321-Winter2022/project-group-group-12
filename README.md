@@ -62,12 +62,12 @@ Demo of all the features on both the website and the android application: https:
 **Deliverable 4:**
 | Name                      |               Team Role                           | Individual efforts |
 |---------------------------|---------------------------------------------------|--------------------|
-| Enzo Benoit-Jeannin       |Documentation & Writing front end pages & Recording|         hours      |
-| Wassim Jabbour            |Managing & Writing front end pages                 |         hours      |
-| Philippe Sarouphim Hochar |  Writing front end pages                          |         hours      |
-| Habib Jarweh              |  Writing front end pages                          |         hours      |
-| Theo Ghanem               | Writing and testing front end pages               |         hours      |
-| Chris Hatoum              |   Writing front end pages                         |         hours      |
+| Enzo Benoit-Jeannin       |Documentation & Adapting web pages to mobile & Editing presentation |         hours      |
+| Wassim Jabbour            |Managing & Adapting web pages to mobile & Presenting the system          |         hours      |
+| Philippe Sarouphim Hochar |Documentation & Adapting web pages to mobile                 |         hours      |
+| Habib Jarweh              |Documentation & Adapting web pages to mobile                   |         hours      |
+| Theo Ghanem               | Adapting web pages to mobile & Presenting the system              |         hours      |
+| Chris Hatoum              |Documentation & Adapting web pages to mobile                         |         hours      |
   
   <ins>Figure 4: Overview Table for deliverable 4</ins> 
   
