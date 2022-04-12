@@ -58,14 +58,14 @@ Business proposal slides: https://github.com/McGill-ECSE321-Winter2022/project-g
  
 ***   
 **Deliverable 4:**
-| Name                      |               Team Role                           | Individual efforts |
-|---------------------------|---------------------------------------------------|--------------------|
-| Enzo Benoit-Jeannin       |Documentation & Adapting web pages to mobile & Editing presentation |         hours      |
-| Wassim Jabbour            |Managing & Adapting web pages to mobile & Presenting the system          |     25    hours      |
-| Philippe Sarouphim Hochar |Documentation & Adapting web pages to mobile                 |         hours      |
-| Habib Jarweh              |Documentation & Adapting web pages to mobile                   |         hours      |
-| Theo Ghanem               | Adapting web pages to mobile & Presenting the system              |         hours      |
-| Chris Hatoum              |Documentation & Adapting web pages to mobile                         |         hours      |
+| Name                      |               Team Role                                                | Individual efforts |
+|---------------------------|------------------------------------------------------------------------|--------------------|
+| Enzo Benoit-Jeannin       |Documentation & Adapting web pages to mobile & Editing presentation     |         hours      |
+| Wassim Jabbour            |Managing & Adapting web pages to mobile & Presenting the system         |      25 hours      |
+| Philippe Sarouphim Hochar |Documentation & Adapting web pages to mobile                            |         hours      |
+| Habib Jarweh              |Documentation & Adapting web pages to mobile                            |         hours      |
+| Theo Ghanem               | Adapting web pages to mobile & Presenting the system                   |      35 hours      |
+| Chris Hatoum              |Documentation & Adapting web pages to mobile                            |         hours      |
   
   <ins>Figure 4: Overview Table for deliverable 4</ins> 
   
