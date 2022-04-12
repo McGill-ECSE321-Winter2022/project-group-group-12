@@ -63,7 +63,7 @@ Demo of all the features on both the website and the android application: https:
 | Name                      |               Team Role                           | Individual efforts |
 |---------------------------|---------------------------------------------------|--------------------|
 | Enzo Benoit-Jeannin       |Documentation & Adapting web pages to mobile & Editing presentation |         hours      |
-| Wassim Jabbour            |Managing & Adapting web pages to mobile & Presenting the system          |         hours      |
+| Wassim Jabbour            |Managing & Adapting web pages to mobile & Presenting the system          |     25    hours      |
 | Philippe Sarouphim Hochar |Documentation & Adapting web pages to mobile                 |         hours      |
 | Habib Jarweh              |Documentation & Adapting web pages to mobile                   |         hours      |
 | Theo Ghanem               | Adapting web pages to mobile & Presenting the system              |         hours      |
