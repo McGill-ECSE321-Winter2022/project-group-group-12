@@ -5,7 +5,7 @@ We are a student team composed of 6 members: Wassim jabbour, Habib Jarweh, Theo 
 <br><br>
 Demo of all the features on both the website and the android application: https://www.youtube.com/watch?v=CsE2xNE7Ep4
 <br><br>
-Business proposal: https://mcgill-my.sharepoint.com/:p:/g/personal/theo_ghanem_mail_mcgill_ca/EQ5YAWHhAN9LmzpYHvPPEK4BehIusP6kvG4iHBfkkvXzDw?e=wd8199=
+Business proposal: 
 
   ***
 **Deliverable 1:**
