@@ -60,12 +60,12 @@ Business proposal slides: https://github.com/McGill-ECSE321-Winter2022/project-g
 **Deliverable 4:**
 | Name                      |               Team Role                                                | Individual efforts |
 |---------------------------|------------------------------------------------------------------------|--------------------|
-| Enzo Benoit-Jeannin       |Documentation & Adapting web pages to mobile & Editing presentation     |         hours      |
-| Wassim Jabbour            |Managing & Adapting web pages to mobile & Presenting the system         |      35 hours      |
+| Enzo Benoit-Jeannin       |Documentation & Adapting web pages to mobile & Editing presentation     |      33   hours      |
+| Wassim Jabbour            |Managing & Adapting web pages to mobile & Presenting the system         |      40 hours      |
 | Philippe Sarouphim Hochar |Documentation & Adapting web pages to mobile                            |      37 hours      |
-| Habib Jarweh              |Documentation & Adapting web pages to mobile                            |         hours      |
-| Theo Ghanem               | Adapting web pages to mobile & Presenting the system                   |      35 hours      |
-| Chris Hatoum              |Documentation & Adapting web pages to mobile                            |         hours      |
+| Habib Jarweh              |Documentation & Adapting web pages to mobile                            |      30   hours      |
+| Theo Ghanem               | Adapting web pages to mobile & Presenting the system                   |      40 hours      |
+| Chris Hatoum              |Documentation & Adapting web pages to mobile                            |      30   hours      |
   
   <ins>Figure 4: Overview Table for deliverable 4</ins> 
   
