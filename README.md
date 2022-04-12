@@ -1,7 +1,7 @@
 # Group 12
 
 For our McGill ECSE 321: Introduction to Software Engineering course. <br>
-We are a student team composed of 6 members: Wassim jabbour, Habib Jarweh, Theo Ghanem, Chris Hatoum, Philippe Sarouphim Hochar, and Enzo Benoit-Jeannin. Our project consists of developing the Grocery Store Software System (GSSS) for a grocery store to support their customers, owner and employees. All functionnalities of the system will be available via a web interface as well as an Android application.
+We are a student team composed of 6 members: Wassim jabbour, Habib Jarweh, Theo Ghanem, Chris Hatoum, Philippe Sarouphim Hochar, and Enzo Benoit-Jeannin. Our project consists of developing the Grocery Store Software System (GSSS) for a grocery store to support their customers, owner and employees. All functionnalities of the system will be available via a web interface deployed [here](https://grocerystore-frontend.herokuapp.com/) that is based on a backend deployed [here](https://grocerystore-backend.herokuapp.com/).
 <br><br>
 Demo of all the features on both the website and the android application: https://www.youtube.com/watch?v=CsE2xNE7Ep4
 <br><br>
