@@ -52,8 +52,8 @@ export default {
   },
 
 
-// User defined methods
-  methods: {
+// User defined methods for use
+methods: {
 
     // To proceed to checkout
     payment: function () {
